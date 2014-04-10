@@ -12,7 +12,8 @@ return array(
 	| application. If disabled, a simple generic error page is shown.
 	|
 	*/
-
+        
+        //Svarîgi: IZSLÇGT GALA REZULTÂTÂ
 	'debug' => true,
 
 	/*
