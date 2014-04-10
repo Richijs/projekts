@@ -7,14 +7,17 @@
 <body>
     <header>
         <nav>
-            <div {{ (Request::is('/') ? 'class="active"':'') }}> <a href="{{{ URL::to('') }}}">Home</a></div>
+            <div {{ (Request::is('/') ? 'class="active"' : '') }}>
+                <a href="{{{ URL::to('') }}}">Home</a>
+            
+            </div>
         </nav>
     </header>
     <div class="container">
         @yield('content')
     </div>
     <footer>
-        footer
+        
     </footer>
 </body>
 </html>
