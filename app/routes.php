@@ -18,11 +18,3 @@ Route::get('/', function()
 });
 
 Route::get('user/{id}','UsersController@viewProfile');
-
-//pârvirza uz sâkumu, nekorektas saites gadîjumâ
-// !!!SVARÎGI: Vienmçr jâatrodas paðâs beigâs, lai nepârrakstîtu pârçjos routes
-Route::get('/{incorrect}', function()
-{
-	return Response::view('errors.404');
-});
-

@@ -78,3 +78,9 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+//Nekorektas saites gadîjumâ pârvirza uz 404 lapu
+App::missing(function($exception)
+{
+    return Response::view('errors.404', array(), 404);
+});

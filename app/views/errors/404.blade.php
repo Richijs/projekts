@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>404</h1>
-    <b>Nooot Found</b>
+    <div> Not Found</div>
+    <div>:(</div>
 </body>
 </html>
