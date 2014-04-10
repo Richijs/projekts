@@ -11,10 +11,31 @@
 |
 */
 
-//uzstâda noklusçjuma skatu
-Route::get('/', function()
+
+Route::group(["before" => "guest"], function()
 {
-	return View::make('index');
+    Route::any("/", [
+        "as"   => "users/login",
+        "uses" => "UsersController@loginAction"
+    ]);
+    Route::any("/request", [
+        "as"   => "users/request",
+        "uses" => "UsersController@requestAction"
+    ]);
+    Route::any("/reset", [
+        "as"   => "users/reset",
+        "uses" => "UsersController@resetAction"
+    ]);
+});
+Route::group(["before" => "auth"], function()
+{
+    Route::any("/profile", [
+        "as"   => "users/profile",
+        "uses" => "UsersController@profileAction"
+    ]);
+    Route::any("/logout", [
+        "as"   => "users/logout",
+        "uses" => "UsersController@logoutAction"
+    ]);
 });
 
-Route::get('user/{id}','UsersController@viewProfile');

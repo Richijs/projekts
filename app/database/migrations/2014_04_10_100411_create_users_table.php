@@ -10,17 +10,19 @@ class CreateUsersTable extends Migration {
 	 *
 	 * @return void
 	 */
-	public function up()
-	{
-            Schema::create('users',function($table)
-            {
-                $table->increments('id');
-                $table->string('email')->unique();
-                $table->string('name');
-                $table->text('bio');
-                $table->timestamps();
-            });
-	}
+    public function up()
+        {
+        Schema::create("users", function(Blueprint $table)
+        {
+            $table->increments("id");
+            $table->string("username")->nullable()->default(null);
+            $table->string("password")->nullable()->default(null);
+            $table->string("email")->nullable()->default(null);
+            $table->dateTime("created_at")->nullable()->default(null);
+            $table->dateTime("updated_at")->nullable()->default(null);
+        });
+        
+    }
 
 	/**
 	 * Reverse the migrations.
@@ -29,7 +31,7 @@ class CreateUsersTable extends Migration {
 	 */
 	public function down()
 	{
-            Schema::drop('users');
+            Schema::dropIfExists("users");
 	}
 
 }
