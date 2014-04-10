@@ -6,12 +6,7 @@
 </head>
 <body>
     <header>
-        <nav>
-            <div {{ (Request::is('/') ? 'class="active"' : '') }}>
-                <a href="{{{ URL::to('') }}}">Home</a>
-            
-            </div>
-        </nav>
+        @include('navigation')
     </header>
     <div class="container">
         @yield('content')
