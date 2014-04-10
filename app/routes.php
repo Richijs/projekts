@@ -14,5 +14,11 @@
 //uzstâda noklusçjuma skatu
 Route::get('/', function()
 {
-	return View::make('main');
+	return View::make('index');
+});
+
+//pârvirza uz sâkumu, nekorektas saites gadîjumâ
+Route::get('/{anything}', function()
+{
+	return Response::view('errors.404');
 });
