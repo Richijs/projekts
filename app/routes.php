@@ -11,6 +11,7 @@
 |
 */
 
+//uzstâda noklusçjuma skatu
 Route::get('/', function()
 {
 	return View::make('main');
