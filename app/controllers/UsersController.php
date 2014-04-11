@@ -81,11 +81,11 @@ class UsersController extends BaseController {
                 );
                 $data["requested"] = true;
                 
-                /* Nav jâliek ðeit, bet gan tad, kad tiek nosûtîts e-pasts
+                // Nav jâliek ðeit, bet gan tad, kad tiek nosûtîts e-pasts un pârbaudîts, vai atrodas datubâzç
                 Session::flash('message','e-pasts tika nosûtîts uz '.$credentials['email']);
                 Session::flash('alert-class','alert-success');
-                */
-                return Redirect::route("users/request")
+                
+                return Redirect::route("home")
                     ->withInput($data);
             }
         }
@@ -130,7 +130,7 @@ class UsersController extends BaseController {
                     }
                 );
             }
-            /* messageBag metode , JÂPÂRVEIDO UZ ÐO!!
+            /* messageBag metode ,varbût errorus varçtu pârveidot uz ðo
             $data["errors"] = new MessageBag([
                 "email" => ["da"],
                 "password" => [

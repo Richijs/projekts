@@ -19,6 +19,10 @@
         @endif
         {{ Form::submit("login") }}
     {{ Form::close() }}
+    
+    <a href="{{ URL::route("users/request") }}">
+        Aizmirsi paroli?
+    </a>
 @stop
 @section("footer")
     @parent
