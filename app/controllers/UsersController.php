@@ -105,7 +105,10 @@ class UsersController extends BaseController {
             if ($validator->passes())
             {
                 $credentials = [
-                    "email" => Input::get("email")
+                    "email" => Input::get("email"),
+                    "password" => Input::get("password"),
+                    "password_confirmation" => Input::get("password_confirmation"),
+                    "token" => Input::get("token")
                 ];
                 Password::reset($credentials,
                     function($user, $password)
