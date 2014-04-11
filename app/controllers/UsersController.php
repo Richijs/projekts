@@ -64,7 +64,7 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "email" => "required"
+                "email" => "required|email"
             ]);
             if ($validator->passes())
             {
@@ -78,6 +78,11 @@ class UsersController extends BaseController {
                     }
                 );
                 $data["requested"] = true;
+                
+                /* Nav jâliek ğeit, bet gan tad, kad tiek nosûtîts e-pasts
+                Session::flash('message','e-pasts tika nosûtîts uz '.$credentials['email']);
+                Session::flash('alert-class','alert-success');
+                */
                 return Redirect::route("users/request")
                     ->withInput($data);
             }
@@ -102,8 +107,8 @@ class UsersController extends BaseController {
             $validator = Validator::make(Input::all(), [
                 "email"                 => "required|email",
                 "password"              => "required|min:6",
-                "password_confirmation" => "same:password",
-                "token"                 => "exists:token,token"
+                "password_confirmation" => "required|same:password",
+                "token"                 => "required|exists:token,token"
             ]);
             if ($validator->passes())
             {
@@ -123,6 +128,14 @@ class UsersController extends BaseController {
                     }
                 );
             }
+            /* messageBag metode , JÂPÂRVEIDO UZ ĞO!!
+            $data["errors"] = new MessageBag([
+                "email" => ["da"],
+                "password" => [
+                    "Username and/or password invalid."
+                ]
+            ]);
+            */
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
             return Redirect::to(URL::route("users/reset") . $token)
