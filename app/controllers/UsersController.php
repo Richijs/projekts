@@ -71,7 +71,7 @@ class UsersController extends BaseController {
                 Password::remind($credentials,
                     function($message, $user)
                     {
-                        $message->from("test@yopmail.com");
+                        $message->from("sender@yopmail.com", "sender");
                     }
                 );
                 $data["requested"] = true;
