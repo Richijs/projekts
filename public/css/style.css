@@ -13,3 +13,7 @@
 .alert-fail{
     background-color: red;
 }
+
+.content{
+    margin: 10%;
+}

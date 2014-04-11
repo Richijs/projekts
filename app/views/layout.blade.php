@@ -17,8 +17,10 @@
                      {{ Session::get('message') }}
                 </div>
                 @endif
-
-                @yield("content")
+                
+                <div class="content">
+                    @yield("content")
+                </div>
             </div>
         </div>
         @include("footer")
