@@ -38,6 +38,9 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
+                    Session::flash('message','Veiksmîgi pierakstîjies sistçmâ');
+                    Session::flash('alert-class','alert-success');
+                    
                     return Redirect::route("users/profile");
                 }
             }
@@ -136,6 +139,8 @@ class UsersController extends BaseController {
     public function logoutAction()
     {
         Auth::logout();
+        Session::flash('message','Veiksmîgi izrakstîjies no sistçmas');
+        Session::flash('alert-class','alert-success');
         return Redirect::route("users/login");
     }
 }

@@ -7,7 +7,7 @@ extends DatabaseSeeder
         $users = [
             [
                 "username" => "test",
-                "password" => Hash::make("MaPasward"),
+                "password" => Hash::make("testo"),
                 "email"    => "test@yopmail.com"
             ]
         ];

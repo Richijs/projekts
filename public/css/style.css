@@ -1,0 +1,15 @@
+.alert{
+    border: 3px solid black;
+}
+
+.alert-success{
+    background-color: green;
+}
+
+.alert-info{
+    background-color: blue;
+}
+
+.alert-fail{
+    background-color: red;
+}
