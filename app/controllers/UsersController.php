@@ -124,7 +124,7 @@ class UsersController extends BaseController {
                         $user->password = Hash::make($password);
                         $user->save();
                         Auth::login($user);
-                        return Redirect::route("users/profile");
+                        return Redirect::route("users/profile")->with('message','IR'); //nestrâdâ
                     }
                 );
             }
@@ -138,6 +138,8 @@ class UsersController extends BaseController {
             */
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
+                            Session::flash('message','faaail');
+                            Session::flash('alert-class','alert-fail');
             return Redirect::to(URL::route("users/reset") . $token)
                 ->withInput($data);
         }
