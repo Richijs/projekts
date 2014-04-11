@@ -17,7 +17,7 @@
                      {{ Session::get('message') }}
                 </div>
                 @endif
-                тт
+
                 @yield("content")
             </div>
         </div>

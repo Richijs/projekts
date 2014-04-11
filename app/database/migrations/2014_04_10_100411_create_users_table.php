@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
             $table->string("username")->nullable()->default(null);
             $table->string("password")->nullable()->default(null);
             $table->string("email")->nullable()->default(null);
+            $table->tinyInteger("userGroup")->nullable()->default(null);
             $table->dateTime("created_at")->nullable()->default(null);
             $table->dateTime("updated_at")->nullable()->default(null);
         });

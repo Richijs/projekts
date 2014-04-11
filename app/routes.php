@@ -10,11 +10,14 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
-
+Route::any("/", [
+    "as"   => "home",
+    "uses" => "HomeController@viewHome"
+]);
 
 Route::group(["before" => "guest"], function()
 {
-    Route::any("/", [
+    Route::any("/login", [
         "as"   => "users/login",
         "uses" => "UsersController@loginAction"
     ]);

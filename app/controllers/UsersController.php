@@ -50,6 +50,8 @@ class UsersController extends BaseController {
                 ]
             ]);
             $data["username"] = Input::get("username");
+            Session::flash('message','Neizdevâs pierakstîties sistçmâ');
+            Session::flash('alert-class','alert-fail');
             return Redirect::route("users/login")
                 ->withInput($data);
         }
@@ -124,7 +126,7 @@ class UsersController extends BaseController {
                         $user->password = Hash::make($password);
                         $user->save();
                         Auth::login($user);
-                        return Redirect::route("users/profile")->with('message','IR'); //nestrâdâ
+                        return Redirect::route("users/profile")->with('message','IR'); //nestrâdâ flash message
                     }
                 );
             }
@@ -156,6 +158,6 @@ class UsersController extends BaseController {
         Auth::logout();
         Session::flash('message','Veiksmîgi izrakstîjies no sistçmas');
         Session::flash('alert-class','alert-success');
-        return Redirect::route("users/login");
+        return Redirect::route("home");
     }
 }
