@@ -8,13 +8,13 @@ extends DatabaseSeeder
             [
                 "username" => "admin",
                 "password" => Hash::make("admin"),
-                "email"    => "test@yopmail.com",
+                "email"    => "test1@yopmail.com",
                 "userGroup"=> 1
             ],
             [
                 "username" => "user",
                 "password" => Hash::make("user"),
-                "email"    => "test@yopmail.com",
+                "email"    => "test2@yopmail.com",
                 "userGroup"=> 3
             ]
         ];
