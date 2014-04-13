@@ -19,6 +19,10 @@
                 <a href="{{ URL::route("users/login") }}">
                     login
                 </a>
+                |
+                <a href="{{ URL::route("users/register") }}">
+                    register
+                </a>
             @endif
             </nav>
         </div>

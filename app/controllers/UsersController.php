@@ -127,9 +127,12 @@ class UsersController extends BaseController {
                         $user->password = Hash::make($password);
                         $user->save();
                         Auth::login($user);
-                        return Redirect::route("users/profile")->with('message','IR'); //nestrâdâ flash message
+                        
                     }
                 );
+                Session::flash('message','Password changed successfully, '.Auth::user()->username);
+                Session::flash('alert-class','alert-success');
+                return Redirect::route("users/profile");
             }
             /* messageBag metode ,varbût errorus varçtu pârveidot uz ðo
             $data["errors"] = new MessageBag([
@@ -147,6 +150,69 @@ class UsersController extends BaseController {
                 ->withInput($data);
         }
         return View::make("users/reset", $data);
+    }
+    
+    public function registerAction()
+    {
+        $errors = new MessageBag();
+        if ($old = Input::old("errors"))
+        {
+            $errors = $old;
+        }
+        $data = [
+            "errors" => $errors
+        ];
+        if (Input::server("REQUEST_METHOD") == "POST")
+        {
+            $validator = Validator::make(Input::all(), [
+                "username" => "required",
+                "password" => "required|min:6",
+                "password_confirmation" => "required|same:password",
+                "email" => "required|email"
+            ]);
+            if ($validator->passes())
+            {
+                $user = new User;
+                $user->username = Input::get('username');
+                $user->email = Input::get('email');
+                $user->password = Hash::make(Input::get('password'));
+                $user->userGroup = 3;
+                if($user->save())
+                {
+ 
+                Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
+                $message->from("sender@yopmail.com", "sender");
+                $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
+                });
+                
+                Auth::login($user);
+                Session::flash('message','Registration successfull, '.$user->username);
+                Session::flash('alert-class','alert-success');
+                return Redirect::route("users/profile");
+                
+                }
+                
+            }
+            
+            /*$data["errors"] = new MessageBag([
+                "username" => [ "username invalid."
+                ],
+                "password" => [ "password invalid."
+                ],
+                "password_confirmation" => [  "password confirmation invalid."
+                ],
+                "email" => [ "email invalid."
+                ]
+            ]);*/
+            $data["errors"] = $validator->errors();
+            
+            $data["username"] = Input::get("username");
+            Session::flash('message','Neizdevâs pieregistrçties sistçmâ');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route("users/register")
+                ->withInput($data);
+        }
+        return View::make("users/register", $data);
     }
     
     public function profileAction()

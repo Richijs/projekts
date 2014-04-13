@@ -21,6 +21,10 @@ Route::group(["before" => "guest"], function()
         "as"   => "users/login",
         "uses" => "UsersController@loginAction"
     ]);
+    Route::any("/register", [
+        "as"   => "users/register",
+        "uses" => "UsersController@registerAction"
+    ]);
     Route::any("/request", [
         "as"   => "users/request",
         "uses" => "UsersController@requestAction"
