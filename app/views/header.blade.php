@@ -1,7 +1,7 @@
 @section("header")
     <div class="header">
         <div class="container">
-            <h1>Vakances   l l l l v</h1>
+            <h1>VakancesLV</h1>
             <nav>
                 <a href="{{ URL::route("home") }}">
                     home
