@@ -13,11 +13,11 @@ class LangController extends BaseController {
         if(in_array($lang,Config::get('app.languages')))
         {
             Session::put('locale', $lang);
-            Session::flash('message','Veiksm�gi samainita valoda uz '.$lang);
+            Session::flash('message','Veiksmīgi samainīta valoda uz '.$lang);
             Session::flash('alert-class','alert-success');
             return Redirect::route("home");
-        }else{
-            Session::flash('message','Neeksist�jo�a valoda '.$lang);
+        }else{ //ja nu tomēr kādam izdodas tikt līdz šejienei
+            Session::flash('message','Neeksistējoša valoda '.$lang);
             Session::flash('alert-class','alert-fail');
             return Redirect::route("home");
         }
