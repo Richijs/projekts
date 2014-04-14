@@ -15,6 +15,12 @@ Route::any("/", [
     "uses" => "HomeController@viewHome"
 ]);
 
+Route::any("/lang/{lang}", [
+    "as"   => "empty",
+    "uses" => "LangController@changeLang"
+])
+->where('lang','lv|en'); //divas pieejamas valodas
+
 Route::any("/viewUser/{id}", [
     "as"   => "users/view/{id}",
     "uses" => "UsersController@viewAction"
@@ -28,7 +34,7 @@ Route::any("/viewAllUsers", [
 
 Route::group(["before" => "guest"], function()
 {
-    Route::any("/login", [
+    Route::any("/login",[ 
         "as"   => "users/login",
         "uses" => "UsersController@loginAction"
     ]);

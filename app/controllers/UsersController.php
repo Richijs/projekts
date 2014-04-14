@@ -4,16 +4,6 @@ use Illuminate\Support\MessageBag;
 
 class UsersController extends BaseController {
     
-    /*public function viewProfile($id)
-    {
-        $user = user::find($id);
-        if($user) {        
-                     
-        return View::make('users.profile',array('user' => $user));
-        }
-        else {return View::make('errors.404');}
-    }*/
-    
     public function loginAction()
     {
         $errors = new MessageBag();
@@ -136,20 +126,23 @@ class UsersController extends BaseController {
                 Session::flash('alert-class','alert-success');
                 return Redirect::route("users/profile");
             }
-            /* messageBag metode ,varbût errorus varçtu pârveidot uz ğo
+             //messageBag erroru metode
             $data["errors"] = new MessageBag([
-                "email" => ["da"],
+                "token" => ["token required"],
+                "email" => ["email must be set"
+                            ],
                 "password" => [
-                    "Username and/or password invalid."
-                ]
+                    "password must be over x characters"
+                ],
+                "password_confirmation" => ["pass other"]
             ]);
-            */
+            
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
                             Session::flash('message','faaail');
                             Session::flash('alert-class','alert-fail');
-            return Redirect::to(URL::route("users/reset") . $token)
-                ->withInput($data);
+            //return Redirect::to(URL::route("users/reset") . $token)
+            //    ->withInput($data);
         }
         return View::make("users/reset", $data);
     }

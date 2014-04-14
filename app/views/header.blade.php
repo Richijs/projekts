@@ -29,6 +29,11 @@
                 </a>
             @endif
             </nav>
+            <div class="lang">
+                <a href="lang/lv">LV</a>
+                &nbsp;
+                <a href="lang/en">EN</a>
+            </div>
         </div>
     </div>
 @show
