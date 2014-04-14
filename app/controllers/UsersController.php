@@ -28,9 +28,9 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                    //varçtu noderçt glabât userGrupu sesijâ
+                    //varï¿½tu noderï¿½t glabï¿½t userGrupu sesijï¿½
                     //Session::put('userGroup',Auth::user()->userGroup);
-                    Session::flash('message','Veiksmîgi pierakstîjies sistçmâ');
+                    Session::flash('message','Veiksmï¿½gi pierakstï¿½jies sistï¿½mï¿½');
                     Session::flash('alert-class','alert-success');
                     
                     return Redirect::route("users/profile");
@@ -42,7 +42,7 @@ class UsersController extends BaseController {
                 ]
             ]);
             $data["username"] = Input::get("username");
-            Session::flash('message','Neizdevâs pierakstîties sistçmâ');
+            Session::flash('message','Neizdevï¿½s pierakstï¿½ties sistï¿½mï¿½');
             Session::flash('alert-class','alert-fail');
             return Redirect::route("users/login")
                 ->withInput($data);
@@ -74,8 +74,8 @@ class UsersController extends BaseController {
                 );
                 $data["requested"] = true;
                 
-                // Nav jâliek ðeit, bet gan tad, kad tiek nosûtîts e-pasts un pârbaudîts, vai atrodas datubâzç
-                Session::flash('message','e-pasts tika nosûtîts uz '.$credentials['email']);
+                // Nav jï¿½liek ï¿½eit, bet gan tad, kad tiek nosï¿½tï¿½ts e-pasts un pï¿½rbaudï¿½ts, vai atrodas datubï¿½zï¿½
+                Session::flash('message','e-pasts tika nosï¿½tï¿½ts uz '.$credentials['email']);
                 Session::flash('alert-class','alert-success');
                 
                 return Redirect::route("home")
@@ -203,7 +203,7 @@ class UsersController extends BaseController {
             $data["errors"] = $validator->errors();
             
             $data["username"] = Input::get("username");
-            Session::flash('message','Neizdevâs pieregistrçties sistçmâ');
+            Session::flash('message','NeizdevÄs piereÄ£istrÄ“ties sistÄ“mÄ');
             Session::flash('alert-class','alert-fail');
             return Redirect::route("users/register")
                 ->withInput($data);
@@ -252,7 +252,7 @@ class UsersController extends BaseController {
     {
         Auth::logout();
         Session::flush();
-        Session::flash('message','Veiksmîgi izrakstîjies no sistçmas');
+        Session::flash('message','Veiksmï¿½gi izrakstï¿½jies no sistï¿½mas');
         Session::flash('alert-class','alert-success');
         return Redirect::route("home");
     }
