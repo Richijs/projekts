@@ -1,4 +1,4 @@
-<!-- Epasts, kas tiek izsûtîts, kad nepiecieðama paroles maiòa -->
+<!-- Epasts, kas tiek izsÅ«tÄ«ts, kad nepiecieÅ¡ama paroles maiÅ†a -->
 
 <!DOCTYPE html>
 <html lang="lv">
@@ -10,6 +10,9 @@
         To reset your password, complete this form:
         <div>   
             <a href="{{ URL::route("users/reset") . "?token=" . $token }}">HERE..... (Click on me)</a>
+        </div>
+        <div>
+            If you didnt request this action, ignore and delete this e-mail
         </div>
     </body>
 </html>

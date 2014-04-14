@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration {
         {
         Schema::create("users", function(Blueprint $table)
         {
-            //ar laiku jâsamaina korekti
+            //ar laiku jÄsamaina korekti
             $table->increments("id");
             $table->string("username")->nullable()->default(null);
             $table->string("password")->nullable()->default(null);

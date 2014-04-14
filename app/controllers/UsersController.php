@@ -30,7 +30,7 @@ class UsersController extends BaseController {
                 {
                     //var�tu noder�t glab�t userGrupu sesij�
                     //Session::put('userGroup',Auth::user()->userGroup);
-                    Session::flash('message','Veiksm�gi pierakst�jies sist�m�');
+                    Session::flash('message','Succesfully logged in');
                     Session::flash('alert-class','alert-success');
                     
                     return Redirect::route("users/profile");
@@ -75,7 +75,7 @@ class UsersController extends BaseController {
                 $data["requested"] = true;
                 
                 // Nav j�liek �eit, bet gan tad, kad tiek nos�t�ts e-pasts un p�rbaud�ts, vai atrodas datub�z�
-                Session::flash('message','e-pasts tika nos�t�ts uz '.$credentials['email']);
+                Session::flash('message','email was sent to '.$credentials['email']);
                 Session::flash('alert-class','alert-success');
                 
                 return Redirect::route("home")
@@ -127,7 +127,7 @@ class UsersController extends BaseController {
                 return Redirect::route("users/profile");
             }
              //messageBag erroru metode
-            $data["errors"] = new MessageBag([
+            /*$data["errors"] = new MessageBag([
                 "token" => ["token required"],
                 "email" => ["email must be set"
                             ],
@@ -135,14 +135,13 @@ class UsersController extends BaseController {
                     "password must be over x characters"
                 ],
                 "password_confirmation" => ["pass other"]
-            ]);
+            ]);*/
             
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
                             Session::flash('message','faaail');
                             Session::flash('alert-class','alert-fail');
-            //return Redirect::to(URL::route("users/reset") . $token)
-            //    ->withInput($data);
+            return Redirect::to(URL::route("users/reset") . $token)->withInput($data);
         }
         return View::make("users/reset", $data);
     }
@@ -205,8 +204,7 @@ class UsersController extends BaseController {
             $data["username"] = Input::get("username");
             Session::flash('message','Neizdevās piereģistrēties sistēmā');
             Session::flash('alert-class','alert-fail');
-            return Redirect::route("users/register")
-                ->withInput($data);
+            return Redirect::route("users/register")->withInput($data);
         }
         return View::make("users/register", $data);
     }
@@ -243,6 +241,60 @@ class UsersController extends BaseController {
         }
     }
     
+    //TODO: TO BE DONE
+    public function editAction($id)
+    {
+        $errors = new MessageBag();
+        if ($old = Input::old("errors"))
+        {
+            $errors = $old;
+        }
+        $data = [
+            "errors" => $errors
+        ];
+        if (Input::server("REQUEST_METHOD") == "POST")
+        {
+            $validator = Validator::make(Input::all(), [
+                "username" => "required",
+                "password" => "required|min:6",
+                "password_confirmation" => "required|same:password",
+                "email" => "required|email"
+            ]);
+            if ($validator->passes())
+            {
+                $user = new User;
+                $user->username = Input::get('username');
+                $user->email = Input::get('email');
+                $user->password = Hash::make(Input::get('password'));
+                $user->userGroup = 3;
+                $user->status = 1;
+                if($user->save())
+                {
+ 
+                Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
+                $message->from("sender@yopmail.com", "sender");
+                $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
+                });
+                
+                Auth::login($user);
+                Session::flash('message','Registration successfull, '.$user->username);
+                Session::flash('alert-class','alert-success');
+                return Redirect::to("/viewUser/{$id}");
+                
+                }
+                
+            }
+            
+            $data["errors"] = $validator->errors();
+            
+            $data["username"] = Input::get("username");
+            Session::flash('message','Neizdevās piereģistrēties sistēmā');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::to("/editUser/{$id}")->withInput($data);
+        }
+        return View::make("/users/edit", $data);
+    }
+    
     public function profileAction()
     {
         return View::make("users/profile");
@@ -251,8 +303,11 @@ class UsersController extends BaseController {
     public function logoutAction()
     {
         Auth::logout();
+        $lastLang = Session::get('locale');
         Session::flush();
-        Session::flash('message','Veiksm�gi izrakst�jies no sist�mas');
+        Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
+        
+        Session::flash('message','Succesfully logged out');
         Session::flash('alert-class','alert-success');
         return Redirect::route("home");
     }

@@ -1,6 +1,6 @@
 @extends("layout")
 @section("content")
-    <h2>Viewing: <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a> Public profile</h2>
+    <h2>Viewing: <a href="{{ URL::to("/viewUser/".$user->id) }}">{{{ $user->username }}}</a> Public profile</h2>
     <div>
         UserGroup:
         @if ($user->userGroup===1)

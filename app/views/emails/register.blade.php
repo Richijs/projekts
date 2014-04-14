@@ -1,4 +1,4 @@
-<!-- Epasts, kas tiek izsûtîts, kad lietotâjs tiek reìistrçts -->
+<!-- Epasts, kas tiek izsÅ«tÄ«ts, kad lietotÄjs tiek reÄ£istrÄ“ts -->
 
 <!DOCTYPE html>
 <html lang="lv">

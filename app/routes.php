@@ -15,11 +15,11 @@ Route::any("/", [
     "uses" => "HomeController@viewHome"
 ]);
 
-Route::any("/lang/{lang}", [
+/*Route::any("/lang/{lang}", [
     "as"   => "empty",
     "uses" => "LangController@changeLang"
-])
-->where('lang','lv|en'); //divas pieejamas valodas
+]);*/ //izrādās šis nebija vajadzīgs
+Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
 
 Route::any("/viewUser/{id}", [
     "as"   => "users/view/{id}",
@@ -53,6 +53,11 @@ Route::group(["before" => "guest"], function()
 });
 Route::group(["before" => "auth"], function()
 {
+    Route::any("/editUser/{id}", [
+        "as"   => "users/edit",
+        "uses" => "UsersController@editAction"
+    ])->where('id','[0-9]+');
+        
     Route::any("/profile", [
         "as"   => "users/profile",
         "uses" => "UsersController@profileAction"

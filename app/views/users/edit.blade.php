@@ -1,19 +1,17 @@
 @extends("layout")
 @section("content")
+
+    <h2>Editing user</h2>
+    
     {{ Form::open([
-        "url"          => URL::route("users/reset") . $token,
+        //"url"          => URL::route("users/edit"),
         "autocomplete" => "off"
     ]) }}
-        @if ($error = $errors->first("token"))
-            <div class="error">
-                {{ $error }} <!-- jāieliek custom multilang error (ir jābūt norādītam korektam token - apskatiet savu e-pastu vai sūtiet pieprasījumu vēlreiz).. -->
-            </div>
-        @endif
-        {{ Form::label("email", "Email") }}
-        {{ Form::text("email", Input::get("email"), [
-            "placeholder" => "email"
+    {{ Form::label("username", "Username") }}
+        {{ Form::text("username", Input::get("username"), [
+            "placeholder" => "username"
         ]) }}
-        @if ($error = $errors->first("email"))
+        @if ($error = $errors->first("username"))
             <div class="error">
                 {{ $error }}
             </div>
@@ -36,7 +34,16 @@
                 {{ $error }}
             </div>
         @endif
-        {{ Form::submit("reset") }}
+        {{ Form::label("email", "Email") }}
+        {{ Form::text("email", Input::get("email"), [
+            "placeholder" => "email"
+        ]) }}
+        @if ($error = $errors->first("email"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+        {{ Form::submit("edit") }}
     {{ Form::close() }}
 @stop
 @section("footer")

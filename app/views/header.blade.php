@@ -12,12 +12,17 @@
                 </a>
                 |
             @if (Auth::check())
+                Logged in as:
+                <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">
+                    {{{Auth::user()->username}}}
+                </a>
+                |
                 <a href="{{ URL::route("users/logout") }}">
                     logout
                 </a>
                 |
                 <a href="{{ URL::route("users/profile") }}">
-                    profile
+                    My profile
                 </a>
             @else
                 <a href="{{ URL::route("users/login") }}">
@@ -30,9 +35,17 @@
             @endif
             </nav>
             <div class="lang">
-                <a href="lang/lv">LV</a>
+                <a 
+                    @if (Config::get('app.locale')=='lv')
+                    class="active"
+                    @endif
+                    href="{{ URL::to("/lang/lv") }}">LV</a>
                 &nbsp;
-                <a href="lang/en">EN</a>
+                <a 
+                    @if (Config::get('app.locale')=='en')
+                    class="active"
+                    @endif
+                    href="{{ URL::to("/lang/en") }}">EN</a>
             </div>
         </div>
     </div>

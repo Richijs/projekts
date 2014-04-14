@@ -12,7 +12,7 @@
         <div class="main">
             <div class="container">
                 @if (Session::has('message'))
-                <!-- noklusçjuma klase ir alert-info -->
+                <!-- noklusÄ“juma klase ir alert-info -->
                 <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
                      {{ Session::get('message') }}
                 </div>

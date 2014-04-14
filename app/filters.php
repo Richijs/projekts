@@ -47,7 +47,12 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::route('users/login'); //return Redirect::guest('users/login'); ?
+	if (Auth::guest()) 
+        {
+            Session::flash('message','No access to action');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route('users/login'); //return Redirect::guest('users/login'); same?
+        }
 });
 
 
@@ -91,7 +96,7 @@ Route::filter('csrf', function()
 	}
 });
 
-//Nekorektas saites gadîjumâ pârvirza uz 404 lapu
+//Nekorektas saites gadÄ«jumÄ pÄrvirza uz 404 lapu
 App::missing(function($exception)
 {
     return Response::view('errors.404', array(), 404);
