@@ -7,6 +7,10 @@
                     home
                 </a>
                 |
+                <a href="{{ URL::route("users/viewAllUsers") }}">
+                    ViewAllUsers
+                </a>
+                |
             @if (Auth::check())
                 <a href="{{ URL::route("users/logout") }}">
                     logout

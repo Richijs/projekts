@@ -38,6 +38,8 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
+                    //varçtu noderçt glabât userGrupu sesijâ
+                    //Session::put('userGroup',Auth::user()->userGroup);
                     Session::flash('message','Veiksmîgi pierakstîjies sistçmâ');
                     Session::flash('alert-class','alert-success');
                     
@@ -177,6 +179,7 @@ class UsersController extends BaseController {
                 $user->email = Input::get('email');
                 $user->password = Hash::make(Input::get('password'));
                 $user->userGroup = 3;
+                $user->status = 1;
                 if($user->save())
                 {
  
@@ -215,6 +218,38 @@ class UsersController extends BaseController {
         return View::make("users/register", $data);
     }
     
+    public function viewAction($id)
+    {
+        if(User::find($id)){
+            $user = User::find($id);
+            
+            $user->password = ''; //negribam skatam padot paroli
+            
+            return View::make("users/view", array('user'=> $user));
+        }else{
+            Session::flash('message','No user with such ID');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route("home");
+        }
+    }
+    
+    public function viewAllAction()
+    {
+        $usersCount = User::all()->count();
+        if($usersCount>0){ //ja ir vismaz viens users
+            $users = User::all();
+
+            foreach($users as $user){
+                $user->password = '';
+            }
+            return View::make("users/viewAllUsers", array('users'=> $users));
+        }else{
+            Session::flash('message','No registered users');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route("home");
+        }
+    }
+    
     public function profileAction()
     {
         return View::make("users/profile");
@@ -223,6 +258,7 @@ class UsersController extends BaseController {
     public function logoutAction()
     {
         Auth::logout();
+        Session::flush();
         Session::flash('message','Veiksmîgi izrakstîjies no sistçmas');
         Session::flash('alert-class','alert-success');
         return Redirect::route("home");

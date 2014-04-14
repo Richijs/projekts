@@ -15,6 +15,17 @@ Route::any("/", [
     "uses" => "HomeController@viewHome"
 ]);
 
+Route::any("/viewUser/{id}", [
+    "as"   => "users/view/{id}",
+    "uses" => "UsersController@viewAction"
+])
+->where('id','[0-9]+');
+
+Route::any("/viewAllUsers", [
+    "as"   => "users/viewAllUsers",
+    "uses" => "UsersController@viewAllAction"
+]);
+
 Route::group(["before" => "guest"], function()
 {
     Route::any("/login", [

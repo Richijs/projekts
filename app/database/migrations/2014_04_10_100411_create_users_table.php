@@ -14,13 +14,18 @@ class CreateUsersTable extends Migration {
         {
         Schema::create("users", function(Blueprint $table)
         {
+            //ar laiku jâsamaina korekti
             $table->increments("id");
             $table->string("username")->nullable()->default(null);
             $table->string("password")->nullable()->default(null);
+            $table->string("firstname")->nullable()->default(null);
+            $table->string("lastname")->nullable()->default(null);
+            $table->string("description")->nullable()->default(null);
             $table->string("email")->nullable()->default(null);
             $table->tinyInteger("userGroup")->nullable()->default(null);
             $table->dateTime("created_at")->nullable()->default(null);
             $table->dateTime("updated_at")->nullable()->default(null);
+            $table->tinyInteger("status")->nullable()->default(null);
         });
         
     }
