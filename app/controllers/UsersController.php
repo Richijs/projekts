@@ -28,7 +28,6 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                    
                     Session::flash('message','Succesfully logged in');
                     Session::flash('alert-class','alert-success');
                     
@@ -59,27 +58,41 @@ class UsersController extends BaseController {
             $validator = Validator::make(Input::all(), [
                 "email" => "required|email"
             ]);
+            $data["email"] = Input::get("email");
             if ($validator->passes())
             {
                 $credentials = [
                     "email" => Input::get("email")
                 ];
-                Password::remind($credentials,
-                    function($message, $user)
-                    {
-                        $message->subject('Password Reset!');
-                        $message->from("sender@yopmail.com", "sender"); //no
-                    }
-                );
-                $data["requested"] = true;
                 
-                // Nav jāliek šeit, bet gan tad, kad nosūtīts e-pasts un pārbaudīts vai tāds ir datubāzē
-                Session::flash('message','email was sent to '.$credentials['email']);
-                Session::flash('alert-class','alert-success');
+                $existsEmail = User::where('email', '=', $credentials['email'])->first();
+                if (isset($existsEmail))
+                {
                 
-                return Redirect::route("home")
-                    ->withInput($data);
+                    Password::remind($credentials,
+                        function($message, $user)
+                        {
+                            $message->subject('Password Reset!');
+                            $message->from("sender@yopmail.com", "sender"); //no
+                        }
+                    );
+                    $data["requested"] = true;
+                
+                
+                    Session::flash('message','email was sent to '.$credentials['email']);
+                    Session::flash('alert-class','alert-success');
+                
+                    return Redirect::route("home")->withInput($data);
+                }else{
+                    Session::flash('message','email doesnt exist in the database');
+                    Session::flash('alert-class','alert-fail');
+                    return Redirect::route("users/request")->withInput($data);
+                }
             }
+            
+            Session::flash('message','email could not be sent, try again');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route("users/request")->withInput($data);
         }
         return View::make("users/request", $data);
     }
@@ -121,9 +134,20 @@ class UsersController extends BaseController {
                         
                     }
                 );
-                Session::flash('message','Password changed successfully, '.Auth::user()->username);
-                Session::flash('alert-class','alert-success');
-                return Redirect::route("users/profile");
+                if(Auth::check()){
+                    Session::flash('message','Password changed successfully, '.Auth::user()->username);
+                    Session::flash('alert-class','alert-success');
+                    return Redirect::route("users/profile");
+                }else{
+                    
+                    $data["errors"] = new MessageBag([
+                        "email" => ["Not Your email"]
+                    ]);
+                    
+                    Session::flash('message','Could not change password, try again');
+                    Session::flash('alert-class','alert-fail');
+                    return Redirect::to(URL::route("users/reset") . $token)->withInput($data);
+                }
             }
              //messageBag erroru metode
             /*$data["errors"] = new MessageBag([
@@ -164,26 +188,43 @@ class UsersController extends BaseController {
                 "email" => "required|email"
             ]);
             if ($validator->passes())
-            {
-                $user = new User;
-                $user->username = Input::get('username');
-                $user->email = Input::get('email');
-                $user->password = Hash::make(Input::get('password'));
-                $user->userGroup = 3;
-                $user->status = 1;
-                if($user->save())
+            { //BROKEN BROKEN BROKEN      jāuzrraksta  - where email = inputEmail and id != $id !!!!!!!!!!!!
+                $existsEmail = User::where('email', '=', Input::get('email'))->first();
+                $existsUsername = User::where('username', '=', Input::get('username'))->first();
+                if (!isset($existsEmail) && !isset($existsUsername))
                 {
+                    $user = new User;
+                    $user->username = Input::get('username');
+                    $user->email = Input::get('email');
+                    $user->password = Hash::make(Input::get('password'));
+                    $user->userGroup = 3;
+                    $user->status = 1;
+                    if($user->save())
+                    {
  
-                Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
-                $message->from("sender@yopmail.com", "sender"); // no
-                $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
-                });
+                    Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
+                    $message->from("sender@yopmail.com", "sender"); // no
+                    $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
+                    });
                 
-                Auth::login($user);
-                Session::flash('message','Registration successfull, '.$user->username);
-                Session::flash('alert-class','alert-success');
-                return Redirect::route("users/profile");
-                
+                    Auth::login($user);
+                    Session::flash('message','Registration successfull, '.$user->username);
+                    Session::flash('alert-class','alert-success');
+                    return Redirect::route("users/profile");
+                    }
+                    
+                }else{
+                    $data["errors"] = new MessageBag([
+                        "username" => ["username or email already exists in database"],
+                        "email" => ["username or email already exists in database"]
+                    ]);
+                    
+                    $data["username"] = Input::get("username");
+                    $data["email"] = Input::get("email");
+                    Session::flash('message','Neizdevās piereģistrēties sistēmā');
+                    Session::flash('alert-class','alert-fail');
+                    return Redirect::route("users/register")->withInput($data);
+                    
                 }
                 
             }
@@ -201,6 +242,7 @@ class UsersController extends BaseController {
             $data["errors"] = $validator->errors();
             
             $data["username"] = Input::get("username");
+            $data["email"] = Input::get("email");
             Session::flash('message','Neizdevās piereģistrēties sistēmā');
             Session::flash('alert-class','alert-fail');
             return Redirect::route("users/register")->withInput($data);
@@ -259,25 +301,42 @@ class UsersController extends BaseController {
             ]);
             if ($validator->passes())
             {
-                $user = User::find($id);
-                $user->username = Input::get('username');
-                $user->email = Input::get('email');
-                $user->userGroup = 3;
-                $user->status = 1;
-                
-                $data["username"]=$user->username;
-                $data["email"]=$user->email;
-                if($user->save())
+                $existsEmail = User::where('email', '=', Input::get('email'))->first();
+                $existsUsername = User::where('username', '=', Input::get('username'))->first();
+                if (!isset($existsEmail) && !isset($existsUsername))
                 {
-                    Session::flash('alert-class','alert-success');
+                    $user = User::find($id);
+                    $user->username = Input::get('username');
+                    $user->email = Input::get('email');
+                    $user->userGroup = 3;
+                    $user->status = 1;
+                
+                    //$data["username"]=$user->username;  ??
+                    //$data["email"]=$user->email;        ??
+                    if($user->save())
+                    {
+                        Session::flash('alert-class','alert-success');
                     
-                    if(Auth::user()->id==$id){ //ja editoja sevi
-                        Session::flash('message','Edited Your profile successfully');
-                        return Redirect::route("users/profile");
-                    }else{  //ja admins editoja kādu citu
-                        Session::flash('message','Edited '.$user->username.' profile successfully');
-                        return Redirect::to("/viewUser/{$id}");
+                        if(Auth::user()->id==$id){ //ja editoja sevi
+                            Session::flash('message','Edited Your profile successfully');
+                            return Redirect::route("users/profile");
+                        }else{  //ja admins editoja kādu citu
+                            Session::flash('message','Edited '.$user->username.' profile successfully');
+                            return Redirect::to("/viewUser/{$id}");
+                        }
                     }
+                }else{
+                    $data["errors"] = new MessageBag([
+                        "username" => ["username or email already exists in database"],
+                        "email" => ["username or email already exists in database"]
+                    ]);
+                    
+                    $data["username"] = Input::get("username");
+                    $data["email"] = Input::get("email");
+                    Session::flash('message','Neizdevās labot lietotāju');
+                    Session::flash('alert-class','alert-fail');
+                    return Redirect::to("/editUser/{$id}")->withInput($data);
+                    
                 }
                 
             }

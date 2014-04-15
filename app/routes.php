@@ -74,12 +74,15 @@ Route::group(["before" => "auth"], function()
     //aizsargāts no csrf(xsrf?) uzbrukumiem
     Route::group(["before" => "csrf"], function(){
         
-        
+        Route::post("/editUser/{id}", [
+        "as"   => "users/edit",
+        "uses" => "UsersController@editAction"
+    ])->where('id','[0-9]+');
         
     });
     
     
-    Route::any("/editUser/{id}", [
+    Route::get("/editUser/{id}", [
         "as"   => "users/edit",
         "uses" => "UsersController@editAction"
     ])->where('id','[0-9]+');
