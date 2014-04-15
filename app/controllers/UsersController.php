@@ -318,25 +318,35 @@ class UsersController extends BaseController {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
-                    "password"                 => "required|min:6",
+                    "password"                  => "required",
                     "new_password"              => "required|min:6",
                     "new_password_confirmation" => "required|same:new_password",
                 ]);
                 if ($validator->passes())
                 {
-                
-                    Session::flash('message','Password changed successfully');
-                    Session::flash('alert-class','alert-success');
-                    return Redirect::route("users/profile");
+                    $user = User::find(Auth::user()->id);
+                    
+                    $old_password = Input::get('password');
+                    $password = Input::get('new_password');
+                    
+                        if(Hash::check($old_password,$user->getAuthPassword())){
+                            $user->password = Hash::make($password);
+                            
+                                if($user->save()){
+                                    Session::flash('message','Your Password changed successfully');
+                                    Session::flash('alert-class','alert-success');
+                                    return Redirect::route("users/profile");                                
+                                } 
+                        }
                 }
                         
                 $data["errors"] = $validator->errors();
-                    Session::flash('message','faaail');
-                    Session::flash('alert-class','alert-fail');
-                    return Redirect::route("users/changePass")->with($data);
+                Session::flash('message','Could not change password');
+                Session::flash('alert-class','alert-fail');
+                return Redirect::route("users/changePass")->with($data);
             }
             
-            return View::make("users/changePass",$data); 
+            return View::make("users/changePass"); 
         }
         
         //līdz šejienei normāli nekad netiek
