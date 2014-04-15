@@ -10,15 +10,20 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+
+//TODO: VISI GET UN POST JĀATDALA, POST IELIEKOT IEKŠ ATTIECĪGĀ(global/guest/auth) CSRF SECURE FILTRA
+
+//aizsargāts no csrf(xsrf?) uzbrukumiem
+Route::group(["before" => "csrf"], function(){
+    
+    
+});
+
 Route::any("/", [
     "as"   => "home",
     "uses" => "HomeController@viewHome"
 ]);
 
-/*Route::any("/lang/{lang}", [
-    "as"   => "empty",
-    "uses" => "LangController@changeLang"
-]);*/ //izrādās šis nav vajadzīgs
 Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
 
 Route::any("/viewUser/{id}", [
@@ -34,10 +39,22 @@ Route::any("/viewAllUsers", [
 
 Route::group(["before" => "guest"], function()
 {
-    Route::any("/login",[ 
+    //aizsargāts no csrf(xsrf?) uzbrukumiem
+    Route::group(["before" => "csrf"], function(){
+        
+        Route::post("/login",[ 
+            "as"   => "users/login",
+            "uses" => "UsersController@loginAction"
+        ]);
+        
+        
+    });
+    
+    Route::get("/login",[ 
         "as"   => "users/login",
         "uses" => "UsersController@loginAction"
     ]);
+    
     Route::any("/register", [
         "as"   => "users/register",
         "uses" => "UsersController@registerAction"
@@ -51,8 +68,17 @@ Route::group(["before" => "guest"], function()
         "uses" => "UsersController@resetAction"
     ]);
 });
+
 Route::group(["before" => "auth"], function()
 {
+    //aizsargāts no csrf(xsrf?) uzbrukumiem
+    Route::group(["before" => "csrf"], function(){
+        
+        
+        
+    });
+    
+    
     Route::any("/editUser/{id}", [
         "as"   => "users/edit",
         "uses" => "UsersController@editAction"
@@ -73,4 +99,3 @@ Route::group(["before" => "auth"], function()
         "uses" => "UsersController@logoutAction"
     ]);
 });
-
