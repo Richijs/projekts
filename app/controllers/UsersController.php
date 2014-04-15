@@ -308,7 +308,7 @@ class UsersController extends BaseController {
     
     public function changePassAction()
     {
-        
+        return View::make("users/changePass");
     }
     
     public function profileAction()

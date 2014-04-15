@@ -31,21 +31,26 @@
 
 .content{
     padding: 30px;
+    border-radius: 20px;
     border: 3px solid yellowgreen;
+    border-bottom: 3px solid black;
+    border-right: 3px solid black;
     margin-bottom: 50px;
 }
 
 .header .container{
+    border-radius: 20px;
     border-bottom: 3px solid yellowgreen;
 }
 
 .lang .active{
-    border-radius: 10px;
-    border: 3px solid green;
+    border-radius: 5px;
+    border: 2px solid grey;
 }
 
 .footer .container{
-    border-top: 3px solid yellowgreen;
+    border-radius: 20px;
+    border-top: 3px solid black;
 }
 
 .footer{
