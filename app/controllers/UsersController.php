@@ -158,7 +158,7 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "username" => "required",
+                "username" => "required|alpha_num",
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
                 "email" => "required|email"
