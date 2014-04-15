@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\Redirector;
+
 class LangController extends BaseController {
         
     public function changeLang($lang)
@@ -13,11 +15,11 @@ class LangController extends BaseController {
                 
                 Session::flash('message','Vēlamā lietotāja valoda samainīta uz '.$lang);
                 Session::flash('alert-class','alert-success');
-                return Redirect::route("home");
+                return Redirect::back();
             }
             
             Session::flash('message','Valoda jau ir '.$lang);
-            return Redirect::route("home");
+            return Redirect::back();
         }
         
         if(in_array($lang,Config::get('app.languages')))
@@ -31,11 +33,11 @@ class LangController extends BaseController {
             Session::put('locale', $lang);
             Session::flash('message','Veiksmīgi samainīta valoda uz '.$lang);
             Session::flash('alert-class','alert-success');
-            return Redirect::route("home");
+            return Redirect::back();
         }else{ //ja nu tomēr kādam izdodas tikt līdz šejienei
             Session::flash('message','Neeksistējoša valoda '.$lang);
             Session::flash('alert-class','alert-fail');
-            return Redirect::route("home");
+            return Redirect::back();
         }
     }
 }

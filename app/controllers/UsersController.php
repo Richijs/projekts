@@ -28,10 +28,6 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                        //ja userim ir preferred language, to uzstāda
-                        if (isset(Auth::user()->prefLang)){
-                            Session::put('locale', Auth::user()->prefLang);
-                        }
                     
                     Session::flash('message','Succesfully logged in');
                     Session::flash('alert-class','alert-success');
@@ -123,10 +119,6 @@ class UsersController extends BaseController {
                         $user->save();
                         Auth::login($user);
                         
-                        //ja userim ir preferred language, to uzstāda
-                        if (isset(Auth::user()->prefLang)){
-                            Session::put('locale', Auth::user()->prefLang);
-                        }
                     }
                 );
                 Session::flash('message','Password changed successfully, '.Auth::user()->username);
@@ -242,6 +234,7 @@ class UsersController extends BaseController {
             }
             return View::make("users/viewAllUsers", array('users'=> $users));
         }else{
+            //vajadzētu jaunu tukšu user skatu
             Session::flash('message','No registered users');
             Session::flash('alert-class','alert-fail');
             return Redirect::route("home");

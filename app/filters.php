@@ -18,6 +18,11 @@ App::before(function($request)
         return Redirect::to(substr(Request::path(), 3));
     }
         
+    //pirms ielogošanās uzliek preferred lang
+    if (isset(Auth::user()->prefLang)){
+         Session::put('locale', Auth::user()->prefLang);
+    }
+    
     if ( Session::has('locale') ) {
         App::setLocale(Session::get('locale'));
     }
