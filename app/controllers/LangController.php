@@ -11,7 +11,7 @@ class LangController extends BaseController {
                 $user->prefLang=$lang;
                 $user->save();
                 
-                Session::flash('message','Vēlamā valoda samainīta uz '.$lang);
+                Session::flash('message','Vēlamā lietotāja valoda samainīta uz '.$lang);
                 Session::flash('alert-class','alert-success');
                 return Redirect::route("home");
             }

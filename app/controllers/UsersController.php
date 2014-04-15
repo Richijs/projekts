@@ -45,7 +45,7 @@ class UsersController extends BaseController {
                 ]
             ]);
             $data["username"] = Input::get("username");
-            Session::flash('message','Neizdev�s pierakst�ties sist�m�');
+            Session::flash('message','Could not log in');
             Session::flash('alert-class','alert-fail');
             return Redirect::route("users/login")
                 ->withInput($data);
@@ -306,9 +306,21 @@ class UsersController extends BaseController {
         return View::make("/users/edit")->with($data);
     }
     
+    public function changePassAction()
+    {
+        
+    }
+    
     public function profileAction()
     {
-        return View::make("users/profile");
+        if(Auth::check()){
+            return View::make("users/profile");
+        }
+        
+        //līdz šejienei nekad netiek
+        Session::flash('message','You are not logged in');
+        Session::flash('alert-class','alert-fail');
+        return Redirect::route("users/login");
     }
     
     public function logoutAction()
