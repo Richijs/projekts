@@ -1,14 +1,14 @@
 @extends("layout")
 @section("content")
 
-    <h2>Editing user</h2>
+    <h2>Editing {{{$username}}} user data</h2>
     
     {{ Form::open([
-        //"url"          => URL::route("users/edit"),
+        //"url"          => URL::route("/users/edit"),
         "autocomplete" => "off"
     ]) }}
     {{ Form::label("username", "Username") }}
-        {{ Form::text("username", Input::get("username"), [
+        {{ Form::text("username", $username/*Input::get("username")*/, [
             "placeholder" => "username"
         ]) }}
         @if ($error = $errors->first("username"))
@@ -16,26 +16,8 @@
                 {{ $error }}
             </div>
         @endif
-        {{ Form::label("password", "Password") }}
-        {{ Form::password("password", [
-            "placeholder" => "password"
-        ]) }}
-        @if ($error = $errors->first("password"))
-            <div class="error">
-                {{ $error }}
-            </div>
-        @endif
-        {{ Form::label("password_confirmation", "Confirm") }}
-        {{ Form::password("password_confirmation", [
-            "placeholder" => "confirm password"
-        ]) }}
-        @if ($error = $errors->first("password_confirmation"))
-            <div class="error">
-                {{ $error }}
-            </div>
-        @endif
         {{ Form::label("email", "Email") }}
-        {{ Form::text("email", Input::get("email"), [
+        {{ Form::text("email", $email/*Input::get("email")*/, [
             "placeholder" => "email"
         ]) }}
         @if ($error = $errors->first("email"))
@@ -43,7 +25,7 @@
                 {{ $error }}
             </div>
         @endif
-        {{ Form::submit("edit") }}
+        {{ Form::submit("Save Edit") }}
     {{ Form::close() }}
 @stop
 @section("footer")

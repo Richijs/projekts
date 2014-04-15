@@ -74,7 +74,10 @@ Route::filter('auth.basic', function()
 
 Route::filter('guest', function()
 {
-	if (Auth::check()) return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
+	if (Auth::check()) {
+            Session::flash('message','Must log out first');
+        return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
+        }
 });
 
 /*

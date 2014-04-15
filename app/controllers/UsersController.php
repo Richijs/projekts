@@ -28,7 +28,7 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                    //var�tu noder�t glab�t userGrupu sesij�
+                    //varbūt glabāt usergrupu sesijā?
                     //Session::put('userGroup',Auth::user()->userGroup);
                     Session::flash('message','Succesfully logged in');
                     Session::flash('alert-class','alert-success');
@@ -69,12 +69,12 @@ class UsersController extends BaseController {
                     function($message, $user)
                     {
                         $message->subject('Password Reset!');
-                        $message->from("sender@yopmail.com", "sender");
+                        $message->from("sender@yopmail.com", "sender"); //no
                     }
                 );
                 $data["requested"] = true;
                 
-                // Nav j�liek �eit, bet gan tad, kad tiek nos�t�ts e-pasts un p�rbaud�ts, vai atrodas datub�z�
+                // Nav jāliek šeit, bet gan tad, kad nosūtīts e-pasts un pārbaudīts vai tāds ir datubāzē
                 Session::flash('message','email was sent to '.$credentials['email']);
                 Session::flash('alert-class','alert-success');
                 
@@ -176,7 +176,7 @@ class UsersController extends BaseController {
                 {
  
                 Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
-                $message->from("sender@yopmail.com", "sender");
+                $message->from("sender@yopmail.com", "sender"); // no
                 $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
                 });
                 
@@ -220,7 +220,7 @@ class UsersController extends BaseController {
         }else{
             Session::flash('message','No user with such ID');
             Session::flash('alert-class','alert-fail');
-            return Redirect::route("home");
+            return Redirect::route("users/viewAllUsers");
         }
     }
     
@@ -241,7 +241,7 @@ class UsersController extends BaseController {
         }
     }
     
-    //TODO: TO BE DONE
+
     public function editAction($id)
     {
         $errors = new MessageBag();
@@ -249,35 +249,28 @@ class UsersController extends BaseController {
         {
             $errors = $old;
         }
-        $data = [
-            "errors" => $errors
-        ];
+        $data = ["errors" => $errors];
+                
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
                 "username" => "required",
-                "password" => "required|min:6",
-                "password_confirmation" => "required|same:password",
                 "email" => "required|email"
             ]);
             if ($validator->passes())
             {
-                $user = new User;
+                $user = User::find($id);
                 $user->username = Input::get('username');
                 $user->email = Input::get('email');
-                $user->password = Hash::make(Input::get('password'));
                 $user->userGroup = 3;
                 $user->status = 1;
+                
+                $data["username"]=$user->username;
+                $data["email"]=$user->email;
                 if($user->save())
                 {
- 
-                Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
-                $message->from("sender@yopmail.com", "sender");
-                $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
-                });
-                
-                Auth::login($user);
-                Session::flash('message','Registration successfull, '.$user->username);
+            
+                Session::flash('message','Edited succesfully, '.$user->username);
                 Session::flash('alert-class','alert-success');
                 return Redirect::to("/viewUser/{$id}");
                 
@@ -288,11 +281,22 @@ class UsersController extends BaseController {
             $data["errors"] = $validator->errors();
             
             $data["username"] = Input::get("username");
-            Session::flash('message','Neizdevās piereģistrēties sistēmā');
+            $data["email"] = Input::get("email");
+            Session::flash('message','Editing user data was not successfull');
             Session::flash('alert-class','alert-fail');
             return Redirect::to("/editUser/{$id}")->withInput($data);
         }
-        return View::make("/users/edit", $data);
+        
+        if(User::find($id)){
+            $user = User::find($id);
+            $data["username"]=$user->username;
+            $data["email"]=$user->email;
+        }else{
+            Session::flash('message','No user with such ID');
+            Session::flash('alert-class','alert-fail');
+            return Redirect::route("users/viewAllUsers");
+        }
+        return View::make("/users/edit")->with($data);
     }
     
     public function profileAction()
