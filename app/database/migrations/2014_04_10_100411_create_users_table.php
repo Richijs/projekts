@@ -22,10 +22,11 @@ class CreateUsersTable extends Migration {
             $table->string("lastname")->nullable()->default(null);
             $table->string("about")->nullable()->default(null);
             $table->string("email")->nullable()->default(null);
+            $table->string("prefLang","2")->nullable()->default(null);
             $table->tinyInteger("userGroup")->nullable()->default(null);
+            $table->tinyInteger("status")->nullable()->default(null);
             $table->dateTime("created_at")->nullable()->default(null);
             $table->dateTime("updated_at")->nullable()->default(null);
-            $table->tinyInteger("status")->nullable()->default(null);
         });
         
     }

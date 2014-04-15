@@ -28,8 +28,6 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                    //varbūt glabāt usergrupu sesijā?
-                    //Session::put('userGroup',Auth::user()->userGroup);
                     Session::flash('message','Succesfully logged in');
                     Session::flash('alert-class','alert-success');
                     
