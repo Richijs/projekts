@@ -15,20 +15,20 @@
                 {{ $error }}
             </div>
         @endif
-        {{ Form::label("password", "Password") }}
-        {{ Form::password("password", [
+        {{ Form::label("new_password", "New Password") }}
+        {{ Form::password("new_password", [
             "placeholder" => "new password"
         ]) }}
-        @if ($error = $errors->first("password"))
+        @if ($error = $errors->first("new_password"))
             <div class="error">
                 {{ $error }}
             </div>
         @endif
-        {{ Form::label("password_confirmation", "Confirm") }}
-        {{ Form::password("password_confirmation", [
+        {{ Form::label("new_password_confirmation", "Confirm New Password") }}
+        {{ Form::password("new_password_confirmation", [
             "placeholder" => "confirm new password"
         ]) }}
-        @if ($error = $errors->first("password_confirmation"))
+        @if ($error = $errors->first("new_password_confirmation"))
             <div class="error">
                 {{ $error }}
             </div>

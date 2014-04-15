@@ -234,10 +234,10 @@ class UsersController extends BaseController {
             }
             return View::make("users/viewAllUsers", array('users'=> $users));
         }else{
-            //vajadzētu jaunu tukšu user skatu
+
             Session::flash('message','No registered users');
             Session::flash('alert-class','alert-fail');
-            return Redirect::route("home");
+            return View::make("users/viewAllUsers");
         }
     }
     
@@ -250,7 +250,7 @@ class UsersController extends BaseController {
             $errors = $old;
         }
         $data = ["errors" => $errors];
-                
+        
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -269,11 +269,15 @@ class UsersController extends BaseController {
                 $data["email"]=$user->email;
                 if($user->save())
                 {
-            
-                Session::flash('message','Edited succesfully, '.$user->username);
-                Session::flash('alert-class','alert-success');
-                return Redirect::to("/viewUser/{$id}");
-                
+                    Session::flash('alert-class','alert-success');
+                    
+                    if(Auth::user()->id==$id){ //ja editoja sevi
+                        Session::flash('message','Edited Your profile successfully');
+                        return Redirect::route("users/profile");
+                    }else{  //ja admins editoja kādu citu
+                        Session::flash('message','Edited '.$user->username.' profile successfully');
+                        return Redirect::to("/viewUser/{$id}");
+                    }
                 }
                 
             }
@@ -303,13 +307,39 @@ class UsersController extends BaseController {
     {
         if(Auth::check()){
             
+            $errors = new MessageBag();
+            if ($old = Input::old("errors"))
+            {
+                $errors = $old;
+            }
+            $data = [
+                "errors" => $errors
+            ];
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "password"                 => "required|min:6",
+                    "new_password"              => "required|min:6",
+                    "new_password_confirmation" => "required|same:new_password",
+                ]);
+                if ($validator->passes())
+                {
+                
+                    Session::flash('message','Password changed successfully');
+                    Session::flash('alert-class','alert-success');
+                    return Redirect::route("users/profile");
+                }
+                        
+                $data["errors"] = $validator->errors();
+                    Session::flash('message','faaail');
+                    Session::flash('alert-class','alert-fail');
+                    return Redirect::route("users/changePass")->with($data);
+            }
             
-            
-            
-            return View::make("users/changePass"); 
+            return View::make("users/changePass",$data); 
         }
         
-        //līdz šejienei nekad netiek
+        //līdz šejienei normāli nekad netiek
         Session::flash('message','You are not logged in');
         Session::flash('alert-class','alert-fail');
         return Redirect::route("users/login");

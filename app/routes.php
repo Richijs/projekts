@@ -18,7 +18,7 @@ Route::any("/", [
 /*Route::any("/lang/{lang}", [
     "as"   => "empty",
     "uses" => "LangController@changeLang"
-]);*/ //izrādās šis nebija vajadzīgs
+]);*/ //izrādās šis nav vajadzīgs
 Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
 
 Route::any("/viewUser/{id}", [

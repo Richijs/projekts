@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="{{ Config::get('app.locale') }}">
     <head>
         <meta charset="UTF-8" />
         <title>Vakances.lv</title>
