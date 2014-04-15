@@ -1,5 +1,7 @@
 @extends("layout")
 @section("content")
+    <h2>Log In</h2>
+
     {{ Form::open([
         "route"        => "users/login",
         "autocomplete" => "off"

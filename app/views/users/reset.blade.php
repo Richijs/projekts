@@ -1,5 +1,7 @@
 @extends("layout")
 @section("content")
+    <h2>Reset and change password</h2>
+
     {{ Form::open([
         "url"          => URL::route("users/reset") . $token,
         "autocomplete" => "off"

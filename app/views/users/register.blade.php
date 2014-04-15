@@ -1,5 +1,7 @@
 @extends("layout")
 @section("content")
+    <h2>Register</h2>
+
     {{ Form::open([
         "url"          => URL::route("users/register"),
         "autocomplete" => "off"

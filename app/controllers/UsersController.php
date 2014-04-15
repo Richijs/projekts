@@ -308,7 +308,18 @@ class UsersController extends BaseController {
     
     public function changePassAction()
     {
-        return View::make("users/changePass");
+        if(Auth::check()){
+            
+            
+            
+            
+            return View::make("users/changePass"); 
+        }
+        
+        //līdz šejienei nekad netiek
+        Session::flash('message','You are not logged in');
+        Session::flash('alert-class','alert-fail');
+        return Redirect::route("users/login");
     }
     
     public function profileAction()

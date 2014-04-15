@@ -1,5 +1,7 @@
 @extends("layout")
 @section("content")
+    <h2>Request password change</h2>
+
     {{ Form::open([
         "route"        => "users/request",
         "autocomplete" => "off"
