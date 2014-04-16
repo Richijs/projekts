@@ -234,13 +234,13 @@ class UsersController extends BaseController {
                         
             if($user->save()){
                                                                                  //use - lai varētu piekļūt mainīgajam
-                Mail::send('emails.register', array('username'=>$username), function($message) use ($user) {
+                Mail::send('emails.register', array('username'=>$user->username), function($message) use ($user) {
                     $message->from("sender@yopmail.com", "sender"); // no
                     $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
                 });
                 
                 Session::flash('message-success','Reģistrācija noritējusi veiksmīgi - tagad varat ielogoties');
-                return Redirect::route("users/login");
+                return Redirect::route("users/login")->withInput(["username"=>$user->username]);
             }
             
         }
