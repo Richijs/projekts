@@ -19,6 +19,9 @@
                 </span>
             </div>
             @endforeach
+            <div>
+                {{$users->links()}}
+            </div>
         @else
             <div>No Users to show</div>
         @endif

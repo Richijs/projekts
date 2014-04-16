@@ -269,7 +269,7 @@ class UsersController extends BaseController {
     {
         $usersCount = User::all()->count();
         if($usersCount>0){ //ja ir vismaz viens users
-            $users = User::all();
+            $users = User::paginate(5); //all users + paginate
 
             foreach($users as $user){
                 $user->password = '';
