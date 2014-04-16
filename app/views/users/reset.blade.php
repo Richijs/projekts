@@ -43,5 +43,5 @@
 @stop
 @section("footer")
     @parent
-    <script src="//polyfill.io"></script>
+    <script src="/js/polyfill.io"></script>
 @stop
