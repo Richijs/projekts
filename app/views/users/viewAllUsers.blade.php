@@ -20,7 +20,7 @@
             </div>
             @endforeach
             <div>
-                {{$users->links()}}
+                {{$users->links()}} <!-- pagination links -->
             </div>
         @else
             <div>No Users to show</div>
