@@ -264,8 +264,8 @@ class UsersController extends BaseController {
     
     public function viewAllAction()
     {
-        $usersCount = User::all()->count();
-        if($usersCount>0){ //ja ir vismaz viens users
+        $usersCount = User::all();
+        if($usersCount->count()){ //ja ir vismaz viens users
             $users = User::paginate(30); //all users + paginate
 
             foreach($users as $user){
