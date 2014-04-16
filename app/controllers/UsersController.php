@@ -119,8 +119,10 @@ class UsersController extends BaseController {
                     function($user, $password)
                     {
                         $user->password = Hash::make($password);
-                        $user->save();
-                        Auth::login($user);
+                        if($user->save())
+                        {
+                            Auth::login($user);
+                        }
                         
                     }
                 );
@@ -147,21 +149,21 @@ class UsersController extends BaseController {
     
     public function registerAction()
     {
-        $errors = new MessageBag();
+        /*$errors = new MessageBag();
         if ($old = Input::old("errors"))
         {
             $errors = $old;
         }
         $data = [
             "errors" => $errors
-        ];
+        ];*/
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "username" => "required|min:3|max:50|alpha_num|unique:users",
+                "username" => "required|min:3|max:50|alpha_num|unique:users,username",
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
-                "email" => "required|email|unique:users"
+                "email" => "required|email|unique:users,email"
             ]);
             if ($validator->passes())
             {
@@ -205,9 +207,9 @@ class UsersController extends BaseController {
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
             Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
-            return Redirect::route("users/register")->withInput($data);
+            return Redirect::route("users/register")->withInput($data)->with($data);
         }
-        return View::make("users/register", $data);
+        return View::make("users/register");
     }
     
     public function viewAction($id)
@@ -228,10 +230,10 @@ class UsersController extends BaseController {
     {
         $usersCount = User::all()->count();
         if($usersCount>0){ //ja ir vismaz viens users
-            $users = User::paginate(5); //all users + paginate
+            $users = User::paginate(30); //all users + paginate
 
             foreach($users as $user){
-                $user->password = '';
+                $user->password = ''; //needed?
             }
             return View::make("users/viewAllUsers", array('users'=> $users));
         }else{
@@ -244,13 +246,13 @@ class UsersController extends BaseController {
 
     public function editAction($id)
     {
-        $errors = new MessageBag();
+        /*$errors = new MessageBag();
         if ($old = Input::old("errors"))
         {
             $errors = $old;
         }
         $data = ["errors" => $errors];
-        
+        */
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -259,10 +261,10 @@ class UsersController extends BaseController {
             ]);
             if ($validator->passes())
             {   // <> -> not equal
-                $existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
+                /*$existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
                 $existsUsername = DB::table('users')->where('username',Input::get('username'))->where('id','<>',$id)->first();
                 if (!$existsEmail && !$existsUsername)
-                {
+                {*/
                     $user = User::find($id);
                     $user->username = Input::get('username');
                     $user->email = Input::get('email');
@@ -282,7 +284,7 @@ class UsersController extends BaseController {
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
-                }else{
+                /*}else{
                     $data["errors"] = new MessageBag([
                         "username" => ["this username or email is already taken by another user"],
                         "email" => ["this username or email is already taken by another user"]
@@ -293,7 +295,7 @@ class UsersController extends BaseController {
                     Session::flash('message-fail','Neizdevās labot lietotāju');
                     return Redirect::to("/editUser/{$id}")->withInput($data);
                     
-                }
+                }*/
                 
             }
             
@@ -302,7 +304,7 @@ class UsersController extends BaseController {
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
             Session::flash('message-fail','Editing user data was not successfull');
-            return Redirect::to("/editUser/{$id}")->withInput($data);
+            return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
         }
         
         if(User::find($id)){
@@ -320,18 +322,18 @@ class UsersController extends BaseController {
     {
         if(Auth::check()){
             
-            $errors = new MessageBag();
+            /*$errors = new MessageBag();
             if ($old = Input::old("errors"))
             {
                 $errors = $old;
             }
             $data = [
                 "errors" => $errors
-            ];
+            ];*/
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
-                    "password"                  => "required",
+                    "password"                  => "required|",
                     "new_password"              => "required|min:6",
                     "new_password_confirmation" => "required|same:new_password",
                 ]);
@@ -348,7 +350,14 @@ class UsersController extends BaseController {
                                 if($user->save()){
                                     Session::flash('message-success','Your Password changed successfully');
                                     return Redirect::route("users/profile");                                
-                                } 
+                                } //varbūt pielikt else?
+                        }else{
+                            $data["errors"] = new MessageBag([
+                                "password" => ["Wrong current password"],
+                            ]);
+                            
+                            Session::flash('message-fail','Could not change password');
+                            return Redirect::route("users/changePass")->with($data);
                         }
                 }
                         
