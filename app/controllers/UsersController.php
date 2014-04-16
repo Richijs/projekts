@@ -26,11 +26,28 @@ class UsersController extends BaseController {
                     "username" => Input::get("username"),
                     "password" => Input::get("password")
                 ];
-                if (Auth::attempt($credentials))
-                {
-                    Session::flash('message-success','Succesfully logged in');                    
-                    return Redirect::route("users/profile");
-                }
+                
+                $user = User::where('username',$credentials["username"]);
+                if($user->count()){
+                    $user = $user->first();
+                    
+                    if($user->status===1)
+                    {
+                    
+                        if (Auth::attempt($credentials))
+                        {
+                            Session::flash('message-success','Succesfully logged in');                    
+                            return Redirect::route("users/profile");
+                        }
+                    }else{
+                        
+                        $data["username"] = Input::get("username");
+                        Session::flash('message-fail','Account not activated');
+                        return Redirect::route("users/login")->withInput($data);
+                    }
+                        
+                        
+                    }
             }
             
             $data["errors"] = new MessageBag([
@@ -223,16 +240,25 @@ class UsersController extends BaseController {
             $user = $user->first();
             
             $user->status = 1;
-            $user->code = '';
+            $user->code = NULL;
+            
+            //for email sender
+            $username = $user->username;
+            $email = $user->email;
             
             if($user->save()){
+                                                                                 //use - lai varētu piekļūt mainīgajam
+                Mail::send('emails.register', array('username'=>$username), function($message) use ($user) {
+                    $message->from("sender@yopmail.com", "sender"); // no
+                    $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
+                });
                 
                 Session::flash('message-success','Reģistrācija noritējusi veiksmīgi - tagad varat ielogoties');
                 return Redirect::route("users/login");
             }
             
         }
-        Session::flash('message-fail','Darbība neizdevās');
+        Session::flash('message-fail','Darbība neizdevās - nederīga aktivizācijas saite');
         return Redirect::route("home");
     }
     

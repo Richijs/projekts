@@ -64,7 +64,7 @@ return array(
 
 		'table' => 'token', //passowrd remainders
 
-		'expire' => 60,
+		'expire' => 30, //expires in half an hour
 
 	),
 

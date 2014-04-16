@@ -23,7 +23,7 @@
                     </div>
                 @endif
                 @if (Session::has('message-fail'))
-                    <div class="alert alert-fail">
+                    <div class="alert alert-danger">
                         {{ Session::get('message-fail') }}
                     </div>
                 @endif
