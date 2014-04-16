@@ -188,10 +188,10 @@ class UsersController extends BaseController {
                 "email" => "required|email"
             ]);
             if ($validator->passes())
-            { //BROKEN BROKEN BROKEN      jāuzrraksta  - where email = inputEmail and id != $id !!!!!!!!!!!!
-                $existsEmail = User::where('email', '=', Input::get('email'))->first();
-                $existsUsername = User::where('username', '=', Input::get('username'))->first();
-                if (!isset($existsEmail) && !isset($existsUsername))
+            {
+                $existsEmail = User::where('email', '=', Input::get('email'))->pluck('email');
+                $existsUsername = User::where('username', '=', Input::get('username'))->pluck('username');
+                if ($existsEmail!=Input::get('email') && $existsUsername!=Input::get('username'))
                 {
                     $user = new User;
                     $user->username = Input::get('username');
@@ -300,10 +300,10 @@ class UsersController extends BaseController {
                 "email" => "required|email"
             ]);
             if ($validator->passes())
-            {
-                $existsEmail = User::where('email', '=', Input::get('email'))->first();
-                $existsUsername = User::where('username', '=', Input::get('username'))->first();
-                if (!isset($existsEmail) && !isset($existsUsername))
+            {   // <> -> not equal
+                $existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
+                $existsUsername = DB::table('users')->where('username',Input::get('username'))->where('id','<>',$id)->first();
+                if (!$existsEmail && !$existsUsername)
                 {
                     $user = User::find($id);
                     $user->username = Input::get('username');
@@ -327,8 +327,8 @@ class UsersController extends BaseController {
                     }
                 }else{
                     $data["errors"] = new MessageBag([
-                        "username" => ["username or email already exists in database"],
-                        "email" => ["username or email already exists in database"]
+                        "username" => ["this username or email is already taken by another user"],
+                        "email" => ["this username or email is already taken by another user"]
                     ]);
                     
                     $data["username"] = Input::get("username");
