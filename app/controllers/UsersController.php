@@ -241,10 +241,10 @@ class UsersController extends BaseController {
                 
                 Session::flash('message-success','Reģistrācija noritējusi veiksmīgi - tagad varat ielogoties');
                 return Redirect::route("users/login")->withInput(["username"=>$user->username]);
-            }
+            }//else ?
             
         }
-        Session::flash('message-fail','Darbība neizdevās - nederīga aktivizācijas saite');
+        Session::flash('message-fail','Darbība neizdevās - nederīga aktivizācijas saite vai lietotājs jau aktivizēts');
         return Redirect::route("home");
     }
     
