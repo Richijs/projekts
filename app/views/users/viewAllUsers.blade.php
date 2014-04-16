@@ -9,9 +9,9 @@
                 <span>Joined: {{{$user->created_at}}}</span>
                 <span>
                     Status:
-                    @if ($user->status===1)
+                    @if ($user->active===1)
                         Active!
-                    @elseif ($user->status===0)
+                    @elseif ($user->active===0)
                         Inactive!
                     @else
                         Banned!

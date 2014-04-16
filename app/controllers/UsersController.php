@@ -24,30 +24,20 @@ class UsersController extends BaseController {
             {
                 $credentials = [
                     "username" => Input::get("username"),
-                    "password" => Input::get("password")
+                    "password" => Input::get("password"),
+                    "active" => 1
                 ];
                 
-                $user = User::where('username',$credentials["username"]);
-                if($user->count()){
-                    $user = $user->first();
-                    
-                    if($user->status===1)
-                    {
-                    
-                        if (Auth::attempt($credentials))
-                        {
-                            Session::flash('message-success','Succesfully logged in');                    
-                            return Redirect::route("users/profile");
-                        }
-                    }else{
-                        
-                        $data["username"] = Input::get("username");
-                        Session::flash('message-fail','Account not activated');
-                        return Redirect::route("users/login")->withInput($data);
-                    }
-                        
-                        
-                    }
+                if (Auth::attempt($credentials))
+                {                    
+                        Session::flash('message-success','Succesfully logged in');                    
+                        return Redirect::route("users/profile");                  
+                }
+                                      
+                $data["username"] = Input::get("username");
+                Session::flash('message-fail','wrong username or password (or Your account isnt activated)');
+                return Redirect::route("users/login")->withInput($data);
+         
             }
             
             $data["errors"] = new MessageBag([
@@ -70,7 +60,7 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "email" => "required|email|exists:users,email"
+                "email" => "required|email|exists:users,email,active,1",  //exists this user email and active = 1
             ]);
                         
             if ($validator->passes())
@@ -104,7 +94,7 @@ class UsersController extends BaseController {
             
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','email could not be sent, try again');
+            Session::flash('message-fail','email could not be sent (Maybe Your account isnt activated? check Your email)');
             return Redirect::route("users/request")->with($data)->withInput($data);
         }
         return View::make("users/request");
@@ -130,7 +120,8 @@ class UsersController extends BaseController {
                     "email" => Input::get("email"),
                     "password" => Input::get("password"),
                     "password_confirmation" => Input::get("password_confirmation"),
-                    "token" => Input::get("token")
+                    "token" => Input::get("token"),
+                    "active" => 1
                 ];
                 Password::reset($credentials, //token pēctam tiek dzēsts no tokens tabulas!
                     function($user, $password)
@@ -149,7 +140,7 @@ class UsersController extends BaseController {
                 }else{
                     
                     $data["errors"] = new MessageBag([
-                        "email" => ["Not Your email address"]
+                        "email" => ["Not Your email address or account activation not done! check Your email"]
                     ]);
                     
                     Session::flash('message-fail','Could not change password, try again');
@@ -158,7 +149,7 @@ class UsersController extends BaseController {
             }
             
             $data["errors"] = $validator->errors();
-                            Session::flash('message-fail','faaail validation');
+                            Session::flash('message-fail','Couldnt change password');
             return Redirect::to(URL::route("users/reset") . $token)->withInput($data)->with($data);
         }
         return View::make("users/reset")->with($data);
@@ -190,7 +181,7 @@ class UsersController extends BaseController {
                     $user->email = Input::get('email');
                     $user->password = Hash::make(Input::get('password'));
                     $user->userGroup = 3;
-                    $user->status = 0;
+                    $user->active = 0;
                     $user->code = str_random(60);
                     if($user->save())
                     {
@@ -200,7 +191,6 @@ class UsersController extends BaseController {
                         $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
                     });
                 
-                    //Auth::login($user);
                     Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
                     return Redirect::route("home");
                     }
@@ -235,17 +225,13 @@ class UsersController extends BaseController {
         $code = Input::get("code"); //gets activation code
         $id = Input::get("id"); //gets user id
                 
-        $user = User::where('code',$code)->where('status',0)->where('id',$id);
+        $user = User::where('code',$code)->where('active',0)->where('id',$id);
         if($user->count()){
             $user = $user->first();
             
-            $user->status = 1;
+            $user->active = 1;
             $user->code = NULL;
-            
-            //for email sender
-            $username = $user->username;
-            $email = $user->email;
-            
+                        
             if($user->save()){
                                                                                  //use - lai varētu piekļūt mainīgajam
                 Mail::send('emails.register', array('username'=>$username), function($message) use ($user) {
@@ -318,9 +304,7 @@ class UsersController extends BaseController {
                     $user = User::find($id);
                     $user->username = Input::get('username');
                     $user->email = Input::get('email');
-                    $user->userGroup = 3;
-                    $user->status = 1;
-                
+                                  
                     //$data["username"]=$user->username;  ??
                     //$data["email"]=$user->email;        ??
                     if($user->save())
