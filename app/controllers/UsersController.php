@@ -173,18 +173,19 @@ class UsersController extends BaseController {
                     $user->email = Input::get('email');
                     $user->password = Hash::make(Input::get('password'));
                     $user->userGroup = 3;
-                    $user->status = 1;
+                    $user->status = 0;
+                    $user->code = str_random(60);
                     if($user->save())
                     {
  
-                    Mail::send('emails.register', array('username'=>Input::get('username')), function($message){
-                    $message->from("sender@yopmail.com", "sender"); // no
-                    $message->to(Input::get('email'), Input::get('username'))->subject('Welcome to the Vakances.lv!');
+                    Mail::send('emails.activate', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
+                        $message->from("sender@yopmail.com", "sender"); // no
+                        $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
                     });
                 
-                    Auth::login($user);
-                    Session::flash('message-success','Registration successfull, '.$user->username);
-                    return Redirect::route("users/profile");
+                    //Auth::login($user);
+                    Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
+                    return Redirect::route("home");
                     }
                     
                 /*}else{
@@ -210,6 +211,29 @@ class UsersController extends BaseController {
             return Redirect::route("users/register")->withInput($data)->with($data);
         }
         return View::make("users/register");
+    }
+    
+    public function activateAction()
+    {
+        $code = Input::get("code"); //gets activation code
+        $id = Input::get("id"); //gets user id
+                
+        $user = User::where('code',$code)->where('status',0)->where('id',$id);
+        if($user->count()){
+            $user = $user->first();
+            
+            $user->status = 1;
+            $user->code = '';
+            
+            if($user->save()){
+                
+                Session::flash('message-success','Reģistrācija noritējusi veiksmīgi - tagad varat ielogoties');
+                return Redirect::route("users/login");
+            }
+            
+        }
+        Session::flash('message-fail','Darbība neizdevās');
+        return Redirect::route("home");
     }
     
     public function viewAction($id)

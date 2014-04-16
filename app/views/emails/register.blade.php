@@ -8,7 +8,7 @@
     <body>
         <h1>Registration successfull</h1>
         
-        Registered successfully
+        COngratz! YOu registered here!
         <div>   
             <a href="{{ URL::route("home") }}">{{ URL::route("home") }}</a>
         </div>

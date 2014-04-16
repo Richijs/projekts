@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration {
             $table->string("prefLang","2")->nullable()->default(null);
             $table->tinyInteger("userGroup")->nullable()->default(null);
             $table->tinyInteger("status")->nullable()->default(null);
+            $table->string("code")->nullable()->default(null);
             $table->dateTime("created_at")->nullable()->default(null);
             $table->dateTime("updated_at")->nullable()->default(null);
         });

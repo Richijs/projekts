@@ -82,7 +82,10 @@ Route::group(["before" => "guest"], function()
     Route::get("/reset", [
         "as"   => "users/reset",
         "uses" => "UsersController@resetAction"
-    ]);
+    ]);    
+    
+    Route::get('/activate', 'UsersController@activateAction');
+    
 });
 
 Route::group(["before" => "auth"], function()
@@ -101,8 +104,7 @@ Route::group(["before" => "auth"], function()
         ]);
         
     });
-    
-    
+        
     Route::get("/editUser/{id}", [
         "as"   => "users/edit",
         "uses" => "UsersController@editAction"
