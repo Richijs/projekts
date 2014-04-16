@@ -4,7 +4,7 @@
     <h2>Editing {{{$username}}} user data</h2>
     
     {{ Form::open([
-        //"url"          => "users/edit",
+        //"url"          => URL::route("users/edit"),
         "autocomplete" => "off"
     ]) }}
     {{ Form::label("username", "Username") }}

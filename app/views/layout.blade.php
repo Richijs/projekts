@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         {{ HTML::style('css/style.css'); }}
+        {{ HTML::style('css/bootstrap.css'); }} <!-- TODO: rest to be added -->
     </head>
     <body>
         @include("header")
