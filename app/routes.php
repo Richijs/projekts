@@ -11,31 +11,30 @@
 |
 */
 
-//TODO: VISI GET UN POST JĀATDALA, POST IELIEKOT IEKŠ ATTIECĪGĀ(global/guest/auth) CSRF SECURE FILTRA
+//VISI GET UN POST VIENMĒR JĀATDALA, POST IELIEKOT IEKŠ ATTIECĪGĀ(global/guest/auth) CSRF SECURE FILTRA
 
 //aizsargāts no csrf(xsrf?) uzbrukumiem
 Route::group(["before" => "csrf"], function(){
     
-    
+    //pagaidām nav neviena globālā POST route
 });
 
-Route::any("/", [
-    "as"   => "home",
-    "uses" => "HomeController@viewHome"
-]);
+    Route::get("/", [
+        "as"   => "home",
+        "uses" => "HomeController@viewHome"
+    ]);
 
-Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
+    Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
 
-Route::any("/viewUser/{id}", [
-    "as"   => "users/view/{id}",
-    "uses" => "UsersController@viewAction"
-])
-->where('id','[0-9]+');
+    Route::get("/viewUser/{id}", [
+        "as"   => "users/view/{id}",
+        "uses" => "UsersController@viewAction"
+    ])->where('id','[0-9]+');
 
-Route::any("/viewAllUsers", [
-    "as"   => "users/viewAllUsers",
-    "uses" => "UsersController@viewAllAction"
-]);
+    Route::get("/viewAllUsers", [
+        "as"   => "users/viewAllUsers",
+        "uses" => "UsersController@viewAllAction"
+    ]);
 
 Route::group(["before" => "guest"], function()
 {
@@ -47,6 +46,21 @@ Route::group(["before" => "guest"], function()
             "uses" => "UsersController@loginAction"
         ]);
         
+        Route::post("/register", [
+            "as"   => "users/register",
+            "uses" => "UsersController@registerAction"
+        ]);
+        
+        Route::post("/request", [
+            "as"   => "users/request",
+            "uses" => "UsersController@requestAction"
+        ]);
+        
+        Route::post("/reset", [
+            "as"   => "users/reset",
+            "uses" => "UsersController@resetAction"
+        ]);
+        
         
     });
     
@@ -55,15 +69,17 @@ Route::group(["before" => "guest"], function()
         "uses" => "UsersController@loginAction"
     ]);
     
-    Route::any("/register", [
+    Route::get("/register", [
         "as"   => "users/register",
         "uses" => "UsersController@registerAction"
     ]);
-    Route::any("/request", [
+    
+    Route::get("/request", [
         "as"   => "users/request",
         "uses" => "UsersController@requestAction"
     ]);
-    Route::any("/reset", [
+    
+    Route::get("/reset", [
         "as"   => "users/reset",
         "uses" => "UsersController@resetAction"
     ]);
@@ -75,9 +91,14 @@ Route::group(["before" => "auth"], function()
     Route::group(["before" => "csrf"], function(){
         
         Route::post("/editUser/{id}", [
-        "as"   => "users/edit",
-        "uses" => "UsersController@editAction"
-    ])->where('id','[0-9]+');
+            "as"   => "users/edit",
+            "uses" => "UsersController@editAction"
+        ])->where('id','[0-9]+');
+        
+        Route::post("/changePass", [
+            "as"   => "users/changePass",
+            "uses" => "UsersController@changePassAction"
+        ]);
         
     });
     
@@ -87,18 +108,19 @@ Route::group(["before" => "auth"], function()
         "uses" => "UsersController@editAction"
     ])->where('id','[0-9]+');
         
-    Route::any("/profile", [
+    Route::get("/profile", [
         "as"   => "users/profile",
         "uses" => "UsersController@profileAction"
     ]);
     
-    Route::any("/changePass", [
+    Route::get("/changePass", [
         "as"   => "users/changePass",
         "uses" => "UsersController@changePassAction"
     ]);
     
-    Route::any("/logout", [
+    Route::get("/logout", [
         "as"   => "users/logout",
         "uses" => "UsersController@logoutAction"
     ]);
+    
 });

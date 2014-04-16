@@ -54,8 +54,7 @@ Route::filter('auth', function()
 {
 	if (Auth::guest()) 
         {
-            Session::flash('message','No access to action');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','No access to action');
             return Redirect::route('users/login'); //return Redirect::guest('users/login'); same?
         }
 });
@@ -80,7 +79,7 @@ Route::filter('auth.basic', function()
 Route::filter('guest', function()
 {
 	if (Auth::check()) {
-            Session::flash('message','Must log out first');
+            Session::flash('message-info','Must log out first');
         return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
         }
 });
@@ -96,6 +95,7 @@ Route::filter('guest', function()
 |
 */
 
+//csrf attack protection filter , every POST request must be filtered
 Route::filter('csrf', function()
 {
 	if (Session::token() != Input::get('_token'))

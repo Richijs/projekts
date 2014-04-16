@@ -13,12 +13,11 @@ class LangController extends BaseController {
                 $user->prefLang=$lang;
                 $user->save();
                 
-                Session::flash('message','Vēlamā lietotāja valoda samainīta uz '.$lang);
-                Session::flash('alert-class','alert-success');
+                Session::flash('message-success','Vēlamā lietotāja valoda samainīta uz '.$lang);
                 return Redirect::back();
             }
             
-            Session::flash('message','Valoda jau ir '.$lang);
+            Session::flash('message-info','Valoda jau ir '.$lang);
             return Redirect::back();
         }
         
@@ -31,12 +30,10 @@ class LangController extends BaseController {
             }
             
             Session::put('locale', $lang);
-            Session::flash('message','Veiksmīgi samainīta valoda uz '.$lang);
-            Session::flash('alert-class','alert-success');
+            Session::flash('message-success','Veiksmīgi samainīta valoda uz '.$lang);
             return Redirect::back();
         }else{ //ja nu tomēr kādam izdodas tikt līdz šejienei
-            Session::flash('message','Neeksistējoša valoda '.$lang);
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','Neeksistējoša valoda '.$lang);
             return Redirect::back();
         }
     }

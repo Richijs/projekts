@@ -11,11 +11,20 @@
         @include("header")
         <div class="main">
             <div class="container">
-                @if (Session::has('message'))
-                <!-- noklusējuma klase ir alert-info -->
-                <div class="alert {{ Session::get('alert-class', 'alert-info') }}">
-                     {{ Session::get('message') }}
-                </div>
+                @if (Session::has('message-success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('message-success') }}
+                    </div>
+                @endif
+                @if (Session::has('message-info'))
+                    <div class="alert alert-info">
+                        {{ Session::get('message-info') }}
+                    </div>
+                @endif
+                @if (Session::has('message-fail'))
+                    <div class="alert alert-fail">
+                        {{ Session::get('message-fail') }}
+                    </div>
                 @endif
                 
                 <div class="content">

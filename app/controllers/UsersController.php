@@ -28,9 +28,7 @@ class UsersController extends BaseController {
                 ];
                 if (Auth::attempt($credentials))
                 {
-                    Session::flash('message','Succesfully logged in');
-                    Session::flash('alert-class','alert-success');
-                    
+                    Session::flash('message-success','Succesfully logged in');                    
                     return Redirect::route("users/profile");
                 }
             }
@@ -40,8 +38,7 @@ class UsersController extends BaseController {
                 ]
             ]);
             $data["username"] = Input::get("username");
-            Session::flash('message','Could not log in');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','Could not log in');
             return Redirect::route("users/login")
                 ->withInput($data);
         }
@@ -79,19 +76,16 @@ class UsersController extends BaseController {
                     $data["requested"] = true;
                 
                 
-                    Session::flash('message','email was sent to '.$credentials['email']);
-                    Session::flash('alert-class','alert-success');
+                    Session::flash('message-success','email was sent to '.$credentials['email']);
                 
                     return Redirect::route("home")->withInput($data);
                 }else{
-                    Session::flash('message','email doesnt exist in the database');
-                    Session::flash('alert-class','alert-fail');
+                    Session::flash('message-fail','email doesnt exist in the database');
                     return Redirect::route("users/request")->withInput($data);
                 }
             }
             
-            Session::flash('message','email could not be sent, try again');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','email could not be sent, try again');
             return Redirect::route("users/request")->withInput($data);
         }
         return View::make("users/request", $data);
@@ -135,8 +129,7 @@ class UsersController extends BaseController {
                     }
                 );
                 if(Auth::check()){
-                    Session::flash('message','Password changed successfully, '.Auth::user()->username);
-                    Session::flash('alert-class','alert-success');
+                    Session::flash('message-success','Password changed successfully, '.Auth::user()->username);
                     return Redirect::route("users/profile");
                 }else{
                     
@@ -144,26 +137,14 @@ class UsersController extends BaseController {
                         "email" => ["Not Your email"]
                     ]);
                     
-                    Session::flash('message','Could not change password, try again');
-                    Session::flash('alert-class','alert-fail');
+                    Session::flash('message-fail','Could not change password, try again');
                     return Redirect::to(URL::route("users/reset") . $token)->withInput($data);
                 }
             }
-             //messageBag erroru metode
-            /*$data["errors"] = new MessageBag([
-                "token" => ["token required"],
-                "email" => ["email must be set"
-                            ],
-                "password" => [
-                    "password must be over x characters"
-                ],
-                "password_confirmation" => ["pass other"]
-            ]);*/
             
             $data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
-                            Session::flash('message','faaail');
-                            Session::flash('alert-class','alert-fail');
+                            Session::flash('message-fail','faaail');
             return Redirect::to(URL::route("users/reset") . $token)->withInput($data);
         }
         return View::make("users/reset", $data);
@@ -208,8 +189,7 @@ class UsersController extends BaseController {
                     });
                 
                     Auth::login($user);
-                    Session::flash('message','Registration successfull, '.$user->username);
-                    Session::flash('alert-class','alert-success');
+                    Session::flash('message-success','Registration successfull, '.$user->username);
                     return Redirect::route("users/profile");
                     }
                     
@@ -221,30 +201,18 @@ class UsersController extends BaseController {
                     
                     $data["username"] = Input::get("username");
                     $data["email"] = Input::get("email");
-                    Session::flash('message','Neizdevās piereģistrēties sistēmā');
-                    Session::flash('alert-class','alert-fail');
+                    Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
                     return Redirect::route("users/register")->withInput($data);
                     
                 }
                 
             }
             
-            /*$data["errors"] = new MessageBag([
-                "username" => [ "username invalid."
-                ],
-                "password" => [ "password invalid."
-                ],
-                "password_confirmation" => [  "password confirmation invalid."
-                ],
-                "email" => [ "email invalid."
-                ]
-            ]);*/
             $data["errors"] = $validator->errors();
             
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
-            Session::flash('message','Neizdevās piereģistrēties sistēmā');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
             return Redirect::route("users/register")->withInput($data);
         }
         return View::make("users/register", $data);
@@ -259,8 +227,7 @@ class UsersController extends BaseController {
             
             return View::make("users/view", array('user'=> $user));
         }else{
-            Session::flash('message','No user with such ID');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','No user with such ID');
             return Redirect::route("users/viewAllUsers");
         }
     }
@@ -277,8 +244,7 @@ class UsersController extends BaseController {
             return View::make("users/viewAllUsers", array('users'=> $users));
         }else{
 
-            Session::flash('message','No registered users');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','No registered users');
             return View::make("users/viewAllUsers");
         }
     }
@@ -315,13 +281,12 @@ class UsersController extends BaseController {
                     //$data["email"]=$user->email;        ??
                     if($user->save())
                     {
-                        Session::flash('alert-class','alert-success');
                     
                         if(Auth::user()->id==$id){ //ja editoja sevi
-                            Session::flash('message','Edited Your profile successfully');
+                            Session::flash('message-success','Edited Your profile successfully');
                             return Redirect::route("users/profile");
                         }else{  //ja admins editoja kādu citu
-                            Session::flash('message','Edited '.$user->username.' profile successfully');
+                            Session::flash('message-success','Edited '.$user->username.' profile successfully');
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
@@ -333,8 +298,7 @@ class UsersController extends BaseController {
                     
                     $data["username"] = Input::get("username");
                     $data["email"] = Input::get("email");
-                    Session::flash('message','Neizdevās labot lietotāju');
-                    Session::flash('alert-class','alert-fail');
+                    Session::flash('message-fail','Neizdevās labot lietotāju');
                     return Redirect::to("/editUser/{$id}")->withInput($data);
                     
                 }
@@ -345,8 +309,7 @@ class UsersController extends BaseController {
             
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
-            Session::flash('message','Editing user data was not successfull');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','Editing user data was not successfull');
             return Redirect::to("/editUser/{$id}")->withInput($data);
         }
         
@@ -355,8 +318,7 @@ class UsersController extends BaseController {
             $data["username"]=$user->username;
             $data["email"]=$user->email;
         }else{
-            Session::flash('message','No user with such ID');
-            Session::flash('alert-class','alert-fail');
+            Session::flash('message-fail','No user with such ID');
             return Redirect::route("users/viewAllUsers");
         }
         return View::make("/users/edit")->with($data);
@@ -392,16 +354,14 @@ class UsersController extends BaseController {
                             $user->password = Hash::make($password);
                             
                                 if($user->save()){
-                                    Session::flash('message','Your Password changed successfully');
-                                    Session::flash('alert-class','alert-success');
+                                    Session::flash('message-success','Your Password changed successfully');
                                     return Redirect::route("users/profile");                                
                                 } 
                         }
                 }
                         
                 $data["errors"] = $validator->errors();
-                Session::flash('message','Could not change password');
-                Session::flash('alert-class','alert-fail');
+                Session::flash('message-fail','Could not change password');
                 return Redirect::route("users/changePass")->with($data);
             }
             
@@ -409,8 +369,7 @@ class UsersController extends BaseController {
         }
         
         //līdz šejienei normāli nekad netiek
-        Session::flash('message','You are not logged in');
-        Session::flash('alert-class','alert-fail');
+        Session::flash('message-fail','You are not logged in');
         return Redirect::route("users/login");
     }
     
@@ -421,8 +380,7 @@ class UsersController extends BaseController {
         }
         
         //līdz šejienei nekad netiek
-        Session::flash('message','You are not logged in');
-        Session::flash('alert-class','alert-fail');
+        Session::flash('message-fail','You are not logged in');
         return Redirect::route("users/login");
     }
     
@@ -433,8 +391,8 @@ class UsersController extends BaseController {
         Session::flush();
         Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
         
-        Session::flash('message','Succesfully logged out');
-        Session::flash('alert-class','alert-success');
+        Session::flash('message-success','Succesfully logged out');
         return Redirect::route("home");
     }
+    
 }

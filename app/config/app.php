@@ -13,7 +13,7 @@ return array(
 	|
 	*/
         
-        //Svarîgi: IZSLÇGT GALA REZULTÂTÂ
+        //SvarÄ«gi: IZSLÄ’GT GALA REZULTÄ€TÄ€
         //!!!!!!!!!!!!!!!!!!!!!
         //!!!!!!!!!!!!!!!!!!!!
 	'debug' => true,
