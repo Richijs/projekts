@@ -10,6 +10,11 @@
         {{ Form::text("email", Input::get("email"), [
             "placeholder" => "email"
         ]) }}
+        @if ($error = $errors->first("email"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
         {{ Form::submit("reset") }}
     {{ Form::close() }}
 @stop
