@@ -45,7 +45,7 @@
             </div>
         @endif
         {{ Form::label("picture", "Picture") }}
-        {{ Form::file("picture", Input::get("picture"), [ //input::get / input::old nestrādā uz file :(
+        {{ Form::file("picture", Input::file("picture"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
             "placeholder" => "picture"
         ]) }}
         @if ($error = $errors->first("picture"))
