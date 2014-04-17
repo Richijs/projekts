@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\MessageBag;
+use Intervention\Image\Image;
 
 class UsersController extends BaseController {
     
@@ -172,7 +173,7 @@ class UsersController extends BaseController {
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
                 "email" => "required|email|unique:users,email",
-                "picture" => "image|max:3000"
+                "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
             ]);
             if ($validator->passes())
             {
@@ -189,15 +190,22 @@ class UsersController extends BaseController {
                         {
                             
                             $file = Input::file('picture');
+                            var_dump($file);
+                            $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem image/ no filetype
+                            //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
+                            $picName = str_random(30).time();
+                            $publicPath = public_path('uploads/profileImages/');
                             
-                            $extension = pathinfo($file,PATHINFO_EXTENSION);//$file->getMimeType();
-                            $userFolder = sha1($user->id);
-                            $picName = str_random(30);
+                            //Image::make($file->getRealPath())->resize(200, 200)->save($publicPath.$picName.'.'.$extension);
                             
-                            $file->move('uploads/'.$userFolder,$picName.'.'.$extension);
+                            $file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                            //$user->picture = 'uploads/'.$userFolder.'/'.$picName.'.'.$extension;
-                            $user->picture = 'uploads/'.$userFolder.'/'.$picName.'.'.$extension;
+                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$extension;
+                        }else{
+                            
+                        //the picture wasnt saved/found 
+                            //varbūt pielikt default ? bildi
+                            
                         }
                     
                     if($user->save())
@@ -284,7 +292,7 @@ class UsersController extends BaseController {
     {
         $usersCount = User::all();
         if($usersCount->count()){ //ja ir vismaz viens users
-            $users = User::paginate(30); //all users + paginate
+            $users = User::paginate(5); //all users + paginate
 
             foreach($users as $user){
                 $user->password = ''; //needed?

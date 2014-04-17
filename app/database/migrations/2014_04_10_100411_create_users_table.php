@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration {
             $table->tinyInteger("userGroup")->nullable()->default(null);
             $table->tinyInteger("active")->nullable()->default(null);
             $table->string("code")->nullable()->default(null);
+            $table->string("remember_token")->nullable()->default(null);
             $table->dateTime("created_at")->nullable()->default(null);
             $table->dateTime("updated_at")->nullable()->default(null);
         });
