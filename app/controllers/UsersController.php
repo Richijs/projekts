@@ -171,7 +171,8 @@ class UsersController extends BaseController {
                 "username" => "required|min:3|max:50|alpha_num|unique:users,username",
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
-                "email" => "required|email|unique:users,email"
+                "email" => "required|email|unique:users,email",
+                "picture" => "image|max:3000"
             ]);
             if ($validator->passes())
             {
@@ -183,6 +184,22 @@ class UsersController extends BaseController {
                     $user->userGroup = 3;
                     $user->active = 0;
                     $user->code = str_random(60);
+                    
+                        if(Input::hasfile('picture'))
+                        {
+                            
+                            $file = Input::file('picture');
+                            
+                            $extension = pathinfo($file,PATHINFO_EXTENSION);//$file->getMimeType();
+                            $userFolder = sha1($user->id);
+                            $picName = str_random(30);
+                            
+                            $file->move('uploads/'.$userFolder,$picName.'.'.$extension);
+                            
+                            //$user->picture = 'uploads/'.$userFolder.'/'.$picName.'.'.$extension;
+                            $user->picture = 'uploads/'.$userFolder.'/'.$picName.'.'.$extension;
+                        }
+                    
                     if($user->save())
                     {
  
@@ -214,6 +231,7 @@ class UsersController extends BaseController {
             
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
+                        
             Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
             return Redirect::route("users/register")->withInput($data)->with($data);
         }

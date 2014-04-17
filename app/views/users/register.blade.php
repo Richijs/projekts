@@ -4,7 +4,9 @@
 
     {{ Form::open([
         "url"          => URL::route("users/register"),
-        "autocomplete" => "off"
+        "autocomplete" => "off",
+        "enctype" => "multipart/form-data",
+        "file" => "true"
     ]) }}
     {{ Form::label("username", "Username") }}
         {{ Form::text("username", Input::get("username"), [
@@ -38,6 +40,15 @@
             "placeholder" => "email"
         ]) }}
         @if ($error = $errors->first("email"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+        {{ Form::label("picture", "Picture") }}
+        {{ Form::file("picture", Input::get("picture"), [ //input::get / input::old nestrādā uz file :(
+            "placeholder" => "picture"
+        ]) }}
+        @if ($error = $errors->first("picture"))
             <div class="error">
                 {{ $error }}
             </div>
