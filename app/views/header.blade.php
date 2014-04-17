@@ -34,18 +34,17 @@
                 </a>
             @endif
             </nav>
-            <div class="lang">
-                <a 
-                    @if (Config::get('app.locale')=='lv')
-                    class="active"
-                    @endif
-                    href="{{ URL::to("/lang/lv") }}">LV</a>
-                &nbsp;
-                <a 
-                    @if (Config::get('app.locale')=='en')
-                    class="active"
-                    @endif
-                    href="{{ URL::to("/lang/en") }}">EN</a>
+            <div class="lang">       
+                <div class="btn-group btn-toggle">
+                    <a href="{{ URL::to("/lang/lv") }}">
+                        <button class="btn btn-xs btn-default
+                        @if (Config::get('app.locale')=='lv') btn-primary active @endif">LV</button>
+                    </a>
+                    <a href="{{ URL::to("/lang/en") }}">
+                        <button class="btn btn-xs btn-default
+                        @if (Config::get('app.locale')=='en') btn-primary active @endif">EN</button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
