@@ -12,6 +12,12 @@
     <div>
         email: <a href="mailto:{{{$user->email}}}">{{{$user->email}}}</a>
     </div>
+    @if ($user->picture)
+        <div>
+            <div>profile pic</div>
+            <img src="{{URL::to('/')}}/{{{$user->picture}}}" alt="user picture"/>
+        </div>
+    @endif
     <div>
         Joined: {{{$user->created_at}}}
     </div>

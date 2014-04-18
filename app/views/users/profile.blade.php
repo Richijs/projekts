@@ -10,7 +10,7 @@
     @if (Auth::user()->picture)
         <div>
             <div>profile pic</div>
-            <img src="{{{Auth::user()->picture}}}" alt="user picture"/>
+            <img src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" alt="user picture"/>
         </div>
     @endif
     

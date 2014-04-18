@@ -8,7 +8,9 @@
         "enctype" => "multipart/form-data",
         "file" => "true"
     ]) }}
-    {{ Form::label("username", "Username") }}
+    
+    <div>
+        {{ Form::label("username", "Username") }}
         {{ Form::text("username", Input::get("username"), [
             "placeholder" => "username"
         ]) }}
@@ -17,6 +19,8 @@
                 {{ $error }}
             </div>
         @endif
+    </div>    
+    <div>    
         {{ Form::label("password", "Password") }}
         {{ Form::password("password", [
             "placeholder" => "password"
@@ -26,6 +30,8 @@
                 {{ $error }}
             </div>
         @endif
+    </div>    
+    <div>    
         {{ Form::label("password_confirmation", "Confirm") }}
         {{ Form::password("password_confirmation", [
             "placeholder" => "confirm password"
@@ -35,6 +41,41 @@
                 {{ $error }}
             </div>
         @endif
+    </div>    
+    <div>    
+        {{ Form::label("firstname", "Firstname") }}
+        {{ Form::text("firstname", Input::get("firstname"), [
+            "placeholder" => "firstname"
+        ]) }}
+        @if ($error = $errors->first("firstname"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div>    
+    <div>    
+        {{ Form::label("lastname", "Lastname") }}
+        {{ Form::text("lastname", Input::get("lastname"), [
+            "placeholder" => "lastname"
+        ]) }}
+        @if ($error = $errors->first("lastname"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div>    
+    <div>    
+        {{ Form::label("about", "About") }}
+        {{ Form::textarea("about", Input::get("about"), [
+            "placeholder" => "about"
+        ]) }}
+        @if ($error = $errors->first("about"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div>    
+    <div>    
         {{ Form::label("email", "Email") }}
         {{ Form::text("email", Input::get("email"), [
             "placeholder" => "email"
@@ -44,6 +85,8 @@
                 {{ $error }}
             </div>
         @endif
+    </div>    
+    <div>   
         {{ Form::label("picture", "Picture") }}
         {{ Form::file("picture", Input::file("picture"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
             "placeholder" => "picture"
@@ -53,7 +96,10 @@
                 {{ $error }}
             </div>
         @endif
+    </div>    
+    <div>   
         {{ Form::submit("register") }}
+    </div>
     {{ Form::close() }}
 @stop
 @section("footer")

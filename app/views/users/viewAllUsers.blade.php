@@ -19,7 +19,7 @@
                 </span>
                 @if ($user->picture)
                 <span>
-                    <img src="{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
+                    <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
                 </span>
                 @endif
             </div>

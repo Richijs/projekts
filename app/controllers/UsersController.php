@@ -141,7 +141,7 @@ class UsersController extends BaseController {
                 }else{
                     
                     $data["errors"] = new MessageBag([
-                        "email" => ["Not Your email address or account activation not done! check Your email"]
+                        "email" => ["Not Your email address or account not activated! check Your email"]
                     ]);
                     
                     Session::flash('message-fail','Could not change password, try again');
@@ -172,6 +172,9 @@ class UsersController extends BaseController {
                 "username" => "required|min:3|max:50|alpha_num|unique:users,username",
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
+                "firstname" => "required|alpha|max:70",
+                "lastname" => "required|alpha|max:70",
+                "about" => "max:50",
                 "email" => "required|email|unique:users,email",
                 "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
             ]);
@@ -182,6 +185,9 @@ class UsersController extends BaseController {
                     $user->username = Input::get('username');
                     $user->email = Input::get('email');
                     $user->password = Hash::make(Input::get('password'));
+                    $user->firstname = Input::get('firstname');
+                    $user->lastname = Input::get('lastname');
+                    $user->about = Input::get('about');
                     $user->userGroup = 3;
                     $user->active = 0;
                     $user->code = str_random(60);
@@ -191,12 +197,12 @@ class UsersController extends BaseController {
                             
                             $file = Input::file('picture');
                             
-                            $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem image/ no filetype
+                            $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
                             //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
                             $picName = str_random(30).time();
                             $publicPath = public_path('uploads/profileImages/');
                             
-                            Image::make($file->getRealPath())->resize(200, 200)->save($publicPath.$picName.'.'.$extension);
+                            Image::make($file->getRealPath())->resize(200, 200)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
@@ -239,6 +245,9 @@ class UsersController extends BaseController {
             
             $data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
+            $data["firstname"] = Input::get("firstname");
+            $data["lastname"] = Input::get("lastname");
+            $data["about"] = Input::get("about");
                         
             Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
             return Redirect::route("users/register")->withInput($data)->with($data);
@@ -292,7 +301,7 @@ class UsersController extends BaseController {
     {
         $usersCount = User::all();
         if($usersCount->count()){ //ja ir vismaz viens users
-            $users = User::paginate(5); //all users + paginate
+            $users = User::paginate(10); //all users + paginate
 
             foreach($users as $user){
                 $user->password = ''; //needed?
