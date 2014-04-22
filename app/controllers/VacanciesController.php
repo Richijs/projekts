@@ -128,7 +128,7 @@ class VacanciesController extends BaseController {
         return Redirect::route("home");
     }
     
-    //todo
+    //todo fix smth
     public function editAction($id)
     {
 
@@ -197,8 +197,8 @@ class VacanciesController extends BaseController {
         
         if(Vacancie::find($id)){
             $vacancie = Vacancie::find($id);
-            $data["name"]=$vacancie->name;
-            $data["text"]=$vacancie->text;
+            $data["name"] = $vacancie->name;
+            $data["text"] = $vacancie->text;
         }else{
             Session::flash('message-fail','No Vacancie with such ID');
             return Redirect::route("vacancies/viewAllVacancies");
