@@ -153,8 +153,18 @@ Route::group(["before" => "employer"], function()
             "uses" => "VacanciesController@AddAction"
         ]);
         
+        Route::post("/editVacancie/{id}", [
+            "as"   => "vacancies/edit",
+            "uses" => "VacanciesController@editAction"
+        ])->where('id','[0-9]+');
+        
     });
     
+    
+    Route::get("/editVacancie/{id}", [
+        "as"   => "vacancies/edit",
+        "uses" => "VacanciesController@editAction"
+    ])->where('id','[0-9]+');    
     
     Route::get("/myVacancies", [
         "as"   => "vacancies/myVacancies",

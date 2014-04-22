@@ -128,4 +128,65 @@ class VacanciesController extends BaseController {
         return Redirect::route("home");
     }
     
+    //todo
+    public function editAction($id)
+    {
+
+    //if admin or editing own vacancie
+    if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)) || Auth::user()->userGroup==1)
+    {
+        if (Input::server("REQUEST_METHOD") == "POST")
+        {
+            $validator = Validator::make(Input::all(), [
+                "username" => "required|unique:users,username,".$id, //ignorē sava ID datus! :)
+                "email" => "required|unique:users,email,".$id
+            ]);
+            if ($validator->passes())
+            {   
+                    $user = User::find($id);
+                    $user->username = Input::get('username');
+                    $user->email = Input::get('email');
+                                  
+
+                    if($user->save())
+                    {
+                    
+                        if(Auth::user()->id==$id){ //ja editoja sevi
+                            Session::flash('message-success','Edited Your profile successfully');
+                            return Redirect::route("users/profile");
+                        }else{  //ja admins editoja kādu citu
+                            Session::flash('message-success','Edited '.$user->username.' profile successfully');
+                            return Redirect::to("/viewUser/{$id}");
+                        }
+                    }
+                
+            }
+            
+            $data["errors"] = $validator->errors();
+            
+            $data["username"] = Input::get("username");
+            $data["email"] = Input::get("email");
+            Session::flash('message-fail','Editing user data was not successfull');
+            return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
+        }
+        
+        if(Vacancie::find($id)){
+            $vacancie = Vacancie::find($id);
+            $data["username"]=$vacancie->name;
+            $data["email"]=$vacancie->text;
+        }else{
+            Session::flash('message-fail','No user with such ID');
+            return Redirect::route("users/viewAllUsers");
+        }
+        return View::make("/users/edit")->with($data);
+    
+  
+    }else{
+        Session::flash('message-fail','No Access to action');
+        return Redirect::route("home");
+    }    
+        
+        
+    }
+    
 }
