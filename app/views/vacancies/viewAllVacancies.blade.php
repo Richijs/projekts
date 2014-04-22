@@ -10,7 +10,7 @@
                 
                 @if ($vacancie->poster)
                 <span>
-                    <!-- <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/> -->
+                    <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
                 </span>
                 @endif
                 

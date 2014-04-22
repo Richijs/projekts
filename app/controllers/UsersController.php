@@ -324,6 +324,10 @@ class UsersController extends BaseController {
         }
         $data = ["errors" => $errors];
         */
+        
+    //if admin or editing self
+    if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
+    {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -385,6 +389,14 @@ class UsersController extends BaseController {
             return Redirect::route("users/viewAllUsers");
         }
         return View::make("/users/edit")->with($data);
+    
+  
+    }else{
+        Session::flash('message-fail','No Access to action');
+        return Redirect::route("home");
+    }    
+        
+        
     }
     
     public function changePassAction()

@@ -21,7 +21,8 @@ class CreateVacanciesTable extends Migration {
                 $table->string("text","500")->nullable()->default(null);
                 $table->integer('creator_id')->unsigned();
                     $table->foreign('creator_id')->references('id')->on('users');
-                $table->dateTime("created_at")->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+                $table->dateTime("created_at")->nullable()->default(null);
+                $table->dateTime("updated_at")->nullable()->default(null);
             });
 	}
 

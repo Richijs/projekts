@@ -13,6 +13,8 @@
 
 //VISI GET UN POST VIENMĒR JĀATDALA, POST IELIEKOT IEKŠ ATTIECĪGĀ(global/guest/auth) CSRF SECURE FILTRA
 
+//global actions
+
 //aizsargāts no csrf(xsrf?) uzbrukumiem
 Route::group(["before" => "csrf"], function(){
     
@@ -41,6 +43,8 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "VacanciesController@viewAllAction"
     ]);
 
+    
+//guest only actions
 Route::group(["before" => "guest"], function()
 {
     //aizsargāts no csrf(xsrf?) uzbrukumiem
@@ -93,6 +97,7 @@ Route::group(["before" => "guest"], function()
     
 });
 
+//authorized user only actions
 Route::group(["before" => "auth"], function()
 {
     //aizsargāts no csrf(xsrf?) uzbrukumiem
@@ -108,17 +113,7 @@ Route::group(["before" => "auth"], function()
             "uses" => "UsersController@changePassAction"
         ]);
         
-        Route::post("/addVacancie", [
-        "as"   => "vacancies/add",
-        "uses" => "VacanciesController@AddAction"
-        ]);
-        
     });
-        
-    Route::get("/addVacancie", [
-        "as"   => "vacancies/add",
-        "uses" => "VacanciesController@AddAction"
-    ]);
     
     Route::get("/editUser/{id}", [
         "as"   => "users/edit",
@@ -138,6 +133,27 @@ Route::group(["before" => "auth"], function()
     Route::get("/logout", [
         "as"   => "users/logout",
         "uses" => "UsersController@logoutAction"
+    ]);
+    
+});
+
+//employer/admin only actions
+Route::group(["before" => "employer"], function()
+{
+    //aizsargāts no csrf(xsrf?) uzbrukumiem
+    Route::group(["before" => "csrf"], function(){
+        
+        Route::post("/addVacancie", [
+            "as"   => "vacancies/add",
+            "uses" => "VacanciesController@AddAction"
+        ]);
+        
+    });
+    
+    
+    Route::get("/addVacancie", [
+        "as"   => "vacancies/add",
+        "uses" => "VacanciesController@AddAction"
     ]);
     
 });

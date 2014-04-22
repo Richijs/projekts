@@ -104,7 +104,37 @@ Route::filter('guest', function()
 {
 	if (Auth::check()) {
             Session::flash('message-fail','Must log out first');
-        return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
+            return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
+        }
+});
+
+//employer filter
+Route::filter('employer', function()
+{
+	if (Auth::guest() || Auth::user()->userGroup == 3) { //admin and employer has access
+            
+            Session::flash('message-fail','No access to action');
+            return Redirect::route('home');
+        }
+});
+
+//seeker filter
+Route::filter('seeker', function()
+{
+	if (Auth::guest() || Auth::user()->userGroup == 2) { //admin and seeker has access
+            
+            Session::flash('message-fail','No access to action');
+            return Redirect::route('home');
+        }
+});
+
+//admin filter
+Route::filter('admin', function()
+{
+	if (Auth::guest() || Auth::user()->userGroup != 1){  //only admin has access
+            
+            Session::flash('message-fail','No access to action');
+            return Redirect::route('home');
         }
 });
 

@@ -25,48 +25,37 @@ class VacanciesController extends BaseController {
     
     public function AddAction()
     {
-       /* if (Input::server("REQUEST_METHOD") == "POST")
+        if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "username" => "required|min:3|max:50|alpha_num|unique:users,username",
-                "password" => "required|min:6",
-                "password_confirmation" => "required|same:password",
-                "firstname" => "required|alpha|max:70",
-                "lastname" => "required|alpha|max:70",
-                "about" => "max:500",
-                "email" => "required|email|unique:users,email",
-                "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
-                "userType" => "required"
+                "name" => "required|min:3|max:100|alpha_num|unique:vacancies,name",
+                "text" => "required|min:10|max:500|alpha_num",
+                "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
             ]);
+            
             if ($validator->passes())
             {
                 
-                    $user = new User;
-                    $user->username = Input::get('username');
-                    $user->email = Input::get('email');
-                    $user->password = Hash::make(Input::get('password'));
-                    $user->firstname = Input::get('firstname');
-                    $user->lastname = Input::get('lastname');
-                    $user->about = Input::get('about');
-                    $user->userGroup = Input::get('userType');
-                    $user->active = 0;
-                    $user->code = str_random(60);
+                    $vacancie = new Vacancie;
+                    $vacancie->name = Input::get('name');
+                    $vacancie->text = Input::get('text');
+                    $vacancie->creator_id = Auth::user()->id;
                     
-                        if(Input::hasfile('picture'))
+                        if(Input::hasfile('poster'))
                         {
                             
-                            $file = Input::file('picture');
+                            $file = Input::file('poster');
                             
                             $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
                             //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
                             $picName = str_random(30).time();
-                            $publicPath = public_path('uploads/profileImages/');
+                            $publicPath = public_path('uploads/vacanciePosters/');
                             
-                            Image::make($file->getRealPath())->resize(200, 200)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
+                            Image::make($file->getRealPath())->resize(300, 300)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$extension;
+                            $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$extension;
                         }else{
                             
                             //the picture wasnt saved/found 
@@ -74,13 +63,10 @@ class VacanciesController extends BaseController {
                             
                         }
                     
-                    if($user->save())
+                    if($vacancie->save())
                     {
- 
-                    
-                
-                    Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
-                    return Redirect::route("home");
+                        Session::flash('message-success','Vacancie offer has been saved');
+                        return Redirect::route("home"); //janomaina uz izveidotā vacancie skata
                     }
                     
                 /*}else{
@@ -96,20 +82,17 @@ class VacanciesController extends BaseController {
                     
                 }*/
                 
-            /*}
+            }
             
             $data["errors"] = $validator->errors();
             
-            $data["username"] = Input::get("username");
-            $data["email"] = Input::get("email");
-            $data["firstname"] = Input::get("firstname");
-            $data["lastname"] = Input::get("lastname");
-            $data["about"] = Input::get("about");
-            $data["userType"] = Input::get("userType");
+            $data["name"] = Input::get("name");
+            $data["text"] = Input::get("text");
                         
             Session::flash('message-fail','Neizdevās pievienot vakanci');
-            return Redirect::route("users/register")->withInput($data)->with($data);
-        }*/
+            return Redirect::route("vacancies/add")->withInput($data)->with($data);
+        }
+        
         return View::make("vacancies/add");
     }
     
