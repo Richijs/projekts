@@ -310,8 +310,6 @@ class UsersController extends BaseController {
             }
             return View::make("users/viewAllUsers", array('users'=> $users));
         }else{
-
-            Session::flash('message-fail','No registered users');
             return View::make("users/viewAllUsers");
         }
     }

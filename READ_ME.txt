@@ -9,3 +9,6 @@ VAJAG RUN
 !!!!!!
 
 pectam arī php artisan migrate reset utt
+
+
+php artisan migrate:make --table="vacancies" CreateVacanciesTable

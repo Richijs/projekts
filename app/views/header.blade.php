@@ -11,6 +11,10 @@
                     ViewAllUsers
                 </a>
                 |
+                <a href="{{ URL::route("vacancies/viewAllVacancies") }}">
+                    ViewAllVacancies
+                </a>
+                |
             @if (Auth::check())
                 Logged in as:
                 <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">

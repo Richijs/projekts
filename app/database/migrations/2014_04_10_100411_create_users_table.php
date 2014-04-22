@@ -11,7 +11,7 @@ class CreateUsersTable extends Migration {
 	 * @return void
 	 */
     public function up()
-        {
+    {
         Schema::create("users", function(Blueprint $table)
         {
             //ar laiku jāsamaina korekti
@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration {
             $table->string("firstname")->nullable()->default(null);
             $table->string("lastname")->nullable()->default(null);
             $table->string("picture")->nullable()->default(null);
-            $table->string("about")->nullable()->default(null);
+            $table->string("about","500")->nullable()->default(null);
             $table->string("email")->nullable()->default(null);
             $table->string("prefLang","2")->nullable()->default(null);
             $table->tinyInteger("userGroup")->nullable()->default(null);

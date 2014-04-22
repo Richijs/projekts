@@ -67,9 +67,10 @@
     <div>    
         {{ Form::label("userType", "Job seeker") }}
         {{ Form::radio('userType', 2, true) }}
+        
         {{ Form::label("userType", "Employer") }}
         {{ Form::radio('userType', 3) }}
-        @if ($error = $errors->first("about"))
+        @if ($error = $errors->first("userType")) <!-- needed? -->
             <div class="error">
                 {{ $error }}
             </div>

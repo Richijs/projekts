@@ -9,14 +9,14 @@ extends DatabaseSeeder
                 "username" => "admin",
                 "password" => Hash::make("adminadmin"),
                 "email"    => "test1@yopmail.com",
-                "userGroup"=> 1, //1 prostais cilv //2 darba devejs
+                "userGroup"=> 1, //1 admins  //2  darba mekletajs  //3 darba devejs
                 "active"   => 1
             ],
             [
                 "username" => "user",
                 "password" => Hash::make("useruser"),
                 "email"    => "test2@yopmail.com",
-                "userGroup"=> 3, //3 admin
+                "userGroup"=> 3,
                 "active"   => 1
             ]
         ];
