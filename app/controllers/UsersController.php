@@ -174,9 +174,10 @@ class UsersController extends BaseController {
                 "password_confirmation" => "required|same:password",
                 "firstname" => "required|alpha|max:70",
                 "lastname" => "required|alpha|max:70",
-                "about" => "max:50",
+                "about" => "max:500",
                 "email" => "required|email|unique:users,email",
-                "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
+                "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                "userType" => "required"
             ]);
             if ($validator->passes())
             {
@@ -188,7 +189,7 @@ class UsersController extends BaseController {
                     $user->firstname = Input::get('firstname');
                     $user->lastname = Input::get('lastname');
                     $user->about = Input::get('about');
-                    $user->userGroup = 3;
+                    $user->userGroup = Input::get('userType');
                     $user->active = 0;
                     $user->code = str_random(60);
                     
@@ -248,6 +249,7 @@ class UsersController extends BaseController {
             $data["firstname"] = Input::get("firstname");
             $data["lastname"] = Input::get("lastname");
             $data["about"] = Input::get("about");
+            $data["userType"] = Input::get("userType");
                         
             Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
             return Redirect::route("users/register")->withInput($data)->with($data);

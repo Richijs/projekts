@@ -27,6 +27,29 @@ App::before(function($request)
         App::setLocale(Session::get('locale'));
     }
     
+    if (Auth::check() && Auth::user()->active==0) //pārbauda, vai account nav neaktīvs
+    {                                             //ja tā ir , izlogo
+            
+        Auth::logout();
+        $lastLang = Session::get('locale');
+        Session::flush();
+        Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
+            
+        Session::flash('message-fail','This Account is inactive');
+        return Redirect::route('home');
+        
+    }else if(Auth::check() && Auth::user()->active!=1) //pārbauda, vai account nav banned
+    {
+            
+        Auth::logout();
+        $lastLang = Session::get('locale');
+        Session::flush();
+        Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
+                     
+        Session::flash('message-fail','This Account is banned');
+        return Redirect::route('home');            
+    }
+    
 	/*if( !Request::secure())
         {
             return Redirect::secure(Request::getRequestUri());
@@ -57,6 +80,7 @@ Route::filter('auth', function()
             Session::flash('message-fail','No access to action');
             return Redirect::route('users/login'); //return Redirect::guest('users/login'); same?
         }
+        
 });
 
 

@@ -63,7 +63,18 @@
                 {{ $error }}
             </div>
         @endif
-    </div>    
+    </div>
+    <div>    
+        {{ Form::label("userType", "Job seeker") }}
+        {{ Form::radio('userType', 2, true) }}
+        {{ Form::label("userType", "Employer") }}
+        {{ Form::radio('userType', 3) }}
+        @if ($error = $errors->first("about"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div>
     <div>    
         {{ Form::label("about", "About") }}
         {{ Form::textarea("about", Input::get("about"), [
