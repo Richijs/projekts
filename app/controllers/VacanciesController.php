@@ -9,7 +9,7 @@ class VacanciesController extends BaseController {
     {
         $vacanciesCount = Vacancie::all();
         if($vacanciesCount->count()){ //ja ir vismaz viens vacancy
-            $vacancies = Vacancie::paginate(10); //all users + paginate
+            $vacancies = Vacancie::paginate(10); //all vacancies + paginate
 
             foreach($vacancies as $vacancie){
                 
@@ -77,10 +77,7 @@ class VacanciesController extends BaseController {
                     if($user->save())
                     {
  
-                    Mail::send('emails.activate', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
-                        $message->from("sender@yopmail.com", "sender"); // no
-                        $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
-                    });
+                    
                 
                     Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
                     return Redirect::route("home");
@@ -110,7 +107,7 @@ class VacanciesController extends BaseController {
             $data["about"] = Input::get("about");
             $data["userType"] = Input::get("userType");
                         
-            Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
+            Session::flash('message-fail','Neizdevās pievienot vakanci');
             return Redirect::route("users/register")->withInput($data)->with($data);
         }*/
         return View::make("vacancies/add");
