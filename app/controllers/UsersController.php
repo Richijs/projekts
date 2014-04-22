@@ -477,4 +477,64 @@ class UsersController extends BaseController {
         return Redirect::route("home");
     }
     
+    public function deleteAction($id)
+    {
+        if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
+        {
+        
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "password" => "required"
+                ]);
+                if ($validator->passes())
+                {
+                    $user = User::find($id);
+                    
+                    $password = Input::get('password');
+                    
+                        if(Hash::check($password,Auth::user()->getAuthPassword())){
+                            
+                            $vacancies = Vacancie::where('creator_id',$id); //first deletes vacancies
+                            $vacancies->delete();
+                            
+                            if($user->delete()){
+                                    Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');
+                                    return Redirect::route("home");                                
+                                } //varbūt pielikt else?
+                                
+                        }else{
+                            $data["errors"] = new MessageBag([
+                                "password" => ["Wrong password"],
+                            ]);
+                            
+                            Session::flash('message-fail','Could not delete Profile');
+                            return Redirect::to("/deleteUser/{$id}")->with($data);
+                        }
+                }
+                
+                $user = User::find($id);
+                $data["username"] = $user->username;  
+                $data["errors"] = $validator->errors();
+                Session::flash('message-fail','Could not delete profile');
+                return Redirect::to("/deleteUser/{$id}")->with($data);
+                
+            }
+        
+            if(User::find($id)){
+                $user = User::find($id);
+                $data["username"] = $user->username;   
+                return View::make("users/delete")->with($data); 
+            }else{
+                Session::flash('message-fail','No user with such ID');
+                return Redirect::route("users/viewAllUsers");
+            }  
+            
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }   
+        
+    }
+    
 }

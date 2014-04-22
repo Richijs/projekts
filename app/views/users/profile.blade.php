@@ -7,7 +7,8 @@
     <br>
     <a href="{{{ URL::to("/changePass") }}}">Change Password</a>
     <br>
-    
+    <a href="{{{ URL::to("/deleteUser/".Auth::user()->id) }}}">Delete profile</a>
+    <br>
     @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
         <a href="{{{ URL::to("/myVacancies") }}}">My Vacancies</a>
     @endif

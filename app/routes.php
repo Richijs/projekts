@@ -113,12 +113,23 @@ Route::group(["before" => "auth"], function()
             "uses" => "UsersController@editAction"
         ])->where('id','[0-9]+');
         
+       Route::post("/deleteUser/{id}", [
+            "as"   => "users/delete",
+            "uses" => "UsersController@deleteAction"
+        ])->where('id','[0-9]+');
+        
         Route::post("/changePass", [
             "as"   => "users/changePass",
             "uses" => "UsersController@changePassAction"
         ]);
         
     });
+    
+    
+    Route::get("/deleteUser/{id}", [
+        "as"   => "users/delete",
+        "uses" => "UsersController@deleteAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/editUser/{id}", [
         "as"   => "users/edit",
