@@ -9,13 +9,20 @@ extends DatabaseSeeder
                 "username" => "admin",
                 "password" => Hash::make("adminadmin"),
                 "email"    => "test1@yopmail.com",
-                "userGroup"=> 1, //1 admins  //2  darba mekletajs  //3 darba devejs
+                "userGroup"=> 1, //1 admins  //2  darba devejs  //3 darba mekletajs
                 "active"   => 1
             ],
             [
-                "username" => "user",
-                "password" => Hash::make("useruser"),
+                "username" => "employer",
+                "password" => Hash::make("employer"),
                 "email"    => "test2@yopmail.com",
+                "userGroup"=> 2,
+                "active"   => 1
+            ],
+            [
+                "username" => "seeker",
+                "password" => Hash::make("seeker"),
+                "email"    => "test3@yopmail.com",
                 "userGroup"=> 3,
                 "active"   => 1
             ]

@@ -5,8 +5,10 @@
         UserGroup:
         @if ($user->userGroup===1)
             Admin
+        @elseif ($user->userGroup===2)
+            Employer
         @elseif ($user->userGroup===3)
-            User
+            Job Seeker
         @endif
     </div>
     <div>

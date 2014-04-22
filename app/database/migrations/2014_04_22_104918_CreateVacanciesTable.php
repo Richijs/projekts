@@ -18,10 +18,10 @@ class CreateVacanciesTable extends Migration {
                 $table->increments("id");
                 $table->string("name")->nullable()->default(null);
                 $table->string("poster")->nullable()->default(null);
-                $table->string("text")->nullable()->default(null);
+                $table->string("text","500")->nullable()->default(null);
                 $table->integer('creator_id')->unsigned();
                     $table->foreign('creator_id')->references('id')->on('users');
-                $table->dateTime("created_at")->nullable()->default(null);
+                $table->dateTime("created_at")->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
             });
 	}
 

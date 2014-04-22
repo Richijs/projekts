@@ -28,6 +28,13 @@
                 <a href="{{ URL::route("users/profile") }}">
                     My profile
                 </a>
+                |
+                @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
+                    <a href="{{ URL::route("vacancies/add") }}">
+                        Add Vacancie
+                    </a>
+                    |
+                @endif
             @else
                 <a href="{{ URL::route("users/login") }}">
                     login

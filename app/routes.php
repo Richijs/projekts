@@ -108,8 +108,18 @@ Route::group(["before" => "auth"], function()
             "uses" => "UsersController@changePassAction"
         ]);
         
+        Route::post("/addVacancie", [
+        "as"   => "vacancies/add",
+        "uses" => "VacanciesController@AddAction"
+        ]);
+        
     });
         
+    Route::get("/addVacancie", [
+        "as"   => "vacancies/add",
+        "uses" => "VacanciesController@AddAction"
+    ]);
+    
     Route::get("/editUser/{id}", [
         "as"   => "users/edit",
         "uses" => "UsersController@editAction"

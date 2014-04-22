@@ -6,7 +6,7 @@
             @foreach ($users as $user)
             <div>
                 <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
-                <span>Joined: {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}</span>
+                <span><b>Joined:</b> {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}</span>
                 <span>
                     <b>Status:</b>
                     @if ($user->active===1)
