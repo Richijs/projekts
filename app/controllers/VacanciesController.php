@@ -111,4 +111,21 @@ class VacanciesController extends BaseController {
         }
     }
     
+    public function MyVacanciesAction()
+    {
+        //if admin or employer
+        if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==2))
+        {
+            $vacancieCount = Vacancie::where('creator_id',Auth::user()->id)->count();
+            $vacancies = Vacancie::where('creator_id',Auth::user()->id)->paginate(10);
+            $vacancies->count = $vacancieCount;
+            
+            return View::make("vacancies/myVacancies", array('vacancies'=> $vacancies));
+        }
+        
+        //līdz šejienei nekad netiek
+        Session::flash('message-fail','Not authorized to do this');
+        return Redirect::route("home");
+    }
+    
 }

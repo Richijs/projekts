@@ -156,6 +156,11 @@ Route::group(["before" => "employer"], function()
     });
     
     
+    Route::get("/myVacancies", [
+        "as"   => "vacancies/myVacancies",
+        "uses" => "vacanciesController@MyVacanciesAction"
+    ]);
+    
     Route::get("/addVacancie", [
         "as"   => "vacancies/add",
         "uses" => "VacanciesController@AddAction"

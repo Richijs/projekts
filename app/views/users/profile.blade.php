@@ -6,7 +6,13 @@
     <a href="{{{ URL::to("/editUser/".Auth::user()->id) }}}">Edit UserData</a>
     <br>
     <a href="{{{ URL::to("/changePass") }}}">Change Password</a>
+    <br>
+    
+    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
+        <a href="{{{ URL::to("/myVacancies") }}}">My Vacancies</a>
+    @endif
     <br><br>
+    
     @if (Auth::user()->picture)
         <div>
             <div>profile pic</div>
