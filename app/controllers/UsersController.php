@@ -203,7 +203,7 @@ class UsersController extends BaseController {
                             $picName = str_random(30).time();
                             $publicPath = public_path('uploads/profileImages/');
                             
-                            Image::make($file->getRealPath())->resize(200, 200)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
+                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             

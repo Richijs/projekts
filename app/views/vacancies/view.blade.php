@@ -5,7 +5,6 @@
     
     @if ($vacancie->poster)
         <div>
-            <div>profile pic</div>
             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" alt="vacancie poster"/>
         </div>
     @endif

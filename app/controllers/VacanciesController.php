@@ -51,7 +51,7 @@ class VacanciesController extends BaseController {
                             $picName = str_random(30).time();
                             $publicPath = public_path('uploads/vacanciePosters/');
                             
-                            Image::make($file->getRealPath())->resize(300, 300)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
+                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
@@ -66,7 +66,7 @@ class VacanciesController extends BaseController {
                     if($vacancie->save())
                     {
                         Session::flash('message-success','Vacancie offer has been saved');
-                        return Redirect::route("home"); //janomaina uz izveidotā vacancie skata
+                        return Redirect::to("/viewVacancie/{$vacancie->id}");
                     }
                     
                 /*}else{
