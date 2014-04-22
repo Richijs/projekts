@@ -331,8 +331,8 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "username" => "required|unique:users,username,".$id, //ignorē sava ID datus! :)
-                "email" => "required|unique:users,email,".$id
+                "username" => "required|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
+                "email" => "required|email|unique:users,email,".$id
             ]);
             if ($validator->passes())
             {   // <> -> not equal

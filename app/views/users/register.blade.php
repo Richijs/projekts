@@ -100,8 +100,8 @@
     </div>    
     <div>   
         {{ Form::label("picture", "Picture") }}
-        {{ Form::file("picture", Input::file("picture"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
-            "placeholder" => "picture"
+        {{ Form::file("picture", Input::file("picture"),[ //input::get varbūt???  lkm input::old nestrādā uz file :(
+           // "placeholder" => "picture"
         ]) }}
         @if ($error = $errors->first("picture"))
             <div class="error">

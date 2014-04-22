@@ -28,8 +28,8 @@ class VacanciesController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "name" => "required|min:3|max:100|alpha_num|unique:vacancies,name",
-                "text" => "required|min:10|max:500|alpha_num",
+                "name" => "required|min:3|max:100|unique:vacancies,name",
+                "text" => "required|min:10|max:500",
                 "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
             ]);
             
@@ -133,29 +133,54 @@ class VacanciesController extends BaseController {
     {
 
     //if admin or editing own vacancie
-    if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)) || Auth::user()->userGroup==1)
+    if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
     {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
+            $vacancieId = Vacancie::where('id',$id)->first();
+            
             $validator = Validator::make(Input::all(), [
-                "username" => "required|unique:users,username,".$id, //ignorē sava ID datus! :)
-                "email" => "required|unique:users,email,".$id
+                "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
+                "text" => "required|min:10|max:500",
+                "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
             ]);
             if ($validator->passes())
             {   
-                    $user = User::find($id);
-                    $user->username = Input::get('username');
-                    $user->email = Input::get('email');
+                    $vacancie = Vacancie::find($id);
+                    $vacancie->name = Input::get('name');
+                    $vacancie->text = Input::get('text');
                                   
-
-                    if($user->save())
+                        if(Input::hasfile('poster'))
+                        {
+                            
+                            $file = Input::file('poster');
+                            
+                            $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
+                            //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
+                            $picName = str_random(30).time();
+                            $publicPath = public_path('uploads/vacanciePosters/');
+                            
+                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
+                            
+                            //$file->move('uploads/profileImages',$picName.'.'.$extension);
+                            
+                            $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$extension;
+                        }else{
+                            
+                            //the picture wasnt saved/found 
+                            //varbūt pielikt default ? bildi
+                            
+                        }
+                    
+                    
+                    if($vacancie->save())
                     {
                     
-                        if(Auth::user()->id==$id){ //ja editoja sevi
-                            Session::flash('message-success','Edited Your profile successfully');
+                        if($vacancie->creator_id==Auth::user()->id){ //ja editoja sevi
+                            Session::flash('message-success','Edited Your Vacancie successfully');
                             return Redirect::route("users/profile");
                         }else{  //ja admins editoja kādu citu
-                            Session::flash('message-success','Edited '.$user->username.' profile successfully');
+                            Session::flash('message-success','Edited Vacancie: "'.$vacancie->name.'"  successfully');
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
@@ -164,21 +189,21 @@ class VacanciesController extends BaseController {
             
             $data["errors"] = $validator->errors();
             
-            $data["username"] = Input::get("username");
-            $data["email"] = Input::get("email");
-            Session::flash('message-fail','Editing user data was not successfull');
-            return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
+            $data["name"] = Input::get("name");
+            $data["text"] = Input::get("text");
+            Session::flash('message-fail','Editing Vacancie was not successfull');
+            return Redirect::to("/editVacancie/{$id}")->withInput($data)->with($data);
         }
         
         if(Vacancie::find($id)){
             $vacancie = Vacancie::find($id);
-            $data["username"]=$vacancie->name;
-            $data["email"]=$vacancie->text;
+            $data["name"]=$vacancie->name;
+            $data["text"]=$vacancie->text;
         }else{
-            Session::flash('message-fail','No user with such ID');
-            return Redirect::route("users/viewAllUsers");
+            Session::flash('message-fail','No Vacancie with such ID');
+            return Redirect::route("vacancies/viewAllVacancies");
         }
-        return View::make("/users/edit")->with($data);
+        return View::make("/vacancies/edit")->with($data);
     
   
     }else{
