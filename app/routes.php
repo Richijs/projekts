@@ -32,6 +32,11 @@ Route::group(["before" => "csrf"], function(){
         "as"   => "users/view/{id}",
         "uses" => "UsersController@viewAction"
     ])->where('id','[0-9]+');
+    
+    Route::get("/viewVacancie/{id}", [
+        "as"   => "vacancies/view/{id}",
+        "uses" => "VacanciesController@viewAction"
+    ])->where('id','[0-9]+');
 
     Route::get("/viewAllUsers", [
         "as"   => "users/viewAllUsers",

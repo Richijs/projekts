@@ -96,4 +96,19 @@ class VacanciesController extends BaseController {
         return View::make("vacancies/add");
     }
     
+    public function viewAction($id)
+    {
+        if(Vacancie::find($id)){
+            $vacancie = Vacancie::find($id);
+            
+            $creator = User::where('id',$vacancie->creator_id)->first();
+            $vacancie->creatorName = $creator->username;
+                
+            return View::make("vacancies/view", array('vacancie'=> $vacancie));
+        }else{
+            Session::flash('message-fail','No vacancie with such ID');
+            return Redirect::route("vacancies/viewAllVacancies");
+        }
+    }
+    
 }
