@@ -1,6 +1,6 @@
 @extends("layout")
 @section("content")
-    <h2>Delete "{{{$name}}}" vacancie</h2>
+<h2>Delete <a href="/viewVacancie/{{{$id}}}">{{{ $name }}}</a> vacancie</h2>
     <h3>To delete Vacancie, Confirm deletionn</h3>
 
     {{ Form::open([

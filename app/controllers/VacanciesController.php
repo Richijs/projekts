@@ -188,7 +188,7 @@ class VacanciesController extends BaseController {
             }
             
             $data["errors"] = $validator->errors();
-            
+            $data["id"] = $vacancieId->id;
             $data["name"] = Input::get("name");
             $data["text"] = Input::get("text");
             Session::flash('message-fail','Editing Vacancie was not successfull');
@@ -197,6 +197,7 @@ class VacanciesController extends BaseController {
         
         if(Vacancie::find($id)){
             $vacancie = Vacancie::find($id);
+            $data["id"] = $vacancie->id;
             $data["name"] = $vacancie->name;
             $data["text"] = $vacancie->text;
             return View::make("/vacancies/edit")->with($data);
@@ -247,6 +248,7 @@ class VacanciesController extends BaseController {
                 }
                 
                 $vacancie = Vacancie::find($id);
+                $data["id"] = $vacancie->id;
                 $data["name"] = $vacancie->name;  
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete vacancie');
@@ -256,6 +258,7 @@ class VacanciesController extends BaseController {
         
             if(Vacancie::find($id)){
                 $vacancie = Vacancie::find($id);
+                $data["id"] = $vacancie->id;
                 $data["name"] = $vacancie->name;   
                 return View::make("vacancies/delete")->with($data); 
             }else{
