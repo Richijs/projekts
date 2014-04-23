@@ -15,6 +15,10 @@
                     ViewAllVacancies
                 </a>
                 |
+                <a href="{{ URL::route("seekers/viewAllSeekers") }}">
+                    ViewAllJobSeekers
+                </a>
+                |
                 <a href="{{ URL::to("/about") }}">
                     About
                 </a>

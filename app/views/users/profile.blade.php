@@ -12,6 +12,10 @@
     @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
         <a href="{{{ URL::to("/myVacancies") }}}">My Vacancies</a>
     @endif
+    <br>
+    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
+        <a href="{{{ URL::to("/myJobSeek") }}}">My Job Seek</a>
+    @endif
     <br><br>
     
     @if (Auth::user()->picture)

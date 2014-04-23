@@ -106,6 +106,20 @@ class SeekersController extends BaseController {
         }
     }
     
+     public function viewMyAction()
+    {
+        //if admin or employer
+        if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
+        {
+            $seeker = Seeker::where('user_id',Auth::user()->id)->first();
+            
+            return View::make("seekers/viewMy", array('seeker'=> $seeker));
+        }
+        
+        //līdz šejienei nekad netiek
+        Session::flash('message-fail','Not authorized to do this');
+        return Redirect::route("home");
+    }
     
     
 }
