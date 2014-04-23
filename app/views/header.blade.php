@@ -15,6 +15,10 @@
                     ViewAllVacancies
                 </a>
                 |
+                <a href="{{ URL::to("/about") }}">
+                    About
+                </a>
+                |
             @if (Auth::check())
                 Logged in as:
                 <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">

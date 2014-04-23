@@ -47,6 +47,11 @@ Route::group(["before" => "csrf"], function(){
         "as"   => "vacancies/viewAllVacancies",
         "uses" => "VacanciesController@viewAllAction"
     ]);
+    
+    Route::get("/about", function()
+    {
+        return View::make("about");
+    });
 
     
 //guest only actions
