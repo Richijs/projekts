@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\MessageBag;
+use Illuminate\Routing\Redirector;
 
 class SeekersController extends BaseController {
         
@@ -37,7 +38,7 @@ class SeekersController extends BaseController {
                     if($seeker->save())
                     {
                         Session::flash('message-success','Job Seek has been saved');
-                        return Redirect::to("/");
+                        return Redirect::to("/viewSeeker/{$seeker->id}");
                     }else{
                         Session::flash('message-fail','Could not save job seek');
                         return Redirect::route("seekers/add");
@@ -62,5 +63,32 @@ class SeekersController extends BaseController {
         Session::flash('message-fail','No Access to action or already added a jobseek');
         return Redirect::route("home");
         }    
+    }
+    
+    public function viewAction($id)
+    {
+        if(Seeker::find($id)){
+            $seeker = Seeker::find($id);
+            
+            $creator = User::where('id',$seeker->user_id)->first();
+            $seeker->creatorName = $creator->username;
+  
+            return View::make("seekers/view", array('seeker'=> $seeker));
+        }else{
+            Session::flash('message-fail','No job seek with such ID');
+            return Redirect::route("home");
+        }
+    }
+    
+    public function getCVAction($id)
+    {
+        if(Seeker::find($id)){
+            $seeker = Seeker::find($id);
+            
+            Return Response::download($seeker->cv);
+        }else{
+            Session::flash('message-fail','Could not download CV');
+            return Redirect::route("home");
+        }
     }
 }
