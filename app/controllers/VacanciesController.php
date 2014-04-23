@@ -199,11 +199,11 @@ class VacanciesController extends BaseController {
             $vacancie = Vacancie::find($id);
             $data["name"] = $vacancie->name;
             $data["text"] = $vacancie->text;
+            return View::make("/vacancies/edit")->with($data);
         }else{
             Session::flash('message-fail','No Vacancie with such ID');
             return Redirect::route("vacancies/viewAllVacancies");
         }
-        return View::make("/vacancies/edit")->with($data);
     
   
     }else{
@@ -213,5 +213,61 @@ class VacanciesController extends BaseController {
         
         
     }
+    
+    public function deleteAction($id)
+    {
+        //if admin or editing own vacancie
+        if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        {
+
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "checkbox" => "required"
+                ]);
+                
+                if ($validator->passes())
+                {
+                    $vacancie = Vacancie::find($id);
+                    
+                    $checkbox = Input::get('checkbox');
+                    
+                    if($checkbox)
+                    {                            
+                        if($vacancie->delete())
+                        {
+                            Session::flash('message-success','Vacancie "'.$vacancie->name.'" deleted succesfully');
+                            return Redirect::route("vacancies/viewAllVacancies");                                
+                        }else{
+                            //varbūt pielikt else?
+                            Session::flash('message-fail','something went wrong, could not delete vacancie');
+                            return Redirect::route("vacancies/viewAllVacancies");  
+                        }
+                    }
+                }
+                
+                $vacancie = Vacancie::find($id);
+                $data["name"] = $vacancie->name;  
+                $data["errors"] = $validator->errors();
+                Session::flash('message-fail','Could not delete vacancie');
+                return Redirect::to("/deleteVacancie/{$id}")->with($data);
+                
+            }
+        
+            if(Vacancie::find($id)){
+                $vacancie = Vacancie::find($id);
+                $data["name"] = $vacancie->name;   
+                return View::make("vacancies/delete")->with($data); 
+            }else{
+                Session::flash('message-fail','No vacancie with such ID');
+                return Redirect::route("vacancies/viewAllVacancies");
+            }  
+            
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }
+    }
+    
     
 }

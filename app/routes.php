@@ -169,8 +169,18 @@ Route::group(["before" => "employer"], function()
             "uses" => "VacanciesController@editAction"
         ])->where('id','[0-9]+');
         
+        Route::post("/deleteVacancie/{id}", [
+            "as"   => "vacancies/delete",
+            "uses" => "VacanciesController@deleteAction"
+        ])->where('id','[0-9]+');
+        
     });
     
+    
+    Route::get("/deleteVacancie/{id}", [
+        "as"   => "vacancies/delete",
+        "uses" => "VacanciesController@deleteAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/editVacancie/{id}", [
         "as"   => "vacancies/edit",

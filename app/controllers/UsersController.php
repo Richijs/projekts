@@ -495,6 +495,7 @@ class UsersController extends BaseController {
                     
                         if(Hash::check($password,Auth::user()->getAuthPassword())){
                             
+                            //šis netraucē arī "jobseeker" lietotāju tipam
                             $vacancies = Vacancie::where('creator_id',$id); //first deletes vacancies
                             $vacancies->delete();
                             
