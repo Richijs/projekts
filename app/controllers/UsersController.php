@@ -198,16 +198,16 @@ class UsersController extends BaseController {
                             
                             $file = Input::file('picture');
                             
-                            $extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
+                            //$extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
                             //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
                             $picName = str_random(30).time();
                             $publicPath = public_path('uploads/profileImages/');
                             
-                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$extension); //varbut izmantot encode()
+                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$extension;
+                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                         }else{
                             
                             //the picture wasnt saved/found 

@@ -203,3 +203,25 @@ Route::group(["before" => "employer"], function()
     ]);
     
 });
+
+//seeker/admin only actions
+Route::group(["before" => "seeker"], function()
+{
+    //aizsargāts no csrf(xsrf?) uzbrukumiem
+    Route::group(["before" => "csrf"], function(){
+        
+        Route::post("/addJobSearch", [
+            "as"   => "seekers/add",
+            "uses" => "SeekersController@AddAction"
+        ]);
+       
+        
+    });
+    
+    
+    Route::get("/addJobSearch", [
+        "as"   => "seekers/add",
+        "uses" => "SeekersController@AddAction"
+    ]);
+    
+});

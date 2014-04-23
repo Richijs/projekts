@@ -39,6 +39,12 @@
                     </a>
                     |
                 @endif
+                @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
+                    <a href="{{ URL::route("seekers/add") }}">
+                        Add JobSeeker data
+                    </a>
+                    |
+                @endif
             @else
                 <a href="{{ URL::route("users/login") }}">
                     login
