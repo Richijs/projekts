@@ -74,19 +74,19 @@ class UsersController extends BaseController {
                 //if (isset($existsEmail))
                 //{
                 
-                    Password::remind($credentials,
-                        function($message, $user)
-                        {
-                            $message->subject('Password Reset!');
-                            $message->from("sender@yopmail.com", "sender"); //no
-                        }
-                    );
-                    $data["requested"] = true; //why?
+                Password::remind($credentials,
+                    function($message, $user)
+                    {
+                        $message->subject('Password Reset!');
+                        $message->from("sender@yopmail.com", "sender"); //no
+                    }
+                );
                 
+                $data["requested"] = true; //why?
                 
-                    Session::flash('message-success','email was sent to '.$credentials['email']);
+                Session::flash('message-success','email was sent to '.$credentials['email']);
                 
-                    return Redirect::route("home");
+                return Redirect::route("home");
                 /*}else{
                     Session::flash('message-fail','email doesnt exist in the database');
                     return Redirect::route("users/request")->with($data);
@@ -135,6 +135,7 @@ class UsersController extends BaseController {
                         
                     }
                 );
+                
                 if(Auth::check()){
                     Session::flash('message-success','Password changed successfully, '.Auth::user()->username);
                     return Redirect::route("users/profile");
@@ -150,7 +151,7 @@ class UsersController extends BaseController {
             }
             
             $data["errors"] = $validator->errors();
-                            Session::flash('message-fail','Couldnt change password');
+            Session::flash('message-fail','Couldnt change password');
             return Redirect::to(URL::route("users/reset") . $token)->withInput($data)->with($data);
         }
         return View::make("users/reset")->with($data);
@@ -182,50 +183,50 @@ class UsersController extends BaseController {
             if ($validator->passes())
             {
                 
-                    $user = new User;
-                    $user->username = Input::get('username');
-                    $user->email = Input::get('email');
-                    $user->password = Hash::make(Input::get('password'));
-                    $user->firstname = Input::get('firstname');
-                    $user->lastname = Input::get('lastname');
-                    $user->about = Input::get('about');
-                    $user->userGroup = Input::get('userType');
-                    $user->active = 0;
-                    $user->code = str_random(60);
+                $user = new User;
+                $user->username = Input::get('username');
+                $user->email = Input::get('email');
+                $user->password = Hash::make(Input::get('password'));
+                $user->firstname = Input::get('firstname');
+                $user->lastname = Input::get('lastname');
+                $user->about = Input::get('about');
+                $user->userGroup = Input::get('userType');
+                $user->active = 0;
+                $user->code = str_random(60);
                     
-                        if(Input::hasfile('picture'))
-                        {
-                            
-                            $file = Input::file('picture');
-                            
-                            //$extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
-                            //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
-                            $picName = str_random(30).time();
-                            $publicPath = public_path('uploads/profileImages/');
-                            
-                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
-                            
-                            //$file->move('uploads/profileImages',$picName.'.'.$extension);
-                            
-                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
-                        }else{
-                            
-                            //the picture wasnt saved/found 
-                            //varbūt pielikt default ? bildi
-                            
-                        }
-                    
-                    if($user->save())
+                    if(Input::hasfile('picture'))
                     {
- 
-                    Mail::send('emails.activate', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
-                        $message->from("sender@yopmail.com", "sender"); // no
-                        $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
-                    });
-                
-                    Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
-                    return Redirect::route("home");
+                            
+                        $file = Input::file('picture');
+                            
+                        //$extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
+                        //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
+                        $picName = str_random(30).time();
+                        $publicPath = public_path('uploads/profileImages/');
+                            
+                        Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
+                            
+                        //$file->move('uploads/profileImages',$picName.'.'.$extension);
+                            
+                        $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                    }else{
+                            
+                        //the picture wasnt saved/found 
+                        //varbūt pielikt default ? bildi
+                            
                     }
+                    
+                if($user->save())
+                {
+ 
+                Mail::send('emails.activate', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
+                    $message->from("sender@yopmail.com", "sender"); // no
+                    $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
+                });
+                
+                Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
+                return Redirect::route("home");
+                }
                     
                 /*}else{
                     $data["errors"] = new MessageBag([
@@ -289,7 +290,6 @@ class UsersController extends BaseController {
     {
         if(User::find($id)){
             $user = User::find($id);
-            
             $user->password = ''; //negribam skatam padot paroli
             
             return View::make("users/view", array('user'=> $user));
@@ -325,21 +325,21 @@ class UsersController extends BaseController {
         $data = ["errors" => $errors];
         */
         
-    //if admin or editing self
-    if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
-    {
-        if (Input::server("REQUEST_METHOD") == "POST")
+        //if admin or editing self
+        if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
         {
-            $validator = Validator::make(Input::all(), [
-                "username" => "required|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
-                "email" => "required|email|unique:users,email,".$id
-            ]);
-            if ($validator->passes())
-            {   // <> -> not equal
-                /*$existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
-                $existsUsername = DB::table('users')->where('username',Input::get('username'))->where('id','<>',$id)->first();
-                if (!$existsEmail && !$existsUsername)
-                {*/
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "username" => "required|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
+                    "email" => "required|email|unique:users,email,".$id
+               ]);
+                if ($validator->passes())
+                {   // <> -> not equal
+                    /*$existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
+                    $existsUsername = DB::table('users')->where('username',Input::get('username'))->where('id','<>',$id)->first();
+                    if (!$existsEmail && !$existsUsername)
+                    {*/
                     $user = User::find($id);
                     $user->username = Input::get('username');
                     $user->email = Input::get('email');
@@ -370,32 +370,31 @@ class UsersController extends BaseController {
                     
                 }*/
                 
+                }
+            
+                $data["errors"] = $validator->errors();
+            
+                $data["username"] = Input::get("username");
+                $data["email"] = Input::get("email");
+                Session::flash('message-fail','Editing user data was not successfull');
+                return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
             }
-            
-            $data["errors"] = $validator->errors();
-            
-            $data["username"] = Input::get("username");
-            $data["email"] = Input::get("email");
-            Session::flash('message-fail','Editing user data was not successfull');
-            return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
-        }
         
-        if(User::find($id)){
-            $user = User::find($id);
-            $data["username"]=$user->username;
-            $data["email"]=$user->email;
-        }else{
-            Session::flash('message-fail','No user with such ID');
-            return Redirect::route("users/viewAllUsers");
-        }
-        return View::make("/users/edit")->with($data);
+            if(User::find($id)){
+                $user = User::find($id);
+                $data["username"]=$user->username;
+                $data["email"]=$user->email;
+            }else{
+                Session::flash('message-fail','No user with such ID');
+                return Redirect::route("users/viewAllUsers");
+            }
+            return View::make("/users/edit")->with($data);
     
   
-    }else{
-        Session::flash('message-fail','No Access to action');
-        return Redirect::route("home");
-    }    
-        
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }    
         
     }
     

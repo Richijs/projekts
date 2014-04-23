@@ -32,6 +32,7 @@ class LangController extends BaseController {
             Session::put('locale', $lang);
             Session::flash('message-success','Veiksmīgi samainīta valoda uz '.$lang);
             return Redirect::back();
+            
         }else{ //ja nu tomēr kādam izdodas tikt līdz šejienei
             Session::flash('message-fail','Neeksistējoša valoda '.$lang);
             return Redirect::back();

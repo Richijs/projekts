@@ -8,19 +8,19 @@ class SeekersController extends BaseController {
     public function AddAction()
     {
         //if admin or adding own job seek
-    if((Auth::check() && Auth::user()->userGroup==3 && !Seeker::where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
-    {
-        
-        if (Input::server("REQUEST_METHOD") == "POST")
+        if((Auth::check() && Auth::user()->userGroup==3 && !Seeker::where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
-            $validator = Validator::make(Input::all(), [
-                "intro" => "required|min:3|max:100",
-                "text" => "required|min:10|max:500",
-                "cv" => "required|max:3000|mimes:pdf,doc,docx,odt"
-            ]);
-            
-            if ($validator->passes())
+        
+            if (Input::server("REQUEST_METHOD") == "POST")
             {
+                $validator = Validator::make(Input::all(), [
+                    "intro" => "required|min:3|max:100",
+                    "text" => "required|min:10|max:500",
+                    "cv" => "required|max:3000|mimes:pdf,doc,docx,odt"
+                ]);
+            
+                if ($validator->passes())
+                {
                 
                     $seeker = new Seeker;
                     $seeker->intro = Input::get('intro');
@@ -28,7 +28,6 @@ class SeekersController extends BaseController {
                     $seeker->user_id = Auth::user()->id;
                     
                     $file = Input::file('cv');
-
                     $fileName = str_random(30).time();
                     //$publicPath = public_path('uploads/jobSeekerCVs/');
                                                               
@@ -43,9 +42,7 @@ class SeekersController extends BaseController {
                         Session::flash('message-fail','Could not save job seek');
                         return Redirect::route("seekers/add");
                     }
- 
-                
-            }
+                }
             
             $data["errors"] = $validator->errors();
             
@@ -57,9 +54,8 @@ class SeekersController extends BaseController {
         }
         
         return View::make("seekers/add");
-        
-        
-        }else{
+       
+    }else{
         Session::flash('message-fail','No Access to action or already added a jobseek');
         return Redirect::route("home");
         }    

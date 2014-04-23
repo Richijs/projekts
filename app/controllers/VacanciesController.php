@@ -132,20 +132,20 @@ class VacanciesController extends BaseController {
     public function editAction($id)
     {
 
-    //if admin or editing own vacancie
-    if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
-    {
-        if (Input::server("REQUEST_METHOD") == "POST")
+        //if admin or editing own vacancie
+        if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
-            $vacancieId = Vacancie::where('id',$id)->first();
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $vacancieId = Vacancie::where('id',$id)->first();
             
-            $validator = Validator::make(Input::all(), [
-                "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
-                "text" => "required|min:10|max:500",
-                "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
-            ]);
-            if ($validator->passes())
-            {   
+                $validator = Validator::make(Input::all(), [
+                    "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
+                    "text" => "required|min:10|max:500",
+                    "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
+                ]);
+                if ($validator->passes())
+                {   
                     $vacancie = Vacancie::find($id);
                     $vacancie->name = Input::get('name');
                     $vacancie->text = Input::get('text');
@@ -185,33 +185,32 @@ class VacanciesController extends BaseController {
                         }
                     }
                 
-            }
+                }
             
-            $data["errors"] = $validator->errors();
-            $data["id"] = $vacancieId->id;
-            $data["name"] = Input::get("name");
-            $data["text"] = Input::get("text");
-            Session::flash('message-fail','Editing Vacancie was not successfull');
-            return Redirect::to("/editVacancie/{$id}")->withInput($data)->with($data);
-        }
+                $data["errors"] = $validator->errors();
+                $data["id"] = $vacancieId->id;
+                $data["name"] = Input::get("name");
+                $data["text"] = Input::get("text");
+                Session::flash('message-fail','Editing Vacancie was not successfull');
+                return Redirect::to("/editVacancie/{$id}")->withInput($data)->with($data);
+            }
         
-        if(Vacancie::find($id)){
-            $vacancie = Vacancie::find($id);
-            $data["id"] = $vacancie->id;
-            $data["name"] = $vacancie->name;
-            $data["text"] = $vacancie->text;
-            return View::make("/vacancies/edit")->with($data);
-        }else{
-            Session::flash('message-fail','No Vacancie with such ID');
-            return Redirect::route("vacancies/viewAllVacancies");
-        }
+            if(Vacancie::find($id)){
+                $vacancie = Vacancie::find($id);
+                $data["id"] = $vacancie->id;
+                $data["name"] = $vacancie->name;
+                $data["text"] = $vacancie->text;
+                return View::make("/vacancies/edit")->with($data);
+            }else{
+                Session::flash('message-fail','No Vacancie with such ID');
+                return Redirect::route("vacancies/viewAllVacancies");
+            }
     
   
-    }else{
-        Session::flash('message-fail','No Access to action');
-        return Redirect::route("home");
-    }    
-        
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }    
         
     }
     
