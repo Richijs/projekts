@@ -105,4 +105,7 @@ class SeekersController extends BaseController {
             return View::make("seekers/ViewAllSeekers");
         }
     }
+    
+    
+    
 }
