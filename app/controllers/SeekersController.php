@@ -91,4 +91,22 @@ class SeekersController extends BaseController {
             return Redirect::route("home");
         }
     }
+    
+    public function viewAllAction()
+    {
+        $seekersCount = Seeker::all();
+        if($seekersCount->count()){ //ja ir vismaz viens seeker
+            $seekers = Seeker::paginate(10); //all seekers + paginate
+
+            foreach($seekers as $seeker){
+                
+                $creator = User::where('id',$seeker->user_id)->first();
+                $seeker->creatorName = $creator->username;
+            }
+            
+            return View::make("seekers/viewAllSeekers", array('seekers'=> $seekers));
+        }else{
+            return View::make("seekers/ViewAllSeekers");
+        }
+    }
 }

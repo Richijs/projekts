@@ -55,6 +55,11 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "VacanciesController@viewAllAction"
     ]);
     
+    Route::get("/viewAllSeekers", [
+        "as"   => "seekers/viewAllSeekers",
+        "uses" => "SeekersController@viewAllAction"
+    ]);
+    
     Route::get("/about", function()
     {
         return View::make("about");
