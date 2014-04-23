@@ -7,8 +7,8 @@ class SeekersController extends BaseController {
         
     public function AddAction()
     {
-        //if admin or adding own job seek
-        if((Auth::check() && Auth::user()->userGroup==3 && !Seeker::where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        //admin can also add only one job seek
+        if((Auth::check() && Auth::user()->userGroup==3 && !Seeker::where('user_id',Auth::user()->id)->first()) || (Auth::user()->userGroup==1 && !Seeker::where('user_id',Auth::user()->id)->first()))
         {
         
             if (Input::server("REQUEST_METHOD") == "POST")
