@@ -111,7 +111,7 @@ class ApplicationsController extends BaseController {
         //Jāuztaisa lai Var apskatīt ADMINS,PATS un KONKRĒTĀ DARBA DEVĒJS
         if(Auth::user()->userGroup==1 //admins
            || Application::where('user_id',Auth::user()->id)->where('id',$applicationId)->first() //sava aplikācija    
-           ||               )    
+           || //vakance kur creator_id ir userID un aplikacija kur id ir applicationId un ir vienada vacancie_id ar iepriekš atrasto vakances id            )    
               //vakances darba devējs  )
         {
             
