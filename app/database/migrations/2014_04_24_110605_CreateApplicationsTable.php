@@ -21,6 +21,8 @@ class CreateApplicationsTable extends Migration {
                     $table->integer('vacancie_id')->unsigned();
                         $table->foreign('vacancie_id')->references('id')->on('vacancies'); //many users can apply one vacancie
                     $table->string("letter","1000")->nullable()->default(null);
+                    $table->dateTime("created_at")->nullable()->default(null);
+                    $table->dateTime("updated_at")->nullable()->default(null);
 		});
 	}
 

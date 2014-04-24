@@ -19,24 +19,48 @@ class ApplicationsController extends BaseController {
             //ja nav jau pieteicies šai vakancei
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
+                $vacancie = Vacancie::find($vacancieId);
                 //tad viss ok
+                if (Input::server("REQUEST_METHOD") == "POST")
+                {
+                    $validator = Validator::make(Input::all(), [
+                        "letter" => "required|min:10|max:1000",
+                    ]);
+                    
+                if ($validator->passes())
+                {   
+                    $application = new Application;
+                    $application->letter = Input::get('letter');                  
+                    $application->user_id = Auth::user()->id;
+                    $application->vacancie_id = $vacancieId;
+                            
+                    if($application->save())
+                    {
+                            Session::flash('message-success','applied job successfully');
+                            return Redirect::to("/viewVacancie/{$vacancieId}");
+                    }
+                    //varbūt else?
+                
+                }
+            
+                $data["errors"] = $validator->errors();
+                $data["vacancieId"] = $vacancieId;
+                $data["vacancieName"] = $vacancie->name;
+                $data["letter"] = Input::get("letter");
+                Session::flash('message-fail','applying job failed');
+                return Redirect::to("/apply/{$vacancieId}")->withInput($data)->with($data);
+                }
         
+
+                $data["vacancieId"] = $vacancieId;
+                $data["vacancieName"] = $vacancie->name;
+                return View::make("/applications/apply")->with($data);
                 
-                
-                
-                
-                
-                
-                
-                
-                
-                
-                
-        
+
         
             }else{
             Session::flash('message-fail','Already applied this job');
-            return Redirect::route("home");
+            return Redirect::to("/viewVacancie/{$vacancieId}");
             } 
         
         }else{

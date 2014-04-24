@@ -233,7 +233,10 @@ class VacanciesController extends BaseController {
                     $checkbox = Input::get('checkbox');
                     
                     if($checkbox)
-                    {                            
+                    {   
+                        $applications = Application::where('vacancie_id',$id);
+                        $applications->delete();
+                        
                         if($vacancie->delete())
                         {
                             Session::flash('message-success','Vacancie "'.$vacancie->name.'" deleted succesfully');

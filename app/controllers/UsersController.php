@@ -494,6 +494,7 @@ class UsersController extends BaseController {
                     
                         if(Hash::check($password,Auth::user()->getAuthPassword())){
                             
+                            //Ja izdzēš vacancies, vajag arī izdzēst tam piesaistītās applications!!!
                             //šis netraucē arī "jobseeker" lietotāju tipam
                             $vacancies = Vacancie::where('creator_id',$id); //first deletes vacancies
                             $vacancies->delete();
