@@ -109,6 +109,14 @@ class ApplicationsController extends BaseController {
     public function viewAction($applicationId)
     {
         //Jāuztaisa lai Var apskatīt ADMINS,PATS un KONKRĒTĀ DARBA DEVĒJS
+        if(Auth::user()->userGroup==1 //admins
+           || Application::where('user_id',Auth::user()->id)->where('id',$applicationId)->first() //sava aplikācija    
+           ||               )    
+              //vakances darba devējs  )
+        {
+            
+        
+        
         if(Application::find($applicationId)){
             
             $application = Application::find($applicationId);
@@ -120,6 +128,11 @@ class ApplicationsController extends BaseController {
             Session::flash('message-fail','No application with such ID');
             return Redirect::route("home");
         }
+        
+        }
+        //līdz šejienei nekad netiek
+        Session::flash('message-fail','Not authorized to do this');
+        return Redirect::route("home");
         
     }
     
