@@ -263,7 +263,12 @@ Route::group(["before" => "seeker"], function()
     
     Route::get("/myJobSeek", [
         "as"   => "seekers/viewMy",
-        "uses" => "seekersController@viewMyAction"
+        "uses" => "SeekersController@viewMyAction"
+    ]);
+    
+    Route::get("/myApplications", [
+        "as"   => "applications/viewMy",
+        "uses" => "ApplicationsController@viewMyAction"
     ]);
     
     Route::get("/addJobSearch", [

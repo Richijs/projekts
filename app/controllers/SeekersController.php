@@ -108,7 +108,7 @@ class SeekersController extends BaseController {
     
      public function viewMyAction()
     {
-        //if admin or employer
+        //if admin or seeker
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
             $seeker = Seeker::where('user_id',Auth::user()->id)->first();

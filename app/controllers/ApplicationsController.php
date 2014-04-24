@@ -78,7 +78,41 @@ class ApplicationsController extends BaseController {
         
     }
     
-
+    public function viewMyAction()
+    {
+        //if admin or seeker
+        if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
+        {
+            $applicationCount = Application::where('user_id',Auth::user()->id)->count();
+            $applications = Application::where('user_id',Auth::user()->id)->paginate(10);
+            $applications->count = $applicationCount;          
+            
+            foreach ($applications as $application)
+            {
+                //dabuj konkrēto vakanci katram application
+                $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
+                $application->vacancieId = $vacancie->id;
+                $application->vacancieName = $vacancie->name;
+                
+            }
+                        
+            return View::make("applications/viewMy", array('applications'=> $applications));
+        }
+        
+        //līdz šejienei nekad netiek
+        Session::flash('message-fail','Not authorized to do this');
+        return Redirect::route("home");
+        
+        
+    }
+    
+    public function Action()
+    {
+        
+        
+        
+    }
+    
     
     
 }
