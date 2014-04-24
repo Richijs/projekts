@@ -19,6 +19,14 @@ class ApplicationsController extends BaseController {
             //ja nav jau pieteicies šai vakancei
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
+                //ja nav norādījis savus job seeker datus
+                if(!Seeker::where('user_id',Auth::user()->id)->first())
+                {
+                    Session::flash('message-fail','Sākumā jānorāda darba meklētāja dati');
+                    return Redirect::route("seekers/add");
+                }
+                
+                
                 $vacancie = Vacancie::find($vacancieId);
                 //tad viss ok
                 if (Input::server("REQUEST_METHOD") == "POST")
@@ -69,6 +77,8 @@ class ApplicationsController extends BaseController {
         }    
         
     }
+    
+
     
     
 }

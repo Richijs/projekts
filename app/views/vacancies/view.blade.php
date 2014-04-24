@@ -12,9 +12,15 @@
         {{{$vacancie->text}}}
     </div>
     <div>
+        <b>Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+    </div>
+    <div>
         <b>Added at:</b> {{{$vacancie->created_at}}}
         <b>Added by:</b> {{{$vacancie->creatorName}}}
         
         <b>Last edit:</b> {{{$vacancie->updated_at}}}
     </div>
+    @if (Auth::check() && (Auth::user()->userGroup===1 || Auth::user()->userGroup===3))
+        <a href="/apply/{{{$vacancie->id}}}">Apply this vacancie</a>
+    @endif
 @stop

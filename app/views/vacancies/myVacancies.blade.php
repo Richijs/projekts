@@ -18,6 +18,9 @@
                 </span>
                 @endif
                 
+                <span>
+                    <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+                </span>
             </div>
             @endforeach
             <div>

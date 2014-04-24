@@ -18,7 +18,9 @@
                     <b> Added by: </b>
                     <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
                 </span>
-                
+                <span>
+                    <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+                </span>
             </div>
             @endforeach
             <div>

@@ -15,7 +15,12 @@ class VacanciesController extends BaseController {
                 
                 $creator = User::where('id',$vacancie->creator_id)->first();
                 $vacancie->creatorName = $creator->username;
+                
+                //cik daudz katrai vakancei pieteikušies
+                $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
             }
+
+            
             
             return View::make("vacancies/viewAllVacancies", array('vacancies'=> $vacancies));
         }else{
@@ -103,7 +108,8 @@ class VacanciesController extends BaseController {
             
             $creator = User::where('id',$vacancie->creator_id)->first();
             $vacancie->creatorName = $creator->username;
-                
+            $vacancie->applied = Application::where('vacancie_id',$id)->count();
+            
             return View::make("vacancies/view", array('vacancie'=> $vacancie));
         }else{
             Session::flash('message-fail','No vacancie with such ID');
@@ -119,6 +125,12 @@ class VacanciesController extends BaseController {
             $vacancieCount = Vacancie::where('creator_id',Auth::user()->id)->count();
             $vacancies = Vacancie::where('creator_id',Auth::user()->id)->paginate(10);
             $vacancies->count = $vacancieCount;
+            
+            //cik daudz katrai vakancei pieteikušies
+            foreach ($vacancies as $vacancie){
+                $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
+            }
+            
             
             return View::make("vacancies/myVacancies", array('vacancies'=> $vacancies));
         }
