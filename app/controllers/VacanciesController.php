@@ -216,7 +216,7 @@ class VacanciesController extends BaseController {
     
     public function deleteAction($id)
     {
-        //if admin or editing own vacancie
+        //if admin or deleting own vacancie
         if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
 

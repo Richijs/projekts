@@ -195,5 +195,63 @@ class SeekersController extends BaseController {
     }
     
     
+    public function deleteAction($id)
+    {
+        //if admin or deleting own job seek
+        if((Auth::check() && Auth::user()->userGroup==3 && Seeker::where('id',$id)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        {
+
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "checkbox" => "required"
+                ]);
+                
+                if ($validator->passes())
+                {
+                    $seeker = Seeker::find($id);
+                    
+                    $checkbox = Input::get('checkbox');
+                    
+                    if($checkbox)
+                    {                            
+                        if($seeker->delete())
+                        {
+                            Session::flash('message-success','Job Seek data for: "'.$seeker->intro.'" deleted succesfully');
+                            return Redirect::route("seekers/viewAllSeekers");                                
+                        }else{
+                            //varbūt pielikt else?
+                            Session::flash('message-fail','something went wrong, could not delete job seek');
+                            return Redirect::route("seekers/viewAllSeekers");  
+                        }
+                    }
+                }
+                
+                $seeker = Seeker::find($id);
+                $data["id"] = $seeker->id;
+                $data["intro"] = $seeker->intro;  
+                $data["errors"] = $validator->errors();
+                Session::flash('message-fail','Could not delete job seek');
+                return Redirect::to("/deleteJobSeek/{$id}")->with($data);
+                
+            }
+        
+            if(Seeker::find($id)){
+                $seeker = Seeker::find($id);
+                $data["id"] = $seeker->id;
+                $data["intro"] = $seeker->intro;   
+                return View::make("seekers/delete")->with($data); 
+            }else{
+                Session::flash('message-fail','No job seek with such ID');
+                return Redirect::route("seekers/viewAllSeekers");
+            }  
+            
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }
+    }    
+    
+    
     
 }

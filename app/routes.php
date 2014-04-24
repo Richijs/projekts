@@ -234,7 +234,17 @@ Route::group(["before" => "seeker"], function()
             "uses" => "SeekersController@editAction"
         ])->where('id','[0-9]+');
         
+        Route::post("/deleteJobSeek/{id}", [
+            "as"   => "seekers/delete",
+            "uses" => "SeekersController@deleteAction"
+        ])->where('id','[0-9]+');
+        
     });
+    
+    Route::get("/deleteJobSeek/{id}", [
+        "as"   => "seekers/delete",
+        "uses" => "SeekersController@deleteAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/editJobSeek/{id}", [
         "as"   => "seekers/edit",

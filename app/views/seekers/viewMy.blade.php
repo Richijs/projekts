@@ -15,7 +15,9 @@
                 <div>
                     {{{$seeker->text}}}
                 </div>
-                
+                <div>
+                    <a href="{{ URL::to("/editJobSeek/".$seeker->id) }}">Edit job seek data</a>
+                </div>
             </div>
         @else
             <div>You have'nt added your job seeker data yet</div>
