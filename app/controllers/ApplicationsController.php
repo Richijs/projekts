@@ -112,8 +112,8 @@ class ApplicationsController extends BaseController {
         if(Application::find($applicationId)){
             
             $application = Application::find($applicationId);
-            $vacancie = Vacancie::where('id',$application->vacancie_id);
-            $seeker = Seeker::where('user_id',$application->user_id);
+            $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
+            $seeker = Seeker::where('user_id',$application->user_id)->first();
             
             return View::make("applications/view", array('application'=> $application,'vacancie'=>$vacancie,'seeker'=>$seeker));
         }else{
