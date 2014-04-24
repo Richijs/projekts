@@ -38,6 +38,7 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "VacanciesController@viewAction"
     ])->where('id','[0-9]+');
     
+    //varētu ielikt tikai autorizētiem useriem
     Route::get("/viewSeeker/{id}", [
         "as"   => "seekers/view/{id}",
         "uses" => "SeekersController@viewAction"
@@ -55,6 +56,7 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "VacanciesController@viewAllAction"
     ]);
     
+    //varētu ielikt tikai autorizētiem lietotājiem
     Route::get("/viewAllSeekers", [
         "as"   => "seekers/viewAllSeekers",
         "uses" => "SeekersController@viewAllAction"
@@ -227,8 +229,17 @@ Route::group(["before" => "seeker"], function()
             "uses" => "SeekersController@AddAction"
         ]);
        
+        Route::post("/editJobSeek/{id}", [
+            "as"   => "seekers/edit",
+            "uses" => "SeekersController@editAction"
+        ])->where('id','[0-9]+');
         
     });
+    
+    Route::get("/editJobSeek/{id}", [
+        "as"   => "seekers/edit",
+        "uses" => "SeekersController@editAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/myJobSeek", [
         "as"   => "seekers/viewMy",

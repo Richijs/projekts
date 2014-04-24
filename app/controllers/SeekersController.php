@@ -121,5 +121,79 @@ class SeekersController extends BaseController {
         return Redirect::route("home");
     }
     
+    //todo fix smth
+    public function editAction($id)
+    {
+        //if admin or editing own job seek
+        if((Auth::check() && Auth::user()->userGroup==3 && Seeker::where('id',$id)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        {
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $seekerId = Seeker::where('id',$id)->first();
+            
+                $validator = Validator::make(Input::all(), [
+                    "intro" => "required|min:3|max:100",
+                    "text" => "required|min:10|max:500",
+                    "cv" => "max:3000|mimes:pdf,doc,docx,odt" //vairs nav required, jo var būt, ka nevēlas mainīt cv
+                ]);
+                if ($validator->passes())
+                {   
+                    $seeker = Seeker::find($id);
+                    $seeker->intro = Input::get('intro');
+                    $seeker->text = Input::get('text');
+                                  
+                        if(Input::hasfile('cv'))
+                        {
+                            
+                            $file = Input::file('cv');
+                            $fileName = str_random(30).time();
+                            //$publicPath = public_path('uploads/jobSeekerCVs/');
+                                                              
+                            $file->move('uploads/jobSeekerCVs',$fileName.'.'.$file->getClientOriginalExtension());      
+                            $seeker->cv = 'uploads/jobSeekerCVs/'.$fileName.'.'.$file->getClientOriginalExtension();
+                        }                    
+                    
+                    if($seeker->save())
+                    {
+                    
+                        if($seeker->creator_id==Auth::user()->id){ //ja editoja sevi
+                            Session::flash('message-success','Edited Your Job Seek data successfully');
+                            return Redirect::route("seekers/viewMy");
+                        }else{  //ja admins editoja kādu citu
+                            Session::flash('message-success','Edited Job seek data for: "'.$seeker->intro.'"  successfully');
+                            return Redirect::to("/viewSeeker/{$id}");
+                        }
+                    }
+                
+                }
+            
+                $data["errors"] = $validator->errors();
+                $data["id"] = $seekerId->id;
+                $data["intro"] = Input::get("intro");
+                $data["text"] = Input::get("text");
+                Session::flash('message-fail','Editing Job Seek was not successfull');
+                return Redirect::to("/editJobSeek/{$id}")->withInput($data)->with($data);
+            }
+        
+            if(Seeker::find($id)){
+                $seeker = Seeker::find($id);
+                $data["id"] = $seeker->id;
+                $data["intro"] = $seeker->intro;
+                $data["text"] = $seeker->text;
+                return View::make("/seekers/edit")->with($data);
+            }else{
+                Session::flash('message-fail','No Seeker with such ID');
+                return Redirect::route("seekers/viewAllSeekers");
+            }
+    
+  
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }    
+        
+    }
+    
+    
     
 }
