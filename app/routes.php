@@ -144,6 +144,10 @@ Route::group(["before" => "auth"], function()
         
     });
     
+    Route::get("/viewApplication/{applicationId}", [
+        "as"   => "applications/view",
+        "uses" => "ApplicationsController@viewAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/deleteUser/{id}", [
         "as"   => "users/delete",

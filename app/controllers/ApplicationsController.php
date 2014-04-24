@@ -106,10 +106,20 @@ class ApplicationsController extends BaseController {
         
     }
     
-    public function Action()
+    public function viewAction($applicationId)
     {
-        
-        
+        //Jāuztaisa lai Var apskatīt ADMINS,PATS un KONKRĒTĀ DARBA DEVĒJS
+        if(Application::find($applicationId)){
+            
+            $application = Application::find($applicationId);
+            $vacancie = Vacancie::where('id',$application->vacancie_id);
+            $seeker = Seeker::where('user_id',$application->user_id);
+            
+            return View::make("applications/view", array('application'=> $application,'vacancie'=>$vacancie,'seeker'=>$seeker));
+        }else{
+            Session::flash('message-fail','No application with such ID');
+            return Redirect::route("home");
+        }
         
     }
     
