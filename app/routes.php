@@ -239,7 +239,17 @@ Route::group(["before" => "seeker"], function()
             "uses" => "SeekersController@deleteAction"
         ])->where('id','[0-9]+');
         
+        Route::post("/apply/{vacancieId}", [
+            "as"   => "applications/apply",
+            "uses" => "ApplicationsController@applyAction"
+        ])->where('vacancieId','[0-9]+');
+        
     });
+    
+    Route::get("/apply/{vacancieId}", [
+        "as"   => "applications/apply",
+        "uses" => "ApplicationsController@applyAction"
+    ])->where('vacancieId','[0-9]+');
     
     Route::get("/deleteJobSeek/{id}", [
         "as"   => "seekers/delete",
