@@ -29,6 +29,7 @@ class UsersController extends BaseController {
                     "active" => 1
                 ];
                 
+                //will make a remember cookie
                 $remember = (Input::has('remember')) ? true : false;
                 
                 if (Auth::attempt($credentials,$remember))
