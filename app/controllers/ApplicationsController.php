@@ -171,8 +171,8 @@ class ApplicationsController extends BaseController {
     
     public function deleteAction($applicationId)
     {
-        //if admin or deleting own job seek
-        if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        //if admin or deleting own application
+        if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first() || Auth::user()->userGroup==1))
         {
 
             if (Input::server("REQUEST_METHOD") == "POST")
@@ -234,6 +234,65 @@ class ApplicationsController extends BaseController {
         }
     
     }
+    
+    
+    public function editAction($applicationId)
+    {
+        //if admin or deleting own application
+        if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first() || Auth::user()->userGroup==1))
+        {
+
+                if (Input::server("REQUEST_METHOD") == "POST")
+                {
+                                       
+                    $validator = Validator::make(Input::all(), [
+                        "letter" => "required|min:10|max:1000",
+                    ]);
+                    
+                if ($validator->passes())
+                {   
+                    $application = Application::find($applicationId);
+                    $application->letter = Input::get('letter');                  
+                            
+                    if($application->save())
+                    {
+                            Session::flash('message-success','edited Application successfully');
+                            return Redirect::to("/viewApplication/{$applicationId}");
+                    }
+                    //varbūt else?
+                
+                }
+            
+                $application = Application::find($applicationId); //varbūt uztaisīt globālāku metodē
+                
+                $data["errors"] = $validator->errors();
+                $data["applicationId"] = $application->id;
+                $data["vacancieId"] = $application->vacancie_id;
+                $data["letter"] = Input::get("letter");
+                Session::flash('message-fail','Editing Application was not successfull');
+                return Redirect::to("/editApplication/{$applicationId}")->withInput($data)->with($data);
+                }
+        
+            if(Application::find($applicationId)){
+                $application = Application::find($applicationId);
+                
+                $data["applicationId"] = $application->id;
+                $data["vacancieId"] = $application->vacancie_id;
+                $data["letter"] = $application->letter;
+                return View::make("/applications/edit")->with($data);
+            }else{
+                Session::flash('message-fail','No application with such ID');
+                return Redirect::route("home");
+            }
+    
+  
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }    
+        
+    }
+    
     
     
 }

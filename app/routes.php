@@ -260,7 +260,17 @@ Route::group(["before" => "seeker"], function()
             "uses" => "ApplicationsController@deleteAction"
         ])->where('id','[0-9]+');
         
+        Route::post("/editApplication/{applicationId}", [
+            "as"   => "applications/edit",
+            "uses" => "ApplicationsController@editAction"
+        ])->where('id','[0-9]+');  
+        
     });
+    
+    Route::get("/editApplication/{applicationId}", [
+        "as"   => "applications/edit",
+        "uses" => "ApplicationsController@editAction"
+    ])->where('id','[0-9]+');    
     
     Route::get("/deleteApplication/{applicationId}", [
         "as"   => "applications/delete",

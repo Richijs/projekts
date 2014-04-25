@@ -10,7 +10,7 @@
         {{{$applicationLetter}}}
     </div>
     
-    <h3>To delete Application, Confirm deletionn</h3>
+    <h3>To delete Application, Confirm deletion</h3>
 
     {{ Form::open([
         //"url"          => URL::route("applications/delete"),
