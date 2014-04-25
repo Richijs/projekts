@@ -151,7 +151,13 @@ class ApplicationsController extends BaseController {
                 $applications = Application::where('vacancie_id',$vacancieId)->paginate(10);
                 
                 $applications->count = $applicantCount;
-            
+                $applications->vacancie = Vacancie::find($vacancieId);
+                foreach ($applications as $application){
+                    
+                    $user = User::find($application->user_id);
+                    $application->user = $user;
+                    
+                }
             
             return View::make("applications/viewApplicants", array('applications'=> $applications));
         

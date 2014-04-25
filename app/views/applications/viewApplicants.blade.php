@@ -1,6 +1,8 @@
 @extends("layout")
 @section("content")
-    <h2>Your applicants , {{{ Auth::user()->username }}}</h2>
+    <h2>Your applicants , {{{ Auth::user()->username }}} for 
+        <a href="/viewVacancie/{{{$applications->vacancie->id}}}">{{{$applications->vacancie->name}}}</a>
+    </h2>
     <div>
         @if (isset($applications))
         <h3>
@@ -8,6 +10,7 @@
         </h3>
             @foreach ($applications as $application)
             <div>
+                <a href="/viewUser/{{{$application->user->id}}}">{{{$application->user->username}}}'s</a>
                 <a href="/viewApplication/{{{$application->id}}}">application</a>
                 
                 <span><b>applied at:</b> {{{ date('d.m.y H:i',strtotime($application->created_at)) }}}</span>
