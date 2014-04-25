@@ -169,7 +169,71 @@ class ApplicationsController extends BaseController {
             }
     }
     
+    public function deleteAction($applicationId)
+    {
+        //if admin or deleting own job seek
+        if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
+        {
+
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {
+                $validator = Validator::make(Input::all(), [
+                    "checkbox" => "required"
+                ]);
+                
+                if ($validator->passes())
+                {
+                    $application = Application::find($applicationId);
+                    
+                    $checkbox = Input::get('checkbox');
+                    
+                    if($checkbox)
+                    {                            
+                        if($application->delete())
+                        {
+                            Session::flash('message-success','Application with Id: "'.$application->id.'" deleted succesfully');
+                            return Redirect::route("applications/viewMy");                                
+                        }else{
+                            //varbūt pielikt else?
+                            Session::flash('message-fail','something went wrong, could not delete application');
+                            return Redirect::route("home");  
+                        }
+                    }
+                }
+                
+                $application = Application::find($applicationId);
+                $vacancie = Vacancie::find($application->vacancie_id);
+                
+                $data["applicationId"] = $applicationId;
+                $data["applicationLetter"] = $application->letter;
+                $data["vacancieId"] = $vacancie->id;
+                $data["vacancieName"] = $vacancie->name;
+                $data["errors"] = $validator->errors();
+                Session::flash('message-fail','Could not delete applicationk');
+                return Redirect::to("/deleteApplication/{$applicationId}")->with($data);
+                
+            }
+        
+            if(Application::find($applicationId)){
+                $application = Application::find($applicationId);
+                $vacancie = Vacancie::find($application->vacancie_id);
+                
+                $data["applicationId"] = $applicationId;
+                $data["applicationLetter"] = $application->letter;
+                $data["vacancieId"] = $vacancie->id;
+                $data["vacancieName"] = $vacancie->name;
+                return View::make("applications/delete")->with($data); 
+            }else{
+                Session::flash('message-fail','No application with such ID');
+                return Redirect::route("home");
+            }  
+            
+        }else{
+            Session::flash('message-fail','No Access to action');
+            return Redirect::route("home");
+        }
     
+    }
     
     
 }

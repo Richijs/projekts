@@ -11,7 +11,7 @@
         {{ Form::checkbox("checkbox", 1 ,[
             
         ]) }}
-        {{ Form::label("checkbox","I Wish to delete this vaccancie") }}
+        {{ Form::label("checkbox","I Wish to delete my job seeker data") }}
         
         @if ($error = $errors->first("checkbox"))
             <div class="error">
