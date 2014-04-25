@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Support\MessageBag;
+//use Illuminate\Support\MessageBag;
 
 class ApplicationsController extends BaseController {
     

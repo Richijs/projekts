@@ -14,6 +14,10 @@
         {{ Form::password("password", [
             "placeholder" => "password"
         ]) }}
+        {{ Form::checkbox("remember",true ,[
+            //
+        ]) }}
+        {{ Form::label("remember","remember me") }}
         @if ($error = $errors->first("password"))
             <div class="error">
                 {{ $error }}

@@ -29,7 +29,9 @@ class UsersController extends BaseController {
                     "active" => 1
                 ];
                 
-                if (Auth::attempt($credentials))
+                $remember = (Input::has('remember')) ? true : false;
+                
+                if (Auth::attempt($credentials,$remember))
                 {                    
                         Session::flash('message-success','Succesfully logged in');                    
                         return Redirect::route("users/profile");                  

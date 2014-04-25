@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\MessageBag;
-use Illuminate\Routing\Redirector;
+//use Illuminate\Support\MessageBag;
+//use Illuminate\Routing\Redirector;
 
 class SeekersController extends BaseController {
         
