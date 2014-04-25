@@ -264,8 +264,11 @@ class ApplicationsController extends BaseController {
                 }
             
                 $application = Application::find($applicationId); //varbūt uztaisīt globālāku metodē
+                $user = User::find($application->user_id);
                 
                 $data["errors"] = $validator->errors();
+                $data["userId"] = $user->id;
+                $data["userName"] = $user->username;
                 $data["applicationId"] = $application->id;
                 $data["vacancieId"] = $application->vacancie_id;
                 $data["letter"] = Input::get("letter");
@@ -275,7 +278,10 @@ class ApplicationsController extends BaseController {
         
             if(Application::find($applicationId)){
                 $application = Application::find($applicationId);
+                $user = User::find($application->user_id);
                 
+                $data["userId"] = $user->id;
+                $data["userName"] = $user->username;
                 $data["applicationId"] = $application->id;
                 $data["vacancieId"] = $application->vacancie_id;
                 $data["letter"] = $application->letter;

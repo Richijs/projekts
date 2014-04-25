@@ -149,7 +149,7 @@ class VacanciesController extends BaseController {
         {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
-                $vacancieId = Vacancie::where('id',$id)->first();
+                $vacancieId = Vacancie::find($id);
             
                 $validator = Validator::make(Input::all(), [
                     "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
@@ -190,10 +190,10 @@ class VacanciesController extends BaseController {
                     
                         if($vacancie->creator_id==Auth::user()->id){ //ja editoja sevi
                             Session::flash('message-success','Edited Your Vacancie successfully');
-                            return Redirect::route("users/profile");
+                            return Redirect::route("vacancies/myVacancies");
                         }else{  //ja admins editoja kādu citu
                             Session::flash('message-success','Edited Vacancie: "'.$vacancie->name.'"  successfully');
-                            return Redirect::to("/viewUser/{$id}");
+                            return Redirect::to("/viewVacancie/{$id}");
                         }
                     }
                 
@@ -201,6 +201,7 @@ class VacanciesController extends BaseController {
             
                 $data["errors"] = $validator->errors();
                 $data["id"] = $vacancieId->id;
+                $data["poster"] = $vacancieId->poster;
                 $data["name"] = Input::get("name");
                 $data["text"] = Input::get("text");
                 Session::flash('message-fail','Editing Vacancie was not successfull');
@@ -210,6 +211,7 @@ class VacanciesController extends BaseController {
             if(Vacancie::find($id)){
                 $vacancie = Vacancie::find($id);
                 $data["id"] = $vacancie->id;
+                $data["poster"] = $vacancie->poster;
                 $data["name"] = $vacancie->name;
                 $data["text"] = $vacancie->text;
                 return View::make("/vacancies/edit")->with($data);

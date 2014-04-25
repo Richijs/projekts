@@ -33,6 +33,16 @@
         @endif
     </div>   
     
+    @if ($poster)
+        <div>Current poster
+            <img src="{{URL::to('/')}}/{{{$poster}}}" width="100" alt="vacancie poster"/>
+        </div>
+    @else
+        <div>
+            No poster currently uploaded
+        </div>    
+    @endif
+    
     <div>   
         {{ Form::label("poster", "Vacancie Poster") }}
         {{ Form::file("poster", Input::file("poster"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(

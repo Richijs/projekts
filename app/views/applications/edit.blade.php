@@ -1,6 +1,7 @@
 @extends("layout")
 @section("content")
     <h2>Editing 
+        <a href="/viewUser/{{{$userId}}}">{{{$userName}}}</a>'s
         <a href="/viewApplication/{{{$applicationId}}}">application</a>
         for:
         <a href="/viewVacancie/{{{$vacancieId}}}">this vakancie</a>
