@@ -139,5 +139,30 @@ class ApplicationsController extends BaseController {
     }
     
     
+    public function viewApplicantsAction($vacancieId)
+    {
+        if(Auth::user()->userGroup==1 || Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first()){
+            if(!Vacancie::find($vacancieId)){
+                Session::flash('message-fail','No application with such ID');
+                return Redirect::route("vacancies/myVacancies");
+            }
+        
+                $applicantCount = Application::where('vacancie_id',$vacancieId)->count();
+                $applications = Application::where('vacancie_id',$vacancieId)->paginate(10);
+                
+                $applications->count = $applicantCount;
+            
+            
+            return View::make("applications/viewApplicants", array('applications'=> $applications));
+        
+         
+         }else{
+                Session::flash('message-fail','Not authorized to do this');
+                return Redirect::route("home");
+            }
+    }
+    
+    
+    
     
 }

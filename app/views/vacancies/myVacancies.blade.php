@@ -19,7 +19,9 @@
                 @endif
                 
                 <span>
-                    <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+                    <a href="/viewApplicants/{{{$vacancie->id}}}">
+                        <b>Applied for this Vacancie:</b>{{{$vacancie->applied}}}
+                    </a>
                 </span>
             </div>
             @endforeach

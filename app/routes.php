@@ -210,6 +210,13 @@ Route::group(["before" => "employer"], function()
         "uses" => "VacanciesController@editAction"
     ])->where('id','[0-9]+');    
     
+    
+    Route::get("/viewApplicants/{vacancieId}", [
+        "as"   => "applications/viewApplicants",
+        "uses" => "ApplicationsController@viewApplicantsAction"
+    ])->where('id','[0-9]+');  
+    
+    
     Route::get("/myVacancies", [
         "as"   => "vacancies/myVacancies",
         "uses" => "vacanciesController@MyVacanciesAction"
