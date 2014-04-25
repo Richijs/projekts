@@ -18,4 +18,6 @@ php artisan migrate:make --table="seekers" CreateSeekersTable
 
 php artisan migrate:make --table="applications" CreateApplicationsTable
 
+php artisan migrate:make --table="recommendations" CreateRecommendationsTable
+
 jauztaisa file delete pie profila dzesanas

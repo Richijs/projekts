@@ -44,7 +44,7 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "SeekersController@viewAction"
     ])->where('id','[0-9]+');
      
-    Route::get('/getCV/{id}', 'SeekersController@getCVAction')->where('id','[0-9]+'); //divas pieejamas valodas
+    Route::get('/getCV/{id}', 'SeekersController@getCVAction')->where('id','[0-9]+'); //DL cv
 
     Route::get("/viewAllUsers", [
         "as"   => "users/viewAllUsers",
@@ -143,6 +143,8 @@ Route::group(["before" => "auth"], function()
         ]);
         
     });
+    
+    Route::get('/recommend/{employerId}', 'RecommendationsController@recommendAction')->where('id','[0-9]+');    
     
     Route::get("/viewApplication/{applicationId}", [
         "as"   => "applications/view",

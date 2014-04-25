@@ -19,6 +19,9 @@
                     <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
                 </span>
                 <span>
+                    <a href="/recommend/{{{$vacancie->creator_id}}}">Recommend</a>
+                </span>
+                <span>
                     <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
                 </span>
             </div>

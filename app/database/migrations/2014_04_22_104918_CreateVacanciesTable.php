@@ -17,6 +17,7 @@ class CreateVacanciesTable extends Migration {
                     //ar laiku jāsamaina korekti
                 $table->increments("id");
                 $table->string("name")->nullable()->default(null);
+                $table->string("company")->nullable()->default(null);
                 $table->string("poster")->nullable()->default(null);
                 $table->string("text","500")->nullable()->default(null);
                 $table->integer('creator_id')->unsigned();
