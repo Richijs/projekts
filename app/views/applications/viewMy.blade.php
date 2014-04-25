@@ -12,6 +12,7 @@
                 
                 <span><b>applied at:</b> {{{ date('d.m.y H:i',strtotime($application->created_at)) }}}</span>
   
+                <a href="/viewApplication/{{{$application->id}}}">View Your application</a>
                 
             </div>
             @endforeach

@@ -121,7 +121,8 @@ class ApplicationsController extends BaseController {
   
             
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
-            
+            //vajag arī padot user
+                
                 return View::make("applications/view", array('application'=> $application,'vacancie'=>$vacancie,'seeker'=>$seeker));
         
             

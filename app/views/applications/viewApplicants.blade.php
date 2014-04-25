@@ -10,11 +10,11 @@
         </h3>
             @foreach ($applications as $application)
             <div>
-                <a href="/viewUser/{{{$application->user->id}}}">{{{$application->user->username}}}'s</a>
-                <a href="/viewApplication/{{{$application->id}}}">application</a>
-                
+                <a href="/viewUser/{{{$application->user->id}}}">{{{$application->user->username}}}</a>
+            
                 <span><b>applied at:</b> {{{ date('d.m.y H:i',strtotime($application->created_at)) }}}</span>
-  
+                <a href="/viewApplication/{{{$application->id}}}">view {{{$application->user->username}}}'s application</a>
+
                 
             </div>
             @endforeach
