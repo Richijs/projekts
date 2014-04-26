@@ -21,6 +21,18 @@ class HomeController extends BaseController {
         $topVacancies = $vacancies->sortBy('applied')->reverse()->take(5);
         
         
-        return View::make("home",array('topVacancies'=>$topVacancies));
+        
+        
+        $employers = User::where('userGroup','<>',3)->get();
+        
+        foreach($employers as $employer){
+          
+            $employer->recommendations = Recommendation::where('employer_id',$employer->id)->count();
+            
+        }
+              
+        $topEmployers = $employers->sortBy('recommendations')->reverse()->take(5);
+        
+        return View::make("home",array('topVacancies'=>$topVacancies,'topEmployers'=>$topEmployers));
     }
 }

@@ -27,5 +27,15 @@
     </div> 
     @endforeach
     
+    <h3>top 5 employers</h3>
+    @foreach ($topEmployers as $employer)
+    <div>
+        <b>{{{$employer->username}}}</b>
+        
+        {{{$employer->recommendations}}} recommendations
+        
+    </div>
+    @endforeach
+    
     
 @stop
