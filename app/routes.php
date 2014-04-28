@@ -17,9 +17,19 @@
 
 //aizsargāts no csrf(xsrf?) uzbrukumiem
 Route::group(["before" => "csrf"], function(){
+    //globālie post route
     
-    //pagaidām nav neviena globālā POST route
+    Route::post("/contactAdmin", [
+        "as"   => "messaging/contact",
+        "uses" => "MessagingController@contactAction"
+    ]);   
+    
 });
+
+    Route::get("/contactAdmin", [
+        "as"   => "messaging/contact",
+        "uses" => "MessagingController@contactAction"
+    ]);
 
     Route::get("/", [
         "as"   => "home",

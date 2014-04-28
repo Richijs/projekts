@@ -1,16 +1,18 @@
-<!-- Epasts, kas tiek izsūtīts, kad lietotājs tiek reģistrēts -->
+<!-- Epasts, kas tiek izsūtīts, kad lietotājs aktivizē savu account -->
 
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="{{ Config::get('app.locale') }}">
     <head>
         <meta charset="utf-8" />
     </head>
     <body>
-        <h1>Registration successfull, {{{$username}}}</h1>
-        
-        COngratz! YOu registered here!
+        <h1>Activate your account, {{{ $username }}}</h1>
+        To activate your account, complete this action:
         <div>   
-            <a href="{{ URL::route("home") }}">{{ URL::route("home") }}</a>
+            <a href="{{ URL::to("/activate") . "?code=" . $code."&id=".$id }}">HERE..... (Click on me)</a>
+        </div>
+        <div>
+            If you didnt request this action, ignore and delete this e-mail
         </div>
     </body>
 </html>

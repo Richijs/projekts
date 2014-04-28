@@ -22,3 +22,5 @@ php artisan migrate:make --table="recommendations" CreateRecommendationsTable
 
 jauztaisa file delete pie profila dzesanas
 VISUR, KUR JĀATTĒLO TEXTAREA AR LINE BREAKIEM - cssā->  white-space:pre-line;    !!!!!!!!!!!!!!!!!!!!!!!!
+
+jauztaisa lai admins var mainit usergroupas uz ADMIN UTT!

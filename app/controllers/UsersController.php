@@ -222,7 +222,7 @@ class UsersController extends BaseController {
                 if($user->save())
                 {
  
-                Mail::send('emails.activate', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
+                Mail::send('emails.register', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
                     $message->from("sender@yopmail.com", "sender"); // no
                     $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
                 });
@@ -275,7 +275,7 @@ class UsersController extends BaseController {
                         
             if($user->save()){
                                                                                  //use - lai varētu piekļūt mainīgajam
-                Mail::send('emails.register', array('username'=>$user->username), function($message) use ($user) {
+                Mail::send('emails.activate', array('username'=>$user->username), function($message) use ($user) {
                     $message->from("sender@yopmail.com", "sender"); // no
                     $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
                 });
@@ -334,7 +334,7 @@ class UsersController extends BaseController {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
-                    "username" => "required|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
+                    "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
                     "email" => "required|email|unique:users,email,".$id
                ]);
                 if ($validator->passes())
@@ -497,12 +497,24 @@ class UsersController extends BaseController {
                     
                         if(Hash::check($password,Auth::user()->getAuthPassword())){
                             
-                            //Ja izdzēš vacancies, vajag arī izdzēst tam piesaistītās applications!!!
-                            //šis netraucē arī "jobseeker" lietotāju tipam
-                            $vacancies = Vacancie::where('creator_id',$id); //first deletes vacancies
-                            $vacancies->delete();
+                            //Ja izdzēš vacancies, vajag arī izdzēst tam piesaistītās applications & pārējo!!!
+                            //šim nevajag traucēt arī "jobseeker" lietotāju tipam
                             $recommendations = Recommendation::where('employer_id',$id); //also recommendations
-                            $recommendations->delete();
+                            $recommendations->delete(); 
+                            $myRecommendations = Recommendation::where('user_id',$id); //also recommendations
+                            $myRecommendations->delete(); 
+                            $applications = Application::where('user_id',$id);
+                            $applications->delete(); 
+                            $seekers = Seeker::where('user_id',$id);
+                            $seekers->delete();
+                            
+                            $vacancies = Vacancie::where('creator_id',$id)->get(); //own vacancies
+                            foreach($vacancies as $vacancie){
+                                $eachApp = Application::where('vacancie_id',$vacancie->id);
+                                $eachApp->delete();
+                            }
+                            $allVacs = Vacancie::where('creator_id',$id);
+                            $allVacs->delete();
                             
                             if($user->delete()){
                                     Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');

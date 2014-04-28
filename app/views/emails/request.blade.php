@@ -1,7 +1,7 @@
 <!-- Epasts, kas tiek izsūtīts, kad nepieciešama paroles maiņa -->
 
 <!DOCTYPE html>
-<html lang="lv">
+<html lang="{{ Config::get('app.locale') }}">
     <head>
         <meta charset="utf-8" />
     </head>

@@ -23,6 +23,10 @@
                     About
                 </a>
                 |
+                <a href="{{ URL::route("messaging/contact") }}">
+                    Contact Admin
+                </a>
+                |
             @if (Auth::check())
                 Logged in as:
                 <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">
