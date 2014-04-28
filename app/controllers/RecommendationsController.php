@@ -15,8 +15,15 @@ class RecommendationsController extends BaseController {
         
         if (Auth::check() && Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId)->first())
         {
-            Session::flash('message-info','Already recommended this employer');
-            return Redirect::back();
+            $recommendation = Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId);
+            
+            if($recommendation->delete()){
+                Session::flash('message-info','Unrecommended Employer');
+                return Redirect::back();
+            }else{
+                Session::flash('message-fail','could not unrecommend Employer');
+                return Redirect::back();
+            }
         }
         
         

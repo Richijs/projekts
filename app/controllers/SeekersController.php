@@ -56,8 +56,8 @@ class SeekersController extends BaseController {
         return View::make("seekers/add");
        
     }else{
-        Session::flash('message-fail','No Access to action or already added a jobseek');
-        return Redirect::route("home");
+        Session::flash('message-fail','No Access to action or already added Your jobseek data');
+        return Redirect::route("users/profile");
         }    
     }
     
