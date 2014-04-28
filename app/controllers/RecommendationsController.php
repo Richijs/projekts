@@ -40,6 +40,7 @@ class RecommendationsController extends BaseController {
         return Redirect::back();
     }
     
+    //users, who recommended this user
     public function viewRecommendersAction($userId)
     {
         if(!User::find($userId)){
@@ -57,19 +58,50 @@ class RecommendationsController extends BaseController {
         
         if($recCount){
             
-            $recommendations = Recommendation::where('employer_id',$userId)->paginate(10);
+            $recommenders = Recommendation::where('employer_id',$userId)->paginate(10);
             $employer = User::find($userId);
             
-            foreach($recommendations as $recommendation){
+            foreach($recommenders as $recommender){
             
-                $recommendation->user = User::find($recommendation->user_id);
+                $recommender->user = User::find($recommender->user_id);
             }
         
-            return View::make("/recommendations/viewRecommenders",array('employer'=>$employer,'recommendations'=>$recommendations));
+            return View::make("/recommendations/viewRecommenders",array('employer'=>$employer,'recommenders'=>$recommenders));
         }else{
             $employer = User::find($userId);
             return View::make("/recommendations/viewRecommenders",array('employer'=>$employer));
         }
     }
+    
+    //users, who this user has recommended
+    public function viewRecommendationsAction($userId)
+    {
+        if(!User::find($userId)){
+            Session::flash('message-fail','No user with such ID');
+            return Redirect::route("home");
+        }
+        
+        $recCount = Recommendation::where('user_id',$userId)->count();
+        
+        if($recCount){
+            
+            $recommendations = Recommendation::where('user_id',$userId)->paginate(10);
+            $user = User::find($userId);
+            
+            foreach($recommendations as $recommendation){
+            
+                $recommendation->user = User::find($recommendation->employer_id);
+            }
+        
+            return View::make("/recommendations/viewRecommendations",array('user'=>$user,'recommendations'=>$recommendations));
+        }else{
+            $user = User::find($userId);
+            return View::make("/recommendations/viewRecommendations",array('user'=>$user));
+        }
+        
+        
+        
+    }
+    
     
 }

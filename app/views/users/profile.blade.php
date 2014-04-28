@@ -13,6 +13,8 @@
         <a href="{{{ URL::to("/myVacancies") }}}">My Vacancies</a>
         <br>
         <a href="{{{ URL::to("/viewRecommenders/".Auth::user()->id) }}}">Users who recommended me</a>
+        <br>
+        <a href="{{{ URL::to("/viewRecommendations/".Auth::user()->id) }}}">Users who I have recommended</a>
     @endif
     <br>
     @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)

@@ -51,6 +51,16 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "UsersController@viewAllAction"
     ]);
     
+    Route::get("/viewRecommenders/{userId}", [
+        "as"   => "recommendations/viewRecommenders",
+        "uses" => "RecommendationsController@viewRecommendersAction"
+    ])->where('id','[0-9]+');
+    
+    Route::get("/viewRecommendations/{userId}", [
+        "as"   => "recommendations/viewRecommendations",
+        "uses" => "RecommendationsController@viewRecommendationsAction"
+    ])->where('id','[0-9]+');
+    
     Route::get("/viewAllVacancies", [
         "as"   => "vacancies/viewAllVacancies",
         "uses" => "VacanciesController@viewAllAction"
@@ -145,12 +155,7 @@ Route::group(["before" => "auth"], function()
     });
     
     Route::get('/recommend/{employerId}', 'RecommendationsController@recommendAction')->where('id','[0-9]+');    
-    
-    Route::get("/viewRecommenders/{userId}", [
-        "as"   => "recommendations/viewRecommenders",
-        "uses" => "RecommendationsController@viewRecommendersAction"
-    ])->where('id','[0-9]+');
-    
+        
     Route::get("/viewApplication/{applicationId}", [
         "as"   => "applications/view",
         "uses" => "ApplicationsController@viewAction"

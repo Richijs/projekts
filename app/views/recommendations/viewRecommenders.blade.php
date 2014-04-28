@@ -1,22 +1,22 @@
 @extends("layout")
 @section("content")
-<h2>All who recommended <a href="/viewUser/{{{$employer->id}}}">{{{$employer->username}}}</a></h2>
+<h2>Users who recommended <a href="/viewUser/{{{$employer->id}}}">{{{$employer->username}}}</a></h2>
     <div>
-        @if (isset($recommendations))
-            @foreach ($recommendations as $recommendation)
+        @if (isset($recommenders))
+            @foreach ($recommenders as $recommender)
             <div>
                 
-                <a href="/viewUser/{{{$recommendation->user->id}}}">{{{$recommendation->user->username}}}</a>
+                <a href="/viewUser/{{{$recommender->user->id}}}">{{{$recommender->user->username}}}</a>
                 <b>at</b>
-                {{{$recommendation->created_at}}}
+                {{{$recommender->created_at}}}
                 
             </div>
             @endforeach
             <div>
-                {{$recommendations->links()}} <!-- pagination links -->
+                {{$recommenders->links()}} <!-- pagination links -->
             </div>
         @else
-            <div>No recommendations yet</div>
+            <div>No recommenders yet :(</div>
         @endif
     </div>
 @stop
