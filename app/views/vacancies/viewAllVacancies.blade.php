@@ -17,10 +17,13 @@
                 <span>
                     <b> Added by: </b>
                     <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
+                    <a href="/viewRecommenders/{{{$vacancie->creator_id}}}">({{{$vacancie->userRecommends}}})</a>
                 </span>
+                @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                 <span>
-                    <a href="/recommend/{{{$vacancie->creator_id}}}">Recommend</a>
+                    <a href="/recommend/{{{$vacancie->creator_id}}}">Recommend employer</a>
                 </span>
+                @endif
                 <span>
                     <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
                 </span>

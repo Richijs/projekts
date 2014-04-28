@@ -40,4 +40,36 @@ class RecommendationsController extends BaseController {
         return Redirect::back();
     }
     
+    public function viewRecommendersAction($userId)
+    {
+        if(!User::find($userId)){
+            Session::flash('message-fail','No Employer with such ID');
+            return Redirect::route("home");
+        }
+        
+        if(User::find($userId)->userGroup==3){
+            Session::flash('message-fail','This user is not an employer');
+            return Redirect::route("home");
+        }
+        
+        
+        $recCount = Recommendation::where('employer_id',$userId)->count();
+        
+        if($recCount){
+            
+            $recommendations = Recommendation::where('employer_id',$userId)->paginate(10);
+            $employer = User::find($userId);
+            
+            foreach($recommendations as $recommendation){
+            
+                $recommendation->user = User::find($recommendation->user_id);
+            }
+        
+            return View::make("/recommendations/viewRecommenders",array('employer'=>$employer,'recommendations'=>$recommendations));
+        }else{
+            $employer = User::find($userId);
+            return View::make("/recommendations/viewRecommenders",array('employer'=>$employer));
+        }
+    }
+    
 }

@@ -9,7 +9,7 @@
         </div>
     @endif
     <div>
-        {{{$vacancie->text}}}
+       {{{$vacancie->text}}}
     </div>
     <div>
         <b>Applied for this Vacancie:</b> {{{$vacancie->applied}}}

@@ -16,6 +16,8 @@ class VacanciesController extends BaseController {
                 $creator = User::where('id',$vacancie->creator_id)->first();
                 $vacancie->creatorName = $creator->username;
                 
+                //cik userim ir recommendo
+                $vacancie->userRecommends = Recommendation::where('employer_id',$creator->id)->count();
                 //cik daudz katrai vakancei pieteikušies
                 $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
             }

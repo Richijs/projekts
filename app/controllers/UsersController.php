@@ -501,6 +501,8 @@ class UsersController extends BaseController {
                             //šis netraucē arī "jobseeker" lietotāju tipam
                             $vacancies = Vacancie::where('creator_id',$id); //first deletes vacancies
                             $vacancies->delete();
+                            $recommendations = Recommendation::where('employer_id',$id); //also recommendations
+                            $recommendations->delete();
                             
                             if($user->delete()){
                                     Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');
