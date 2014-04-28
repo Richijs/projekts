@@ -21,7 +21,13 @@
                 </span>
                 @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                 <span>
-                    <a href="/recommend/{{{$vacancie->creator_id}}}">Recommend employer</a>
+                    <a href="/recommend/{{{$vacancie->creator_id}}}">
+                        @if ($vacancie->recommended)
+                            Cancel Employer Recommend
+                        @else
+                            Recommend employer
+                        @endif
+                    </a>
                 </span>
                 @endif
                 <span>

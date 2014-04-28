@@ -20,6 +20,12 @@ class VacanciesController extends BaseController {
                 $vacancie->userRecommends = Recommendation::where('employer_id',$creator->id)->count();
                 //cik daudz katrai vakancei pieteikušies
                 $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
+                
+                if(Auth::check()){
+                    if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
+                        $vacancie->recommended = true; //lai var displayot (recommend/unrecommend)
+                    }
+                }
             }
 
             
