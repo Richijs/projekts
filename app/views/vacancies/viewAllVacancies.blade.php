@@ -23,8 +23,8 @@
                 <span>
                     <a href="/recommend/{{{$vacancie->creator_id}}}">
                         @if ($vacancie->recommended)
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
                             <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
                         @else
                             <span class="glyphicon glyphicon-thumbs-up"></span>
                         @endif
