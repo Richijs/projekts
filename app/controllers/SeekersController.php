@@ -28,7 +28,7 @@ class SeekersController extends BaseController {
                     $seeker->user_id = Auth::user()->id;
                     
                     $file = Input::file('cv');
-                    $fileName = str_random(30).time();
+                    $fileName = Auth::user()->username.'__CV__'.str_random(30).time();
                     //$publicPath = public_path('uploads/jobSeekerCVs/');
                                                               
                     $file->move('uploads/jobSeekerCVs',$fileName.'.'.$file->getClientOriginalExtension());      
@@ -146,7 +146,7 @@ class SeekersController extends BaseController {
                         {
                             
                             $file = Input::file('cv');
-                            $fileName = str_random(30).time();
+                            $fileName = User::find($seeker->user_id)->username.'__CV__'.str_random(30).time();
                             //$publicPath = public_path('uploads/jobSeekerCVs/');
                                                               
                             $file->move('uploads/jobSeekerCVs',$fileName.'.'.$file->getClientOriginalExtension());      
