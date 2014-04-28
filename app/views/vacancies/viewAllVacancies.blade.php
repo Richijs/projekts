@@ -23,9 +23,10 @@
                 <span>
                     <a href="/recommend/{{{$vacancie->creator_id}}}">
                         @if ($vacancie->recommended)
-                            Cancel Employer Recommend
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                            <span class="glyphicon glyphicon-remove-circle"></span>
                         @else
-                            Recommend employer
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
                         @endif
                     </a>
                 </span>
