@@ -301,7 +301,8 @@ class UsersController extends BaseController {
                     $user->lastname = Input::get('lastname');
                     $user->about = Input::get('about');
                     
-                    if (Auth::user()->userGroup==1){
+                                                    //admin can't change his own group
+                    if (Auth::user()->userGroup==1 && Auth::user()->id!=$id){
                         $user->userGroup = Input::get('userGroup');
                     }
                     
@@ -353,6 +354,7 @@ class UsersController extends BaseController {
         
             if(User::find($id)){
                 $user = User::find($id);
+                $data["userId"] = $user->id;
                 $data["username"]=$user->username;
                 $data["email"]=$user->email;
                 $data["firstname"] = $user->firstname;

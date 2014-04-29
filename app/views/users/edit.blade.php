@@ -57,8 +57,8 @@
         @endif
     </div>
     
-    {{-- only admin can change groups --}}
-    @if (Auth::check() && Auth::user()->userGroup==1)
+    {{-- only admin can change groups (except his own group) --}}
+    @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$userId)
     <div>    
         {{ Form::label("userGroup", "Job seeker") }}
         @if ($userGroup==3)
