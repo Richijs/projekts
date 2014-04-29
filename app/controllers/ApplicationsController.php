@@ -54,9 +54,9 @@ class ApplicationsController extends BaseController {
                 $data["errors"] = $validator->errors();
                 $data["vacancieId"] = $vacancieId;
                 $data["vacancieName"] = $vacancie->name;
-                $data["letter"] = Input::get("letter");
+                //$data["letter"] = Input::get("letter");
                 Session::flash('message-fail','applying job failed');
-                return Redirect::to("/apply/{$vacancieId}")->withInput($data)->with($data);
+                return Redirect::to("/apply/{$vacancieId}")->withInput(Input::all())->with($data);
                 }
         
 
@@ -271,9 +271,9 @@ class ApplicationsController extends BaseController {
                 $data["userName"] = $user->username;
                 $data["applicationId"] = $application->id;
                 $data["vacancieId"] = $application->vacancie_id;
-                $data["letter"] = Input::get("letter");
+                //$data["letter"] = Input::get("letter");
                 Session::flash('message-fail','Editing Application was not successfull');
-                return Redirect::to("/editApplication/{$applicationId}")->withInput($data)->with($data);
+                return Redirect::to("/editApplication/{$applicationId}")->withInput(Input::all())->with($data);
                 }
         
             if(Application::find($applicationId)){

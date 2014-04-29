@@ -24,3 +24,6 @@ jauztaisa file delete pie profila dzesanas
 VISUR, KUR JĀATTĒLO TEXTAREA AR LINE BREAKIEM - cssā->  white-space:pre-line;    !!!!!!!!!!!!!!!!!!!!!!!!
 
 jauztaisa lai admins var mainit usergroupas uz ADMIN UTT!
+NEVAR ZINĀT KAS NOTIEK, KAD SAMAINA GRUPU uz ZEMĀKU/CITU!!
+
+->withInput(Input::all()) strādā!

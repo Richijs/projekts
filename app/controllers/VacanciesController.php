@@ -87,13 +87,13 @@ class VacanciesController extends BaseController {
             
             $data["errors"] = $validator->errors();
             
-            $data["name"] = Input::get("name");
+            /*$data["name"] = Input::get("name");
             $data["text"] = Input::get("text");
             $data["phone"] = Input::get("phone");
-            $data["company"] = Input::get("company");
+            $data["company"] = Input::get("company");*/
                         
             Session::flash('message-fail','Neizdevās pievienot vakanci');
-            return Redirect::route("vacancies/add")->withInput($data)->with($data);
+            return Redirect::route("vacancies/add")->withInput(Input::except('poster'))->with($data);
         }
         
         return View::make("vacancies/add");
@@ -202,14 +202,14 @@ class VacanciesController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                $data["id"] = $vacancieId->id;
+                /*$data["id"] = $vacancieId->id;
                 $data["poster"] = $vacancieId->poster;
                 $data["name"] = Input::get("name");
                 $data["text"] = Input::get("text");
                 $data["phone"] = Input::get("phone");
-                $data["company"] = Input::get("company");
+                $data["company"] = Input::get("company");*/
                 Session::flash('message-fail','Editing Vacancie was not successfull');
-                return Redirect::to("/editVacancie/{$id}")->withInput($data)->with($data);
+                return Redirect::to("/editVacancie/{$id}")->withInput(Input::except('poster'))->with($data);
             }
         
             if(Vacancie::find($id)){

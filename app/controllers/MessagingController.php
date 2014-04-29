@@ -46,13 +46,13 @@ class MessagingController extends BaseController {
         
             $data["errors"] = $validator->errors();
                 
-            $data["username"] = Input::get("username");
+            /*$data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
             $data["subject"] = Input::get("subject");
-            $data["message"] = Input::get("message");
+            $data["message"] = Input::get("message");*/
             
             Session::flash('message-fail','Sending e-mail to an admin was not successfull');
-            return Redirect::route("messaging/contact")->withInput($data)->with($data); 
+            return Redirect::route("messaging/contact")->withInput(Input::all())->with($data); 
         }
         
         if(Auth::check()){

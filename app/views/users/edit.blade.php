@@ -56,18 +56,39 @@
             </div>
         @endif
     </div>
-    {{--<div>    
-        {{ Form::label("userType", "Job seeker") }}
-        {{ Form::radio('userType', 3, true) }}
+    
+    {{-- only admin can change groups --}}
+    @if (Auth::check() && Auth::user()->userGroup==1)
+    <div>    
+        {{ Form::label("userGroup", "Job seeker") }}
+        @if ($userGroup==3)
+        {{ Form::radio('userGroup', 3,true) }}
+        @else
+        {{ Form::radio('userGroup', 3) }}
+        @endif
         
-        {{ Form::label("userType", "Employer") }}
-        {{ Form::radio('userType', 2) }}
-        @if ($error = $errors->first("userType")) <!-- needed? -->
+        {{ Form::label("userGroup", "Employer") }}
+        @if ($userGroup==2)
+        {{ Form::radio('userGroup', 2,true) }}
+        @else
+        {{ Form::radio('userGroup', 2) }}
+        @endif
+        
+        {{ Form::label("userGroup", "Admin") }}
+        @if ($userGroup==1)
+        {{ Form::radio('userGroup', 1,true) }}
+        @else
+        {{ Form::radio('userGroup', 1) }}
+        @endif
+        
+        @if ($error = $errors->first("userGroup")) <!-- needed? -->
             <div class="error">
                 {{ $error }}
             </div>
         @endif
-    </div>--}}
+    </div>
+    @endif
+    
     <div>    
         {{ Form::label("about", "About") }}
         {{ Form::textarea("about", $about, [

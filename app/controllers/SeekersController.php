@@ -48,12 +48,12 @@ class SeekersController extends BaseController {
             
             $data["errors"] = $validator->errors();
             
-            $data["intro"] = Input::get("text");
+           /* $data["intro"] = Input::get("text");
             $data["text"] = Input::get("text");
-            $data["phone"] = Input::get("phone");
+            $data["phone"] = Input::get("phone");*/
                         
             Session::flash('message-fail','Neizdevās pievienot darba meklējumu');
-            return Redirect::route("seekers/add")->withInput($data)->with($data);
+            return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
         }
         
         return View::make("seekers/add");
@@ -173,12 +173,12 @@ class SeekersController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                $data["id"] = $seekerId->id;
+                /*$data["id"] = $seekerId->id;
                 $data["intro"] = Input::get("intro");
                 $data["text"] = Input::get("text");
-                $data["phone"] = Input::get("phone");
+                $data["phone"] = Input::get("phone");*/
                 Session::flash('message-fail','Editing Job Seek was not successfull');
-                return Redirect::to("/editJobSeek/{$id}")->withInput($data)->with($data);
+                return Redirect::to("/editJobSeek/{$id}")->withInput(Input::except('cv'))->with($data);
             }
         
             if(Seeker::find($id)){

@@ -30,9 +30,9 @@ class UsersController extends BaseController {
                         return Redirect::route("users/profile");                  
                 }
                                       
-                $data["username"] = Input::get("username");
+                //$data["username"] = Input::get("username");
                 Session::flash('message-fail','wrong username or password (or Your account isnt activated)');
-                return Redirect::route("users/login")->withInput($data);
+                return Redirect::route("users/login")->withInput(Input::except('password'));
          
             }
             
@@ -41,9 +41,9 @@ class UsersController extends BaseController {
                     "Username and/or password invalid."
                 ]
             ]);
-            $data["username"] = Input::get("username");
+            //$data["username"] = Input::get("username");
             Session::flash('message-fail','Could not log in');
-            return Redirect::route("users/login")->withInput($data)->with($data);
+            return Redirect::route("users/login")->withInput(Input::except('password'))->with($data);
         }
         return View::make("users/login");
     }
@@ -77,10 +77,10 @@ class UsersController extends BaseController {
                 return Redirect::route("home");
             }
             
-            $data["email"] = Input::get("email");
+            //$data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
             Session::flash('message-fail','email could not be sent (Maybe Your account isnt activated? check Your email)');
-            return Redirect::route("users/request")->with($data)->withInput($data);
+            return Redirect::route("users/request")->with($data)->withInput(Input::all());
         }
         return View::make("users/request");
     }
@@ -92,7 +92,7 @@ class UsersController extends BaseController {
         
         if (Input::server("REQUEST_METHOD") == "POST")
         {
-            $data["email"] = Input::get("email");
+            //$data["email"] = Input::get("email");
             $validator = Validator::make(Input::all(), [
                 "email"                 => "required|email|exists:users,email",
                 "password"              => "required|min:6",
@@ -130,13 +130,13 @@ class UsersController extends BaseController {
                     ]);
                     
                     Session::flash('message-fail','Could not change password, try again');
-                    return Redirect::to(URL::route("users/reset") . $token)->with($data)->withInput($data);
+                    return Redirect::to(URL::route("users/reset") . $token)->with($data)->withInput(Input::all());
                 }
             }
             
             $data["errors"] = $validator->errors();
             Session::flash('message-fail','Couldnt change password');
-            return Redirect::to(URL::route("users/reset") . $token)->withInput($data)->with($data);
+            return Redirect::to(URL::route("users/reset") . $token)->withInput(Input::all())->with($data);
         }
         return View::make("users/reset")->with($data);
     }
@@ -184,7 +184,7 @@ class UsersController extends BaseController {
                             
                         $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                     }else{
-                        var_dump($user); die();
+                        
                          //pielikt default ? bildi   
                     }
                     
@@ -204,15 +204,15 @@ class UsersController extends BaseController {
             
             $data["errors"] = $validator->errors();
             
-            $data["username"] = Input::get("username");
+            /*$data["username"] = Input::get("username");
             $data["email"] = Input::get("email");
             $data["firstname"] = Input::get("firstname");
             $data["lastname"] = Input::get("lastname");
             $data["about"] = Input::get("about");
-            $data["userType"] = Input::get("userType");
+            $data["userType"] = Input::get("userType");*/
                         
             Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
-            return Redirect::route("users/register")->withInput($data)->with($data);
+            return Redirect::route("users/register")->withInput(Input::except('picture'))->with($data);
         }
         return View::make("users/register");
     }
@@ -281,7 +281,7 @@ class UsersController extends BaseController {
         {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
-                $userId = User::find($id);
+                //$userId = User::find($id);
                 
                 $validator = Validator::make(Input::all(), [
                     "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
@@ -343,12 +343,12 @@ class UsersController extends BaseController {
                 $data["lastname"] = Input::get("lastname");
                 $data["about"] = Input::get("about");*/
                 
-                if (Auth::user()->userGroup==1){
+                /*if (Auth::user()->userGroup==1){
                     $data["userGroup"] = Input::get("userGroup");
-                }
+                }*/
                 
                 Session::flash('message-fail','Editing user data was not successfull');
-                return Redirect::to("/editUser/{$id}")->withInput(Input::all())->with($data);
+                return Redirect::to("/editUser/{$id}")->withInput(Input::except('picture'))->with($data);
             }
         
             if(User::find($id)){
@@ -359,6 +359,7 @@ class UsersController extends BaseController {
                 $data["lastname"] = $user->lastname;
                 $data["about"] = $user->about;
                 $data["picture"] = $user->picture;
+                
                 if (Auth::user()->userGroup==1){
                     $data["userGroup"] = $user->userGroup;
                 }
