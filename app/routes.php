@@ -330,3 +330,20 @@ Route::group(["before" => "seeker"], function()
     ]);
     
 });
+
+
+//admin ONLY actions
+Route::group(["before" => "admin"], function()
+{
+    //aizsargāts no csrf(xsrf?) uzbrukumiem
+    Route::group(["before" => "csrf"], function(){
+    
+        
+    });
+    
+    
+    
+    
+    
+    
+});
