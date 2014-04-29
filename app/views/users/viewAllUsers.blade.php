@@ -11,10 +11,8 @@
                     <b>Status:</b>
                     @if ($user->active===1)
                         Active!
-                    @elseif ($user->active===0)
-                        Inactive!
                     @else
-                        Banned!
+                        Not Activated!
                     @endif
                 </span>
                 @if ($user->picture)

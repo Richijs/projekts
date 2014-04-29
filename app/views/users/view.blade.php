@@ -12,6 +12,14 @@
         @endif
     </div>
     <div>
+        <b>Status:</b>
+        @if ($user->active===1)
+            Active!
+        @else
+            Not Activated!
+        @endif
+    </div>
+    <div>
         email: <a href="mailto:{{{$user->email}}}">{{{$user->email}}}</a>
     </div>
     @if ($user->picture)

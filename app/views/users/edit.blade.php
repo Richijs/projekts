@@ -57,6 +57,15 @@
         @endif
     </div>
     
+    {{-- admin editing his own profile cant change his group --}}
+    @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id==$userId)
+        <div>
+            {{ Form::label("userGroup", "Admin") }}
+            {{ Form::radio('userGroup', 1,true, ["disabled"=>"true"]) }}
+        </div>
+    @endif
+    
+
     {{-- only admin can change groups (except his own group) --}}
     @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$userId)
     <div>    

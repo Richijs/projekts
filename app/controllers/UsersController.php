@@ -31,7 +31,11 @@ class UsersController extends BaseController {
                 }
                                       
                 //$data["username"] = Input::get("username");
-                Session::flash('message-fail','wrong username or password (or Your account isnt activated)');
+                if(User::where('username',$credentials['username'])->where('active',0)->first()){
+                    Session::flash('message-fail','Account not activated and/or password incorrect');
+                }else{
+                    Session::flash('message-fail','wrong username or password');
+                }
                 return Redirect::route("users/login")->withInput(Input::except('password'));
          
             }
@@ -79,7 +83,12 @@ class UsersController extends BaseController {
             
             //$data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','email could not be sent (Maybe Your account isnt activated? check Your email)');
+            
+            if(User::where('email',Input::get("email"))->where('active',0)->first()){
+                Session::flash('message-fail','Account not activated yet, check your email');
+            }else{
+                Session::flash('message-fail','email could not be sent');
+            }
             return Redirect::route("users/request")->with($data)->withInput(Input::all());
         }
         return View::make("users/request");
