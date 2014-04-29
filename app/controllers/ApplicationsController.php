@@ -52,8 +52,8 @@ class ApplicationsController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                $data["vacancieId"] = $vacancieId;
-                $data["vacancieName"] = $vacancie->name;
+                /*$data["vacancieId"] = $vacancieId;
+                $data["vacancieName"] = $vacancie->name;*/
                 //$data["letter"] = Input::get("letter");
                 Session::flash('message-fail','applying job failed');
                 return Redirect::to("/apply/{$vacancieId}")->withInput(Input::all())->with($data);
@@ -201,15 +201,15 @@ class ApplicationsController extends BaseController {
                     }
                 }
                 
-                $application = Application::find($applicationId);
+                /*$application = Application::find($applicationId);
                 $vacancie = Vacancie::find($application->vacancie_id);
                 
                 $data["applicationId"] = $applicationId;
                 $data["applicationLetter"] = $application->letter;
                 $data["vacancieId"] = $vacancie->id;
-                $data["vacancieName"] = $vacancie->name;
+                $data["vacancieName"] = $vacancie->name;*/
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not delete applicationk');
+                Session::flash('message-fail','Could not delete application');
                 return Redirect::to("/deleteApplication/{$applicationId}")->with($data);
                 
             }
@@ -263,14 +263,14 @@ class ApplicationsController extends BaseController {
                 
                 }
             
-                $application = Application::find($applicationId); //varbūt uztaisīt globālāku metodē
-                $user = User::find($application->user_id);
+                //$application = Application::find($applicationId); //varbūt uztaisīt globālāku metodē
+                //$user = User::find($application->user_id);
                 
                 $data["errors"] = $validator->errors();
-                $data["userId"] = $user->id;
+                /*$data["userId"] = $user->id;
                 $data["userName"] = $user->username;
                 $data["applicationId"] = $application->id;
-                $data["vacancieId"] = $application->vacancie_id;
+                $data["vacancieId"] = $application->vacancie_id;*/
                 //$data["letter"] = Input::get("letter");
                 Session::flash('message-fail','Editing Application was not successfull');
                 return Redirect::to("/editApplication/{$applicationId}")->withInput(Input::all())->with($data);

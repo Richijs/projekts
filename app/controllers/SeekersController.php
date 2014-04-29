@@ -17,7 +17,7 @@ class SeekersController extends BaseController {
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
                     "cv" => "required|max:3000|mimes:pdf,doc,docx,odt",
-                    "phone" => "min:3|max:20"
+                    "phone" => "required|min:3|max:20"
                 ]);
             
                 if ($validator->passes())
@@ -138,7 +138,7 @@ class SeekersController extends BaseController {
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
                     "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav required, jo var būt, ka nevēlas mainīt cv
-                    "phone" => "min:3|max:20"
+                    "phone" => "required|min:3|max:20"
                 ]);
                 if ($validator->passes())
                 {   
@@ -235,8 +235,8 @@ class SeekersController extends BaseController {
                 }
                 
                 $seeker = Seeker::find($id);
-                $data["id"] = $seeker->id;
-                $data["intro"] = $seeker->intro;  
+                /*$data["id"] = $seeker->id;
+                $data["intro"] = $seeker->intro;  */
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete job seek');
                 return Redirect::to("/deleteJobSeek/{$id}")->with($data);

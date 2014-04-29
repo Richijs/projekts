@@ -499,8 +499,8 @@ class UsersController extends BaseController {
                         }
                 }
                 
-                $user = User::find($id);
-                $data["username"] = $user->username;  
+                /*$user = User::find($id);
+                $data["username"] = $user->username; */ 
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete profile');
                 return Redirect::to("/deleteUser/{$id}")->with($data);

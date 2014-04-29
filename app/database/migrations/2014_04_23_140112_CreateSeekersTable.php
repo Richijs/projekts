@@ -19,7 +19,7 @@ class CreateSeekersTable extends Migration {
                     $table->string("intro","100");
                     $table->string("text","500");
                     $table->string("cv");
-                    $table->string("phone","20")->nullable()->default(null);
+                    $table->string("phone","20");
                     $table->integer('user_id')->unsigned()->unique();
                         $table->foreign('user_id')->references('id')->on('users'); //one user - one job seeking
                     $table->dateTime("created_at");

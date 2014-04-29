@@ -269,9 +269,9 @@ class VacanciesController extends BaseController {
                     }
                 }
                 
-                $vacancie = Vacancie::find($id);
+                /*$vacancie = Vacancie::find($id);
                 $data["id"] = $vacancie->id;
-                $data["name"] = $vacancie->name;  
+                $data["name"] = $vacancie->name;  */
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete vacancie');
                 return Redirect::to("/deleteVacancie/{$id}")->with($data);

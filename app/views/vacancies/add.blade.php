@@ -47,24 +47,24 @@
         @endif
     </div> 
     
-    <div>   
-        {{ Form::label("poster", "Vacancie Poster") }}
-        {{ Form::file("poster", Input::file("poster"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
-            "placeholder" => "Vacancie Poster"
-        ]) }}
-        @if ($error = $errors->first("poster"))
-            <div class="error">
-                {{ $error }}
-            </div>
-        @endif
-    </div> 
-    
     <div>    
         {{ Form::label("phone", "Phone number") }}
         {{ Form::text("phone", Input::get("phone"), [
             "placeholder" => "Phone number"
         ]) }}
         @if ($error = $errors->first("phone"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div> 
+    
+    <div>   
+        {{ Form::label("poster", "Vacancie Poster") }}
+        {{ Form::file("poster", Input::file("poster"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
+            "placeholder" => "Vacancie Poster"
+        ]) }}
+        @if ($error = $errors->first("poster"))
             <div class="error">
                 {{ $error }}
             </div>

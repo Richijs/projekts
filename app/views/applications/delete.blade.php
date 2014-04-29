@@ -20,7 +20,7 @@
         {{ Form::checkbox("checkbox", 1 ,[
             
         ]) }}
-        {{ Form::label("checkbox","I Wish to delete my application data") }}
+        {{ Form::label("checkbox","I Wish to delete application data") }}
         
         @if ($error = $errors->first("checkbox"))
             <div class="error">
