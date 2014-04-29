@@ -16,20 +16,20 @@ class CreateUsersTable extends Migration {
         {
             //ar laiku jāsamaina korekti
             $table->increments("id");
-            $table->string("username")->nullable()->default(null);
-            $table->string("password")->nullable()->default(null);
-            $table->string("firstname")->nullable()->default(null);
-            $table->string("lastname")->nullable()->default(null);
+            $table->string("username")->unique();
+            $table->string("password");
+            $table->string("firstname");
+            $table->string("lastname");
             $table->string("picture")->nullable()->default(null);
             $table->string("about","500")->nullable()->default(null);
-            $table->string("email")->nullable()->default(null);
+            $table->string("email")->unique();
             $table->string("prefLang","2")->nullable()->default(null);
-            $table->tinyInteger("userGroup")->nullable()->default(null);
+            $table->tinyInteger("userGroup");
             $table->tinyInteger("active")->nullable()->default(null);
             $table->string("code")->nullable()->default(null);
             $table->string("remember_token")->nullable()->default(null);
-            $table->dateTime("created_at")->nullable()->default(null);
-            $table->dateTime("updated_at")->nullable()->default(null);
+            $table->dateTime("created_at");
+            $table->dateTime("updated_at");
         });
         
     }

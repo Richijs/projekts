@@ -20,9 +20,9 @@ class CreateApplicationsTable extends Migration {
                         $table->foreign('user_id')->references('id')->on('users'); //one user can apply many vacancies
                     $table->integer('vacancie_id')->unsigned();
                         $table->foreign('vacancie_id')->references('id')->on('vacancies'); //many users can apply one vacancie
-                    $table->string("letter","1000")->nullable()->default(null);
-                    $table->dateTime("created_at")->nullable()->default(null);
-                    $table->dateTime("updated_at")->nullable()->default(null);
+                    $table->string("letter","1000");
+                    $table->dateTime("created_at");
+                    $table->dateTime("updated_at");
 		});
 	}
 

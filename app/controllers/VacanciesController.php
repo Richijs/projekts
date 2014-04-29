@@ -43,7 +43,9 @@ class VacanciesController extends BaseController {
             $validator = Validator::make(Input::all(), [
                 "name" => "required|min:3|max:100|unique:vacancies,name",
                 "text" => "required|min:10|max:500",
-                "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
+                "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                "phone" => "min:3|max:20",
+                "company" => "max:200"
             ]);
             
             if ($validator->passes())
@@ -53,14 +55,14 @@ class VacanciesController extends BaseController {
                     $vacancie->name = Input::get('name');
                     $vacancie->text = Input::get('text');
                     $vacancie->creator_id = Auth::user()->id;
+                    $vacancie->phone = Input::get('phone');
+                    $vacancie->company = Input::get('company');
                     
                         if(Input::hasfile('poster'))
                         {
                             
                             $file = Input::file('poster');
                             
-                            //$extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
-                            //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
                             $picName = str_random(30).time();
                             $publicPath = public_path('uploads/vacanciePosters/');
                             
@@ -71,7 +73,6 @@ class VacanciesController extends BaseController {
                             $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$file->getClientOriginalExtension();
                         }else{
                             
-                            //the picture wasnt saved/found 
                             //varbūt pielikt default ? bildi
                             
                         }
@@ -81,19 +82,6 @@ class VacanciesController extends BaseController {
                         Session::flash('message-success','Vacancie offer has been saved');
                         return Redirect::to("/viewVacancie/{$vacancie->id}");
                     }
-                    
-                /*}else{
-                    $data["errors"] = new MessageBag([
-                        "username" => ["username or email already exists in database"],
-                        "email" => ["username or email already exists in database"]
-                    ]);
-                    
-                    $data["username"] = Input::get("username");
-                    $data["email"] = Input::get("email");
-                    Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
-                    return Redirect::route("users/register")->withInput($data);
-                    
-                }*/
                 
             }
             
@@ -101,6 +89,8 @@ class VacanciesController extends BaseController {
             
             $data["name"] = Input::get("name");
             $data["text"] = Input::get("text");
+            $data["phone"] = Input::get("phone");
+            $data["company"] = Input::get("company");
                         
             Session::flash('message-fail','Neizdevās pievienot vakanci');
             return Redirect::route("vacancies/add")->withInput($data)->with($data);
@@ -162,13 +152,17 @@ class VacanciesController extends BaseController {
                 $validator = Validator::make(Input::all(), [
                     "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
                     "text" => "required|min:10|max:500",
-                    "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif"
+                    "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                    "phone" => "min:3|max:20",
+                    "company" => "max:200"
                 ]);
                 if ($validator->passes())
                 {   
                     $vacancie = Vacancie::find($id);
                     $vacancie->name = Input::get('name');
                     $vacancie->text = Input::get('text');
+                    $vacancie->phone = Input::get('phone');
+                    $vacancie->company = Input::get('company');
                                   
                         if(Input::hasfile('poster'))
                         {
@@ -212,6 +206,8 @@ class VacanciesController extends BaseController {
                 $data["poster"] = $vacancieId->poster;
                 $data["name"] = Input::get("name");
                 $data["text"] = Input::get("text");
+                $data["phone"] = Input::get("phone");
+                $data["company"] = Input::get("company");
                 Session::flash('message-fail','Editing Vacancie was not successfull');
                 return Redirect::to("/editVacancie/{$id}")->withInput($data)->with($data);
             }
@@ -222,6 +218,8 @@ class VacanciesController extends BaseController {
                 $data["poster"] = $vacancie->poster;
                 $data["name"] = $vacancie->name;
                 $data["text"] = $vacancie->text;
+                $data["phone"] = $vacancie->phone;
+                $data["company"] = $vacancie->company;
                 return View::make("/vacancies/edit")->with($data);
             }else{
                 Session::flash('message-fail','No Vacancie with such ID');

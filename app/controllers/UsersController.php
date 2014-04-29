@@ -7,14 +7,6 @@ class UsersController extends BaseController {
     
     public function loginAction()
     {
-        /*$errors = new MessageBag();
-        if ($old = Input::old("errors"))
-        {
-            $errors = $old;
-        }
-        $data = [
-            "errors" => $errors
-        ];*/
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -58,9 +50,6 @@ class UsersController extends BaseController {
     
     public function requestAction()
     {
-        /*$data = [
-            "requested" => Input::old("requested")
-        ];*/
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -72,10 +61,6 @@ class UsersController extends BaseController {
                 $credentials = [
                     "email" => Input::get("email")
                 ];
-                
-                //$existsEmail = User::where('email', '=', $credentials['email'])->first();
-                //if (isset($existsEmail))
-                //{
                 
                 Password::remind($credentials,
                     function($message, $user)
@@ -90,10 +75,6 @@ class UsersController extends BaseController {
                 Session::flash('message-success','email was sent to '.$credentials['email']);
                 
                 return Redirect::route("home");
-                /*}else{
-                    Session::flash('message-fail','email doesnt exist in the database');
-                    return Redirect::route("users/request")->with($data);
-                }*/
             }
             
             $data["email"] = Input::get("email");
@@ -162,14 +143,6 @@ class UsersController extends BaseController {
     
     public function registerAction()
     {
-        /*$errors = new MessageBag();
-        if ($old = Input::old("errors"))
-        {
-            $errors = $old;
-        }
-        $data = [
-            "errors" => $errors
-        ];*/
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
@@ -202,8 +175,6 @@ class UsersController extends BaseController {
                             
                         $file = Input::file('picture');
                             
-                        //$extension = preg_replace(array('/image/','/\//'),'',$file->getMimeType()); //izņem "image/" stringu no filetype
-                        //$userFolder = sha1($user->id); //user foldera nosaukums ir sha1(userID)
                         $picName = str_random(30).time();
                         $publicPath = public_path('uploads/profileImages/');
                             
@@ -213,10 +184,8 @@ class UsersController extends BaseController {
                             
                         $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                     }else{
-                            
-                        //the picture wasnt saved/found 
-                        //varbūt pielikt default ? bildi
-                            
+                        var_dump($user); die();
+                         //pielikt default ? bildi   
                     }
                     
                 if($user->save())
@@ -230,19 +199,6 @@ class UsersController extends BaseController {
                 Session::flash('message-success','Email has been sent to '.$user->email.' to complete registration');
                 return Redirect::route("home");
                 }
-                    
-                /*}else{
-                    $data["errors"] = new MessageBag([
-                        "username" => ["username or email already exists in database"],
-                        "email" => ["username or email already exists in database"]
-                    ]);
-                    
-                    $data["username"] = Input::get("username");
-                    $data["email"] = Input::get("email");
-                    Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
-                    return Redirect::route("users/register")->withInput($data);
-                    
-                }*/
                 
             }
             
@@ -293,7 +249,7 @@ class UsersController extends BaseController {
     {
         if(User::find($id)){
             $user = User::find($id);
-            $user->password = ''; //negribam skatam padot paroli
+            $user->password = ''; //negribam skatam padot paroli???
             
             return View::make("users/view", array('user'=> $user));
         }else{
@@ -320,35 +276,46 @@ class UsersController extends BaseController {
 
     public function editAction($id)
     {
-        /*$errors = new MessageBag();
-        if ($old = Input::old("errors"))
-        {
-            $errors = $old;
-        }
-        $data = ["errors" => $errors];
-        */
-        
         //if admin or editing self
         if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
         {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
+                $userId = User::find($id);
+                
                 $validator = Validator::make(Input::all(), [
                     "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
-                    "email" => "required|email|unique:users,email,".$id
+                    "email" => "required|email|unique:users,email,".$id,
+                    "firstname" => "required|alpha|max:70",
+                    "lastname" => "required|alpha|max:70",
+                    "about" => "max:500",
+                    "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                    //"userType" => "required"
                ]);
                 if ($validator->passes())
-                {   // <> -> not equal
-                    /*$existsEmail = DB::table('users')->where('email',Input::get('email'))->where('id','<>',$id)->first();
-                    $existsUsername = DB::table('users')->where('username',Input::get('username'))->where('id','<>',$id)->first();
-                    if (!$existsEmail && !$existsUsername)
-                    {*/
+                {   
                     $user = User::find($id);
                     $user->username = Input::get('username');
                     $user->email = Input::get('email');
-                                  
-                    //$data["username"]=$user->username;  ??
-                    //$data["email"]=$user->email;        ??
+                    $user->firstname = Input::get('firstname');
+                    $user->lastname = Input::get('lastname');
+                    $user->about = Input::get('about');
+
+                        if(Input::hasfile('picture'))
+                        {
+                            
+                            $file = Input::file('picture');
+                            
+                            $picName = str_random(30).time();
+                            $publicPath = public_path('uploads/profileImages/');
+                            
+                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
+                            
+                            //$file->move('uploads/profileImages',$picName.'.'.$extension);
+                            
+                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                        }
+
                     if($user->save())
                     {
                     
@@ -360,25 +327,17 @@ class UsersController extends BaseController {
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
-                /*}else{
-                    $data["errors"] = new MessageBag([
-                        "username" => ["this username or email is already taken by another user"],
-                        "email" => ["this username or email is already taken by another user"]
-                    ]);
-                    
-                    $data["username"] = Input::get("username");
-                    $data["email"] = Input::get("email");
-                    Session::flash('message-fail','Neizdevās labot lietotāju');
-                    return Redirect::to("/editUser/{$id}")->withInput($data);
-                    
-                }*/
-                
                 }
             
                 $data["errors"] = $validator->errors();
-            
+                
+                $data["picture"] = $userId->picture;
                 $data["username"] = Input::get("username");
                 $data["email"] = Input::get("email");
+                $data["firstname"] = Input::get("firstname");
+                $data["lastname"] = Input::get("lastname");
+                $data["about"] = Input::get("about");
+                
                 Session::flash('message-fail','Editing user data was not successfull');
                 return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
             }
@@ -387,6 +346,10 @@ class UsersController extends BaseController {
                 $user = User::find($id);
                 $data["username"]=$user->username;
                 $data["email"]=$user->email;
+                $data["firstname"] = $user->firstname;
+                $data["lastname"] = $user->lastname;
+                $data["about"] = $user->about;
+                $data["picture"] = $user->picture;
             }else{
                 Session::flash('message-fail','No user with such ID');
                 return Redirect::route("users/viewAllUsers");
@@ -405,18 +368,10 @@ class UsersController extends BaseController {
     {
         if(Auth::check()){
             
-            /*$errors = new MessageBag();
-            if ($old = Input::old("errors"))
-            {
-                $errors = $old;
-            }
-            $data = [
-                "errors" => $errors
-            ];*/
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
-                    "password"                  => "required|",
+                    "password"                  => "required",
                     "new_password"              => "required|min:6",
                     "new_password_confirmation" => "required|same:new_password",
                 ]);

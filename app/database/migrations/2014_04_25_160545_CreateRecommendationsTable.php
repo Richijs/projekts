@@ -20,7 +20,7 @@ class CreateRecommendationsTable extends Migration {
                         $table->foreign('user_id')->references('id')->on('users'); //one user - one job seeking
                     $table->integer('employer_id')->unsigned();
                         $table->foreign('employer_id')->references('id')->on('users'); //one user - one job seeking
-                    $table->dateTime("created_at")->nullable()->default(DB::raw('CURRENT_TIMESTAMP'));
+                    $table->dateTime("created_at")->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
 

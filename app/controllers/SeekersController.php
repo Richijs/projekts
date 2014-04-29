@@ -16,7 +16,8 @@ class SeekersController extends BaseController {
                 $validator = Validator::make(Input::all(), [
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
-                    "cv" => "required|max:3000|mimes:pdf,doc,docx,odt"
+                    "cv" => "required|max:3000|mimes:pdf,doc,docx,odt",
+                    "phone" => "min:3|max:20"
                 ]);
             
                 if ($validator->passes())
@@ -25,6 +26,7 @@ class SeekersController extends BaseController {
                     $seeker = new Seeker;
                     $seeker->intro = Input::get('intro');
                     $seeker->text = Input::get('text');
+                    $seeker->phone = Input::get('phone');
                     $seeker->user_id = Auth::user()->id;
                     
                     $file = Input::file('cv');
@@ -48,6 +50,7 @@ class SeekersController extends BaseController {
             
             $data["intro"] = Input::get("text");
             $data["text"] = Input::get("text");
+            $data["phone"] = Input::get("phone");
                         
             Session::flash('message-fail','Neizdevās pievienot darba meklējumu');
             return Redirect::route("seekers/add")->withInput($data)->with($data);
@@ -134,13 +137,15 @@ class SeekersController extends BaseController {
                 $validator = Validator::make(Input::all(), [
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
-                    "cv" => "max:3000|mimes:pdf,doc,docx,odt" //vairs nav required, jo var būt, ka nevēlas mainīt cv
+                    "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav required, jo var būt, ka nevēlas mainīt cv
+                    "phone" => "min:3|max:20"
                 ]);
                 if ($validator->passes())
                 {   
                     $seeker = Seeker::find($id);
                     $seeker->intro = Input::get('intro');
                     $seeker->text = Input::get('text');
+                    $seeker->phone = Input::get('phone');
                                   
                         if(Input::hasfile('cv'))
                         {
@@ -171,6 +176,7 @@ class SeekersController extends BaseController {
                 $data["id"] = $seekerId->id;
                 $data["intro"] = Input::get("intro");
                 $data["text"] = Input::get("text");
+                $data["phone"] = Input::get("phone");
                 Session::flash('message-fail','Editing Job Seek was not successfull');
                 return Redirect::to("/editJobSeek/{$id}")->withInput($data)->with($data);
             }
@@ -180,6 +186,7 @@ class SeekersController extends BaseController {
                 $data["id"] = $seeker->id;
                 $data["intro"] = $seeker->intro;
                 $data["text"] = $seeker->text;
+                $data["phone"] = $seeker->phone;
                 return View::make("/seekers/edit")->with($data);
             }else{
                 Session::flash('message-fail','No Seeker with such ID');

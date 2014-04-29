@@ -16,13 +16,14 @@ class CreateSeekersTable extends Migration {
 		{
 			    //ar laiku jāsamaina korekti
                     $table->increments("id");
-                    $table->string("intro")->nullable()->default(null);
-                    $table->string("text","500")->nullable()->default(null);
-                    $table->string("cv")->nullable()->default(null);
+                    $table->string("intro","100");
+                    $table->string("text","500");
+                    $table->string("cv");
+                    $table->string("phone","20")->nullable()->default(null);
                     $table->integer('user_id')->unsigned()->unique();
                         $table->foreign('user_id')->references('id')->on('users'); //one user - one job seeking
-                    $table->dateTime("created_at")->nullable()->default(null);
-                    $table->dateTime("updated_at")->nullable()->default(null);
+                    $table->dateTime("created_at");
+                    $table->dateTime("updated_at");
 		});
 	}
 

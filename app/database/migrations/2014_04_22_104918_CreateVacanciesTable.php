@@ -16,14 +16,15 @@ class CreateVacanciesTable extends Migration {
             {
                     //ar laiku jāsamaina korekti
                 $table->increments("id");
-                $table->string("name")->nullable()->default(null);
+                $table->string("name")->unique();
                 $table->string("company")->nullable()->default(null);
                 $table->string("poster")->nullable()->default(null);
-                $table->string("text","500")->nullable()->default(null);
+                $table->string("phone","20")->nullable()->default(null);
+                $table->string("text","500");
                 $table->integer('creator_id')->unsigned();
                     $table->foreign('creator_id')->references('id')->on('users');
-                $table->dateTime("created_at")->nullable()->default(null);
-                $table->dateTime("updated_at")->nullable()->default(null);
+                $table->dateTime("created_at");
+                $table->dateTime("updated_at");
             });
 	}
 

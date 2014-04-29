@@ -33,6 +33,18 @@
         @endif
     </div>   
     
+    <div>    
+        {{ Form::label("company", "Company name") }}
+        {{ Form::text("company", $company, [
+            "placeholder" => "Compan name"
+        ]) }}
+        @if ($error = $errors->first("company"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div> 
+    
     @if ($poster)
         <div>Current poster
             <img src="{{URL::to('/')}}/{{{$poster}}}" width="100" alt="vacancie poster"/>
@@ -53,7 +65,19 @@
                 {{ $error }}
             </div>
         @endif
-    </div>  
+    </div> 
+    
+    <div>    
+        {{ Form::label("phone", "Phone number") }}
+        {{ Form::text("phone", $phone, [
+            "placeholder" => "Phone number"
+        ]) }}
+        @if ($error = $errors->first("phone"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div> 
     
     <div>   
         {{ Form::submit("Edit vacancie") }}

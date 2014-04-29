@@ -19,7 +19,9 @@
                 {{ $error }}
             </div>
         @endif
-    </div>   
+    </div>
+    
+    
     
     <div>    
         {{ Form::label("vacancieText", "Vacancie Text") }}
@@ -31,7 +33,19 @@
                 {{ $error }}
             </div>
         @endif
-    </div>   
+    </div>
+    
+    <div>    
+        {{ Form::label("company", "Company name") }}
+        {{ Form::text("company", Input::get("company"), [
+            "placeholder" => "Compan name"
+        ]) }}
+        @if ($error = $errors->first("company"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div> 
     
     <div>   
         {{ Form::label("poster", "Vacancie Poster") }}
@@ -43,7 +57,19 @@
                 {{ $error }}
             </div>
         @endif
-    </div>  
+    </div> 
+    
+    <div>    
+        {{ Form::label("phone", "Phone number") }}
+        {{ Form::text("phone", Input::get("phone"), [
+            "placeholder" => "Phone number"
+        ]) }}
+        @if ($error = $errors->first("phone"))
+            <div class="error">
+                {{ $error }}
+            </div>
+        @endif
+    </div> 
     
     <div>   
         {{ Form::submit("Add vacancie") }}
