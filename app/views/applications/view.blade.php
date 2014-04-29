@@ -7,6 +7,10 @@
     <div>
         {{{$application->letter}}}
     </div>
+    <div>
+        <b>Applied at:</b> {{{$application->created_at}}}
+        <b>Edited at:</b> {{{$application->updated_at}}}
+    </div>
     @if (@Auth::check() && (Auth::user()->id == $application->user_id || Auth::user()->userGroup==1))
     <a href="/editApplication/{{{$application->id}}}"><div class="btn btn-warning">edit application letter data</div></a>
     <a href="/deleteApplication/{{{$application->id}}}"><div class="btn btn-danger">delete application letter data</div></a>
@@ -23,10 +27,8 @@
     <div>
         {{{$seeker->text}}}
     </div>
-    
-    
     <div>
-        <b>Applied job seeker data at:</b> {{{$application->created_at}}}
-        
+        Searching for job since: {{{$seeker->created_at}}}
     </div>
+    
 @stop

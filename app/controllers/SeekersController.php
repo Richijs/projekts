@@ -38,6 +38,15 @@ class SeekersController extends BaseController {
                     
                     if($seeker->save())
                     {
+                        if(Session::has('vacancieId')) //ja ir nācis no "apply vacancie, bet redirektēts uz seeker data"
+                        {
+                            $redirectToVacancie = Session::get('vacancieId');
+                            Session::forget('vacancieId');
+                            Session::flash('message-success','Job Seek has been saved - now you can apply the vacancie you tried to apply');                           
+                            return Redirect::to("/apply/{$redirectToVacancie}");
+                        }    
+                            
+                            
                         Session::flash('message-success','Job Seek has been saved');
                         return Redirect::to("/viewSeeker/{$seeker->id}");
                     }else{

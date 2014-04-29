@@ -22,7 +22,8 @@ class ApplicationsController extends BaseController {
                 //ja nav norādījis savus job seeker datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
-                    Session::flash('message-fail','Sākumā jānorāda darba meklētāja dati');
+                    Session::flash('message-fail','Sākumā jānorāda darba meklētāja dati, pirms iespējams pietiekties jebkurai vakancei');
+                    Session::put('vacancieId',$vacancieId); //lai var redirect back uz šo vakances apply
                     return Redirect::route("seekers/add");
                 }
                 

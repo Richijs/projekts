@@ -29,3 +29,10 @@ NEVAR ZINĀT KAS NOTIEK, KAD SAMAINA GRUPU uz ZEMĀKU/CITU!!
 ->withInput(Input::all()) strādā!
 
 neImplementē ban!
+
+kautkas jāizdara ar file upload lai būtu correct. moš noņemt liekos formātus.
+
+varbūt uztaisīt mainīgu content no datubāzes, ko var editot admins.
+
+jāuztaisa normāls redirect no ->apply vacancie (ja nav seeker data) -> add seeker data -> apply vacancie back uz to pašu
+(tas laikam jāpaglabā sesijā)
