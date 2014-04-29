@@ -300,7 +300,12 @@ class UsersController extends BaseController {
                     $user->firstname = Input::get('firstname');
                     $user->lastname = Input::get('lastname');
                     $user->about = Input::get('about');
-
+                    
+                    if (Auth::user()->userGroup==1){
+                        $user->userGroup = Input::get('userGroup');
+                    }
+                    
+                    
                         if(Input::hasfile('picture'))
                         {
                             
@@ -331,15 +336,19 @@ class UsersController extends BaseController {
             
                 $data["errors"] = $validator->errors();
                 
-                $data["picture"] = $userId->picture;
+                /*$data["picture"] = $userId->picture;
                 $data["username"] = Input::get("username");
                 $data["email"] = Input::get("email");
                 $data["firstname"] = Input::get("firstname");
                 $data["lastname"] = Input::get("lastname");
-                $data["about"] = Input::get("about");
+                $data["about"] = Input::get("about");*/
+                
+                if (Auth::user()->userGroup==1){
+                    $data["userGroup"] = Input::get("userGroup");
+                }
                 
                 Session::flash('message-fail','Editing user data was not successfull');
-                return Redirect::to("/editUser/{$id}")->withInput($data)->with($data);
+                return Redirect::to("/editUser/{$id}")->withInput(Input::all())->with($data);
             }
         
             if(User::find($id)){
@@ -350,6 +359,9 @@ class UsersController extends BaseController {
                 $data["lastname"] = $user->lastname;
                 $data["about"] = $user->about;
                 $data["picture"] = $user->picture;
+                if (Auth::user()->userGroup==1){
+                    $data["userGroup"] = $user->userGroup;
+                }
             }else{
                 Session::flash('message-fail','No user with such ID');
                 return Redirect::route("users/viewAllUsers");
