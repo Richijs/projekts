@@ -6,9 +6,25 @@
             @foreach ($recommendations as $recommendation)
             <div>
                 
-                <a href="/viewUser/{{{$recommendation->user->id}}}">{{{$recommendation->user->username}}}</a>
                 <b>at</b>
                 {{{$recommendation->created_at}}}
+                <b>by</b>
+                <a href="/viewUser/{{{$recommendation->user->id}}}">{{{$recommendation->user->username}}}</a>
+                <a href="/viewRecommenders/{{{$recommendation->user->id}}}">({{{$recommendation->userRecommends}}})</a>
+
+                @if (Auth::check() && $recommendation->user->id!=Auth::user()->id)
+                <span>
+                    <a href="/recommend/{{{$recommendation->user->id}}}">
+                        @if ($recommendation->recommended)
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        @else
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        @endif
+                    </a>
+                </span>
+                @endif
+                
                 
             </div>
             @endforeach

@@ -11,6 +11,10 @@
             <div>
                 <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
                 <span><b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}</span>
+
+                <span>
+                    <b>Company:</b> {{{$vacancie->company}}}   
+                </span>
                 
                 @if ($vacancie->poster)
                 <span>

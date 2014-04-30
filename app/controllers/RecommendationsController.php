@@ -98,6 +98,15 @@ class RecommendationsController extends BaseController {
             foreach($recommendations as $recommendation){
             
                 $recommendation->user = User::find($recommendation->employer_id);
+                //cik userim ir recommendo
+                $recommendation->userRecommends = Recommendation::where('employer_id',$recommendation->employer_id)->count();
+            
+                if(Auth::check()){
+                    if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$recommendation->employer_id)->first()){
+                        $recommendation->recommended = true; //lai var displayot (recommend/unrecommend)
+                    }
+                }
+                
             }
         
             return View::make("/recommendations/viewRecommendations",array('user'=>$user,'recommendations'=>$recommendations));

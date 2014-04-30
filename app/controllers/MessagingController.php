@@ -58,15 +58,14 @@ class MessagingController extends BaseController {
         if(Auth::check()){
             $data["username"] = Auth::user()->username;
             $data["email"] = Auth::user()->email;
-            
-            return View::make("messaging/contact")->with($data);
         }else{ 
             //so the data is set
             $data["username"] = "";
             $data["email"] = ""; 
-            
-            return View::make("messaging/contact")->with($data);
-        }
+        }  
+        
+        return View::make("messaging/contact")->with($data);
+        
     }
     
 }

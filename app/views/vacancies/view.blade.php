@@ -9,15 +9,33 @@
         </div>
     @endif
     <div>
+            <b>Company:</b> {{{$vacancie->company}}}   
+    </div>
+    <div>
        {{{$vacancie->text}}}
     </div>
     <div>
         <b>Applied for this Vacancie:</b> {{{$vacancie->applied}}}
     </div>
+    <span>
+                    <b> Added by: </b>
+                    <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
+                    <a href="/viewRecommenders/{{{$vacancie->creator_id}}}">({{{$vacancie->userRecommends}}})</a>
+                </span>
+                @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
+                <span>
+                    <a href="/recommend/{{{$vacancie->creator_id}}}">
+                        @if ($vacancie->recommended)
+                            <span class="glyphicon glyphicon-remove-circle"></span>
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        @else
+                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                        @endif
+                    </a>
+                </span>
+                @endif
     <div>
-        <b>Added at:</b> {{{$vacancie->created_at}}}
-        <b>Added by:</b> {{{$vacancie->creatorName}}}
-        
+        <b>Added at:</b> {{{$vacancie->created_at}}}        
         <b>Last edit:</b> {{{$vacancie->updated_at}}}
     </div>
     @if (Auth::check() && (Auth::user()->userGroup===1 || Auth::user()->userGroup===3))

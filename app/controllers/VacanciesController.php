@@ -107,7 +107,14 @@ class VacanciesController extends BaseController {
             $creator = User::where('id',$vacancie->creator_id)->first();
             $vacancie->creatorName = $creator->username;
             $vacancie->applied = Application::where('vacancie_id',$id)->count();
+            //cik userim ir recommendo
+            $vacancie->userRecommends = Recommendation::where('employer_id',$creator->id)->count();
             
+            if(Auth::check()){
+                    if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
+                        $vacancie->recommended = true; //lai var displayot (recommend/unrecommend)
+                    }
+                }
             return View::make("vacancies/view", array('vacancie'=> $vacancie));
         }else{
             Session::flash('message-fail','No vacancie with such ID');

@@ -16,7 +16,10 @@
                     <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
                 </span>
                 @endif
-                
+            
+        <span>
+            <b>Company:</b> {{{$vacancie->company}}}   
+        </span>
         <span>
                     <b> Added by: </b>
                     <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>

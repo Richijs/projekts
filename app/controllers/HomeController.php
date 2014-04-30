@@ -30,7 +30,7 @@ class HomeController extends BaseController {
             $employer->recommendations = Recommendation::where('employer_id',$employer->id)->count();
             
         }
-              
+        //pirmie pieci top employeri (pēc visvairāk rekomendētā)
         $topEmployers = $employers->sortBy('recommendations')->reverse()->take(5);
         
         return View::make("home",array('topVacancies'=>$topVacancies,'topEmployers'=>$topEmployers));

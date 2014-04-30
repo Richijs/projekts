@@ -15,6 +15,10 @@
                 @endif
                 
                 <span>
+                    <b>Company:</b> {{{$vacancie->company}}}   
+                </span>
+                
+                <span>
                     <b> Added by: </b>
                     <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
                     <a href="/viewRecommenders/{{{$vacancie->creator_id}}}">({{{$vacancie->userRecommends}}})</a>
