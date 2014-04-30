@@ -11,7 +11,7 @@
     <div>
             <b>Company:</b> {{{$vacancie->company}}}   
     </div>
-    <div>
+    <div style="white-space:pre-line;">
        {{{$vacancie->text}}}
     </div>
     <div>
