@@ -336,7 +336,7 @@ class UsersController extends BaseController {
                     if($user->save())
                     {
                         //if changed userGroup - deletes stuff (except when seeker->admin or employer->admin)
-                        if($prevUserGroup!=$user->userGroup && $user->userGroup!=1)
+                        if(isset($prevUserGroup) && $prevUserGroup!=$user->userGroup && $user->userGroup!=1)
                         {
                             $recommendations = Recommendation::where('employer_id',$id); //also recommendations
                             $recommendations->delete();  
