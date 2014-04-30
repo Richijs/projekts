@@ -38,3 +38,5 @@ jāuztaisa normāls redirect no ->apply vacancie (ja nav seeker data) -> add see
 (tas laikam jāpaglabā sesijā)
 
 varētu pielikt slaiderus sākumlapā, kā arī default bildes useriem/vakancēm bez bildēm
+
+varētu pie get pieprasijuma kontrolierī visu salikt kompaktāk   data[smth] uz data[ smth=>smth, smth=>smth ]

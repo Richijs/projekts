@@ -67,8 +67,8 @@
     
 
     {{-- only admin can change groups (except his own group) --}}
-    <h3>changing from seeker->employer and employer->seeker will delete all user
-        created data except your own added recommendations! seeker data/vacancies/applications will all be deleted...
+    <h3>changing from anything->seeker or anything->employer will delete all user
+        created data except his own added recommendations! seeker data/vacancies/applications will all be deleted...
     </h3>
     
     @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$userId)
