@@ -36,3 +36,5 @@ varbūt uztaisīt mainīgu content no datubāzes, ko var editot admins.
 
 jāuztaisa normāls redirect no ->apply vacancie (ja nav seeker data) -> add seeker data -> apply vacancie back uz to pašu
 (tas laikam jāpaglabā sesijā)
+
+varētu pielikt slaiderus sākumlapā, kā arī default bildes useriem/vakancēm bez bildēm

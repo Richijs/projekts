@@ -312,6 +312,8 @@ class UsersController extends BaseController {
                     
                                                     //admin can't change his own group
                     if (Auth::user()->userGroup==1 && Auth::user()->id!=$id){
+                        
+                        $prevUserGroup = $user->userGroup;
                         $user->userGroup = Input::get('userGroup');
                     }
                     
@@ -333,6 +335,25 @@ class UsersController extends BaseController {
 
                     if($user->save())
                     {
+                        //if changed userGroup - deletes stuff (except when seeker->admin or employer->admin)
+                        if($prevUserGroup!=$user->userGroup && $user->userGroup!=1)
+                        {
+                            $recommendations = Recommendation::where('employer_id',$id); //also recommendations
+                            $recommendations->delete();  
+                            $applications = Application::where('user_id',$id);
+                            $applications->delete(); 
+                            $seekers = Seeker::where('user_id',$id);
+                            $seekers->delete();
+                            
+                            $vacancies = Vacancie::where('creator_id',$id)->get(); //own vacancies
+                            foreach($vacancies as $vacancie){
+                                $eachApp = Application::where('vacancie_id',$vacancie->id);
+                                $eachApp->delete();
+                            }
+                            $allVacs = Vacancie::where('creator_id',$id);
+                            $allVacs->delete();
+                        }
+                        
                     
                         if(Auth::user()->id==$id){ //ja editoja sevi
                             Session::flash('message-success','Edited Your profile successfully');

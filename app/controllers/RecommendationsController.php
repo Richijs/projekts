@@ -29,6 +29,11 @@ class RecommendationsController extends BaseController {
         
         if(Auth::check() && !Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId)->first())
         {
+            
+            /*if(User::find($userId)->userGroup==3){
+                Session::flash('message-fail','user is not an employer anymore');
+                return Redirect::back();
+            }*/
         
             $recommendation = new Recommendation;
             $recommendation->user_id = Auth::user()->id;
