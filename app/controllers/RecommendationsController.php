@@ -13,12 +13,17 @@ class RecommendationsController extends BaseController {
             return Redirect::back();
         }
         
+        if(User::find($userId)->userGroup==3){
+            Session::flash('message-fail','user is not an employer');
+            return Redirect::back();
+        }
+        
         if (Auth::check() && Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId)->first())
         {
             $recommendation = Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId);
             
             if($recommendation->delete()){
-                Session::flash('message-info','Unrecommended Employer');
+                Session::flash('message-info','Unrecommended');
                 return Redirect::back();
             }else{
                 Session::flash('message-fail','could not unrecommend Employer');
@@ -29,11 +34,6 @@ class RecommendationsController extends BaseController {
         
         if(Auth::check() && !Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId)->first())
         {
-            
-            /*if(User::find($userId)->userGroup==3){
-                Session::flash('message-fail','user is not an employer anymore');
-                return Redirect::back();
-            }*/
         
             $recommendation = new Recommendation;
             $recommendation->user_id = Auth::user()->id;

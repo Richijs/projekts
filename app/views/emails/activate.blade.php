@@ -1,4 +1,4 @@
-<!-- Epasts, kas tiek izsūtīts, kad lietotājs tiek reģistrēts -->
+<!-- Epasts, kas tiek izsūtīts, kad lietotājs tiek pabeidzis reģistrāciju/aktivizāciju -->
 
 <!DOCTYPE html>
 <html lang="{{ Config::get('app.locale') }}">

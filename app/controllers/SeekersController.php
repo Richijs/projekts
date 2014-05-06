@@ -17,7 +17,7 @@ class SeekersController extends BaseController {
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
                     "cv" => "required|max:3000|mimes:pdf,doc,docx,odt",
-                    "phone" => "required|numeric|min:3|max:20"
+                    "phone" => "required|numeric|digits_between:3,20"
                 ]);
             
                 if ($validator->passes())
@@ -147,7 +147,7 @@ class SeekersController extends BaseController {
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
                     "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav required, jo var būt, ka nevēlas mainīt cv
-                    "phone" => "required|min:3|max:20"
+                    "phone" => "required|numeric|digits_between:3,20"
                 ]);
                 if ($validator->passes())
                 {   

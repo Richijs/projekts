@@ -12,7 +12,7 @@
                 <a href="/viewUser/{{{$recommendation->user->id}}}">{{{$recommendation->user->username}}}</a>
                 <a href="/viewRecommenders/{{{$recommendation->user->id}}}">({{{$recommendation->userRecommends}}})</a>
 
-                @if (Auth::check() && $recommendation->user->id!=Auth::user()->id)
+                @if (Auth::check() && $recommendation->user->id!=Auth::user()->id && $recommendation->user->userGroup!=3)
                 <span>
                     <a href="/recommend/{{{$recommendation->user->id}}}">
                         @if ($recommendation->recommended)
