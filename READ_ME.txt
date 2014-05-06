@@ -37,9 +37,12 @@ varbūt uztaisīt mainīgu content no datubāzes, ko var editot admins.
 jāuztaisa normāls redirect no ->apply vacancie (ja nav seeker data) -> add seeker data -> apply vacancie back uz to pašu
 (tas laikam jāpaglabā sesijā)
 
-varētu pielikt slaiderus sākumlapā, kā arī default bildes useriem/vakancēm bez bildēm
+varētu pielikt slaiderus sākumlapā, kā arī default bildes useriem/vakancēm bez bildēm !!!
 
 varētu pie get pieprasijuma kontrolierī visu salikt kompaktāk   data[smth] uz data[ smth=>smth, smth=>smth ]
 
 varbūt salikt belongs to, has many iekš eloquent Modeļiem??
 http://scotch.io/tutorials/php/a-guide-to-using-eloquent-orm-in-laravel
+
+jāsaliek normāli latvian language translation validation attributes, lai nerāda "phone lauks ir nepieciešams",bet
+"telefona lauks ir nepieciešams"
