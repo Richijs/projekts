@@ -12,6 +12,13 @@ extends DatabaseSeeder
                 "phone"=> 285239585,
                 "user_id"   => 3
             ],
+            [
+                "intro" => "Professional freelancer",
+                "text" => "Im a legit freelancer willing to join part time job\r\nI can solve android-ish puzzles with minimal effort",
+                "cv"    => "uploads/jobSeekerCVs/admin__CV__RQWjZL43ujQbgmBCiKN0NxSZnVXfKS1399363599.pdf",
+                "phone"=> 28523979585,
+                "user_id"   => 9
+            ],
         ];
         foreach ($seekers as $seeker)
         {

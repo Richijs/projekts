@@ -29,6 +29,14 @@ extends DatabaseSeeder
                 "text"      => "meklējam zirgu\r\npastāvīgam darbam\r\npilna vai nepilna laika slodze",
                 "creator_id"=> 2
             ],
+            [
+                "name"      => "alfonso AS meklē namdari",
+                "company"   => "alfonso AS",
+                "poster"    => "uploads/vacanciePosters/Iz8JpPtmeQptU6fDJQkVCY6pwrHcaM1398862788.jpg",
+                "phone"     => "276258349",
+                "text"      => "Nepieciešams pilna laika namdaris ar vismaz 3 gadu pieredzi\r\nstudentiem neatbildēt",
+                "creator_id"=> 7
+            ],
         ];
         foreach ($vacancies as $vacancie)
         {

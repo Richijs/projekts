@@ -59,7 +59,52 @@ extends DatabaseSeeder
                 "prefLang" => "en",
                 "firstname"=> "Inactivus-Adminus",
                 "lastname" => "Magnificuass"
+            ],
+            [
+                "username" => "adminirium",
+                "password" => Hash::make("adminirium"),
+                "email"    => "test6@yopmail.com",
+                "userGroup"=> 1,
+                "active"   => 1,
+                "picture"  => "uploads/profileImages/gWCvpJ0E8lBn7WRBnGQGIPAkmeLwiE1398862400.jpeg",
+                "prefLang" => "lv",
+                "firstname"=> "Žuļiks",
+                "lastname" => "Zupahs"
+            ],
+            [
+                "username" => "employzors",
+                "password" => Hash::make("employzors"),
+                "email"    => "test7@yopmail.com",
+                "userGroup"=> 2,
+                "active"   => 1,
+                "picture"  => "uploads/profileImages/gWCvpJ0E8lBn7WRBnGQGIPAkmeLwiE1398862400.jpeg",
+                "prefLang" => "en",
+                "firstname"=> "Emahsf",
+                "lastname" => "Emanuel"
+            ],
+            [
+                "username" => "jobseeka",
+                "password" => Hash::make("jobseeka"),
+                "email"    => "test8@yopmail.com",
+                "userGroup"=> 3,
+                "active"   => 1,
+                "picture"  => "uploads/profileImages/gWCvpJ0E8lBn7WRBnGQGIPAkmeLwiE1398862400.jpeg",
+                "prefLang" => "en",
+                "firstname"=> "Farzoar",
+                "lastname" => "Fuamanuel"
+            ],
+            [
+                "username" => "victor",
+                "password" => Hash::make("victor"),
+                "email"    => "test9@yopmail.com",
+                "userGroup"=> 3,
+                "active"   => 1,
+                "picture"  => "uploads/profileImages/gWCvpJ0E8lBn7WRBnGQGIPAkmeLwiE1398862400.jpeg",
+                "prefLang" => "lv",
+                "firstname"=> "Viktors",
+                "lastname" => "Siksnors"
             ]
+            
         ];
         foreach ($users as $user)
         {

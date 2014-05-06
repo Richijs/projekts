@@ -93,6 +93,9 @@ return array(
 	|
 	*/
 
+        //email => epasts       
+        //Šis varētu būt noderīgs!!!!!
+    
 	'attributes' => array(),
 
 );
