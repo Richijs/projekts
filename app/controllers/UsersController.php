@@ -34,7 +34,7 @@ class UsersController extends BaseController {
                 if(User::where('username',$credentials['username'])->where('active',0)->first()){
                     Session::flash('message-fail','Account not activated and/or password incorrect');
                 }else{
-                    Session::flash('message-fail','wrong username or password');
+                    Session::flash('message-fail','Wrong username or password');
                 }
                 return Redirect::route("users/login")->withInput(Input::except('password'));
          
@@ -76,7 +76,7 @@ class UsersController extends BaseController {
                 
                 $data["requested"] = true; //why?
                 
-                Session::flash('message-success','email was sent to '.$credentials['email']);
+                Session::flash('message-success','Email was sent to '.$credentials['email']);
                 
                 return Redirect::route("home");
             }
@@ -87,7 +87,7 @@ class UsersController extends BaseController {
             if(User::where('email',Input::get("email"))->where('active',0)->first()){
                 Session::flash('message-fail','Account not activated yet, check your email');
             }else{
-                Session::flash('message-fail','email could not be sent');
+                Session::flash('message-fail','E-mail could not be sent');
             }
             return Redirect::route("users/request")->with($data)->withInput(Input::all());
         }
@@ -144,7 +144,7 @@ class UsersController extends BaseController {
             }
             
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','Couldnt change password');
+            Session::flash('message-fail','Could not change password');
             return Redirect::to(URL::route("users/reset") . $token)->withInput(Input::all())->with($data);
         }
         return View::make("users/reset")->with($data);
@@ -220,7 +220,7 @@ class UsersController extends BaseController {
             $data["about"] = Input::get("about");
             $data["userType"] = Input::get("userType");*/
                         
-            Session::flash('message-fail','Neizdevās piereģistrēties sistēmā');
+            Session::flash('message-fail','Could not register in the system');
             return Redirect::route("users/register")->withInput(Input::except('picture'))->with($data);
         }
         return View::make("users/register");
@@ -245,12 +245,12 @@ class UsersController extends BaseController {
                     $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
                 });
                 
-                Session::flash('message-success','Reģistrācija noritējusi veiksmīgi - tagad varat ielogoties');
+                Session::flash('message-success','Registration was successfull - You can now log in');
                 return Redirect::route("users/login")->withInput(["username"=>$user->username]);
             }//else ?
             
         }
-        Session::flash('message-fail','Darbība neizdevās - nederīga aktivizācijas saite vai lietotājs jau aktivizēts');
+        Session::flash('message-fail','The operation failed - invalid activisation link or user already activated');
         return Redirect::route("home");
     }
     

@@ -35,10 +35,10 @@ class MessagingController extends BaseController {
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
                     });
                 
-                    Session::flash('message-success','Epasts tika nosūtīts adminstratoram: '.$randomAdmin->username);
+                    Session::flash('message-success','E-mail was sent to administrator: '.$randomAdmin->username);
                     return Redirect::route("home");
                 }else{
-                    Session::flash('message-fail','sorry, there are no administrators in the system :(');
+                    Session::flash('message-fail','Sorry, there are no administrators in the system :(');
                     return Redirect::route("home");
                 }
                 

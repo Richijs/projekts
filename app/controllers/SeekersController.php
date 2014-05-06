@@ -61,7 +61,7 @@ class SeekersController extends BaseController {
             $data["text"] = Input::get("text");
             $data["phone"] = Input::get("phone");*/
                         
-            Session::flash('message-fail','Neizdevās pievienot darba meklējumu');
+            Session::flash('message-fail','Could not add job seeker data');
             return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
         }
         
@@ -237,7 +237,7 @@ class SeekersController extends BaseController {
                             return Redirect::route("seekers/viewAllSeekers");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','something went wrong, could not delete job seek');
+                            Session::flash('message-fail','Something went wrong, could not delete job seek');
                             return Redirect::route("seekers/viewAllSeekers");  
                         }
                     }

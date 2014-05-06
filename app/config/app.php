@@ -57,6 +57,9 @@ return array(
 
 	'locale' => 'lv',
     
+        //ņem EN tulkojumus, ja tie nav pieejami LV valodā
+        'fallback_locale' => 'en',
+    
         'languages' => array('lv','en'),
 
 	/*

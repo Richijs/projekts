@@ -92,7 +92,7 @@ class VacanciesController extends BaseController {
             $data["phone"] = Input::get("phone");
             $data["company"] = Input::get("company");*/
                         
-            Session::flash('message-fail','Neizdevās pievienot vakanci');
+            Session::flash('message-fail','Could not add vaccancie');
             return Redirect::route("vacancies/add")->withInput(Input::except('poster'))->with($data);
         }
         
@@ -270,7 +270,7 @@ class VacanciesController extends BaseController {
                             return Redirect::route("vacancies/viewAllVacancies");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','something went wrong, could not delete vacancie');
+                            Session::flash('message-fail','Something went wrong, could not delete vacancie');
                             return Redirect::route("vacancies/viewAllVacancies");  
                         }
                     }

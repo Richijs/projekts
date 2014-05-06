@@ -14,7 +14,7 @@ class RecommendationsController extends BaseController {
         }
         
         if(User::find($userId) && User::find($userId)->userGroup==3){
-            Session::flash('message-fail','user is not an employer');
+            Session::flash('message-fail','User is not an employer');
             return Redirect::back();
         }
         
@@ -31,7 +31,7 @@ class RecommendationsController extends BaseController {
                 Session::flash('message-info','Unrecommended');
                 return Redirect::back();
             }else{
-                Session::flash('message-fail','could not unrecommend Employer');
+                Session::flash('message-fail','Could not unrecommend');
                 return Redirect::back();
             }
         }
@@ -46,10 +46,10 @@ class RecommendationsController extends BaseController {
             
                 if($recommendation->save())
                 {
-                Session::flash('message-success','Darba devējs ir rekomendēts');
+                Session::flash('message-success','Employer was recommended');
                 return Redirect::back();
                 }
-            Session::flash('message-fail','Nevarēja rekomendēt darba devēju');
+            Session::flash('message-fail','Could not recommend employer');
             return Redirect::back();
         
         }

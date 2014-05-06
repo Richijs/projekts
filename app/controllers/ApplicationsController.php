@@ -22,7 +22,7 @@ class ApplicationsController extends BaseController {
                 //ja nav norādījis savus job seeker datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
-                    Session::flash('message-fail','Sākumā jānorāda darba meklētāja dati, pirms iespējams pietiekties jebkurai vakancei');
+                    Session::flash('message-fail','Before applying any vaccancie, first You must add Your jobseeker data!');
                     Session::put('vacancieId',$vacancieId); //lai var redirect back uz šo vakances apply
                     return Redirect::route("seekers/add");
                 }
@@ -45,7 +45,7 @@ class ApplicationsController extends BaseController {
                             
                         if($application->save())
                         {
-                            Session::flash('message-success','applied job successfully');
+                            Session::flash('message-success','Applied job successfully');
                             return Redirect::to("/viewVacancie/{$vacancieId}");
                         }
                         //varbūt else?
@@ -56,7 +56,7 @@ class ApplicationsController extends BaseController {
                 /*$data["vacancieId"] = $vacancieId;
                 $data["vacancieName"] = $vacancie->name;*/
                 //$data["letter"] = Input::get("letter");
-                Session::flash('message-fail','applying job failed');
+                Session::flash('message-fail','Applying job failed');
                 return Redirect::to("/apply/{$vacancieId}")->withInput(Input::all())->with($data);
                 }
         
@@ -196,7 +196,7 @@ class ApplicationsController extends BaseController {
                             return Redirect::route("applications/viewMy");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','something went wrong, could not delete application');
+                            Session::flash('message-fail','Something went wrong, could not delete application');
                             return Redirect::route("home");  
                         }
                     }
@@ -257,7 +257,7 @@ class ApplicationsController extends BaseController {
                             
                     if($application->save())
                     {
-                            Session::flash('message-success','edited Application successfully');
+                            Session::flash('message-success','Edited Application successfully');
                             return Redirect::to("/viewApplication/{$applicationId}");
                     }
                     //varbūt else?
