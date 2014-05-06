@@ -13,12 +13,12 @@ return array(
 	|
 	*/
 
-	"password" => "Passwords must be at least six characters and match the confirmation.",
+	"password" => "Parolei jābūt vismaz sešu simbolu garumā un jāatbilst apstiprinājumam.",
 
-	"user" => "We can't find a user with that e-mail address.",
+	"user" => "Mēs nevaram atrast lietotāju ar tādu e-pasta adresi.",
 
-	"token" => "This password reset token is invalid.",
+	"token" => "Šis paroles atiestatīšanas token nav derīgs.",
 
-	"sent" => "Password reminder sent!",
+	"sent" => "Paroles atgādinājums nosūtīts!",
 
 );
