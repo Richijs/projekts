@@ -334,7 +334,7 @@ class UsersController extends BaseController {
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                            $user->picture = 'uploads\profileImages\\'.$picName.'.'.$file->getClientOriginalExtension();
+                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                         }
 
                     if($user->save())
@@ -522,7 +522,7 @@ class UsersController extends BaseController {
                             
                             //deletes old picture
                             if($user->picture){
-                                File::delete(public_path().'\\'.$user->picture);  
+                                File::delete(public_path().'\\'.$user->picture);
                             }
                             
                                 if($user->delete()){
