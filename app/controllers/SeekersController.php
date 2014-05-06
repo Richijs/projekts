@@ -96,7 +96,7 @@ class SeekersController extends BaseController {
             Return Response::download($seeker->cv);
         }else{
             Session::flash('message-fail','Could not download CV');
-            return Redirect::route("home");
+            return Redirect::route("home"); //redirect back?
         }
     }
     
