@@ -13,8 +13,10 @@ class RecommendationsController extends BaseController {
             return Redirect::back();
         }
         
-        if(User::find($userId) && User::find($userId)->userGroup==3){
-            Session::flash('message-fail','User is not an employer');
+        if(User::find($userId) && User::find($userId)->userGroup===3){
+            
+            $username = User::find($userId)->username;
+            Session::flash('message-fail',$username.' is not an employer');
             return Redirect::back();
         }
         
@@ -26,12 +28,13 @@ class RecommendationsController extends BaseController {
         if (Auth::check() && Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId)->first())
         {
             $recommendation = Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$userId);
+            $username = User::find($userId)->username;
             
             if($recommendation->delete()){
-                Session::flash('message-info','Unrecommended');
+                Session::flash('message-info','Unrecommended '.$username);
                 return Redirect::back();
             }else{
-                Session::flash('message-fail','Could not unrecommend');
+                Session::flash('message-fail','Could not unrecommend '.$username);
                 return Redirect::back();
             }
         }
@@ -43,13 +46,14 @@ class RecommendationsController extends BaseController {
             $recommendation = new Recommendation;
             $recommendation->user_id = Auth::user()->id;
             $recommendation->employer_id = $userId;
+            $username = User::find($userId)->username;
             
                 if($recommendation->save())
                 {
-                Session::flash('message-success','Employer was recommended');
+                Session::flash('message-success',$username.' was recommended');
                 return Redirect::back();
                 }
-            Session::flash('message-fail','Could not recommend employer');
+            Session::flash('message-fail','Could not recommend '.$username);
             return Redirect::back();
         
         }
