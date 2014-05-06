@@ -13,8 +13,13 @@ class RecommendationsController extends BaseController {
             return Redirect::back();
         }
         
-        if(User::find($userId)->userGroup==3){
+        if(User::find($userId) && User::find($userId)->userGroup==3){
             Session::flash('message-fail','user is not an employer');
+            return Redirect::back();
+        }
+        
+        if(!User::find($userId)){
+            Session::flash('message-fail','No Such User');
             return Redirect::back();
         }
         
