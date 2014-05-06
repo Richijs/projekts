@@ -191,7 +191,7 @@ class UsersController extends BaseController {
                             
                         //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                        $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                        $user->picture = 'uploads\profileImages\\'.$picName.'.'.$file->getClientOriginalExtension();
                     }else{
                         
                          //pielikt default ? bildi   
@@ -320,6 +320,10 @@ class UsersController extends BaseController {
                     
                         if(Input::hasfile('picture'))
                         {
+                            //deletes old picture
+                            if($user->picture){
+                               File::delete(public_path().'\\'.$user->picture);  
+                            }
                             
                             $file = Input::file('picture');
                             
@@ -330,7 +334,7 @@ class UsersController extends BaseController {
                             
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                            $user->picture = 'uploads\profileImages\\'.$picName.'.'.$file->getClientOriginalExtension();
                         }
 
                     if($user->save())
@@ -516,7 +520,13 @@ class UsersController extends BaseController {
                             $allVacs = Vacancie::where('creator_id',$id);
                             $allVacs->delete();
                             
-                            if($user->delete()){
+                            //deletes old picture
+                            if($user->picture){
+                                File::delete(public_path().'\\'.$user->picture);  
+                            }
+                            
+                                if($user->delete()){
+                                
                                     Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');
                                     return Redirect::route("home");                                
                                 } //varbūt pielikt else?

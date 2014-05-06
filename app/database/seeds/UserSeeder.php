@@ -57,7 +57,7 @@ extends DatabaseSeeder
                 "active"   => 0,
                 "picture"  => "uploads/profileImages/gWCvpJ0E8lBn7WRBnGQGIPAkmeLwiE1398862400.jpeg",
                 "prefLang" => "en",
-                "firstname"=> "Inactivus-Adminus",
+                "firstname"=> "InactivusAdminus",
                 "lastname" => "Magnificuass"
             ],
             [
