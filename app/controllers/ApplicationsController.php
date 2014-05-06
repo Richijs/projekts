@@ -36,21 +36,21 @@ class ApplicationsController extends BaseController {
                         "letter" => "required|min:10|max:1000",
                     ]);
                     
-                if ($validator->passes())
-                {   
-                    $application = new Application;
-                    $application->letter = Input::get('letter');                  
-                    $application->user_id = Auth::user()->id;
-                    $application->vacancie_id = $vacancieId;
+                    if ($validator->passes())
+                    {   
+                        $application = new Application;
+                        $application->letter = Input::get('letter');                  
+                        $application->user_id = Auth::user()->id;
+                        $application->vacancie_id = $vacancieId;
                             
-                    if($application->save())
-                    {
+                        if($application->save())
+                        {
                             Session::flash('message-success','applied job successfully');
                             return Redirect::to("/viewVacancie/{$vacancieId}");
-                    }
-                    //varbūt else?
+                        }
+                        //varbūt else?
                 
-                }
+                    }
             
                 $data["errors"] = $validator->errors();
                 /*$data["vacancieId"] = $vacancieId;

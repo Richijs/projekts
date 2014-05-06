@@ -1,6 +1,6 @@
 @extends("layout")
 @section("content")
-    <h2>Your applicants , {{{ Auth::user()->username }}} for 
+    <h2>Applicants applied for 
         <a href="/viewVacancie/{{{$applications->vacancie->id}}}">{{{$applications->vacancie->name}}}</a>
     </h2>
     <div>

@@ -17,7 +17,7 @@ class SeekersController extends BaseController {
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
                     "cv" => "required|max:3000|mimes:pdf,doc,docx,odt",
-                    "phone" => "required|min:3|max:20"
+                    "phone" => "required|numeric|min:3|max:20"
                 ]);
             
                 if ($validator->passes())
