@@ -33,12 +33,12 @@
                     {{{Auth::user()->username}}}
                 </a>
                 |
-                <a href="{{ URL::route("users/logout") }}">
-                    logout
-                </a>
-                |
                 <a href="{{ URL::route("users/profile") }}">
                     My profile
+                </a>
+                |
+                <a href="{{ URL::route("users/logout") }}">
+                    logout
                 </a>
                 |
                 @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)

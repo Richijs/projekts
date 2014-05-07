@@ -26,11 +26,11 @@
     
     @if (Auth::user()->picture)
         <div>
-            <img src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" alt="user picture"/>
+            <img src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="200" alt="user picture"/>
         </div>
     @else
         <div>
-             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
+             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
         </div>
     @endif
     

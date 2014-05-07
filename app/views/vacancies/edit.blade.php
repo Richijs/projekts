@@ -51,7 +51,7 @@
         </div>
     @else
         <div>Current poster
-             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="100" alt="vacancie poster"/>
         </div>
     @endif
     

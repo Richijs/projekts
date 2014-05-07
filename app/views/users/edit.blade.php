@@ -120,7 +120,7 @@
         </div>
     @else
         <div>
-             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
+             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="100" alt="profile picture"/>
         </div>
     @endif
     
