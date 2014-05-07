@@ -10,7 +10,11 @@
                     <b>Last edit:</b> {{{$seeker->updated_at}}}
                 </div>
                 <div>
-                    <a href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
+                    <a href="{{ URL::to("/getCV/".$seeker->id) }}">
+                        <button class="btn btn-default">
+                            DOWNLOAD CV
+                        </button>
+                    </a>
                 </div>
                 <div>
                     {{{$seeker->text}}}

@@ -5,6 +5,12 @@
         @if (isset($users))
             @foreach ($users as $user)
             <div>
+                @if ($user->picture)
+                <span>
+                    <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
+                </span>
+                @endif
+                <!-- else - shows default picture -->
                 <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
                 <span><b>Joined:</b> {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}</span>
                 <span>
@@ -15,11 +21,6 @@
                         Not Activated!
                     @endif
                 </span>
-                @if ($user->picture)
-                <span>
-                    <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
-                </span>
-                @endif
             </div>
             @endforeach
             <div>

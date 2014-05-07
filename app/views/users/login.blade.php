@@ -23,7 +23,7 @@
                 {{ $error }}
             </div>
         @endif
-        {{ Form::submit("login") }}
+        {{ Form::submit("login",["class" => "btn btn-primary"]) }}
     {{ Form::close() }}
     
     <a href="{{ URL::route("users/request") }}">

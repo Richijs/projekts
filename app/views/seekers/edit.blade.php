@@ -63,7 +63,7 @@
     </div>  
     
     <div>   
-        {{ Form::submit("Edit JobSeek") }}
+        {{ Form::submit("Edit JobSeek",["class" => "btn btn-warning"]) }}
     </div>
     
     {{ Form::close() }}

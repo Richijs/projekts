@@ -11,13 +11,13 @@
     <h3>top 5 vacancies</h3>
     @foreach ($topVacancies as $vacancie)
     <div>
-        <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
-        
-        <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
-                
         @if ($vacancie->poster)
              <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
         @endif
+        
+        <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
+        
+        <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
             
         <b>Company:</b> {{{$vacancie->company}}}   
 
@@ -34,7 +34,11 @@
     
     @foreach ($topEmployers as $employer)
     <div>
-        <b>{{{$employer->username}}}</b>
+        @if ($employer->picture)
+             <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="50" height="50" alt="employer picture"/>
+        @endif
+        
+        <a href="/viewUser/{{{$employer->id}}}"><b>{{{$employer->username}}}</b></a>
         
         {{{$employer->recommendations}}} <b>recommendations</b>
         

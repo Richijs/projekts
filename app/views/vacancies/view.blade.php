@@ -25,12 +25,14 @@
                 @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                 <span>
                     <a href="/recommend/{{{$vacancie->creator_id}}}">
-                        @if ($vacancie->recommended)
-                            <span class="glyphicon glyphicon-remove-circle"></span>
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        @else
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        @endif
+                        <button class="btn btn-default">
+                            @if ($vacancie->recommended)
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            @else
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            @endif
+                        </button>
                     </a>
                 </span>
                 @endif

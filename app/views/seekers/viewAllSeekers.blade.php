@@ -9,7 +9,11 @@
                 <span><b>created at:</b> {{{ date('d.m.y H:i',strtotime($seeker->created_at)) }}}</span>
                 
                 <span>
-                    <a href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
+                    <a href="{{ URL::to("/getCV/".$seeker->id) }}">
+                        <button class="btn btn-default">
+                            DOWNLOAD CV
+                        </button>
+                    </a>
                 </span>
                 
                 <span>

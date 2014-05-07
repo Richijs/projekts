@@ -22,7 +22,7 @@
     </div>   
     
     <div>   
-        {{ Form::submit("Apply Job") }}
+        {{ Form::submit("Apply Job",["class" => "btn btn-success"]) }}
     </div>
     {{ Form::close() }}
 @stop

@@ -57,7 +57,7 @@
     </div>   
     
     <div>   
-        {{ Form::submit("Send e-mail") }}
+        {{ Form::submit("Send e-mail",["class" => "btn btn-success"]) }}
     </div>
     {{ Form::close() }}
 @stop

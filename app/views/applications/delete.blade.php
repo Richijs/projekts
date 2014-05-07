@@ -28,7 +28,7 @@
             </div>
         @endif
         
-        {{ Form::submit("Delete Application") }}
+        {{ Form::submit("Delete Application",["class" => "btn btn-danger"]) }}
     {{ Form::close() }}
 @stop
 @section("footer")

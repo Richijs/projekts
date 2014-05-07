@@ -72,7 +72,7 @@
     </div> 
     
     <div>   
-        {{ Form::submit("Add vacancie") }}
+        {{ Form::submit("Add vacancie",["class" => "btn btn-success"]) }}
     </div>
     {{ Form::close() }}
 @stop

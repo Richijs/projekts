@@ -80,7 +80,7 @@
     </div> 
     
     <div>   
-        {{ Form::submit("Edit vacancie") }}
+        {{ Form::submit("Edit vacancie",["class" => "btn btn-warning"]) }}
     </div>
     {{ Form::close() }}
 @stop

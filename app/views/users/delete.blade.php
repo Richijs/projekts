@@ -19,7 +19,7 @@
             </div>
         @endif
         
-        {{ Form::submit("Delete profile") }}
+        {{ Form::submit("Delete profile",["class" => "btn btn-danger"]) }}
     {{ Form::close() }}
 @stop
 @section("footer")

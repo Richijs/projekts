@@ -25,7 +25,7 @@
     </div>   
     
     <div>   
-        {{ Form::submit("edit Application") }}
+        {{ Form::submit("edit Application",["class" => "btn btn-warning"]) }}
     </div>
     {{ Form::close() }}
 @stop

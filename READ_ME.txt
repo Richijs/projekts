@@ -51,3 +51,5 @@ Skatos jāsaliek default bildes Useriem bez bildēm (ghost face) un vakancēm (g
 
 File deletre strādā. Gitā to grūti pamanīt (nerādās deleted, ja tikko pievienots jauns fails)
 (editojot kko/dzēšot nesen pievienotos failus utt)
+
+garajiem sarakstiem nice būtu nested media no BOOTSTRAP!

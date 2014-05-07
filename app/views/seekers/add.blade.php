@@ -58,7 +58,7 @@
     </div>  
     
     <div>   
-        {{ Form::submit("Add JobSeek") }}
+        {{ Form::submit("Add JobSeek",["class" => "btn btn-success"]) }}
     </div>
     {{ Form::close() }}
 @stop

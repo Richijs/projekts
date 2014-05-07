@@ -110,7 +110,7 @@
         @endif
     </div>    
     <div>   
-        {{ Form::submit("register") }}
+        {{ Form::submit("register",["class" => "btn btn-success"]) }}
     </div>
     {{ Form::close() }}
 @stop

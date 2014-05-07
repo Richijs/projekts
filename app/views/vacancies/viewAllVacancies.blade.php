@@ -5,15 +5,16 @@
         @if (isset($vacancies))
             @foreach ($vacancies as $vacancie)
             <div>
-                <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
-                <span><b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}</span>
-                
                 @if ($vacancie->poster)
                 <span>
                     <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
                 </span>
                 @endif
+                <!-- else - shows default vacancie pic -->
                 
+                <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
+                <span><b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}</span>
+                                
                 <span>
                     <b>Company:</b> {{{$vacancie->company}}}   
                 </span>
@@ -26,12 +27,14 @@
                 @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                 <span>
                     <a href="/recommend/{{{$vacancie->creator_id}}}">
-                        @if ($vacancie->recommended)
-                            <span class="glyphicon glyphicon-remove-circle"></span>
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        @else
-                            <span class="glyphicon glyphicon-thumbs-up"></span>
-                        @endif
+                        <button class="btn btn-default">
+                            @if ($vacancie->recommended)
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            @else
+                                <span class="glyphicon glyphicon-thumbs-up"></span>
+                            @endif
+                        </button>
                     </a>
                 </span>
                 @endif

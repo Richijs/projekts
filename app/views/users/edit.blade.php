@@ -137,7 +137,7 @@
     </div>
     
     <div>
-    {{ Form::submit("Save Edit") }}
+    {{ Form::submit("Save Edit",["class" => "btn btn-warning"]) }}
     </div>
     
     {{ Form::close() }}
