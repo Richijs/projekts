@@ -192,9 +192,6 @@ class UsersController extends BaseController {
                         //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
                         $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
-                    }else{
-                        
-                         //pielikt default ? bildi   
                     }
                     
                 if($user->save())

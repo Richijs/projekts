@@ -24,7 +24,7 @@ jauztaisa file delete pie profila dzesanas,editoshanas, vakancēm n stuff
 VISUR, KUR JĀATTĒLO TEXTAREA AR LINE BREAKIEM - cssā->  white-space:pre-line;    !!!!!!!!!!!!!!!!!!!!!!!!
 
 jauztaisa lai admins var mainit usergroupas uz ADMIN UTT!
-NEVAR ZINĀT KAS NOTIEK, KAD SAMAINA GRUPU uz ZEMĀKU/CITU!!
+NEVAR ZINĀT KAS NOTIEK, KAD SAMAINA GRUPU uz ZEMĀKU/CITU!! (izdzēš viņa ierakstus!)
 
 ->withInput(Input::all()) strādā!
 
@@ -46,3 +46,5 @@ http://scotch.io/tutorials/php/a-guide-to-using-eloquent-orm-in-laravel
 
 jāsaliek normāli latvian language translation validation attributes, lai nerāda "phone lauks ir nepieciešams",bet
 "telefona lauks ir nepieciešams"
+
+Skatos jāsaliek default bildes Useriem bez bildēm (ghost face) un vakancēm (ghost vacancie) !!

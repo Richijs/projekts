@@ -49,8 +49,7 @@ class VacanciesController extends BaseController {
             ]);
             
             if ($validator->passes())
-            {
-                
+            {                
                     $vacancie = new Vacancie;
                     $vacancie->name = Input::get('name');
                     $vacancie->text = Input::get('text');
@@ -71,10 +70,6 @@ class VacanciesController extends BaseController {
                             //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
                             $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$file->getClientOriginalExtension();
-                        }else{
-                            
-                            //varbūt pielikt default ? bildi
-                            
                         }
                     
                     if($vacancie->save())
@@ -193,8 +188,7 @@ class VacanciesController extends BaseController {
                         }else{
                             
                             //the picture wasnt saved/found 
-                            //varbūt pielikt default ? bildi
-                            
+                                                        
                         }
                     
                     
