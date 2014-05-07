@@ -20,10 +20,6 @@
     border-bottom: 3px solid yellowgreen;
 }
 
-.lang .active{
-    border-bottom: 3px solid red;
-}
-
 .footer .container{
     border-radius: 50px;
     border-top: 3px solid black;

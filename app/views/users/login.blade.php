@@ -4,31 +4,72 @@
 
     {{ Form::open([
         "route"        => "users/login",
-        "autocomplete" => "off"
+        "autocomplete" => "off",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
-        {{ Form::label("username", "Username") }}
-        {{ Form::text("username", Input::get("username"), [
-            "placeholder" => "username"
-        ]) }}
-        {{ Form::label("password", "Password") }}
-        {{ Form::password("password", [
-            "placeholder" => "password"
-        ]) }}
-        {{ Form::checkbox("remember",true ,[
-            //
-        ]) }}
-        {{ Form::label("remember","remember me") }}
-        @if ($error = $errors->first("password"))
-            <div class="error">
-                {{ $error }}
+    
+        <div class="form-group">
+            {{ Form::label("username", "Username",[
+                "class"  => "col-sm-4 control-label"
+            ]) }}
+            <div class="col-sm-4">
+                {{ Form::text("username", Input::get("username"), [
+                    "placeholder" => "username",
+                    "class"       => "form-control"
+                ]) }}
             </div>
-        @endif
-        {{ Form::submit("login",["class" => "btn btn-primary"]) }}
+            
+            @if ($error = $errors->first("username"))
+                <div class="error col-sm-offset-4 col-sm-4">
+                    {{ $error }}
+                </div>
+            @endif
+        </div>
+    
+        <div class="form-group">
+            {{ Form::label("password", "Password",[
+                "class"  => "col-sm-4 control-label"
+            ]) }}
+            <div class="col-sm-4">
+                {{ Form::password("password", [
+                    "placeholder" => "password",
+                    "class"       => "form-control"
+                ]) }}
+            </div>
+            
+            @if ($error = $errors->first("password"))
+                <div class="error col-sm-offset-4 col-sm-4">
+                    {{ $error }}
+                </div>
+            @endif
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                <a href="{{ URL::route("users/request") }}">
+                    Forgot password?
+                </a>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                {{ Form::checkbox("remember",true ,[
+                    //
+                ]) }}
+                {{ Form::label("remember","remember me") }}
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                {{ Form::submit("login",["class" => "btn btn-primary"]) }}
+            </div>
+        </div>
+
     {{ Form::close() }}
     
-    <a href="{{ URL::route("users/request") }}">
-        Aizmirsi paroli?
-    </a>
 @stop
 @section("footer")
     @parent

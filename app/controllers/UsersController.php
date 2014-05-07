@@ -39,12 +39,7 @@ class UsersController extends BaseController {
          
             }
             
-            $data["errors"] = new MessageBag([
-                "password" => [
-                    "Username and/or password invalid."
-                ]
-            ]);
-            //$data["username"] = Input::get("username");
+            $data["errors"] = $validator->errors();
             Session::flash('message-fail','Could not log in');
             return Redirect::route("users/login")->withInput(Input::except('password'))->with($data);
         }
