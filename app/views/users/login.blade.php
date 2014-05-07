@@ -49,24 +49,24 @@
         
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-                <a href="{{ URL::route("users/request") }}">
-                    Forgot password?
-                </a>
+                <div>
+                    <a href="{{ URL::route("users/request") }}">
+                        Forgot password?
+                    </a>
+                </div>
+                
+                <div class='checkbox'>
+                    {{ Form::checkbox("remember",true ,[
+                        //
+                    ]) }}
+                    {{ Form::label("remember","remember me") }}
+                </div>
             </div>
         </div>
         
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-                {{ Form::checkbox("remember",true ,[
-                    //
-                ]) }}
-                {{ Form::label("remember","remember me") }}
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <div class="col-sm-offset-4 col-sm-4">
-                {{ Form::submit("login",["class" => "btn btn-primary"]) }}
+                {{ Form::submit("login",["class" => "btn btn-primary btn-block"]) }}
             </div>
         </div>
 
