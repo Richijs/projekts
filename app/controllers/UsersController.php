@@ -191,7 +191,7 @@ class UsersController extends BaseController {
                             
                         //$file->move('uploads/profileImages',$picName.'.'.$extension);
                             
-                        $user->picture = 'uploads\profileImages\\'.$picName.'.'.$file->getClientOriginalExtension();
+                        $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                     }else{
                         
                          //pielikt default ? bildi   
@@ -320,9 +320,10 @@ class UsersController extends BaseController {
                     
                         if(Input::hasfile('picture'))
                         {
-                            //deletes old picture
+                            
+                            //old picture link
                             if($user->picture){
-                               File::delete(public_path().'\\'.$user->picture);  
+                               $oldPic = $user->picture;  
                             }
                             
                             $file = Input::file('picture');
@@ -339,6 +340,11 @@ class UsersController extends BaseController {
 
                     if($user->save())
                     {
+                        //deletes old picture from filesystem, if new picture was uploaded
+                        if(isset($oldPic)){
+                            File::delete(public_path().'\\'.$oldPic);
+                        }
+                        
                         //if changed userGroup - deletes stuff (except when seeker->admin or employer->admin)
                         if(isset($prevUserGroup) && $prevUserGroup!=$user->userGroup && $user->userGroup!=1)
                         {
@@ -520,12 +526,13 @@ class UsersController extends BaseController {
                             $allVacs = Vacancie::where('creator_id',$id);
                             $allVacs->delete();
                             
-                            //deletes old picture
-                            if($user->picture){
-                                File::delete(public_path().'\\'.$user->picture);
-                            }
-                            
+                                                        
                                 if($user->delete()){
+                                    
+                                    //deletes old picture from filesystem
+                                    if($user->picture){
+                                    File::delete(public_path().'\\'.$user->picture);
+                                    }
                                 
                                     Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');
                                     return Redirect::route("home");                                

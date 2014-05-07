@@ -173,6 +173,10 @@ class VacanciesController extends BaseController {
                                   
                         if(Input::hasfile('poster'))
                         {
+                            //old picture link
+                            if($vacancie->poster){
+                               $oldPoster = $vacancie->poster;  
+                            }
                             
                             $file = Input::file('poster');
                             
@@ -196,6 +200,11 @@ class VacanciesController extends BaseController {
                     
                     if($vacancie->save())
                     {
+                        
+                        //deletes old picture from filesystem, if new picture was uploaded
+                        if(isset($oldPoster)){
+                            File::delete(public_path().'\\'.$oldPoster);
+                        }
                     
                         if($vacancie->creator_id==Auth::user()->id){ //ja editoja sevi
                             Session::flash('message-success','Edited Your Vacancie successfully');
@@ -266,6 +275,11 @@ class VacanciesController extends BaseController {
                         
                         if($vacancie->delete())
                         {
+                            //deletes old poster
+                            if($vacancie->poster){
+                                File::delete(public_path().'\\'.$vacancie->poster);
+                            }
+                            
                             Session::flash('message-success','Vacancie "'.$vacancie->name.'" deleted succesfully');
                             return Redirect::route("vacancies/viewAllVacancies");                                
                         }else{

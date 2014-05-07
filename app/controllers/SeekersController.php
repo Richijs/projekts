@@ -158,6 +158,10 @@ class SeekersController extends BaseController {
                                   
                         if(Input::hasfile('cv'))
                         {
+                            //old cv link
+                            if($seeker->cv){
+                               $oldCV = $seeker->cv;  
+                            }
                             
                             $file = Input::file('cv');
                             $fileName = User::find($seeker->user_id)->username.'__CV__'.str_random(30).time();
@@ -169,6 +173,10 @@ class SeekersController extends BaseController {
                     
                     if($seeker->save())
                     {
+                        //deletes old cv from filesystem, if new cv was uploaded
+                        if(isset($oldCV)){
+                            File::delete(public_path().'\\'.$oldCV);
+                        }
                     
                         if($seeker->creator_id==Auth::user()->id){ //ja editoja sevi
                             Session::flash('message-success','Edited Your Job Seek data successfully');
@@ -233,6 +241,11 @@ class SeekersController extends BaseController {
                     {                            
                         if($seeker->delete())
                         {
+                            //deletes cv from filesystem
+                            if(isset($seeker->cv)){
+                                File::delete(public_path().'\\'.$seeker->cv);
+                            }
+                            
                             Session::flash('message-success','Job Seek data for: "'.$seeker->intro.'" deleted succesfully');
                             return Redirect::route("seekers/viewAllSeekers");                                
                         }else{
