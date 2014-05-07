@@ -50,9 +50,9 @@
             <img src="{{URL::to('/')}}/{{{$poster}}}" width="100" alt="vacancie poster"/>
         </div>
     @else
-        <div>
-            No poster currently uploaded
-        </div>    
+        <div>Current poster
+             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+        </div>
     @endif
     
     <div>   

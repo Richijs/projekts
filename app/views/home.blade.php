@@ -13,6 +13,8 @@
     <div>
         @if ($vacancie->poster)
              <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
+        @else
+             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
         @endif
         
         <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
@@ -36,6 +38,8 @@
     <div>
         @if ($employer->picture)
              <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="50" height="50" alt="employer picture"/>
+        @else
+             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="employer picture"/>
         @endif
         
         <a href="/viewUser/{{{$employer->id}}}"><b>{{{$employer->username}}}</b></a>

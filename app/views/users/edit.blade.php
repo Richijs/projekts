@@ -120,8 +120,8 @@
         </div>
     @else
         <div>
-            No profile picture currently uploaded
-        </div>    
+             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
+        </div>
     @endif
     
     <div>   

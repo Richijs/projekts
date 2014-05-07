@@ -9,6 +9,10 @@
                 <span>
                     <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
                 </span>
+                @else
+                <span>
+                    <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
+                </span>
                 @endif
                 <!-- else - shows default picture -->
                 <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>

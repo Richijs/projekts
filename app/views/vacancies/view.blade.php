@@ -7,6 +7,10 @@
         <div>
             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" alt="vacancie poster"/>
         </div>
+    @else
+        <div>
+             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+        </div>
     @endif
     <div>
             <b>Company:</b> {{{$vacancie->company}}}   

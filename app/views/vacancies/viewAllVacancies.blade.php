@@ -9,6 +9,10 @@
                 <span>
                     <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
                 </span>
+                @else
+                <span>
+                    <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+                </span>
                 @endif
                 <!-- else - shows default vacancie pic -->
                 
