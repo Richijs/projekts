@@ -9,7 +9,8 @@
         "role"         => "form"
     ]) }}
     
-        <div class="form-group">
+        <div class="form-group @if ($errors->first('username')) has-error@endif">
+            
             {{ Form::label("username", "Username",[
                 "class"  => "col-sm-4 control-label"
             ]) }}
@@ -27,7 +28,8 @@
             @endif
         </div>
     
-        <div class="form-group">
+        <div class="form-group @if ($errors->first('password')) has-error@endif">
+            
             {{ Form::label("password", "Password",[
                 "class"  => "col-sm-4 control-label"
             ]) }}
