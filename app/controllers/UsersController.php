@@ -30,7 +30,6 @@ class UsersController extends BaseController {
                         return Redirect::route("users/profile");                  
                 }
                                       
-                //$data["username"] = Input::get("username");
                 if(User::where('username',$credentials['username'])->where('active',0)->first()){
                     Session::flash('message-fail','Account not activated and/or password incorrect');
                 }else{
@@ -81,7 +80,6 @@ class UsersController extends BaseController {
                 return Redirect::route("home");
             }
             
-            //$data["email"] = Input::get("email");
             $data["errors"] = $validator->errors();
             
             if(User::where('email',Input::get("email"))->where('active',0)->first()){
@@ -208,15 +206,7 @@ class UsersController extends BaseController {
                 
             }
             
-            $data["errors"] = $validator->errors();
-            
-            /*$data["username"] = Input::get("username");
-            $data["email"] = Input::get("email");
-            $data["firstname"] = Input::get("firstname");
-            $data["lastname"] = Input::get("lastname");
-            $data["about"] = Input::get("about");
-            $data["userType"] = Input::get("userType");*/
-                        
+            $data["errors"] = $validator->errors();    
             Session::flash('message-fail','Could not register in the system');
             return Redirect::route("users/register")->withInput(Input::except('picture'))->with($data);
         }
@@ -373,18 +363,6 @@ class UsersController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                
-                /*$data["picture"] = $userId->picture;
-                $data["username"] = Input::get("username");
-                $data["email"] = Input::get("email");
-                $data["firstname"] = Input::get("firstname");
-                $data["lastname"] = Input::get("lastname");
-                $data["about"] = Input::get("about");*/
-                
-                /*if (Auth::user()->userGroup==1){
-                    $data["userGroup"] = Input::get("userGroup");
-                }*/
-                
                 Session::flash('message-fail','Editing user data was not successfull');
                 return Redirect::to("/editUser/{$id}")->withInput(Input::except('picture'))->with($data);
             }
@@ -544,9 +522,7 @@ class UsersController extends BaseController {
                             return Redirect::to("/deleteUser/{$id}")->with($data);
                         }
                 }
-                
-                /*$user = User::find($id);
-                $data["username"] = $user->username; */ 
+
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete profile');
                 return Redirect::to("/deleteUser/{$id}")->with($data);

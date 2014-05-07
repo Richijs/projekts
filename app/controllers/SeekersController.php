@@ -56,11 +56,6 @@ class SeekersController extends BaseController {
                 }
             
             $data["errors"] = $validator->errors();
-            
-           /* $data["intro"] = Input::get("text");
-            $data["text"] = Input::get("text");
-            $data["phone"] = Input::get("phone");*/
-                        
             Session::flash('message-fail','Could not add job seeker data');
             return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
         }
@@ -190,10 +185,6 @@ class SeekersController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                /*$data["id"] = $seekerId->id;
-                $data["intro"] = Input::get("intro");
-                $data["text"] = Input::get("text");
-                $data["phone"] = Input::get("phone");*/
                 Session::flash('message-fail','Editing Job Seek was not successfull');
                 return Redirect::to("/editJobSeek/{$id}")->withInput(Input::except('cv'))->with($data);
             }
@@ -256,9 +247,6 @@ class SeekersController extends BaseController {
                     }
                 }
                 
-                $seeker = Seeker::find($id);
-                /*$data["id"] = $seeker->id;
-                $data["intro"] = $seeker->intro;  */
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete job seek');
                 return Redirect::to("/deleteJobSeek/{$id}")->with($data);

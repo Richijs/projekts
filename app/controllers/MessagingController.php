@@ -27,9 +27,7 @@ class MessagingController extends BaseController {
                 {
                     
                     $randomAdmin = User::where('userGroup',1)->where('active',1)->orderBy(DB::raw('RAND()'))->first();
-                    
-                                        
-                
+
                     Mail::send('emails.contact', array('username'=>Input::get("username"),'messageText'=>Input::get("message"),'email'=>Input::get("email")), function($message) use ($randomAdmin) {
                         $message->from("sender@yopmail.com", "sender"); // no
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
@@ -45,12 +43,6 @@ class MessagingController extends BaseController {
             }
         
             $data["errors"] = $validator->errors();
-                
-            /*$data["username"] = Input::get("username");
-            $data["email"] = Input::get("email");
-            $data["subject"] = Input::get("subject");
-            $data["message"] = Input::get("message");*/
-            
             Session::flash('message-fail','Sending e-mail to an admin was not successfull');
             return Redirect::route("messaging/contact")->withInput(Input::all())->with($data); 
         }

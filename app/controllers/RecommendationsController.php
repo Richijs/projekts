@@ -74,7 +74,6 @@ class RecommendationsController extends BaseController {
             return Redirect::route("home");
         }
         
-        
         $recCount = Recommendation::where('employer_id',$userId)->count();
         
         if($recCount){

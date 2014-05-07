@@ -81,12 +81,6 @@ class VacanciesController extends BaseController {
             }
             
             $data["errors"] = $validator->errors();
-            
-            /*$data["name"] = Input::get("name");
-            $data["text"] = Input::get("text");
-            $data["phone"] = Input::get("phone");
-            $data["company"] = Input::get("company");*/
-                        
             Session::flash('message-fail','Could not add vaccancie');
             return Redirect::route("vacancies/add")->withInput(Input::except('poster'))->with($data);
         }
@@ -212,12 +206,6 @@ class VacanciesController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                /*$data["id"] = $vacancieId->id;
-                $data["poster"] = $vacancieId->poster;
-                $data["name"] = Input::get("name");
-                $data["text"] = Input::get("text");
-                $data["phone"] = Input::get("phone");
-                $data["company"] = Input::get("company");*/
                 Session::flash('message-fail','Editing Vacancie was not successfull');
                 return Redirect::to("/editVacancie/{$id}")->withInput(Input::except('poster'))->with($data);
             }
@@ -284,9 +272,6 @@ class VacanciesController extends BaseController {
                     }
                 }
                 
-                /*$vacancie = Vacancie::find($id);
-                $data["id"] = $vacancie->id;
-                $data["name"] = $vacancie->name;  */
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail','Could not delete vacancie');
                 return Redirect::to("/deleteVacancie/{$id}")->with($data);
