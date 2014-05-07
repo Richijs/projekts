@@ -127,9 +127,7 @@ class RecommendationsController extends BaseController {
             $user = User::find($userId);
             return View::make("/recommendations/viewRecommendations",array('user'=>$user));
         }
-        
-        
-        
+
     }
     
     
