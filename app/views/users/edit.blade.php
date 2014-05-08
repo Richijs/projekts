@@ -6,8 +6,8 @@
     {{ Form::open([
         //"url"          => URL::route("users/edit"),
         "autocomplete" => "off",
-        "enctype" => "multipart/form-data",
-        "file" => "true",
+        "enctype"      => "multipart/form-data",
+        "file"         => "true",
         "class"        => "form-horizontal",
         "role"         => "form"
     ]) }}
