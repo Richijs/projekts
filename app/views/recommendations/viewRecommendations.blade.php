@@ -12,15 +12,13 @@
 
                 @if (Auth::check() && $recommendation->user->id!=Auth::user()->id && $recommendation->user->userGroup!=3)
                 <span>
-                    <a href="/recommend/{{{$recommendation->user->id}}}">
-                        <button class="btn btn-default">
+                    <a class="btn btn-default" href="/recommend/{{{$recommendation->user->id}}}">
                             @if ($recommendation->recommended)
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             @else
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             @endif
-                        </button>
                     </a>
                 </span>
                 @endif
