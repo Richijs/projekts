@@ -57,7 +57,7 @@
         
         <div class="col-sm-4">
             {{ Form::text("company", Input::get("company"), [
-                "placeholder" => "Compan name",
+                "placeholder" => "Company name",
                 "class"       => "form-control"
             ]) }}
         </div>

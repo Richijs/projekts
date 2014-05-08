@@ -5,21 +5,38 @@
 
     {{ Form::open([
         //"url"          => URL::route("vacancies/delete"),
-        "autocomplete" => "off"
+        "autocomplete" => "off",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
     
-        {{ Form::checkbox("checkbox", 1 ,[
+        <div class="form-group @if ($errors->first('checkbox')) has-error@endif">
+            {{ Form::label("confirmation", "Confirmation",[
+                "class"  => "col-sm-4 control-label"
+            ]) }}
             
-        ]) }}
-        {{ Form::label("checkbox","I Wish to delete this vaccancie") }}
-        
-        @if ($error = $errors->first("checkbox"))
-            <div class="error">
-                {{ $error }}
+            <div class="col-sm-4">
+                <div class="checkbox">
+                    {{ Form::checkbox("checkbox",true,false,[
+                        "id" => "checkbox"
+                    ]) }}
+                    {{ Form::label("checkbox","I Wish to delete this vaccancie") }}
+                </div>
             </div>
-        @endif
+            
+            @if ($error = $errors->first("checkbox"))
+                <div class="error col-sm-offset-4 col-sm-4">
+                    {{ $error }}
+                </div>
+            @endif
+        </div>
         
-        {{ Form::submit("Delete Vacancie",["class" => "btn btn-danger"]) }}
+        <div class="form-group">
+            <div class="col-sm-offset-4 col-sm-4">
+                {{ Form::submit("Delete Vacancie",["class" => "btn btn-danger btn-block"]) }}
+            </div>
+        </div>
+    
     {{ Form::close() }}
 @stop
 @section("footer")
