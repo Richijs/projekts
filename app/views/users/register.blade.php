@@ -69,6 +69,7 @@
         {{ Form::label("firstname", "Firstname",[
             "class"  => "col-sm-4 control-label"
         ]) }}
+        
         <div class="col-sm-4">
             {{ Form::text("firstname", Input::get("firstname"), [
                 "placeholder" => "firstname",
@@ -87,6 +88,7 @@
         {{ Form::label("lastname", "Lastname",[
             "class"  => "col-sm-4 control-label"
         ]) }}
+        
         <div class="col-sm-4">
             {{ Form::text("lastname", Input::get("lastname"), [
                 "placeholder" => "lastname",

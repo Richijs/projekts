@@ -7,51 +7,82 @@
         //"url"          => URL::route("users/edit"),
         "autocomplete" => "off",
         "enctype" => "multipart/form-data",
-        "file" => "true"
+        "file" => "true",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
     
-    <div>
-    {{ Form::label("username", "Username") }}
-        {{ Form::text("username", $username/*Input::get("username")*/, [
-            "placeholder" => "username"
+    <div class="form-group @if ($errors->first('username')) has-error@endif">
+        {{ Form::label("username", "Username",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("username", $username/*Input::get("username")*/, [
+                "placeholder" => "username",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("username"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>
     
-    <div>
-        {{ Form::label("email", "Email") }}
-        {{ Form::text("email", $email/*Input::get("email")*/, [
-            "placeholder" => "email"
+    <div class="form-group @if ($errors->first('email')) has-error@endif"> 
+        {{ Form::label("email", "Email",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("email", $email/*Input::get("email")*/, [
+                "placeholder" => "email",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("email"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>   
     
-    <div>    
-        {{ Form::label("firstname", "Firstname") }}
-        {{ Form::text("firstname", $firstname, [
-            "placeholder" => "firstname"
+    <div class="form-group @if ($errors->first('firstname')) has-error@endif">     
+        {{ Form::label("firstname", "Firstname",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("firstname", $firstname, [
+                "placeholder" => "firstname",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("firstname"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>    
-    <div>    
-        {{ Form::label("lastname", "Lastname") }}
-        {{ Form::text("lastname", $lastname, [
-            "placeholder" => "lastname"
+    
+    <div class="form-group @if ($errors->first('lastname')) has-error@endif">   
+        {{ Form::label("lastname", "Lastname",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("lastname", $lastname, [
+                "placeholder" => "lastname",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("lastname"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
