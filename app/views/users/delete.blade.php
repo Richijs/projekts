@@ -6,20 +6,36 @@
     
     {{ Form::open([
         //"url"          => URL::route("users/delete"),
-        "autocomplete" => "off"
+        "autocomplete" => "off",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
     
-        {{ Form::label("password", "password") }}
-        {{ Form::password("password", [
-            "placeholder" => "password"
+    <div class="form-group @if ($errors->first('password')) has-error@endif">
+        {{ Form::label("password", "password",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::password("password", [
+                "placeholder" => "password",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("password"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4"> 
+            {{ Form::submit("Delete profile",["class" => "btn btn-danger btn-block"]) }}
+        </div>
+    </div>
         
-        {{ Form::submit("Delete profile",["class" => "btn btn-danger"]) }}
     {{ Form::close() }}
 @stop
 @section("footer")

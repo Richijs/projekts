@@ -189,7 +189,7 @@
     </div>
     
     <div class="form-group">
-        {{ Form::label("profilePic", "Current profile pictured",[
+        {{ Form::label("profilePic", "Current profile picture",[
             "class"  => "col-sm-4 control-label"
         ]) }}
     
@@ -213,7 +213,7 @@
         <div class="col-sm-4">
             <div class="form-control">
                 {{ Form::file("picture", Input::file("picture"),[ //input::get varbūt???  lkm input::old nestrādā uz file :(
-                    // "placeholder" => "profile picture"
+                     "placeholder" => "profile picture"
                 ]) }}
             </div>
         </div>

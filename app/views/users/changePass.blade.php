@@ -4,36 +4,74 @@
 
     {{ Form::open([
         "url"          => URL::route("users/changePass"),
-        "autocomplete" => "off"
+        "autocomplete" => "off",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
-        {{ Form::label("current_password", "Current Password") }}
-        {{ Form::password("password", [
-            "placeholder" => "current password"
+    
+    <div class="form-group @if ($errors->first('password')) has-error@endif">
+        {{ Form::label("current_password", "Current Password",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::password("password", [
+                "placeholder" => "current password",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("password"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
-        {{ Form::label("new_password", "New Password") }}
-        {{ Form::password("new_password", [
-            "placeholder" => "new password"
+    </div>    
+        
+    <div class="form-group @if ($errors->first('new_password')) has-error@endif">
+        {{ Form::label("new_password", "New Password",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::password("new_password", [
+                "placeholder" => "new password",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("new_password"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
-        {{ Form::label("new_password_confirmation", "Confirm New Password") }}
-        {{ Form::password("new_password_confirmation", [
-            "placeholder" => "confirm new password"
+    </div>
+    
+    <div class="form-group @if ($errors->first('new_password_confirmation')) has-error@endif">
+        {{ Form::label("new_password_confirmation", "Confirm New Password",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::password("new_password_confirmation", [
+                "placeholder" => "confirm new password",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("new_password_confirmation"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
-        {{ Form::submit("change password") }}
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">  
+            {{ Form::submit("change password",["class" => "btn btn-warning btn-block"]) }}
+        </div>
+    </div>
+        
     {{ Form::close() }}
 @stop
 @section("footer")
