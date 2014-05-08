@@ -25,6 +25,13 @@
                         Not Activated!
                     @endif
                 </span>
+                
+                @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$user->id)
+                    <span>
+                        <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User</a>
+                        <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete User</a>
+                    </span>
+                @endif
             </div>
             @endforeach
             <div>
