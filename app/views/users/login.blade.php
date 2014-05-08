@@ -56,8 +56,8 @@
                 </div>
                 
                 <div class='checkbox'>
-                    {{ Form::checkbox("remember",true ,[
-                        //
+                    {{ Form::checkbox("remember",true,false,[
+                        "id" => "remember"
                     ]) }}
                     {{ Form::label("remember","remember me") }}
                 </div>
