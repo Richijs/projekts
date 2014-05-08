@@ -95,9 +95,9 @@
         
         <div class="col-sm-4">
             <div class="form-control">
-            {{ Form::file("poster", Input::file("poster"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
-                "placeholder" => "Vacancie Poster"
-            ]) }}
+                {{ Form::file("poster", Input::file("poster"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
+                    "placeholder" => "Vacancie Poster"
+                ]) }}
             </div>
         </div>
         
