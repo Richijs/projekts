@@ -179,9 +179,9 @@
         
         <div class="col-sm-4">
             <div class="form-control">
-            {{ Form::file("picture", Input::file("picture"),[ //input::get varbūt???  lkm input::old nestrādā uz file :(
-                //"placeholder" => "picture"
-            ]) }}
+                {{ Form::file("picture", Input::file("picture"),[ //input::get varbūt???  lkm input::old nestrādā uz file :(
+                    //"placeholder" => "picture"
+                ]) }}
             </div>
         </div>
         

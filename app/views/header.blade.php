@@ -65,13 +65,13 @@
             </nav>
             <div class="lang">       
                 <div class="btn-group btn-toggle">
-                    <a href="{{ URL::to("/lang/lv") }}">
-                        <button class="btn btn-xs btn-default
-                        @if (Config::get('app.locale')=='lv') btn-primary active @endif">LV</button>
+                    <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
+                        @if (Config::get('app.locale')=='lv') btn-primary active @endif">
+                        LV
                     </a>
-                    <a href="{{ URL::to("/lang/en") }}">
-                        <button class="btn btn-xs btn-default
-                        @if (Config::get('app.locale')=='en') btn-primary active @endif">EN</button>
+                    <a href="{{ URL::to("/lang/en") }}" class="btn btn-xs btn-default
+                        @if (Config::get('app.locale')=='en') btn-primary active @endif">
+                        EN
                     </a>
                 </div>
             </div>
