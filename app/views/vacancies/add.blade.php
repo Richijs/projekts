@@ -5,8 +5,8 @@
     {{ Form::open([
         "url"          => URL::route("vacancies/add"),
         "autocomplete" => "off",
-        "enctype" => "multipart/form-data",
-        "file" => "true",
+        "enctype"      => "multipart/form-data",
+        "file"         => "true",
         "class"        => "form-horizontal",
         "role"         => "form"
     ]) }}
