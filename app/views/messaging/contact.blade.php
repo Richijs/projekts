@@ -6,58 +6,91 @@
     {{ Form::open([
         "url"          => URL::route("messaging/contact"),
         "autocomplete" => "off",
+        "class"        => "form-horizontal",
+        "role"         => "form"
     ]) }}
       
-     <div>    
-        {{ Form::label("username", "Username, Nick or Name") }}
-        {{ Form::text("username", $username, [
-            "placeholder" => "Username, Nick or Name"
+     <div class="form-group @if ($errors->first('username')) has-error@endif">    
+        {{ Form::label("username", "Username, Nick or Name",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("username", $username, [
+                "placeholder" => "Username, Nick or Name",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("username"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>  
     
-     <div>    
-        {{ Form::label("email", "Your Email") }}
-        {{ Form::text("email", $email, [
-            "placeholder" => "Your Email"
+    <div class="form-group @if ($errors->first('email')) has-error@endif">     
+        {{ Form::label("email", "Your Email",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("email", $email, [
+                "placeholder" => "Your Email",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("email"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div> 
     
-    <div>    
-        {{ Form::label("subject", "E-mail subject") }}
-        {{ Form::text("subject", Input::get("subject"), [
-            "placeholder" => "subject"
+    <div class="form-group @if ($errors->first('subject')) has-error@endif">    
+        {{ Form::label("subject", "E-mail subject",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-4">
+            {{ Form::text("subject", Input::get("subject"), [
+                "placeholder" => "subject",
+                "class"       => "form-control"
+            ]) }}
+        </div>
+        
         @if ($error = $errors->first("subject"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>
     
-    <div>    
-        {{ Form::label("message", "message") }}
-        {{ Form::textarea("message", Input::get("message"), [
-            "placeholder" => "Message text"
+    <div class="form-group @if ($errors->first('message')) has-error@endif">   
+        {{ Form::label("message", "message",[
+            "class"  => "col-sm-4 control-label"
         ]) }}
+        
+        <div class="col-sm-5">
+        {{ Form::textarea("message", Input::get("message"), [
+            "placeholder" => "Message text",
+            "class"       => "form-control",
+            "rows"        => "7"
+        ]) }}
+        </div>
+        
         @if ($error = $errors->first("message"))
-            <div class="error">
+            <div class="error col-sm-offset-4 col-sm-4">
                 {{ $error }}
             </div>
         @endif
     </div>   
     
-    <div>   
-        {{ Form::submit("Send e-mail",["class" => "btn btn-success"]) }}
+    <div class="form-group">
+        <div class="col-sm-offset-4 col-sm-4">
+            {{ Form::submit("Send e-mail",["class" => "btn btn-success btn-block"]) }}
+        </div>
     </div>
     {{ Form::close() }}
 @stop
