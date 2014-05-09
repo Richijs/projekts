@@ -57,4 +57,4 @@ garajiem sarakstiem nice būtu nested media no BOOTSTRAP!
 btn bootstrap stilu var likt iekšā pa taisno <a> tagos !!
 jāpārveido visi linku buttoni tā!!
 
-Tulkojumos ir nice lieta - Attributes. Jāsavada priekš LV validācijas messagiem
+Tulkojumos ir nice lieta - Attributes. Jāsavada priekš LV validācijas messagiem !!

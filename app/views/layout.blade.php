@@ -6,7 +6,9 @@
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         {{ HTML::style('css/style.css'); }}
-        {{ HTML::style('css/bootstrap.css'); }} <!-- TODO: rest to be added -->
+        {{ HTML::style('css/bootstrap.min.css'); }}
+        {{ HTML::script('js/jquery-2.1.1.min.js'); }}
+        {{ HTML::script('js/bootstrap.min.js'); }}
     </head>
     <body>
         @include("header")

@@ -55,7 +55,7 @@ return array(
 	"not_in"           => "atlasītais :attribute nav derīgs.",
 	"numeric"          => ":attribute jābūt numuram.",
 	"regex"            => ":attribute formāts nav derīgs.",
-	"required"         => "lauks :attribute ir nepieciešams.",
+	"required"         => ":attribute lauks ir nepieciešams.",
 	"required_if"      => ":attribute lauks ir nepieciešams, kad :other ir :value.",
 	"required_with"    => ":attribute lauks ir nepieciešams, kad :values ir klātesošs.",
 	"required_without" => ":attribute lauks ir nepieciešams, kad :values nav klātesošs.",
@@ -92,9 +92,6 @@ return array(
 	| of "email". This simply helps us make messages a little cleaner.
 	|
 	*/
-
-        //email => epasts       
-        //Šis varētu būt noderīgs!!!!!
     
 	'attributes' => array(
             
