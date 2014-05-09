@@ -20,7 +20,8 @@
                     {{{$seeker->text}}}
                 </div>
                 <div>
-                    <a href="{{ URL::to("/editJobSeek/".$seeker->id) }}">Edit job seek data</a>
+                    <a class="btn btn-warning" href="{{ URL::to("/editJobSeek/".$seeker->id) }}">Edit job seek data</a>
+                    <a class="btn btn-danger" href="{{ URL::to("/deleteJobSeek/".$seeker->id) }}">Delete job seek data</a>
                 </div>
             </div>
         @else

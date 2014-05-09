@@ -14,6 +14,9 @@
   
                 <a href="/viewApplication/{{{$application->id}}}">View Your application</a>
                 
+                <a class="btn btn-warning" href="/editApplication/{{{$application->id}}}">edit application letter data</a>
+                <a class="btn btn-danger" href="/deleteApplication/{{{$application->id}}}">delete application letter data</a>
+
             </div>
             @endforeach
             <div>
