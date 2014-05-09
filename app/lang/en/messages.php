@@ -15,6 +15,7 @@ return array(
         //global
         'no-access' => 'No access to this action',
         'not-authorized' => 'Not authorized to do this action',
+        'non-existent-user' => 'Non existent User',
     
         //vacancies
 	'non-existent-vacancie' => 'Non existent Vacancie',
@@ -50,8 +51,7 @@ return array(
         'couldnt-recommend' => 'Could not recommend :user',
         'non-existent-employer' => 'No Employer with such ID',
         'not-an-employer' => 'This user is not an Employer',
-        'non-existent-user' => 'Non existent User',
-    
+            
         //seekers
         'jobseek-saved-now-apply' => 'Job Seeker data has been saved - now you can apply the vacancie you tried to apply',
         'jobseek-saved' => 'Job Seeker data has been saved',
@@ -68,6 +68,21 @@ return array(
         'couldnt-delete-job-seek' => 'Could not delete Job Seek data',
     
         //users
-        
+        'logged-in' => 'Successfully logged in',
+        'not-activated-or-incorrect' => 'Could not log in - Account not activated and/or incorrect password',
+        'wrong-user-pass' => 'Could not log in - Wrong username or password',
+        'couldnt-login' => 'Could not log in',
+        'email-sent-to' => 'Email was sent to :email',
+        'not-activated-yet' => 'Account not activated yet - check your E-mail',
+        'couldnt-send-email' => 'E-mail could not be sent',
+        'password-changed' => 'Your password was changed successfully, :user',
+        'not-your-email-or-not-activated' => 'Not Your e-mail address or account not activated Yet. Check Your e-mail address',
+        'couldnt-change-pass-tryagain' => 'Could not change password. Try again.',
+        'couldnt-change-pass' => 'Could not change password',
+        'email-sent-to-complete-registration' => 'E-mail was sent to :email to complete registration process',
+        'couldnt-register' => 'Couldnt not register',
+        'registered-now-login' => 'Registered successfully. You can now log in!',
+        'invalid-link-or-activated' => 'The operation failed - invalid activisation link or user already activated',
+    
     
 );
