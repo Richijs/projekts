@@ -2,29 +2,28 @@
     color: red;
 }
 
-.main{
-    margin-top: 50px;
-    margin-bottom: 50px;
-}
-
 .content{
     padding: 30px;
-    border-radius: 50px;
-    border: 3px solid yellowgreen;
+    border-radius: 20px;
+    border: 3px solid grey;
     border-bottom: 3px solid black;
     border-right: 3px solid black;
     margin-bottom: 50px;
 }
 
-.header .container{
-    border-bottom: 3px solid yellowgreen;
-}
-
 .footer .container{
     border-radius: 50px;
-    border-top: 3px solid black;
+    border-top: 2px solid grey;
 }
 
 .footer{
     text-align: center;
+}
+
+.lang{
+    float:right;
+}
+
+.loggedAs{
+    color:white;
 }
