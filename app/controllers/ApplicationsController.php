@@ -7,7 +7,7 @@ class ApplicationsController extends BaseController {
         //ja neeksistē vakance
         if(!Vacancie::where('id',$vacancieId)->first())
         {
-            Session::flash('message-fail','Non existent vacancie');
+            Session::flash('message-fail',trans('messages.non-existent-vacancie'));
             return Redirect::route("home");
         }
         
@@ -20,7 +20,7 @@ class ApplicationsController extends BaseController {
                 //ja nav norādījis savus job seeker datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
-                    Session::flash('message-fail','Before applying any vaccancie, first You must add Your jobseeker data!');
+                    Session::flash('message-fail',trans('messages.before-applying'));
                     Session::put('vacancieId',$vacancieId); //lai var redirect back uz šo vakances apply
                     return Redirect::route("seekers/add");
                 }
@@ -43,7 +43,7 @@ class ApplicationsController extends BaseController {
                             
                         if($application->save())
                         {
-                            Session::flash('message-success','Applied job successfully');
+                            Session::flash('message-success',trans('messages.applied-vacancie-successfully'));
                             return Redirect::to("/viewVacancie/{$vacancieId}");
                         }
                         //varbūt else?
@@ -51,7 +51,7 @@ class ApplicationsController extends BaseController {
                     }
             
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Applying job failed');
+                Session::flash('message-fail',trans('messages.applying-vacancie-failed'));
                 return Redirect::to("/apply/{$vacancieId}")->withInput(Input::all())->with($data);
                 }
 
@@ -60,12 +60,12 @@ class ApplicationsController extends BaseController {
                 return View::make("/applications/apply")->with($data);
 
             }else{
-            Session::flash('message-fail','Already applied this job');
+            Session::flash('message-fail',trans('messages.already-applied-vacancie'));
             return Redirect::to("/viewVacancie/{$vacancieId}");
             } 
         
         }else{
-        Session::flash('message-fail','No Access to action');
+        Session::flash('message-fail',trans('messages.no-access'));
         return Redirect::route("home");
         }    
         
@@ -92,7 +92,7 @@ class ApplicationsController extends BaseController {
         }
         
         //līdz šejienei nekad netiek
-        Session::flash('message-fail','Not authorized to do this');
+        Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
         
         
@@ -119,12 +119,12 @@ class ApplicationsController extends BaseController {
         
             
             }else{
-                Session::flash('message-fail','Not authorized to do this');
+                Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }
  
         }else{
-            Session::flash('message-fail','No application with such ID');
+            Session::flash('message-fail',trans('messages.non-existent-application'));
             return Redirect::route("home");
         }
        
@@ -136,7 +136,7 @@ class ApplicationsController extends BaseController {
     {
         if(Auth::user()->userGroup==1 || Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first()){
             if(!Vacancie::find($vacancieId)){
-                Session::flash('message-fail','No application with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("vacancies/myVacancies");
             }
         
@@ -156,7 +156,7 @@ class ApplicationsController extends BaseController {
         
          
          }else{
-                Session::flash('message-fail','Not authorized to do this');
+                Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }
     }
@@ -183,18 +183,18 @@ class ApplicationsController extends BaseController {
                     {                            
                         if($application->delete())
                         {
-                            Session::flash('message-success','Application with Id: "'.$application->id.'" deleted succesfully');
+                            Session::flash('message-success',trans('messages.application-deleted-successfully',['id' => $application->id]));
                             return Redirect::route("applications/viewMy");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','Something went wrong, could not delete application');
+                            Session::flash('message-fail',trans('messages.wrong-couldnt-delete-application'));
                             return Redirect::route("home");  
                         }
                     }
                 }
                 
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not delete application');
+                Session::flash('message-fail',trans('messages.couldnt-delete-application'));
                 return Redirect::to("/deleteApplication/{$applicationId}")->with($data);
                 
             }
@@ -209,12 +209,12 @@ class ApplicationsController extends BaseController {
                 $data["vacancieName"] = $vacancie->name;
                 return View::make("applications/delete")->with($data); 
             }else{
-                Session::flash('message-fail','No application with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("home");
             }  
             
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }
     
@@ -241,7 +241,7 @@ class ApplicationsController extends BaseController {
                             
                     if($application->save())
                     {
-                            Session::flash('message-success','Edited Application successfully');
+                            Session::flash('message-success',trans('messages.edited-application-successfully'));
                             return Redirect::to("/viewApplication/{$applicationId}");
                     }
                     //varbūt else?
@@ -250,7 +250,7 @@ class ApplicationsController extends BaseController {
             
                 
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Editing Application was not successfull');
+                Session::flash('message-fail',trans('messages.editing-application-failed'));
                 return Redirect::to("/editApplication/{$applicationId}")->withInput(Input::all())->with($data);
                 }
         
@@ -265,13 +265,13 @@ class ApplicationsController extends BaseController {
                 $data["letter"] = $application->letter;
                 return View::make("/applications/edit")->with($data);
             }else{
-                Session::flash('message-fail','No application with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("home");
             }
     
   
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
         
