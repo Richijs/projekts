@@ -13,7 +13,7 @@
     
     <div class="form-group @if ($errors->first('password')) has-error@endif">
         {{ Form::label("password", "password",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">

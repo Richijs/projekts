@@ -12,7 +12,7 @@
       
      <div class="form-group @if ($errors->first('username')) has-error@endif">    
         {{ Form::label("username", "Username, Nick or Name",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -31,7 +31,7 @@
     
     <div class="form-group @if ($errors->first('email')) has-error@endif">     
         {{ Form::label("email", "Your Email",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -50,7 +50,7 @@
     
     <div class="form-group @if ($errors->first('subject')) has-error@endif">    
         {{ Form::label("subject", "E-mail subject",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -69,7 +69,7 @@
     
     <div class="form-group @if ($errors->first('message')) has-error@endif">   
         {{ Form::label("message", "message",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-5">

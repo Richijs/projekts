@@ -12,7 +12,7 @@
         <div class="form-group @if ($errors->first('username')) has-error@endif">
             
             {{ Form::label("username", "Username",[
-                "class"  => "col-sm-4 control-label"
+                "class"  => "col-sm-4 control-label required"
             ]) }}
             <div class="col-sm-4">
                 {{ Form::text("username", Input::get("username"), [
@@ -31,7 +31,7 @@
         <div class="form-group @if ($errors->first('password')) has-error@endif">
             
             {{ Form::label("password", "Password",[
-                "class"  => "col-sm-4 control-label"
+                "class"  => "col-sm-4 control-label required"
             ]) }}
             <div class="col-sm-4">
                 {{ Form::password("password", [

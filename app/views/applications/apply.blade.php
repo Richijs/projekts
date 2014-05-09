@@ -10,9 +10,9 @@
         "role"         => "form"
     ]) }}
       
-    <div class="form-group @if ($errors->first('letter')) has-error@endif">    
+    <div class="form-group @if ($errors->first('letter')) has-error@endif">   
         {{ Form::label("letter", "Apply letter",[
-            "class"  => "col-sm-2 control-label"
+            "class"  => "col-sm-2 control-label required"
         ]) }}
         
         <div class="col-sm-8">

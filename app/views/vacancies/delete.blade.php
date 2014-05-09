@@ -12,7 +12,7 @@
     
         <div class="form-group @if ($errors->first('checkbox')) has-error@endif">
             {{ Form::label("confirmation", "Confirmation",[
-                "class"  => "col-sm-4 control-label"
+                "class"  => "col-sm-4 control-label required"
             ]) }}
             
             <div class="col-sm-4">

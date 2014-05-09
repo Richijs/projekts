@@ -11,7 +11,7 @@
     
     <div class="form-group @if ($errors->first('password')) has-error@endif">
         {{ Form::label("current_password", "Current Password",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -30,7 +30,7 @@
         
     <div class="form-group @if ($errors->first('new_password')) has-error@endif">
         {{ Form::label("new_password", "New Password",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -49,7 +49,7 @@
     
     <div class="form-group @if ($errors->first('new_password_confirmation')) has-error@endif">
         {{ Form::label("new_password_confirmation", "Confirm New Password",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">

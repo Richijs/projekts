@@ -13,7 +13,7 @@
     
     <div class="form-group @if ($errors->first('name')) has-error@endif">    
         {{ Form::label("vacancieName", "Vacancie Name",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -32,7 +32,7 @@
     
     <div class="form-group @if ($errors->first('text')) has-error@endif">   
         {{ Form::label("vacancieText", "Vacancie Text",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-6">

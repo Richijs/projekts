@@ -13,7 +13,7 @@
     
     <div class="form-group @if ($errors->first('username')) has-error@endif">
         {{ Form::label("username", "Username",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         <div class="col-sm-4">
             {{ Form::text("username", Input::get("username"), [
@@ -31,7 +31,7 @@
     
     <div class="form-group @if ($errors->first('password')) has-error@endif">   
         {{ Form::label("password", "Password",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         <div class="col-sm-4">
             {{ Form::password("password", [
@@ -49,7 +49,7 @@
     
     <div class="form-group @if ($errors->first('password_confirmation')) has-error@endif">   
         {{ Form::label("password_confirmation", "Confirm",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         <div class="col-sm-4">
             {{ Form::password("password_confirmation", [
@@ -67,7 +67,7 @@
     
     <div class="form-group @if ($errors->first('firstname')) has-error@endif">    
         {{ Form::label("firstname", "Firstname",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -86,7 +86,7 @@
     
     <div class="form-group @if ($errors->first('lastname')) has-error@endif">      
         {{ Form::label("lastname", "Lastname",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -105,7 +105,7 @@
     
     <div class="form-group @if ($errors->first('userType')) has-error@endif">
         {{ Form::label("userGroup", "User Group",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
             <div class="col-sm-4">
                 <div class="radio">
@@ -155,7 +155,7 @@
     
     <div class="form-group @if ($errors->first('email')) has-error@endif">       
         {{ Form::label("email", "Email",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">

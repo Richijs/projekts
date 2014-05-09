@@ -13,7 +13,7 @@
     
     <div class="form-group @if ($errors->first('intro')) has-error@endif">    
         {{ Form::label("intro", "Intro text",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -32,7 +32,7 @@
     
     <div class="form-group @if ($errors->first('text')) has-error@endif">   
         {{ Form::label("text", "Main Text",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-6">
@@ -52,7 +52,7 @@
     
     <div class="form-group @if ($errors->first('phone')) has-error@endif">   
         {{ Form::label("phone", "Phone number",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
@@ -71,7 +71,7 @@
     
     <div class="form-group @if ($errors->first('cv')) has-error@endif"> 
         {{ Form::label("cv", "Your CV",[
-            "class"  => "col-sm-4 control-label"
+            "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
