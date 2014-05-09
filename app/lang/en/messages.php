@@ -29,5 +29,19 @@ return array(
         'edited-application-successfully' => 'Edited application successfully',
         'editing-application-failed' => 'Editing application was unsuccessful',
     
+        //lang
+        'preflang-changed' => 'Preferred user language changed to :lang',
+        'lang-changed' => 'Language changed to :lang',
+        'lang-already-is' => 'Language already is set to :lang',
+        'non-existent-lang' => 'Non existent Language - :lang',
+    
+        //messaging
+        'email-sent-to-admin' => 'Email was sent to Administrator: :admin',
+        'no-admins' => 'No Administrators found in the system',
+        'email-notSent-to-admin' => 'Email was not sent to an Administrator',
+    
+        //recommendations
+    
+    
     
 );

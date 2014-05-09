@@ -13,11 +13,11 @@ class LangController extends BaseController {
                 $user->prefLang=$lang;
                 $user->save();
                 
-                Session::flash('message-success','Preferred user language changed to '.$lang);
+                Session::flash('message-success',trans('messages.preflang-changed',['lang' => $lang]));
                 return Redirect::back();
             }
             
-            Session::flash('message-info','Language already is '.$lang);
+            Session::flash('message-info',trans('messages.lang-already-is',['lang' => $lang]));
             return Redirect::back();
         }
         
@@ -30,11 +30,11 @@ class LangController extends BaseController {
             }
             
             Session::put('locale', $lang);
-            Session::flash('message-success','Successfully changed language to '.$lang);
+            Session::flash('message-success',trans('messages.lang-changed',['lang' => $lang]));
             return Redirect::back();
             
         }else{ //ja nu tomēr kādam izdodas tikt līdz šejienei
-            Session::flash('message-fail','Non existent language - '.$lang);
+            Session::flash('message-fail',trans('messages.non-existent-lang',['lang' => $lang]));
             return Redirect::back();
         }
     }

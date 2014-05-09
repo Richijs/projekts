@@ -33,17 +33,17 @@ class MessagingController extends BaseController {
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
                     });
                 
-                    Session::flash('message-success','E-mail was sent to administrator: '.$randomAdmin->username);
+                    Session::flash('message-success',trans('messages.email-sent-to-admin',['admin' => $randomAdmin->username]));
                     return Redirect::route("home");
                 }else{
-                    Session::flash('message-fail','Sorry, there are no administrators in the system :(');
+                    Session::flash('message-fail',trans('messages.no-admins'));
                     return Redirect::route("home");
                 }
                 
             }
         
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','Sending e-mail to an admin was not successfull');
+            Session::flash('message-fail',trans('messages.email-notSent-to-admin'));
             return Redirect::route("messaging/contact")->withInput(Input::all())->with($data); 
         }
         
