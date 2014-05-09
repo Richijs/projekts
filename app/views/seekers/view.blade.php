@@ -5,9 +5,7 @@
     
 
     <div>
-         <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">
-            DOWNLOAD CV
-         </a>
+         <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
     </div>
 
     <div>
