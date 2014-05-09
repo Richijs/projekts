@@ -74,14 +74,14 @@ class VacanciesController extends BaseController {
                     
                     if($vacancie->save())
                     {
-                        Session::flash('message-success','Vacancie offer has been saved');
+                        Session::flash('message-success',trans('messages.vacancie-offer-saved'));
                         return Redirect::to("/viewVacancie/{$vacancie->id}");
                     }
                 
             }
             
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','Could not add vaccancie');
+            Session::flash('message-fail',trans('messages.couldnt-add-vacancie'));
             return Redirect::route("vacancies/add")->withInput(Input::except('poster'))->with($data);
         }
         
@@ -106,7 +106,7 @@ class VacanciesController extends BaseController {
                 }
             return View::make("vacancies/view", array('vacancie'=> $vacancie));
         }else{
-            Session::flash('message-fail','No vacancie with such ID');
+            Session::flash('message-fail',trans('messages.non-existent-vacancie'));
             return Redirect::route("vacancies/viewAllVacancies");
         }
     }
@@ -130,7 +130,7 @@ class VacanciesController extends BaseController {
         }
         
         //līdz šejienei nekad netiek
-        Session::flash('message-fail','Not authorized to do this');
+        Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
     }
     
@@ -195,10 +195,10 @@ class VacanciesController extends BaseController {
                         }
                     
                         if($vacancie->creator_id==Auth::user()->id){ //ja editoja sevi
-                            Session::flash('message-success','Edited Your Vacancie successfully');
+                            Session::flash('message-success',trans('messages.edited-your-vacancie'));
                             return Redirect::route("vacancies/myVacancies");
                         }else{  //ja admins editoja kādu citu
-                            Session::flash('message-success','Edited Vacancie: "'.$vacancie->name.'"  successfully');
+                            Session::flash('message-success',trans('messages.edited-vacancie',['vacancie' => $vacancie->name]));
                             return Redirect::to("/viewVacancie/{$id}");
                         }
                     }
@@ -206,7 +206,7 @@ class VacanciesController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Editing Vacancie was not successfull');
+                Session::flash('message-fail',trans('messages.couldnt-edit-vacancie'));
                 return Redirect::to("/editVacancie/{$id}")->withInput(Input::except('poster'))->with($data);
             }
         
@@ -220,13 +220,13 @@ class VacanciesController extends BaseController {
                 $data["company"] = $vacancie->company;
                 return View::make("/vacancies/edit")->with($data);
             }else{
-                Session::flash('message-fail','No Vacancie with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-vacancie'));
                 return Redirect::route("vacancies/viewAllVacancies");
             }
     
   
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
         
@@ -262,18 +262,18 @@ class VacanciesController extends BaseController {
                                 File::delete(public_path().'\\'.$vacancie->poster);
                             }
                             
-                            Session::flash('message-success','Vacancie "'.$vacancie->name.'" deleted succesfully');
+                            Session::flash('message-success',trans('messages.deleted-vaccancie',['vacancie' => $vacancie->name]));
                             return Redirect::route("vacancies/viewAllVacancies");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','Something went wrong, could not delete vacancie');
+                            Session::flash('message-fail',trans('messages.wrong-couldnt-delete-vacancie'));
                             return Redirect::route("vacancies/viewAllVacancies");  
                         }
                     }
                 }
                 
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not delete vacancie');
+                Session::flash('message-fail',trans('messages.couldnt-delete-vacancie'));
                 return Redirect::to("/deleteVacancie/{$id}")->with($data);
                 
             }
@@ -284,12 +284,12 @@ class VacanciesController extends BaseController {
                 $data["name"] = $vacancie->name;   
                 return View::make("vacancies/delete")->with($data); 
             }else{
-                Session::flash('message-fail','No vacancie with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-vacancie'));
                 return Redirect::route("vacancies/viewAllVacancies");
             }  
             
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }
     }

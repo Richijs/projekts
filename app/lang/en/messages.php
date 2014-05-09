@@ -16,10 +16,10 @@ return array(
         'no-access' => 'No access to this action',
         'not-authorized' => 'Not authorized to do this action',
         'non-existent-user' => 'Non existent User',
-    
+        'non-existent-vacancie' => 'Non existent Vacancie',
+        
         //vacancies
-	'non-existent-vacancie' => 'Non existent Vacancie',
-        'before-applying-vacancie' => 'Before applying any Vacancie, first, You must add Your job seeker data',
+	'before-applying-vacancie' => 'Before applying any Vacancie, first, You must add Your job seeker data',
         'applied-vacancie-successfully' => 'Applied this Vacancie successfully',
         'applying-vacancie-failed' => 'Applying Vacancie failed',
         'already-applied-vacancie' => 'Already applied this Vacancie',
@@ -93,5 +93,16 @@ return array(
         'deleted-profile' => 'Successfully deleted profile :user',
         'wrong-password' => 'Wrong password',
         'couldnt-delete-profile' => 'Could not delete profile',
+    
+        //vacancies
+        'vacancie-offer-saved' => 'Vacancie offer has been saved',
+        'couldnt-add-vacancie' => 'Could not add Vacancie',
+        'edited-your-vacancie' => 'Edited Your Vacancie successfully',
+        'edited-vacancie' => 'Edited Vacancie (:vacancie) successfully',
+        'couldnt-edit-vacancie' => 'Could not edit Vacancie',
+        'deleted-vaccancie' => 'Deleted Vacancie (:vacancie) successfully',
+        'wrong-couldnt-delete-vacancie' => 'Something went wrong - could not delete Vacancie',
+        'couldnt-delete-vacancie' => 'Could not delete Vacancie',
+    
     
 );
