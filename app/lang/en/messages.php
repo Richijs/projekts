@@ -53,7 +53,21 @@ return array(
         'non-existent-user' => 'Non existent User',
     
         //seekers
+        'jobseek-saved-now-apply' => 'Job Seeker data has been saved - now you can apply the vacancie you tried to apply',
+        'jobseek-saved' => 'Job Seeker data has been saved',
+        'jobseek-not-saved' => 'Could not save Job Seeker data',
+        'jobseek-not-added' => 'Could not add Job Seeker data',
+        'already-added-jobseek' => 'Already added Your Job Seeker data',
+        'non-existent-jobseek' => 'No such Job Seek data with this ID',
+        'couldnt-download-cv' => 'Could not download CV',
+        'edited-your-job-seek' => 'Edited Your Job Seek data successfully',
+        'edited-job-seek' => 'Edited Job Seek data (:seek) successfully',
+        'couldnt-edit-job-seek' => 'Could not edit Job Seek data',
+        'deleted-job-seek' => 'Deleted Job Seek data (:seek) successfully',
+        'wrong-couldnt-delete-job-seek' => 'Something went wrong - could not delete Job Seek data',
+        'couldnt-delete-job-seek' => 'Could not delete Job Seek data',
     
-    
+        //users
+        
     
 );

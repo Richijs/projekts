@@ -42,21 +42,21 @@ class SeekersController extends BaseController {
                         {
                             $redirectToVacancie = Session::get('vacancieId');
                             Session::forget('vacancieId');
-                            Session::flash('message-success','Job Seek has been saved - now you can apply the vacancie you tried to apply');                           
+                            Session::flash('message-success',trans('messages.jobseek-saved-now-apply'));                           
                             return Redirect::to("/apply/{$redirectToVacancie}");
                         }    
                             
                             
-                        Session::flash('message-success','Job Seek has been saved');
+                        Session::flash('message-success',trans('messages.jobseek-saved'));
                         return Redirect::to("/viewSeeker/{$seeker->id}");
                     }else{
-                        Session::flash('message-fail','Could not save job seek');
+                        Session::flash('message-fail',trans('messages.jobseek-not-saved'));
                         return Redirect::route("seekers/add");
                     }
                 }
             
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail','Could not add job seeker data');
+            Session::flash('message-fail',trans('messages.jobseek-not-added'));
             return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
         }
         
@@ -65,9 +65,9 @@ class SeekersController extends BaseController {
     }else{
         
         if(Auth::check() && Seeker::where('user_id',Auth::user()->id)->first()){
-            Session::flash('message-info','Already added Your jobseek data');
+            Session::flash('message-info',trans('messages.already-added-jobseek'));
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
         }
         
         return Redirect::route("users/profile");
@@ -84,7 +84,7 @@ class SeekersController extends BaseController {
   
             return View::make("seekers/view", array('seeker'=> $seeker));
         }else{
-            Session::flash('message-fail','No job seek with such ID');
+            Session::flash('message-fail',trans('messages.non-existent-jobseek'));
             return Redirect::route("home");
         }
     }
@@ -96,7 +96,7 @@ class SeekersController extends BaseController {
             
             Return Response::download($seeker->cv);
         }else{
-            Session::flash('message-fail','Could not download CV');
+            Session::flash('message-fail',trans('messages.couldnt-download-cv'));
             return Redirect::route("home"); //redirect back?
         }
     }
@@ -130,7 +130,7 @@ class SeekersController extends BaseController {
         }
         
         //līdz šejienei nekad netiek
-        Session::flash('message-fail','Not authorized to do this');
+        Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
     }
     
@@ -180,10 +180,10 @@ class SeekersController extends BaseController {
                         }
                     
                         if($seeker->creator_id==Auth::user()->id){ //ja editoja sevi
-                            Session::flash('message-success','Edited Your Job Seek data successfully');
+                            Session::flash('message-success',trans('messages.edited-your-job-seek'));
                             return Redirect::route("seekers/viewMy");
                         }else{  //ja admins editoja kādu citu
-                            Session::flash('message-success','Edited Job seek data for: "'.$seeker->intro.'"  successfully');
+                            Session::flash('message-success',trans('messages.edited-job-seek',['seek' => $seeker->intro]));
                             return Redirect::to("/viewSeeker/{$id}");
                         }
                     }
@@ -191,7 +191,7 @@ class SeekersController extends BaseController {
                 }
             
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Editing Job Seek was not successfull');
+                Session::flash('message-fail',trans('messages.couldnt-edit-job-seek'));
                 return Redirect::to("/editJobSeek/{$id}")->withInput(Input::except('cv'))->with($data);
             }
         
@@ -203,13 +203,13 @@ class SeekersController extends BaseController {
                 $data["phone"] = $seeker->phone;
                 return View::make("/seekers/edit")->with($data);
             }else{
-                Session::flash('message-fail','No Seeker with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-jobseek'));
                 return Redirect::route("seekers/viewAllSeekers");
             }
     
   
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
         
@@ -243,18 +243,18 @@ class SeekersController extends BaseController {
                                 File::delete(public_path().'\\'.$seeker->cv);
                             }
                             
-                            Session::flash('message-success','Job Seek data for: "'.$seeker->intro.'" deleted succesfully');
+                            Session::flash('message-success',trans('messages.deleted-job-seek',['seek' => $seeker->intro]));
                             return Redirect::route("seekers/viewAllSeekers");                                
                         }else{
                             //varbūt pielikt else?
-                            Session::flash('message-fail','Something went wrong, could not delete job seek');
+                            Session::flash('message-fail',trans('messages.wrong-couldnt-delete-job-seek'));
                             return Redirect::route("seekers/viewAllSeekers");  
                         }
                     }
                 }
                 
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not delete job seek');
+                Session::flash('message-fail',trans('messages.couldnt-delete-job-seek'));
                 return Redirect::to("/deleteJobSeek/{$id}")->with($data);
                 
             }
@@ -265,12 +265,12 @@ class SeekersController extends BaseController {
                 $data["intro"] = $seeker->intro;   
                 return View::make("seekers/delete")->with($data); 
             }else{
-                Session::flash('message-fail','No job seek with such ID');
+                Session::flash('message-fail',trans('messages.non-existent-jobseek'));
                 return Redirect::route("seekers/viewAllSeekers");
             }  
             
         }else{
-            Session::flash('message-fail','No Access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }
     }    
