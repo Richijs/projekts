@@ -9,19 +9,19 @@ class RecommendationsController extends BaseController {
         
         if (Auth::check() && Auth::user()->id == $userId)
         {
-            Session::flash('message-fail','Cant recommend yourself, silly');
+            Session::flash('message-fail',trans('messages.cant-recommend-yourself'));
             return Redirect::back();
         }
         
         if(User::find($userId) && User::find($userId)->userGroup===3){
             
             $username = User::find($userId)->username;
-            Session::flash('message-fail',$username.' is not an employer');
+            Session::flash('message-fail',trans('messages.cant-recommend-non-employer',['user' => $username]));
             return Redirect::back();
         }
         
         if(!User::find($userId)){
-            Session::flash('message-fail','No Such User');
+            Session::flash('message-fail',trans('messages.no-such-user'));
             return Redirect::back();
         }
         
@@ -31,10 +31,10 @@ class RecommendationsController extends BaseController {
             $username = User::find($userId)->username;
             
             if($recommendation->delete()){
-                Session::flash('message-info','Unrecommended '.$username);
+                Session::flash('message-info',trans('messages.unrecommended',['user' => $username]));
                 return Redirect::back();
             }else{
-                Session::flash('message-fail','Could not unrecommend '.$username);
+                Session::flash('message-fail',trans('messages.couldnt-unrecommend',['user' => $username]));
                 return Redirect::back();
             }
         }
@@ -50,14 +50,14 @@ class RecommendationsController extends BaseController {
             
                 if($recommendation->save())
                 {
-                Session::flash('message-success',$username.' was recommended');
+                Session::flash('message-success',trans('messages.recommended',['user' => $username]));
                 return Redirect::back();
                 }
-            Session::flash('message-fail','Could not recommend '.$username);
+            Session::flash('message-fail',trans('messages.couldnt-recommend',['user' => $username]));
             return Redirect::back();
         
         }
-        Session::flash('message-fail','No access to action');
+        Session::flash('message-fail',trans('messages.no-access'));
         return Redirect::back();
     }
     
@@ -65,12 +65,12 @@ class RecommendationsController extends BaseController {
     public function viewRecommendersAction($userId)
     {
         if(!User::find($userId)){
-            Session::flash('message-fail','No Employer with such ID');
+            Session::flash('message-fail',trans('messages.non-existent-employer'));
             return Redirect::route("home");
         }
         
         if(User::find($userId)->userGroup==3){
-            Session::flash('message-fail','This user is not an employer');
+            Session::flash('message-fail',trans('messages.not-an-employer'));
             return Redirect::route("home");
         }
         
@@ -97,7 +97,7 @@ class RecommendationsController extends BaseController {
     public function viewRecommendationsAction($userId)
     {
         if(!User::find($userId)){
-            Session::flash('message-fail','No user with such ID');
+            Session::flash('message-fail',trans('messages.non-existent-user'));
             return Redirect::route("home");
         }
         
