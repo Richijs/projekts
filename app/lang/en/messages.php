@@ -83,6 +83,15 @@ return array(
         'couldnt-register' => 'Couldnt not register',
         'registered-now-login' => 'Registered successfully. You can now log in!',
         'invalid-link-or-activated' => 'The operation failed - invalid activisation link or user already activated',
-    
+        'edited-your-profile' => 'Edited Your profile successfully',
+        'edited-profile' => 'Edited :user profile successfully',
+        'couldnt-edit-userdata' => 'Could not edit User data',
+        'password-changed-authuser' => 'Successfully changed Your password',
+        'wrong-current-password' => 'Wrong current password',
+        'not-logged-in' => 'You are not logged in',
+        'logged-out' => 'Successfully logged out',
+        'deleted-profile' => 'Successfully deleted profile :user',
+        'wrong-password' => 'Wrong password',
+        'couldnt-delete-profile' => 'Could not delete profile',
     
 );

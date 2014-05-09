@@ -348,17 +348,17 @@ class UsersController extends BaseController {
                         
                     
                         if(Auth::user()->id==$id){ //ja editoja sevi
-                            Session::flash('message-success','Edited Your profile successfully');
+                            Session::flash('message-success',trans('messages.edited-your-profile'));
                             return Redirect::route("users/profile");
                         }else{  //ja admins editoja kādu citu
-                            Session::flash('message-success','Edited '.$user->username.' profile successfully');
+                            Session::flash('message-success',trans('messages.edited-profile',['user' => $user->username]));
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
                 }
             
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Editing user data was not successfull');
+                Session::flash('message-fail',trans('messages.couldnt-edit-userdata'));
                 return Redirect::to("/editUser/{$id}")->withInput(Input::except('picture'))->with($data);
             }
         
@@ -411,21 +411,21 @@ class UsersController extends BaseController {
                             $user->password = Hash::make($password);
                             
                                 if($user->save()){
-                                    Session::flash('message-success','Your Password changed successfully');
+                                    Session::flash('message-success',trans('message.password-changed-authuser'));
                                     return Redirect::route("users/profile");                                
                                 } //varbūt pielikt else?
                         }else{
                             $data["errors"] = new MessageBag([
-                                "password" => ["Wrong current password"],
+                                "password" => [trans('messages.wrong-current-password')],
                             ]);
                             
-                            Session::flash('message-fail','Could not change password');
+                            Session::flash('message-fail',trans('messages.couldnt-change-pass'));
                             return Redirect::route("users/changePass")->with($data);
                         }
                 }
                         
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not change password');
+                Session::flash('message-fail',trans('messages.couldnt-change-pass'));
                 return Redirect::route("users/changePass")->with($data);
             }
             
@@ -433,7 +433,7 @@ class UsersController extends BaseController {
         }
         
         //līdz šejienei normāli nekad netiek
-        Session::flash('message-fail','You are not logged in');
+        Session::flash('message-fail',trans('messages.not-logged-in'));
         return Redirect::route("users/login");
     }
     
@@ -444,7 +444,7 @@ class UsersController extends BaseController {
         }
         
         //līdz šejienei nekad netiek
-        Session::flash('message-fail','You are not logged in');
+        Session::flash('message-fail',trans('messages.not-logged-in'));
         return Redirect::route("users/login");
     }
     
@@ -455,7 +455,7 @@ class UsersController extends BaseController {
         Session::flush();
         Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
         
-        Session::flash('message-success','Succesfully logged out');
+        Session::flash('message-success',trans('messages.logged-out'));
         return Redirect::route("home");
     }
     
@@ -504,22 +504,22 @@ class UsersController extends BaseController {
                                     File::delete(public_path().'\\'.$user->picture);
                                     }
                                 
-                                    Session::flash('message-success','Profile "'.$user->username.'" deleted succesfully');
+                                    Session::flash('message-success',trans('messages.deleted-profile',['user' => $user->username]));
                                     return Redirect::route("home");                                
                                 } //varbūt pielikt else?
                                 
                         }else{
                             $data["errors"] = new MessageBag([
-                                "password" => ["Wrong password"],
+                                "password" => [trans('messages.wrong-password')],
                             ]);
                             
-                            Session::flash('message-fail','Could not delete Profile');
+                            Session::flash('message-fail',trans('messages.couldnt-delete-profile'));
                             return Redirect::to("/deleteUser/{$id}")->with($data);
                         }
                 }
 
                 $data["errors"] = $validator->errors();
-                Session::flash('message-fail','Could not delete profile');
+                Session::flash('message-fail',trans('messages.couldnt-delete-profile'));
                 return Redirect::to("/deleteUser/{$id}")->with($data);
                 
             }
