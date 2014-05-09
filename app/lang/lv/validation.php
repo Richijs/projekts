@@ -97,7 +97,28 @@ return array(
             
             "phone" => "telefons",
             "username" => "lietotājvārds",
-            "password" => "parole"
+            "password" => "parole",
+            "letter" => "vēstule",
+            "checkbox" => "apstiprinājums",
+            "email" => "E-pasts",
+            "subject" => "tēma",
+            "message" => "ziņa",
+            "intro" => "ievads",
+            "text" => "teksts",
+            "name" => "nosaukums",
+            "company" => "firma",
+            "poster" => "afiša",
+            "new_password" => "jaunā parole",
+            "new_password_confirmation" => "jaunās paroles apstiprinājums",
+            "firstname" => "vārds",
+            "lastname" => "uzvārds",
+            "userGroup" => "lietotāja grupa",
+            "userType" => "lietotāja grupa",
+            "about" => "par",
+            "picture" => "bilde",
+            "remember" => "atcerēties",
+            "password_confirmation" => "paroles apstiprinājums",
+            
         ),
 
 );
