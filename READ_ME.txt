@@ -58,3 +58,5 @@ btn bootstrap stilu var likt iekšā pa taisno <a> tagos !!
 jāpārveido visi linku buttoni tā!!
 
 Tulkojumos ir nice lieta - Attributes. Jāsavada priekš LV validācijas messagiem !!
+
+Back / atgriezties uz profilu / utt progas būtu labi !!
