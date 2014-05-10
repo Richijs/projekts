@@ -1,6 +1,9 @@
 @extends("layout")
 @section("content")
-<h2>Ze Website<small>yoaga</small></h2>
+
+<div class="page-header">
+    <h1>Ze Website<small>yoaga</small></h1>
+</div>   
     
     <div>
         loremo upsumo, this is the home page!

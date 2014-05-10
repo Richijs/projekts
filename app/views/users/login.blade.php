@@ -1,6 +1,9 @@
 @extends("layout")
 @section("content")
-    <h2>Log In</h2>
+
+<div class="page-header">
+    <h1>Log In<small>Because You can!</small></h1>
+</div>
 
     {{ Form::open([
         "route"        => "users/login",
