@@ -1,6 +1,9 @@
 @extends("layout")
 @section("content")
-    <h2>Register</h2>
+
+<div class="page-header">
+    <h1>Register <small>here</small></h1>
+</div> 
 
     {{ Form::open([
         "url"          => URL::route("users/register"),
