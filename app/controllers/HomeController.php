@@ -35,4 +35,29 @@ class HomeController extends BaseController {
         
         return View::make("home",array('topVacancies'=>$topVacancies,'topEmployers'=>$topEmployers));
     }
+    
+    public function searchAction()
+    {
+        
+        $search = Input::get('search');
+ 
+        if(!$search){
+            return View::make('search');
+        }
+        
+        $users = DB::table('users')
+            ->where(function($query) use ($search)
+            {
+                $query->where('username', 'LIKE',  '%' . $search . '%')
+                ->where('created_at','>=', DB::raw('CURDATE()'));
+            })
+        ->orderBy('created_at', 'DESC')
+        ->get();
+ 
+        return View::make('search', ['users' => $users]);
+        
+        
+    }
+    
+    
 }

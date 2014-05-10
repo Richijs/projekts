@@ -22,7 +22,12 @@ Route::group(["before" => "csrf"], function(){
     Route::post("/contactAdmin", [
         "as"   => "messaging/contact",
         "uses" => "MessagingController@contactAction"
-    ]);   
+    ]);  
+    
+    Route::post("/search", [
+        "as"   => "/search",
+        "uses" => "HomeController@searchAction"
+    ]);
     
 });
 

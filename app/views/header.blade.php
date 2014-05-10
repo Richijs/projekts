@@ -72,6 +72,34 @@
                 </div>
                 
             </nav>
+            
+            
+            
+            
+            <div class="row">
+                
+            {{ Form::open(array('url'=>'/search', 'class'=>'form-search', 'role'=>'form')) }}
+            
+            <div class="col-sm-4">
+                <div class="input-group">
+                {{ Form::text('search', '', array('class'=>'form-control', 'placeholder'=>'Search for anything'))}}
+                <span class="input-group-btn">
+                {{ Form::submit('Search', array('class'=>'btn btn-default'))}}
+                </span>
+                </div>
+            </div>
+                {{ Form::close() }}
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
         </div>
     </div>
 @show

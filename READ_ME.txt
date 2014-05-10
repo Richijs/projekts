@@ -62,3 +62,6 @@ Tulkojumos ir nice lieta - Attributes. Jāsavada priekš LV validācijas messagi
 Back / atgriezties uz profilu / utt progas būtu labi !!
 
 view all vajag orderBy created_at , lai jaunākie rādītos pirmajās lapās !!
+
+jāimprovizē globālais search. Piem , meklējot kko, atgriež
+"Result returned 5 users , 3 vacancies and 7 job seeker data" !!!
