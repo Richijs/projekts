@@ -110,9 +110,12 @@ class SeekersController extends BaseController {
             
                 $seeker = Seeker::find($id);
             
-                
+                if(file_exists($seeker->cv)){
                     Return Response::download($seeker->cv);
-                
+                }else{
+                    Session::flash('message-fail',trans('messages.couldnt-download-cv'));
+                    return Redirect::to("/viewSeeker/{$seeker->id}");
+                }
             
             }else{
                 Session::flash('message-fail',trans('messages.not-authorized'));
