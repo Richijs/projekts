@@ -47,14 +47,6 @@ Route::group(["before" => "csrf"], function(){
         "as"   => "vacancies/view/{id}",
         "uses" => "VacanciesController@viewAction"
     ])->where('id','[0-9]+');
-    
-    //varētu ielikt tikai autorizētiem useriem
-    Route::get("/viewSeeker/{id}", [
-        "as"   => "seekers/view/{id}",
-        "uses" => "SeekersController@viewAction"
-    ])->where('id','[0-9]+');
-     
-    Route::get('/getCV/{id}', 'SeekersController@getCVAction')->where('id','[0-9]+'); //DL cv
 
     Route::get("/viewAllUsers", [
         "as"   => "users/viewAllUsers",
@@ -74,12 +66,6 @@ Route::group(["before" => "csrf"], function(){
     Route::get("/viewAllVacancies", [
         "as"   => "vacancies/viewAllVacancies",
         "uses" => "VacanciesController@viewAllAction"
-    ]);
-    
-    //varētu ielikt tikai autorizētiem lietotājiem
-    Route::get("/viewAllSeekers", [
-        "as"   => "seekers/viewAllSeekers",
-        "uses" => "SeekersController@viewAllAction"
     ]);
     
     Route::get("/about", function()
@@ -164,6 +150,13 @@ Route::group(["before" => "auth"], function()
         
     });
     
+    Route::get("/viewSeeker/{id}", [
+        "as"   => "seekers/view/{id}",
+        "uses" => "SeekersController@viewAction"
+    ])->where('id','[0-9]+');
+     
+    Route::get('/getCV/{id}', 'SeekersController@getCVAction')->where('id','[0-9]+'); //DL cv
+    
     Route::get('/recommend/{employerId}', 'RecommendationsController@recommendAction')->where('id','[0-9]+');    
         
     Route::get("/viewApplication/{applicationId}", [
@@ -221,6 +214,11 @@ Route::group(["before" => "employer"], function()
         
     });
     
+    
+    Route::get("/viewAllSeekers", [
+        "as"   => "seekers/viewAllSeekers",
+        "uses" => "SeekersController@viewAllAction"
+    ]);
     
     Route::get("/deleteVacancie/{id}", [
         "as"   => "vacancies/delete",

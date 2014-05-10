@@ -13,9 +13,6 @@
                     <li {{ Request::is('viewAllVacancies') ? 'class="active"' : '' }}>
                         <a href="{{ URL::route("vacancies/viewAllVacancies") }}">ViewAllVacancies</a>
                     </li>
-                    <li {{ Request::is('viewAllSeekers') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("seekers/viewAllSeekers") }}">ViewAllJobSeekers</a>
-                    </li>
                     <li {{ Request::is('about') ? 'class="active"' : '' }}>
                         <a href="{{ URL::to("/about") }}">About</a>
                     </li>
@@ -37,6 +34,9 @@
                     </li>
                     
                         @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
+                            <li {{ Request::is('viewAllSeekers') ? 'class="active"' : '' }}>
+                                <a href="{{ URL::route("seekers/viewAllSeekers") }}">ViewAllJobSeekers</a>
+                            </li>
                             <li {{ Request::is('addVacancie') ? 'class="active"' : '' }}>
                                 <a href="{{ URL::route("vacancies/add") }}">Add Vacancie</a>
                             </li>

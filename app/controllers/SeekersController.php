@@ -75,18 +75,29 @@ class SeekersController extends BaseController {
     }
     
     public function viewAction($id)
-    {
+    {   
         if(Seeker::find($id)){
-            $seeker = Seeker::find($id);
+                
+            //admin or own job seek data
+            if(Auth::user()->userGroup==1 || Auth::user()->userGroup==2 || Seeker::find($id)->user_id == Auth::user()->id)
+            {
+                $seeker = Seeker::find($id);
             
-            $creator = User::where('id',$seeker->user_id)->first();
-            $seeker->creatorName = $creator->username;
+                $creator = User::where('id',$seeker->user_id)->first();
+                $seeker->creatorName = $creator->username;
   
-            return View::make("seekers/view", array('seeker'=> $seeker));
+                return View::make("seekers/view", array('seeker'=> $seeker));
+                
+            }else{
+                Session::flash('message-fail',trans('messages.not-authorized'));
+                return Redirect::route("home");
+            }        
+                
         }else{
             Session::flash('message-fail',trans('messages.non-existent-jobseek'));
             return Redirect::route("home");
         }
+            
     }
     
     public function getCVAction($id)
