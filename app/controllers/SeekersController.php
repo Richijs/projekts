@@ -103,9 +103,22 @@ class SeekersController extends BaseController {
     public function getCVAction($id)
     {
         if(Seeker::find($id)){
-            $seeker = Seeker::find($id);
             
-            Return Response::download($seeker->cv);
+            //admin or own CV
+            if(Auth::user()->userGroup==1 || Auth::user()->userGroup==2 || Seeker::find($id)->user_id == Auth::user()->id)
+            {
+            
+                $seeker = Seeker::find($id);
+            
+                
+                    Return Response::download($seeker->cv);
+                
+            
+            }else{
+                Session::flash('message-fail',trans('messages.not-authorized'));
+                return Redirect::route("home");
+            }   
+                
         }else{
             Session::flash('message-fail',trans('messages.couldnt-download-cv'));
             return Redirect::route("home"); //redirect back?
