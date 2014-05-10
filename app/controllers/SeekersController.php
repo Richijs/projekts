@@ -233,7 +233,11 @@ class SeekersController extends BaseController {
                 return View::make("/seekers/edit")->with($data);
             }else{
                 Session::flash('message-fail',trans('messages.non-existent-jobseek'));
-                return Redirect::route("seekers/viewAllSeekers");
+                if(Auth::user()->userGroup==1){
+                    return Redirect::route("seekers/viewAllSeekers");
+                }else{
+                    return Redirect::route("users/profile");
+                }
             }
     
   
@@ -281,7 +285,7 @@ class SeekersController extends BaseController {
                         }else{
                             //varbūt pielikt else?
                             Session::flash('message-fail',trans('messages.wrong-couldnt-delete-job-seek'));
-                            return Redirect::route("seekers/viewAllSeekers");  
+                            return Redirect::route("home");  
                         }
                     }
                 }
@@ -299,7 +303,11 @@ class SeekersController extends BaseController {
                 return View::make("seekers/delete")->with($data); 
             }else{
                 Session::flash('message-fail',trans('messages.non-existent-jobseek'));
-                return Redirect::route("seekers/viewAllSeekers");
+                if(Auth::user()->userGroup==1){
+                    return Redirect::route("seekers/viewAllSeekers");
+                }else{
+                    return Redirect::route("users/profile");
+                }
             }  
             
         }else{
