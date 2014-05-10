@@ -62,15 +62,16 @@ class SeekersController extends BaseController {
         
         return View::make("seekers/add");
        
-    }else{
-        
-        if(Auth::check() && Seeker::where('user_id',Auth::user()->id)->first()){
-            Session::flash('message-info',trans('messages.already-added-jobseek'));
         }else{
-            Session::flash('message-fail',trans('messages.no-access'));
-        }
         
-        return Redirect::route("users/profile");
+            if(Auth::check() && Seeker::where('user_id',Auth::user()->id)->first()){
+                Session::flash('message-info',trans('messages.already-added-jobseek'));
+                return Redirect::route("seekers/viewMy");
+            }else{
+                Session::flash('message-fail',trans('messages.no-access'));
+                return Redirect::route("users/profile");
+            }
+        
         }    
     }
     
@@ -272,7 +273,11 @@ class SeekersController extends BaseController {
                             }
                             
                             Session::flash('message-success',trans('messages.deleted-job-seek',['seek' => $seeker->intro]));
-                            return Redirect::route("seekers/viewAllSeekers");                                
+                            if(Auth::user()->userGroup==1){
+                                return Redirect::route("seekers/viewAllSeekers");
+                            }else{
+                                return Redirect::route("users/profile");
+                            }
                         }else{
                             //varbūt pielikt else?
                             Session::flash('message-fail',trans('messages.wrong-couldnt-delete-job-seek'));
