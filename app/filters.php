@@ -27,7 +27,7 @@ App::before(function($request)
         App::setLocale(Session::get('locale'));
     }
     
-    if (Auth::check() && Auth::user()->active==0) //pārbauda, vai account nav neaktīvs
+    if (Auth::check() && Auth::user()->active!=1) //pārbauda, vai account nav neaktīvs
     {                                             //ja tā ir , izlogo
             
         Auth::logout();
@@ -35,19 +35,9 @@ App::before(function($request)
         Session::flush();
         Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
             
-        Session::flash('message-fail','This Account is inactive');
+        Session::flash('message-fail',trans('messages.account-inactive'));
         return Redirect::route('home');
         
-    }else if(Auth::check() && Auth::user()->active!=1) //pārbauda, vai account nav banned
-    {
-            
-        Auth::logout();
-        $lastLang = Session::get('locale');
-        Session::flush();
-        Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
-                     
-        Session::flash('message-fail','This Account is banned');
-        return Redirect::route('home');            
     }
     
 	/*if( !Request::secure())
@@ -77,7 +67,7 @@ Route::filter('auth', function()
 {
 	if (Auth::guest()) 
         {
-            Session::flash('message-fail','No access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route('users/login'); //return Redirect::guest('users/login'); same?
         }
         
@@ -103,7 +93,7 @@ Route::filter('auth.basic', function()
 Route::filter('guest', function()
 {
 	if (Auth::check()) {
-            Session::flash('message-fail','Must log out first');
+            Session::flash('message-fail',trans('messages.logout-first'));
             return Redirect::route('users/profile'); //return Redirect::to('users/profile'); ?
         }
 });
@@ -113,7 +103,7 @@ Route::filter('employer', function()
 {
 	if (Auth::guest() || Auth::user()->userGroup == 3) { //admin and employer has access
             
-            Session::flash('message-fail','No access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route('home');
         }
 });
@@ -123,7 +113,7 @@ Route::filter('seeker', function()
 {
 	if (Auth::guest() || Auth::user()->userGroup == 2) { //admin and seeker has access
             
-            Session::flash('message-fail','No access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route('home');
         }
 });
@@ -133,7 +123,7 @@ Route::filter('admin', function()
 {
 	if (Auth::guest() || Auth::user()->userGroup != 1){  //only admin has access
             
-            Session::flash('message-fail','No access to action');
+            Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route('home');
         }
 });

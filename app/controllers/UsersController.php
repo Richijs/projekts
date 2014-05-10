@@ -30,7 +30,7 @@ class UsersController extends BaseController {
                         return Redirect::route("users/profile");                  
                 }
                                       
-                if(User::where('username',$credentials['username'])->where('active',0)->first()){
+                if(User::where('username',$credentials['username'])->where('active','<>',1)->first()){
                     Session::flash('message-fail',trans('messages.not-activated-or-incorrect'));
                 }else{
                     Session::flash('message-fail',trans('messages.wrong-user-pass'));

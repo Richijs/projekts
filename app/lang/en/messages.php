@@ -17,6 +17,9 @@ return array(
         'not-authorized' => 'Not authorized to do this action',
         'non-existent-user' => 'Non existent User',
         'non-existent-vacancie' => 'Non existent Vacancie',
+        'account-inactive' => 'This Account is Inactive!',
+        'logout-first' => 'Must log out first!',
+    
         
         //vacancies
 	'before-applying-vacancie' => 'Before applying any Vacancie, first, You must add Your job seeker data',

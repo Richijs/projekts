@@ -151,6 +151,7 @@ class SeekersController extends BaseController {
         //if admin or seeker
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
+            //if not set, the view handles it anyway
             $seeker = Seeker::where('user_id',Auth::user()->id)->first();
             
             return View::make("seekers/viewMy", array('seeker'=> $seeker));
