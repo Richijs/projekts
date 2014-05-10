@@ -60,3 +60,5 @@ jāpārveido visi linku buttoni tā!!
 Tulkojumos ir nice lieta - Attributes. Jāsavada priekš LV validācijas messagiem !!
 
 Back / atgriezties uz profilu / utt progas būtu labi !!
+
+view all vajag orderBy created_at , lai jaunākie rādītos pirmajās lapās !!

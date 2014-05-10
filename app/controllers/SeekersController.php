@@ -133,7 +133,7 @@ class SeekersController extends BaseController {
     {
         $seekersCount = Seeker::all();
         if($seekersCount->count()){ //ja ir vismaz viens seeker
-            $seekers = Seeker::paginate(10); //all seekers + paginate
+            $seekers = Seeker::orderBy('created_at','DESC')->paginate(10); //all seekers + paginate
 
             foreach($seekers as $seeker){
                 

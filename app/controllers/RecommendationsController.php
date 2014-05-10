@@ -78,7 +78,7 @@ class RecommendationsController extends BaseController {
         
         if($recCount){
             
-            $recommenders = Recommendation::where('employer_id',$userId)->paginate(10);
+            $recommenders = Recommendation::where('employer_id',$userId)->orderBy('created_at','DESC')->paginate(10);
             $employer = User::find($userId);
             
             foreach($recommenders as $recommender){
@@ -105,7 +105,7 @@ class RecommendationsController extends BaseController {
         
         if($recCount){
             
-            $recommendations = Recommendation::where('user_id',$userId)->paginate(10);
+            $recommendations = Recommendation::where('user_id',$userId)->orderBy('created_at','DESC')->paginate(10);
             $user = User::find($userId);
             
             foreach($recommendations as $recommendation){
