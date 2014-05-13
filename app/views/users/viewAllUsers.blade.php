@@ -16,39 +16,58 @@
                     <th>Picture</th>
                     <th>Username</th>
                     <th>Status</th>
+                    <th>Joined</th>
+                    @if (Auth::check() && Auth::user()->userGroup==1)
+                    <th>Controls</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
             @foreach ($users as $user)
-            
+                <tr>
+                    
+                <td>  
                 @if ($user->picture)
-                <span>
+                
                     <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
-                </span>
+                
                 @else
-                <span>
+                
                     <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
-                </span>
+                
                 @endif
                 <!-- else - shows default picture -->
+                </td>
+                
+                <td>
                 <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
-                <span><b>Joined:</b> {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}</span>
+                </td>
+                
+                <td>
                 <span>
-                    <b>Status:</b>
                     @if ($user->active===1)
                         Active!
                     @else
                         Not Activated!
                     @endif
                 </span>
+                </td>
+                
+                
+                <td>
+                    <b>Joined:</b> {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}
+                </td>
+                
                 
                 @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$user->id)
-                    <span>
+                    <td>
                         <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User</a>
                         <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete User</a>
-                    </span>
+                    </td>
                 @endif
-            
+                
+                
+                </tr>
             @endforeach
             </tbody>
         </table>
