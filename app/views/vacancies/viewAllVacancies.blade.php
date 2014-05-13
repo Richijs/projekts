@@ -10,11 +10,7 @@
     <div>
         @if (isset($vacancies))
             @foreach ($vacancies as $vacancie)
-            
-            
-            
-            
-            
+
             <div class='panel panel-default'>
                 <div class='panel-heading'>
                     <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
