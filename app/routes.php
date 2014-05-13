@@ -31,6 +31,12 @@ Route::group(["before" => "csrf"], function(){
     
 });
 
+    //lai varētu veikt veiksmīgu redirect, mainot valodu pēc meklēšanas
+    Route::get("/search", [
+        "as"   => "/search",
+        "uses" => "HomeController@searchAction"
+    ]);
+
     Route::get("/contactAdmin", [
         "as"   => "messaging/contact",
         "uses" => "MessagingController@contactAction"

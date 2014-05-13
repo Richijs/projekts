@@ -76,18 +76,28 @@
             
             
             
-            <div class="row">
+            <div class="row searchBar">
                 
-            {{ Form::open(array('url'=>'/search', 'class'=>'form-search', 'role'=>'form')) }}
+                {{ Form::open(array('url'=>'/search', 'class'=>'form-search', 'role'=>'form')) }}
             
-            <div class="col-sm-4">
-                <div class="input-group">
-                {{ Form::text('search', '', array('class'=>'form-control', 'placeholder'=>'Search for anything'))}}
-                <span class="input-group-btn">
-                {{ Form::submit('Search', array('class'=>'btn btn-default'))}}
-                </span>
+                <div class="col-sm-offset-7 col-sm-5">
+                    <div class="input-group">
+                        @if (Auth::check() && Auth::user()->userGroup!=3)
+                            {{ Form::text('search', '', [
+                                'class'=>'form-control',
+                                'placeholder'=>'Search for Users, Vacancies, Job Searchers...'
+                            ])}}
+                        @else
+                            {{ Form::text('search', '', [
+                                'class'=>'form-control',
+                                'placeholder'=>'Search for Users, Vacancies...'
+                            ])}}
+                        @endif
+                        <span class="input-group-btn">
+                        {{ Form::submit('Search', ['class'=>'btn btn-default'])}}
+                        </span>
+                    </div>
                 </div>
-            </div>
                 {{ Form::close() }}
                 
             </div>

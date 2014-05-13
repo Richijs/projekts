@@ -39,22 +39,58 @@ class HomeController extends BaseController {
     public function searchAction()
     {
         
+        if (Input::server("REQUEST_METHOD") == "GET"){
+            return Redirect::route("home");
+        }
+        
         $search = Input::get('search');
  
         if(!$search){
-            return View::make('search');
+
+            return View::make('search'); //pass nothing
         }
         
         $users = DB::table('users')
             ->where(function($query) use ($search)
             {
                 $query->where('username', 'LIKE',  '%' . $search . '%')
+                ->orWhere('about', 'LIKE',  '%' . $search . '%')
+                ->orWhere('firstname', 'LIKE',  '%' . $search . '%')
+                ->orWhere('lastname', 'LIKE',  '%' . $search . '%')
                 ->where('created_at','>=', DB::raw('CURDATE()'));
             })
         ->orderBy('created_at', 'DESC')
         ->get();
+            
+            
+        $vacancies = DB::table('vacancies')
+            ->where(function($query) use ($search)
+            {
+                $query->where('name', 'LIKE',  '%' . $search . '%')
+                ->orWhere('company', 'LIKE',  '%' . $search . '%')
+                ->orWhere('text', 'LIKE',  '%' . $search . '%')
+                ->where('created_at','>=', DB::raw('CURDATE()'));
+            })
+        ->orderBy('created_at', 'DESC')
+        ->get();
+            
+            
+        if(Auth::check() && Auth::user()->userGroup!=3)  
+        {
+        $seekers = DB::table('seekers')
+            ->where(function($query) use ($search)
+            {
+                $query->where('intro', 'LIKE',  '%' . $search . '%')
+                ->orWhere('text', 'LIKE',  '%' . $search . '%')
+                ->where('created_at','>=', DB::raw('CURDATE()'));
+            })
+        ->orderBy('created_at', 'DESC')
+        ->get();
+            
+            return View::make('search', ['users' => $users, 'vacancies' => $vacancies, 'seekers' => $seekers]);
+        }
  
-        return View::make('search', ['users' => $users]);
+        return View::make('search', ['users' => $users, 'vacancies' => $vacancies]);
         
         
     }

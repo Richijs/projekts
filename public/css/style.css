@@ -36,3 +36,7 @@
     content: ' *';
     color:red;
 }
+
+.searchBar{
+    margin-bottom: 20px;
+}
