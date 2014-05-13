@@ -18,8 +18,7 @@
                 
                 <span><b>applied at:</b> {{{ date('d.m.y H:i',strtotime($application->created_at)) }}}</span>
   
-                <a href="/viewApplication/{{{$application->id}}}">View Your application</a>
-                
+                <a class="btn btn-default" href="/viewApplication/{{{$application->id}}}">View Your application</a>
                 <a class="btn btn-warning" href="/editApplication/{{{$application->id}}}">edit application letter data</a>
                 <a class="btn btn-danger" href="/deleteApplication/{{{$application->id}}}">delete application letter data</a>
 

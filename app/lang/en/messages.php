@@ -83,7 +83,7 @@ return array(
         'couldnt-change-pass-tryagain' => 'Could not change password. Try again.',
         'couldnt-change-pass' => 'Could not change password',
         'email-sent-to-complete-registration' => 'E-mail was sent to :email to complete registration process',
-        'couldnt-register' => 'Couldnt not register',
+        'couldnt-register' => 'Could not register',
         'registered-now-login' => 'Registered successfully. You can now log in!',
         'invalid-link-or-activated' => 'The operation failed - invalid activisation link or user already activated',
         'edited-your-profile' => 'Edited Your profile successfully',

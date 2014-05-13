@@ -64,8 +64,12 @@
                         <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User</a>
                         <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete User</a>
                     </td>
+                @elseif (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id==$user->id)
+                    <td>
+                        <a class="btn btn-warning" href="#" disabled="disabled"> Edit User </a>
+                        <a class="btn btn-danger" href="#" disabled="disabled"> Delete User </a>
+                    </td>
                 @endif
-                
                 
                 </tr>
             @endforeach

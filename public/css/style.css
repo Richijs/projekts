@@ -36,3 +36,11 @@
 .navbar-nav{
     margin: 0 !important;
 }
+
+.searchBar{
+    padding-top: 7px;
+}
+
+.newlineText{
+    white-space:pre-line;
+}

@@ -1,7 +1,7 @@
 @extends("layout")
 @section("content")
     <div class="page-header">
-        <h1>Applying for Vacancie 
+        <h1>Applying Vacancie 
             <small><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></small>
         </h1>
     </div>

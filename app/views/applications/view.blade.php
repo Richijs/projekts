@@ -8,9 +8,10 @@
     </div>
     
     <h3>Motivation Letter</h3>
-    <div>
+    <div class="newlineText">
         {{{$application->letter}}}
     </div>
+    
     <div>
         <b>Applied at:</b> {{{$application->created_at}}}
         <b>Edited at:</b> {{{$application->updated_at}}}
@@ -25,14 +26,17 @@
     
 
     <div>
-         <a href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
+         <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
     </div>
 
-    <div>
+    <div class="newlineText">
         {{{$seeker->text}}}
     </div>
+    
     <div>
-        Searching for job since: {{{$seeker->created_at}}}
+        <b>User: </b>
+        <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
+        <b>Searching for job since:</b> {{{$seeker->created_at}}}
     </div>
     
 @stop

@@ -2,6 +2,22 @@
     <div class="header">
         <div class="container">
             <h1>VakancesLV</h1>
+            
+                  
+                    <div class="lang btn-group btn-toggle">
+                        <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
+                            @if (Config::get('app.locale')=='lv') btn-primary active @endif">
+                            LV
+                        </a>
+                        <a href="{{ URL::to("/lang/en") }}" class="btn btn-xs btn-default
+                            @if (Config::get('app.locale')=='en') btn-primary active @endif">
+                            EN
+                        </a>
+                    </div>
+            
+            
+            
+            
             <nav class="navbar navbar-inverse" role="navigation">
                 <ul class="nav navbar-nav">
                     <li {{ Request::is('/') ? 'class="active"' : '' }}>
@@ -59,7 +75,7 @@
                            
                 
                 
-                <li class="searchBar col-sm-5">
+                <li class="searchBar col-sm-5 navbar-right">
                 {{ Form::open(array('url'=>'/search', 'class'=>'form-search', 'role'=>'form')) }}
             
                     <div class="input-group">
@@ -80,20 +96,7 @@
                     </div>
                 {{ Form::close() }}
                 </li>
-                
-                <li class="lang col-sm-1">       
-                    <div class="btn-group btn-toggle">
-                        <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
-                            @if (Config::get('app.locale')=='lv') btn-primary active @endif">
-                            LV
-                        </a>
-                        <a href="{{ URL::to("/lang/en") }}" class="btn btn-xs btn-default
-                            @if (Config::get('app.locale')=='en') btn-primary active @endif">
-                            EN
-                        </a>
-                    </div>
-                </li>
-                
+                               
                 
                 </ul>  
             </nav>

@@ -4,13 +4,12 @@
 <div class="page-header">
     <h1>Delete <a href="/viewApplication/{{{$applicationId}}}">Application</a> for 
         <small><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></small>
-        
         <div><small>To delete Application, Confirm deletion</small></div>
     </h1>
 </div>
 
     <h3>Written letter:</h3>
-    <div>
+    <div class="newlineText">
         {{{$applicationLetter}}}
     </div>
     
