@@ -9,8 +9,18 @@
 
     <div>
         @if (isset($users))
+        
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Picture</th>
+                    <th>Username</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach ($users as $user)
-            <div>
+            
                 @if ($user->picture)
                 <span>
                     <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
@@ -38,8 +48,11 @@
                         <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete User</a>
                     </span>
                 @endif
-            </div>
+            
             @endforeach
+            </tbody>
+        </table>
+            
             <div>
                 {{$users->links()}} <!-- pagination links -->
             </div>
