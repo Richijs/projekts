@@ -9,7 +9,7 @@
 
     <div>
         @if (isset($users))
-        
+        <div class='table-responsive'>
         <table class='table'>
             <thead>
                 <tr>
@@ -71,7 +71,8 @@
             @endforeach
             </tbody>
         </table>
-            
+        </div>
+        
             <div>
                 {{$users->links()}} <!-- pagination links -->
             </div>
