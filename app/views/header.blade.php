@@ -56,31 +56,12 @@
                     </li>
                     
                 @endif
-                </ul>
+                           
                 
-                <div class="lang">       
-                    <div class="btn-group btn-toggle">
-                        <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
-                            @if (Config::get('app.locale')=='lv') btn-primary active @endif">
-                            LV
-                        </a>
-                        <a href="{{ URL::to("/lang/en") }}" class="btn btn-xs btn-default
-                            @if (Config::get('app.locale')=='en') btn-primary active @endif">
-                            EN
-                        </a>
-                    </div>
-                </div>
                 
-            </nav>
-            
-            
-            
-            
-            <div class="row searchBar">
-                
+                <li class="searchBar col-sm-5">
                 {{ Form::open(array('url'=>'/search', 'class'=>'form-search', 'role'=>'form')) }}
             
-                <div class="col-sm-offset-7 col-sm-5">
                     <div class="input-group">
                         @if (Auth::check() && Auth::user()->userGroup!=3)
                             {{ Form::text('search', '', [
@@ -97,13 +78,25 @@
                         {{ Form::submit('Search', ['class'=>'btn btn-default'])}}
                         </span>
                     </div>
-                </div>
                 {{ Form::close() }}
+                </li>
                 
-            </div>
-            
-            
-
+                <li class="lang col-sm-1">       
+                    <div class="btn-group btn-toggle">
+                        <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
+                            @if (Config::get('app.locale')=='lv') btn-primary active @endif">
+                            LV
+                        </a>
+                        <a href="{{ URL::to("/lang/en") }}" class="btn btn-xs btn-default
+                            @if (Config::get('app.locale')=='en') btn-primary active @endif">
+                            EN
+                        </a>
+                    </div>
+                </li>
+                
+                
+                </ul>  
+            </nav>
         </div>
     </div>
 @show
