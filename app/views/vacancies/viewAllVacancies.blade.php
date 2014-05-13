@@ -25,11 +25,12 @@
                     <h4 class="media-heading">
                         <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
                     </h4>
-                    <span><b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}</span>
-                                
+                    
+                    <div>                   
+                        <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
                     
                         <b>Company:</b> {{{$vacancie->company}}}   
-                    
+                    </div>
                 
                     
                         <b> Added by: </b>
@@ -48,8 +49,10 @@
                         </a>
                    
                     @endif
+                        
                     
-                        <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+                        <b>Applied for this Vacancie:</b> {{{$vacancie->applied}}}
+                   
                     
                 </div>
             </div>
