@@ -1,6 +1,13 @@
 @extends("layout")
 @section("content")
-<h2>Users who recommended <a href="/viewUser/{{{$employer->id}}}">{{{$employer->username}}}</a></h2>
+    
+    <div class="page-header">
+        <h1>
+            Users who recommended 
+            <small><a href="/viewUser/{{{$employer->id}}}">{{{$employer->username}}}</a></small>
+        </h1>
+    </div>
+
     <div>
         @if (isset($recommenders))
             @foreach ($recommenders as $recommender)

@@ -1,6 +1,9 @@
 @extends("layout")
 @section("content")
-    <h2>Reset and change password</h2>
+    
+<div class="page-header">
+    <h1>Reset and change password</h1>
+</div> 
 
     {{ Form::open([
         "url"          => URL::route("users/reset") . $token,

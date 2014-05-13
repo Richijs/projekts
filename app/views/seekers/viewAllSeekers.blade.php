@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>All Seekers</h2>
+    
+    <div class="page-header">
+        <h1>
+            All Job Seekers
+        </h1>
+    </div>
+
     <div>
         @if (isset($seekers))
             @foreach ($seekers as $seeker)

@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Vacancies added by You, {{{ Auth::user()->username }}}</h2>
+
+    <div class="page-header">
+        <h1>
+            Vacancies added by You, <small>{{{ Auth::user()->username }}}</small>
+        </h1>
+    </div>
+
     <div>
         @if (isset($vacancies))
         <div>

@@ -1,9 +1,16 @@
 @extends("layout")
 @section("content")
-    <h2>Delete {{{$username}}} profile</h2>
-    <h3>To delete the account, confirm YOUR password</h3>
-    <b>Warning - all created vacancies will also be deleted</b>
-    
+
+    <div class="page-header">
+        <h1>
+            Delete {{{$username}}} profile
+            <div><small>To delete the account, confirm YOUR password</small></div>
+        </h1>
+        <h4>
+            <div class='text-danger'>Warning - all created user created content will also be deleted</div>
+        </h4>
+    </div>
+
     {{ Form::open([
         //"url"          => URL::route("users/delete"),
         "autocomplete" => "off",

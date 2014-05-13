@@ -20,7 +20,7 @@ class ApplicationsController extends BaseController {
                 //ja nav norādījis savus job seeker datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
-                    Session::flash('message-fail',trans('messages.before-applying'));
+                    Session::flash('message-fail',trans('messages.before-applying-vacancie'));
                     Session::put('vacancieId',$vacancieId); //lai var redirect back uz šo vakances apply
                     return Redirect::route("seekers/add");
                 }

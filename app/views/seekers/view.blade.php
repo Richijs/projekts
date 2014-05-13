@@ -1,8 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Viewing {{{$seeker->creatorName}}} job seek</h2>
-    <h3><a href="/viewSeeker/{{{$seeker->id}}}">{{{ $seeker->intro }}}</a></h3>
-    
+
+    <div class="page-header">
+        <h1>
+            Viewing {{{$seeker->creatorName}}} job seek
+            <small><a href="/viewSeeker/{{{$seeker->id}}}">{{{ $seeker->intro }}}</a></small>
+        </h1>
+    </div>
 
     <div>
          <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>

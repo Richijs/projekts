@@ -1,7 +1,10 @@
 @extends("layout")
 @section("content")
-    <h2>Applying for vacancie:</h2>
-    <h3><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></h3>
+    <div class="page-header">
+        <h1>Applying for Vacancie 
+            <small><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></small>
+        </h1>
+    </div>
 
     {{ Form::open([
         //"url"          => URL::route("applications/apply"),

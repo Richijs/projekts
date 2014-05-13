@@ -2,7 +2,7 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Ze Website <small>yoaga</small></h1>
+    <h1>Ze Website <small>offer or find jobs</small></h1>
 </div>   
     
     <div>

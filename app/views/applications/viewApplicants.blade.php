@@ -1,8 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Applicants applied for 
-        <a href="/viewVacancie/{{{$applications->vacancie->id}}}">{{{$applications->vacancie->name}}}</a>
-    </h2>
+
+    <div class="page-header">
+        <h1>Applicants applied for 
+            <small><a href="/viewVacancie/{{{$applications->vacancie->id}}}">{{{$applications->vacancie->name}}}</a></small>
+        </h1>
+    </div>
+
     <div>
         @if (isset($applications))
         <h3>

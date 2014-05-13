@@ -1,8 +1,13 @@
 @extends("layout")
 @section("content")
 
-    <h2>Editing {{{$username}}} user data</h2>
-    
+    <div class="page-header">
+        <h1>
+            Editing {{{$username}}} 
+            <small>user data</small>
+        </h1>
+    </div>
+
     {{ Form::open([
         //"url"          => URL::route("users/edit"),
         "autocomplete" => "off",

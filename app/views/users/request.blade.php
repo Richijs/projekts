@@ -1,6 +1,9 @@
 @extends("layout")
 @section("content")
-    <h2>Request password change</h2>
+
+<div class="page-header">
+    <h1>Request password change</h1>
+</div> 
 
     {{ Form::open([
         "route"        => "users/request",

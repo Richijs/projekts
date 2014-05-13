@@ -1,16 +1,19 @@
 @extends("layout")
 @section("content")
-<h2>Delete 
-    <a href="/viewApplication/{{{$applicationId}}}">Application</a>
-    for
-    <a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a>
-</h2>
-    <h3>With letter:</h3>
+
+<div class="page-header">
+    <h1>Delete <a href="/viewApplication/{{{$applicationId}}}">Application</a> for 
+        <small><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></small>
+        
+        <div><small>To delete Application, Confirm deletion</small></div>
+    </h1>
+</div>
+
+    <h3>Written letter:</h3>
     <div>
         {{{$applicationLetter}}}
     </div>
     
-    <h3>To delete Application, Confirm deletion</h3>
 
     {{ Form::open([
         //"url"          => URL::route("applications/delete"),

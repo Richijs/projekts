@@ -5,8 +5,11 @@
 	<title>Main</title>
 </head>
 <body>
-    <h1>404</h1>
-    <div> Not Found</div>
-    <div>:(</div>
+    <div class="page-header">
+        <h1>404</h1>
+        <div>
+            Not Found :(
+        </div>
+    </div>
 </body>
 </html>

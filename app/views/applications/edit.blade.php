@@ -1,11 +1,13 @@
 @extends("layout")
 @section("content")
-    <h2>Editing 
-        <a href="/viewUser/{{{$userId}}}">{{{$userName}}}</a>'s
-        <a href="/viewApplication/{{{$applicationId}}}">application</a>
-        for:
-        <a href="/viewVacancie/{{{$vacancieId}}}">this vakancie</a>
-    </h2>
+
+    <div class="page-header">
+        <h1>Editing <a href="/viewUser/{{{$userId}}}">{{{$userName}}}</a>'s 
+            <a href="/viewApplication/{{{$applicationId}}}">application</a> for 
+            <small><a href="/viewVacancie/{{{$vacancieId}}}">this vacancie</a></small>
+        </h1>
+    </div>
+
     {{ Form::open([
         //"url"          => URL::route("applications/edit"),
         "autocomplete" => "off",

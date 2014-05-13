@@ -1,8 +1,13 @@
 @extends("layout")
 @section("content")
-    <h2>Viewing vacancie</h2>
-    <h3><a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a></h3>
-    
+
+    <div class="page-header">
+        <h1>
+            Viewing vacancie <small><a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a></small>
+        </h1>
+    </div>
+
+
     @if ($vacancie->poster)
         <div>
             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="100" alt="vacancie poster"/>

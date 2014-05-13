@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Editing Job Seek: <a href="/viewSeeker/{{{$id}}}">{{{ $intro }}}</a></h2>
+
+    <div class="page-header">
+        <h1>
+            Editing Job Seek: 
+            <small><a href="/viewSeeker/{{{$id}}}">{{{ $intro }}}</a></small>
+        </h1>
+    </div>
 
     {{ Form::open([
         //"url"          => URL::route("seekers/edit"),

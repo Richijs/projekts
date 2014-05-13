@@ -1,7 +1,12 @@
 @extends("layout")
 @section("content")
-<h2>Delete <a href="/viewVacancie/{{{$id}}}">{{{ $intro }}}</a> job seek data</h2>
-    <h3>To delete Job Seek, Confirm deletionn</h3>
+    
+    <div class="page-header">
+        <h1>
+            Delete <a href="/viewVacancie/{{{$id}}}">{{{ $intro }}}</a> job seek data
+            <div><small>To delete Job Seek, Confirm deletion</small></div>
+        </h1>
+    </div>
 
     {{ Form::open([
         //"url"          => URL::route("vacancies/delete"),

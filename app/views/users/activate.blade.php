@@ -1,7 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Hello, {{{'/' /*Auth::user()->username*/ }}}</h2>
-    <p>Registered successfully.</p>
+
+    <div class="page-header">
+        <h1>
+            Hello, {{{'/' /*Auth::user()->username*/ }}}
+            <small>You're now registered</small>
+        </h1>
+    </div>
    
     <a href="{{{ URL::to("/") }}}">Check home page</a>
     <br><br><br>

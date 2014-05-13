@@ -1,8 +1,13 @@
 @extends("layout")
 @section("content")
-    <h2>Send email to an administrator:</h2>
-    <h3>Leave your information here and Random administrator will be contacted instantly</h3>
-    
+    <div class="page-header">
+        <h1>Send e-mail to an Administrator
+            <div>  
+                <small>Leave your information here and Random administrator will be contacted instantly</small>
+            </div>
+        </h1>
+    </div>
+
     {{ Form::open([
         "url"          => URL::route("messaging/contact"),
         "autocomplete" => "off",

@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Your added job seeker data , {{{ Auth::user()->username }}}</h2>
+
+    <div class="page-header">
+        <h1>
+            Your added job seeker data,  <small>{{{ Auth::user()->username }}}</small>
+        </h1>
+    </div>
+
     <div>
         @if (isset($seeker))
             <div>

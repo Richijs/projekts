@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Jobs You Have applied for , {{{ Auth::user()->username }}}</h2>
+    
+    <div class="page-header">
+        <h1>Jobs You have applied to, 
+            <small>{{{ Auth::user()->username }}}</small>
+        </h1>
+    </div>
+    
     <div>
         @if (isset($applications))
         <h3>

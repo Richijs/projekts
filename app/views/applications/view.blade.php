@@ -1,7 +1,11 @@
 @extends("layout")
 @section("content")
-    <h2>Viewing Application for</h2>
-    <h3><a href="/viewVacancie/{{{$vacancie->id}}}">{{{$vacancie->name}}}</a></h3>
+    
+    <div class="page-header">
+        <h1>Viewing application for 
+            <small><a href="/viewVacancie/{{{$vacancie->id}}}">{{{$vacancie->name}}}</a></small>
+        </h1>
+    </div>
     
     <h3>Motivation Letter</h3>
     <div>

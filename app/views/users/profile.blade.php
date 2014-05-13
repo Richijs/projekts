@@ -1,8 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Hello, {{{ Auth::user()->username }}}</h2>
-    <p>Your profile page.</p>
-    
+
+<div class="page-header">
+    <h1>Hello, {{{ Auth::user()->username }}}
+        <div><small>Your profile page</small></div>
+    </h1>
+</div>
+
     <a class="btn btn-warning" href="{{{ URL::to("/editUser/".Auth::user()->id) }}}">Edit UserData</a>
     <br>
     <a class="btn btn-warning" href="{{{ URL::to("/changePass") }}}">Change Password</a>

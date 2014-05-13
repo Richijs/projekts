@@ -1,6 +1,12 @@
 @extends("layout")
 @section("content")
-    <h2>Add a vacancie</h2>
+
+
+<div class="page-header">
+    <h1>
+        Add a Vacancie
+    </h1>
+</div>
 
     {{ Form::open([
         "url"          => URL::route("vacancies/add"),
