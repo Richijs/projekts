@@ -2,7 +2,7 @@
 @section("content")
     
     <div class="page-header">
-        <h1>Jobs You have applied to, 
+        <h1>Vacancies You have applied to,
             <small>{{{ Auth::user()->username }}}</small>
         </h1>
     </div>
@@ -12,7 +12,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
-            You have applied to <b>{{{$applications->count}}}</b> Vacancies
+            You have applied <b>{{{$applications->count}}}</b> Vacancies
         </div>
     </div>
     <div class="panel-body">
@@ -45,8 +45,8 @@
                     </td>
                     
                     <td>
-                        <a class="btn btn-warning" href="/editApplication/{{{$application->id}}}">edit application letter data</a>
-                        <a class="btn btn-danger" href="/deleteApplication/{{{$application->id}}}">delete application letter data</a>
+                        <a class="btn btn-warning" href="{{URL::to("/editApplication/".$application->id)}}">edit application letter data</a>
+                        <a class="btn btn-danger" href="{{URL::to("/deleteApplication/".$application->id)}}">delete application letter data</a>
                     </td>
                 </tr>
                 @endforeach
