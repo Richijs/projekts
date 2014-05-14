@@ -19,8 +19,8 @@
             @endif
         </div>
     </div>
-    <div class="panel-body newlineText">
-        {{{$application->letter}}}
+    <div class="panel-body">
+        <div class="newlineText">{{{$application->letter}}}</div>
         <div class="pull-right">
             <b>Applied at:</b> {{{$application->created_at}}}
         </div>
@@ -34,27 +34,25 @@
             <a href="{{URL::to("/viewSeeker/".$seeker->id)}}">{{{ $seeker->intro }}}</a>
             @if (@Auth::check() && (Auth::user()->id == $seeker->user_id || Auth::user()->userGroup==1))
                 <span>
-                    <a class="btn btn-warning" href="{{URL::to("/editSeeker/".$seeker->id)}}">edit Job Searcher data</a>
-                    <a class="btn btn-danger" href="{{URL::to("/deleteSeeker/".$seeker->id)}}">delete Job Searcher data</a>
+                    <a class="btn btn-warning" href="{{URL::to("/editJobSeek/".$seeker->id)}}">edit Job Searcher data</a>
+                    <a class="btn btn-danger" href="{{URL::to("/editJobSeek/".$seeker->id)}}">delete Job Searcher data</a>
                 </span>
             @endif
         </div>
     </div>
     <div class="panel-body">
-        <span class="newlineText">{{{$seeker->text}}}</span>
+        <div class="newlineText">{{{$seeker->text}}}</div>
         <div class="pull-right">
             <div>
                 <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
             </div>
             <div>
-                <b>Phone: </b><a href="tel:{{{$seeker->phone}}}">{{{$seeker->phone}}}</a>
-            </div>
-            <div>
-                <b>Email: </b><a href="mailto:{{{$user->email}}}">{{{$user->email}}}</a>
-            </div>
-            <div>
                 <a href="{{URL::to("/viewUser/".$user->id)}}">{{{ $user->username }}}</a>
-                <b> is searching for Job since:</b>{{{$seeker->created_at}}}
+                <b> is searching for Job since:</b> {{{$seeker->created_at}}}
+            </div>
+            <div class="pull-right">
+                <b>Phone: </b><a href="tel:{{{$seeker->phone}}}">{{{$seeker->phone}}} </a>
+                <b>Email: </b><a href="mailto:{{{$user->email}}}">{{{$user->email}}}</a>
             </div>
         </div>
     </div>
