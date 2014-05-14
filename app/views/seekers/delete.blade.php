@@ -3,7 +3,7 @@
     
     <div class="page-header">
         <h1>
-            Delete <a href="/viewVacancie/{{{$id}}}">{{{ $intro }}}</a> job seek data
+            Delete <a href="{{URL::to("/viewSeeker/".$id)}}">{{{ $intro }}}</a> job seek data
             <div><small>To delete Job Seek, Confirm deletion</small></div>
         </h1>
     </div>

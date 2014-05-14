@@ -3,8 +3,8 @@
 
     <div class="page-header">
         <h1>
-            Editing Job Seek: 
-            <small><a href="/viewSeeker/{{{$id}}}">{{{ $intro }}}</a></small>
+            Editing Job Seek 
+            <small><a href="{{URL::to("/viewSeeker/".$id)}}">{{{ $intro }}}</a></small>
         </h1>
     </div>
 
