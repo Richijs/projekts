@@ -48,7 +48,7 @@ class SeekersController extends BaseController {
                             
                             
                         Session::flash('message-success',trans('messages.jobseek-saved'));
-                        return Redirect::to("/viewSeeker/{$seeker->id}");
+                        return Redirect::route("seekers/viewMy");
                     }else{
                         Session::flash('message-fail',trans('messages.jobseek-not-saved'));
                         return Redirect::route("seekers/add");

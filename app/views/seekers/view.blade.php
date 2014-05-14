@@ -15,7 +15,7 @@
             @if (@Auth::check() && (Auth::user()->id == $seeker->user_id || Auth::user()->userGroup==1))
                 <span>
                     <a class="btn btn-warning" href="{{URL::to("/editJobSeek/".$seeker->id)}}">edit Job Searcher data</a>
-                    <a class="btn btn-danger" href="{{URL::to("/editJobSeek/".$seeker->id)}}">delete Job Searcher data</a>
+                    <a class="btn btn-danger" href="{{URL::to("/deleteJobSeek/".$seeker->id)}}">delete Job Searcher data</a>
                 </span>
             @endif
         </div>
@@ -28,8 +28,10 @@
                 <a class="btn btn-default" href="{{ URL::to("/getCV/".$seeker->id) }}">DOWNLOAD CV</a>
             </div>
             <div>
-                <a href="{{URL::to("/viewUser/".$seeker->user_id)}}">{{{ $seeker->creatorName }}}</a>
-                <b> is searching for Job since:</b> {{{$seeker->created_at}}}
+                <b>
+                    <a href="{{URL::to("/viewUser/".$seeker->user_id)}}">{{{ $seeker->creatorName }}}</a>
+                    is searching for Job since:
+                </b> {{{$seeker->created_at}}}
             </div>
         </div>
     </div>
