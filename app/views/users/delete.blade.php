@@ -3,7 +3,7 @@
 
     <div class="page-header">
         <h1>
-            Delete {{{$username}}} profile
+            Delete <a href="{{URL::to("/viewUser/".$userId)}}">{{{$username}}}</a> profile
             <div><small>To delete the account, confirm YOUR password</small></div>
         </h1>
         <h4>
@@ -12,7 +12,6 @@
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("users/delete"),
         "autocomplete" => "off",
         "class"        => "form-horizontal",
         "role"         => "form"

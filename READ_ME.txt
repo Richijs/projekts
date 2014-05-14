@@ -67,3 +67,5 @@ jāimprovizē globālais search. Piem , meklējot kko, atgriež
 "Result returned 5 users , 3 vacancies and 7 job seeker data" !!!
 
 Jāsalabo visi skati!!!
+
+Newline text ņem vērā arī visus iekš-koda newline, uzreiz aiz <div class="newlineText">

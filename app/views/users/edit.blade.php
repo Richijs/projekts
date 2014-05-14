@@ -3,13 +3,12 @@
 
     <div class="page-header">
         <h1>
-            Editing {{{$username}}} 
+            Editing <a href="{{URL::to("/viewUser/".$userId)}}">{{{$username}}}</a>  
             <small>user data</small>
         </h1>
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("users/edit"),
         "autocomplete" => "off",
         "enctype"      => "multipart/form-data",
         "file"         => "true",

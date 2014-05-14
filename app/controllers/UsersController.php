@@ -526,7 +526,8 @@ class UsersController extends BaseController {
         
             if(User::find($id)){
                 $user = User::find($id);
-                $data["username"] = $user->username;   
+                $data["username"] = $user->username;
+                $data["userId"] = $user->id;
                 return View::make("users/delete")->with($data); 
             }else{
                 Session::flash('message-fail',trans('messages.non-existent-user'));

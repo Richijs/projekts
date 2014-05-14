@@ -9,7 +9,6 @@
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("vacancies/delete"),
         "autocomplete" => "off",
         "class"        => "form-horizontal",
         "role"         => "form"

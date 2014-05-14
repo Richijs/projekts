@@ -9,7 +9,6 @@
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("seekers/edit"),
         "autocomplete" => "off",
         "enctype"      => "multipart/form-data",
         "file"         => "true",
