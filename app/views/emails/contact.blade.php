@@ -6,7 +6,7 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <h1>New Message from {{{$username}}}</h1>
+        <h1>New vakances.lv Message from {{{$username}}}</h1>
         
         <div style="white-space:pre-line;">   
             {{{$messageText}}}

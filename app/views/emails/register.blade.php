@@ -7,12 +7,13 @@
     </head>
     <body>
         <h1>Activate your account, {{{ $username }}}</h1>
-        To activate your account, complete this action:
+        
+        To activate your vakances.lv account - Go to the following link:
         <div>   
-            <a href="{{ URL::to("/activate") . "?code=" . $code."&id=".$id }}">HERE..... (Click on me)</a>
+            <a href="{{ URL::to("/activate") . "?code=" . $code."&id=".$id }}">Account Activation</a>
         </div>
         <div>
-            If you didnt request this action, ignore and delete this e-mail
+            If you didnt request this action, ignore and delete this e-mail.
         </div>
     </body>
 </html>
