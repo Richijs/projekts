@@ -8,46 +8,90 @@
     </h1>
 </div>
     
-    <div>
-        UserGroup:
-        @if ($user->userGroup===1)
-            Admin
-        @elseif ($user->userGroup===2)
-            Employer
-        @elseif ($user->userGroup===3)
-            Job Seeker
-        @endif
-    </div>
-    <div>
-        <b>Status:</b>
-        @if ($user->active===1)
-            Active!
-        @else
-            Not Activated!
-        @endif
-    </div>
-    <div>
-        email: <a href="mailto:{{{$user->email}}}">{{{$user->email}}}</a>
-    </div>
-    @if ($user->picture)
-        <div>
-            <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="200" alt="user picture"/>
+    <div class="panel panel-primary">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>Data</b>
         </div>
-    @else
-        <div>
-            <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
-        </div>
-    @endif
-    <div>
-        Joined: {{{$user->created_at}}}
     </div>
+    <div class="panel-body">
+        
+
+                        
+            <div class="btn-group-vertical col-sm-5">
+
+    <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User Data</a>            
+                
+    @if (Auth::user()->id == $user->id)
     
-    <!-- vajag pielikt arī lai var pats varbūt edit/do smth?? -->
-    @if (Auth::check() && Auth::user()->userGroup==1 && Auth::user()->id!=$user->id)
-        <div>
-            <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User</a>
-            <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete User</a>
-        </div>
     @endif
+    
+    <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete profile</a>
+
+    <a class="btn btn-default" href="{{{ URL::to("/viewRecommendations/".$user->id) }}}">Users who this user has recommended</a>
+
+    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
+        <a class="btn btn-default" href="{{{ URL::to("/viewRecommenders/".$user->id) }}}">Users who recommended this user</a>
+
+    @endif
+
+    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
+        <a class="btn btn-default" href="{{{ URL::to("/viewSeeker/"."šeit būs seeker id!!!!!") }}}">view Job Seek data</a>
+
+    @endif
+    
+    <div class="pull-right">
+    <b>Profile picture:</b>
+            @if (Auth::user()->picture)
+            
+                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$user->picture}}}" width="200" alt="user picture"/>
+            
+            @else
+            
+                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
+            
+        @endif
+
+        </div>
+            </div>   
+            
+
+                   
+              <ul class="list-group col-sm-5">
+          
+                  
+        <li class="list-group-item">
+            <b>Username:</b> {{{$user->username}}}
+        </li>
+        <li class="list-group-item">
+            <b>First name:</b> {{{$user->firstname}}}
+        </li>
+        <li class="list-group-item">
+            <b>Last name:</b> {{{$user->lastname}}}
+        </li>
+        <li class="list-group-item">
+            <b>E-mail:</b> {{{$user->email}}}
+        </li>
+        
+        @if ($user->about)
+        <li class="list-group-item">
+        <b>About:</b>
+        <div class="newlineText well well-sm">{{{$user->about}}}</div>
+        @endif
+        </li>
+        
+        <li class="list-group-item">
+            <b>User Group:</b>
+            @if ($user->userGroup===1) Admin @endif
+            @if ($user->userGroup===2) Employer @endif
+            @if ($user->userGroup===3) Job Searcher @endif
+        </li>
+        <li class="list-group-item">
+            <b>Joined:</b> {{{$user->created_at}}}
+        </li>
+              </ul>
+                 </div>
+    
+</div>
     
 @stop
