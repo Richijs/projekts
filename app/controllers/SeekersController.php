@@ -1,7 +1,7 @@
 <?php
 
 //use Illuminate\Support\MessageBag;
-//use Illuminate\Routing\Redirector;
+use Illuminate\Routing\Redirector;
 
 class SeekersController extends BaseController {
         
@@ -115,7 +115,8 @@ class SeekersController extends BaseController {
                     Return Response::download($seeker->cv);
                 }else{
                     Session::flash('message-fail',trans('messages.couldnt-download-cv'));
-                    return Redirect::to("/viewSeeker/{$seeker->id}");
+                    //return Redirect::to("/viewSeeker/{$seeker->id}");
+                    return Redirect::back();
                 }
             
             }else{

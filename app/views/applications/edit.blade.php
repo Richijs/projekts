@@ -2,14 +2,13 @@
 @section("content")
 
     <div class="page-header">
-        <h1>Editing <a href="/viewUser/{{{$userId}}}">{{{$userName}}}</a>'s 
-            <a href="/viewApplication/{{{$applicationId}}}">application</a> for 
-            <small><a href="/viewVacancie/{{{$vacancieId}}}">this vacancie</a></small>
+        <h1>Editing <a href="{{URL::to("/viewUser/".$userId)}}">{{{$userName}}}</a>
+            <a href="{{URL::to("/viewApplication/".$applicationId)}}">application</a> for 
+            <small><a href="{{URL::to("/viewVacancie/".$vacancieId)}}">this vacancie</a></small>
         </h1>
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("applications/edit"),
         "autocomplete" => "off",
         "class"        => "form-horizontal",
         "role"         => "form"

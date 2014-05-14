@@ -2,20 +2,25 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Delete <a href="/viewApplication/{{{$applicationId}}}">Application</a> for 
-        <small><a href="/viewVacancie/{{{$vacancieId}}}">{{{ $vacancieName }}}</a></small>
+    <h1>Delete <a href="{{URL::to("/viewApplication/".$applicationId)}}">Application</a> for 
+        <small><a href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{{ $vacancieName }}}</a></small>
         <div><small>To delete Application, Confirm deletion</small></div>
     </h1>
 </div>
 
-    <h3>Written letter:</h3>
-    <div class="newlineText">
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>Written letter:</b>
+        </div>
+    </div>
+    <div class="panel-body newlineText">
         {{{$applicationLetter}}}
     </div>
-    
+</div>
+  
 
     {{ Form::open([
-        //"url"          => URL::route("applications/delete"),
         "autocomplete" => "off",
         "class"        => "form-horizontal",
         "role"         => "form"
