@@ -7,8 +7,19 @@
     </h1>
 </div>
 
-    <div>
+
         @if (isset($users))
+        
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            All User List
+        </div>
+    </div>
+    <div class="panel-body">
+            
+        
+        
         <div class='table-responsive'>
         <table class='table'>
             <thead>
@@ -16,6 +27,7 @@
                     <th>Picture</th>
                     <th>Username</th>
                     <th>Status</th>
+                    <th>User Group</th>
                     <th>Joined</th>
                     @if (Auth::check() && Auth::user()->userGroup==1)
                     <th>Controls</th>
@@ -44,18 +56,25 @@
                 </td>
                 
                 <td>
-                <span>
+
                     @if ($user->active===1)
                         Active!
                     @else
                         Not Activated!
                     @endif
-                </span>
+
                 </td>
                 
+                <td>
+                    
+                    @if ($user->userGroup===1) Admin @endif
+                    @if ($user->userGroup===2) Employer @endif
+                    @if ($user->userGroup===3) Job Searcher @endif
+                    
+                </td>    
                 
                 <td>
-                    <b>Joined:</b> {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}
+                    {{{ date('d.m.y H:i',strtotime($user->created_at)) }}}
                 </td>
                 
                 
@@ -76,12 +95,23 @@
             </tbody>
         </table>
         </div>
-        
+    </div>
+    </div>
             <div>
                 {{$users->links()}} <!-- pagination links -->
             </div>
         @else
-            <div>No Users to show</div>
-        @endif
+           
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>No Users to show.</b>
+        </div>
     </div>
+</div>       
+        
+        
+        @endif
+
+        
 @stop
