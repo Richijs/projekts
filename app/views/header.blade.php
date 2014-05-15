@@ -43,7 +43,7 @@
                         </a>
                     </li>
                     <li {{ Request::is('profile') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("users/profile") }}">My profile</a>
+                        <a href="{{ URL::route("users/profile") }}">My profile panel</a>
                     </li>
                     <li>
                         <a href="{{ URL::route("users/logout") }}">logout</a>

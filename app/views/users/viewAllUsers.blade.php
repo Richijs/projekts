@@ -52,7 +52,7 @@
                 </td>
                 
                 <td>
-                <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
+                <a href="{{ URL::to("/viewUser/".$user->id)}}">{{{ $user->username }}}</a>
                 </td>
                 
                 <td>

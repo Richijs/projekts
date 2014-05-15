@@ -3,13 +3,12 @@
 
     <div class="page-header">
         <h1>
-            Delete <a href="/viewVacancie/{{{$id}}}">{{{ $name }}}</a> vacancie
-            <div><small>To delete Vacancie, Confirm deletionn</small></div>
+            Delete <a href="{{ URL::to("/viewVacancie/".$id)}}">{{{ $name }}}</a> vacancie
+            <div><small>To delete Vacancie, Confirm deletion</small></div>
         </h1>
     </div>
 
     {{ Form::open([
-        //"url"          => URL::route("vacancies/delete"),
         "autocomplete" => "off",
         "class"        => "form-horizontal",
         "role"         => "form"
