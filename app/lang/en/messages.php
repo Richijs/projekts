@@ -21,7 +21,7 @@ return array(
         'logout-first' => 'Must log out first!',
     
         
-        //vacancies
+        //applications
 	'before-applying-vacancie' => 'Before applying any Vacancie, first, You must add Your job seeker data',
         'applied-vacancie-successfully' => 'Applied this Vacancie successfully',
         'applying-vacancie-failed' => 'Applying Vacancie failed',
@@ -32,6 +32,7 @@ return array(
         'couldnt-delete-application' => 'Could not delete Application',
         'edited-application-successfully' => 'Edited application successfully',
         'editing-application-failed' => 'Editing application was unsuccessful',
+        'cant-apply-own-vacancie' => 'You can not apply Your own Vacancie',
     
         //lang
         'preflang-changed' => 'Preferred user language changed to :lang',

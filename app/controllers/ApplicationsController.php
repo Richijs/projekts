@@ -11,12 +11,21 @@ class ApplicationsController extends BaseController {
             return Redirect::route("home");
         }
         
+        
+        
         //ja ir pareiza user grupa
-        if((Auth::check() && Auth::user()->userGroup==3) || (Auth::check() && Auth::user()->userGroup==1))
+        if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
+            
+            if(Vacancie::where('creator_id',Auth::user()->id)->where('id',$vacancieId)->first()){
+                Session::flash('message-fail',trans('messages.cant-apply-own-vacancie'));
+                return Redirect::route("vacancies/viewAllVacancies");
+            }
+            
             //ja nav jau pieteicies šai vakancei
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
+                
                 //ja nav norādījis savus job seeker datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
