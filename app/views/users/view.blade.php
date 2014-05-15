@@ -8,7 +8,7 @@
     </h1>
 </div>
     
-    <div class="panel panel-primary">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
             <b>Data</b>
