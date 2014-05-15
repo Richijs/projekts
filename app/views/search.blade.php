@@ -1,10 +1,21 @@
 @extends("layout")
 @section("content")
 
+<div class="page-header">
+    <h1>Search results</h1>
+</div>  
     
     @if (isset($users) && count($users))
         
-        <h3>Users Found<b>({{count($users)}})</b>:</h3>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Users Found <b>({{count($users)}})</b>:
+        </div>
+    </div>
+    <div class="panel-body">
+    
+    
         @foreach($users as $user)
         
         <div>
@@ -12,12 +23,22 @@
         </div>
         
         @endforeach
-
+    </div>
+    </div>
     @endif
+    
+    
     
     @if (isset($vacancies) && count($vacancies))
         
-        <h3>Vacancies Found<b>({{count($vacancies)}})</b>:</h3>
+        <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            Vacancies Found <b>({{count($vacancies)}})</b>:
+        </div>
+    </div>
+    <div class="panel-body">
+
         @foreach($vacancies as $vacancie)
         
         <div>
@@ -25,12 +46,23 @@
         </div>
         
         @endforeach
-
+    </div>
+        </div>
     @endif
+    
+    
     
     @if (isset($seekers) && count($seekers))
         
-        <h3>Job Searchers Found<b>({{count($seekers)}})</b>:</h3>
+    <div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+             Job Searchers Found <b>({{count($seekers)}})</b>:
+        </div>
+    </div>
+    <div class="panel-body">
+    
+       
         @foreach($seekers as $seeker)
         
         <div>
@@ -38,17 +70,28 @@
         </div>
         
         @endforeach
-
+    </div>
+    </div>
     @endif
+    
+    
     
     @if (!isset($users) && !isset($vacancies) && !isset($seekers))
-        <h3> Nothing was found at all </h3>
+        <div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>You searched for... nothing.</b>
+        </div>
+    </div>
+</div>
     @elseif (!count($users) && !count($vacancies) && (!isset($seekers) || !count($seekers)))
-        <h3>No Results match the search</h3>    
+        <div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>No Results found.</b>
+        </div>
+    </div>
+</div>  
     @endif
     
-@stop
-@section("footer")
-    @parent
-    <script src="/js/polyfill.io"></script>
 @stop

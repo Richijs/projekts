@@ -71,7 +71,7 @@
              <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
         @endif
         
-        <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
+        <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
         
         <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
             
@@ -79,7 +79,7 @@
 
         <b> Added by: </b>
         
-        <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
+        <a href="{{ URL::to("/viewUser/".$vacancie->creator_id)}}">{{{ $vacancie->creatorName }}}</a>
 
         <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
 
@@ -98,7 +98,7 @@
              <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="employer picture"/>
         @endif
         
-        <a href="/viewUser/{{{$employer->id}}}"><b>{{{$employer->username}}}</b></a>
+        <a href="{{ URL::to("/viewUser/".$employer->id)}}"><b>{{{$employer->username}}}</b></a>
         
         {{{$employer->recommendations}}} <b>recommendations</b>
         
