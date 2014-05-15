@@ -7,40 +7,65 @@
         </h1>
     </div>
 
-    <div>
-        @if (isset($vacancies))
+  
+@if (isset($vacancies))
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="panel-title">
+            All Vacancie List
+        </div>
+    </div>
+    <div class="panel-body">
+        
+        <div class='table-responsive'>
+        <table class='table'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Company</th>
+                    <th>Poster</th>
+                    <th>Applicants</th>
+                    <th>Added By</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
             @foreach ($vacancies as $vacancie)
-
-            <div class='panel panel-default'>
-                <div class='panel-heading'>
-                    <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
-                </div>
-                <div class='panel-body'>
+                <tr>
+                    <td>
+                        <a href="{{URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
+                    </td>
+                    
+                    <td>
+                        {{{$vacancie->company}}} 
+                    </td>
+                    
+                    <td>
                     @if ($vacancie->poster)
-                    <span class="pull-left">
-                        <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="64" height="64" alt="vacancie poster"/>
-                    </span>
+                        <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
                     @else
-                    <span class="pull-left">
-                        <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="64" height="64" alt="vacancie poster"/>
-                    </span>
+                        <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
                     @endif
-                    <!-- else - shows default vacancie pic -->
+                    </td>
                     
-                    <span>                   
-                        <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
+                    <td>
+                        @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
+                        <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                            Applied: <b>{{{$vacancie->applied}}}</b>
+                        </a>
+                        @else
+                            Applied: <b>{{{$vacancie->applied}}}</b>
+                        @endif
+                    </td>
                     
-                        <b>Company:</b> {{{$vacancie->company}}}   
-                    </span>
+                    <td>
+                        <a href="{{URL::to("/viewUser/".$vacancie->creator_id)}}">{{{ $vacancie->creatorName }}}</a>
+                        <a href="{{URL::to("/viewRecommenders/".$vacancie->creator_id)}}">({{{$vacancie->userRecommends}}})</a>
+                        
+                        @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                     
-                    
-                        <b> Added by: </b>
-                        <a href="/viewUser/{{{$vacancie->creator_id}}}">{{{ $vacancie->creatorName }}}</a>
-                        <a href="/viewRecommenders/{{{$vacancie->creator_id}}}">({{{$vacancie->userRecommends}}})</a>
-                    
-                    @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
-                    
-                        <a class="btn btn-default" href="/recommend/{{{$vacancie->creator_id}}}">
+                        <a class="btn btn-default" href="{{URL::to("/recommend/".$vacancie->creator_id)}}">
                             @if ($vacancie->recommended)
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
@@ -49,22 +74,50 @@
                             @endif
                         </a>
                    
-                    @endif
+                        @endif
                         
+                    </td>
                     
-                        <b>Applied for this Vacancie:</b> {{{$vacancie->applied}}}
-                   
+                    <td>
+                        {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
+                    </td>
                     
-                </div>
-            </div>
-            
+                    <td>
+                    @if (Auth::check())
+                        @if ((Auth::user()->userGroup===1 || Auth::user()->userGroup===3) && $vacancie->creator_id!=Auth::user()->id)
+                            <a class="btn btn-success" href="{{URL::to("/apply/".$vacancie->id)}}">Apply this vacancie</a>
+                        @endif
+                        
+                        @if (Auth::user()->userGroup == 1 || Auth::user()->id == $vacancie->creator_id)
+                            <a class="btn btn-warning" href="{{{ URL::to("/editVacancie/".$vacancie->id) }}}">Edit Vacancie</a>               
+                            <a class="btn btn-danger" href="{{{ URL::to("/deleteVacancie/".$vacancie->id) }}}">Delete Vacancie</a>
+                        @endif
+                    @endif         
+                    </td>
+                    
+                </tr>
             @endforeach
-            
-            <div>
-                {{$vacancies->links()}} <!-- pagination links -->
-            </div>
-        @else
-            <div>No Vacancies to show</div>
-        @endif
+            </tbody>
+        </table>
+        </div>
+        
     </div>
+</div>
+
+    <div>
+        {{$vacancies->links()}} <!-- pagination links -->
+    </div>
+
+@else
+
+<div class="panel panel-danger">
+    <div class="panel-heading">
+        <div class="panel-title">
+            <b>No Vacancies to show.</b>
+        </div>
+    </div>
+</div>
+
+@endif
+
 @stop

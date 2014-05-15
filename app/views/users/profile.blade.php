@@ -20,7 +20,23 @@
 
                         
             <div class="btn-group-vertical col-sm-5">
+                
+                
+        <div>
+            <b>Profile picture:</b>
+            @if (Auth::user()->picture)
+            
+                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="200" alt="user picture"/>
+            
+            @else
+            
+                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
+            
+        @endif
 
+        </div>
+                
+                
     <a class="btn btn-warning" href="{{{ URL::to("/editUser/".Auth::user()->id) }}}">Edit User Data</a>            
                 
     <a class="btn btn-warning" href="{{{ URL::to("/changePass") }}}">Change Password</a>
@@ -41,19 +57,7 @@
         <a class="btn btn-default" href="{{{ URL::to("/myApplications") }}}">My Applications</a>
     @endif
     
-    <div class="pull-right">
-    <b>Profile picture:</b>
-            @if (Auth::user()->picture)
-            
-                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="200" alt="user picture"/>
-            
-            @else
-            
-                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
-            
-        @endif
-
-        </div>
+    
             </div>   
             
 
