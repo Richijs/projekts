@@ -97,9 +97,8 @@
     
         <!-- only admin can change groups (except his own group) -->
         <div class="text-danger col-sm-offset-2 col-sm-7">
-            changing from anything->seeker or anything->employer will delete all user
-            created data except his own added recommendations! seeker data/vacancies/applications
-            will all be deleted...
+            Changing user group will delete all user
+            created data, except, his own added recommendations!
         </div>
     
     <div class="form-group @if ($errors->first('userGroup')) has-error@endif">

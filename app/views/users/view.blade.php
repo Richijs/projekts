@@ -19,30 +19,30 @@
 
                         
             <div class="btn-group-vertical col-sm-5">
-
+    @if (Auth::check())
+    
+        @if (Auth::user()->userGroup == 1 || Auth::user()->id == $user->id)
     <a class="btn btn-warning" href="{{{ URL::to("/editUser/".$user->id) }}}">Edit User Data</a>            
-                
-    @if (Auth::user()->id == $user->id)
-    
-    @endif
-    
+                    
     <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".$user->id) }}}">Delete profile</a>
-
-    <a class="btn btn-default" href="{{{ URL::to("/viewRecommendations/".$user->id) }}}">Users who this user has recommended</a>
-
-    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
-        <a class="btn btn-default" href="{{{ URL::to("/viewRecommenders/".$user->id) }}}">Users who recommended this user</a>
-
-    @endif
-
-    @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
-        <a class="btn btn-default" href="{{{ URL::to("/viewSeeker/"."šeit būs seeker id!!!!!") }}}">view Job Seek data</a>
-
-    @endif
+        @endif
+        
+        
+    <a class="btn btn-default" href="{{{ URL::to("/viewRecommendations/".$user->id) }}}">Users, who this user has recommended</a>
     
+        @if ($user->userGroup!=3)
+    <a class="btn btn-default" href="{{{ URL::to("/viewRecommenders/".$user->id) }}}">Users, who recommended this user</a>
+        @endif
+        
+        @if (isset($seeker) && ($seeker->user_id == Auth::user()->id || Auth::user()->userGroup == 1 || Auth::user()->userGroup == 2))
+    <a class="btn btn-default" href="{{{ URL::to("/viewSeeker/".$seeker->id) }}}">view Job Search data</a>
+        @endif
+        
+    @endif
+
     <div class="pull-right">
     <b>Profile picture:</b>
-            @if (Auth::user()->picture)
+            @if ($user->picture)
             
                 <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$user->picture}}}" width="200" alt="user picture"/>
             
@@ -51,8 +51,8 @@
                 <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
             
         @endif
-
         </div>
+    
             </div>   
             
 
@@ -89,6 +89,12 @@
         <li class="list-group-item">
             <b>Joined:</b> {{{$user->created_at}}}
         </li>
+        @if ($user->active!=1)
+        <li class="list-group-item list-group-item-danger">
+            <b>This User has not yet activated his/her account</b>
+        </li>
+        @endif
+        
               </ul>
                  </div>
     

@@ -242,7 +242,12 @@ class UsersController extends BaseController {
             $user = User::find($id);
             $user->password = ''; //negribam skatam padot paroli???
             
-            return View::make("users/view", array('user'=> $user));
+            if(Seeker::where('user_id',$id)->first()){
+                $seeker = Seeker::where('user_id',$id)->first();
+                return View::make("users/view", array('user' => $user,'seeker' => $seeker));
+            }else{
+                return View::make("users/view", array('user' => $user));
+            }
         }else{
             Session::flash('message-fail',trans('messages.non-existent-user'));
             return Redirect::route("users/viewAllUsers");
