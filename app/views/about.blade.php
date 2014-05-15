@@ -8,7 +8,7 @@
 
 
     <div>loremo upsumo, this is the about page!</div>
-    <div>āē  strādā :)</div>
+    <div>āēīūōģģģ</div>
 
 
 
