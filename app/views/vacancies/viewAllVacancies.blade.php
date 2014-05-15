@@ -27,7 +27,7 @@
                     <th>Applicants</th>
                     <th>Added By</th>
                     <th>Created At</th>
-                    <th>Actions</th>
+                    @if (Auth::check()) <th>Actions</th> @endif
                 </tr>
             </thead>
             <tbody>
@@ -82,8 +82,9 @@
                         {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
                     </td>
                     
-                    <td>
+                   
                     @if (Auth::check())
+                        <td>
                         @if ((Auth::user()->userGroup===1 || Auth::user()->userGroup===3) && $vacancie->creator_id!=Auth::user()->id)
                             <a class="btn btn-success" href="{{URL::to("/apply/".$vacancie->id)}}">Apply this vacancie</a>
                         @endif
@@ -92,8 +93,9 @@
                             <a class="btn btn-warning" href="{{{ URL::to("/editVacancie/".$vacancie->id) }}}">Edit Vacancie</a>               
                             <a class="btn btn-danger" href="{{{ URL::to("/deleteVacancie/".$vacancie->id) }}}">Delete Vacancie</a>
                         @endif
+                        </td>
                     @endif         
-                    </td>
+                    
                     
                 </tr>
             @endforeach
