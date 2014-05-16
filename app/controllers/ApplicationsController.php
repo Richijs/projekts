@@ -11,8 +11,7 @@ class ApplicationsController extends BaseController {
             return Redirect::route("home");
         }
         
-        
-        
+
         //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
