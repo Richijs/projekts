@@ -57,6 +57,10 @@
                         
                 <td>
                     <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                        @if (isset($vacancie->new))
+                            <span class="badge">new applicants!</span>
+                        @endif
+                        
                         Applied: <b>{{{$vacancie->applied}}}</b>
                     </a>
                 </td>

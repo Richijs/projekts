@@ -124,6 +124,13 @@ class ApplicationsController extends BaseController {
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
                 $user = User::find($seeker->user_id);
                 
+                    //var ieskaitīt kā "skatīts"
+                    if($vacancie->creator_id == Auth::user()->id && $application->viewed != 1){
+                        $app = Application::find($application->id);
+                        $app->viewed = 1;
+                        $app->save();
+                    }
+                
                 return View::make("applications/view", array('application'=> $application,'vacancie'=>$vacancie,'seeker'=>$seeker,'user'=>$user));
         
             
@@ -159,6 +166,14 @@ class ApplicationsController extends BaseController {
                     $user = User::find($application->user_id);
                     $application->user = $user;
                     
+                    //var ieskaitīt kā "skatīts"
+                    if(Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first() && $application->viewed != 1){
+                        $application->new = true;
+                        
+                        $app = Application::find($application->id);
+                        $app->viewed = 1;
+                        $app->save();
+                    }
                 }
             
             return View::make("applications/viewApplicants", array('applications'=> $applications));

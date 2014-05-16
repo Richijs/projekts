@@ -2,8 +2,7 @@
     <div class="header">
         <div class="container">
             <h1>VakancesLV</h1>
-            
-                  
+                              
                     <div class="lang btn-group btn-toggle">
                         <a href="{{ URL::to("/lang/lv") }}" class="btn btn-xs btn-default
                             @if (Config::get('app.locale')=='lv') btn-primary active @endif">
@@ -18,8 +17,8 @@
             
             
             
-            <nav class="navbar navbar-inverse" role="navigation">
-                <ul class="nav navbar-nav">
+            <nav class="navbar" role="navigation">
+                <ul class="nav navbar-nav nav-pills nav-stacked">
                     <li {{ Request::is('/') ? 'class="active"' : '' }}>
                         <a href="{{ URL::route("home") }}">home</a
                     </li>
@@ -54,7 +53,13 @@
                                 <a href="{{ URL::route("seekers/viewAllSeekers") }}">ViewAllJobSeekers</a>
                             </li>
                             <li {{ Request::is('myVacancies') ? 'class="active"' : '' }}>
-                                <a href="{{ URL::route("vacancies/myVacancies") }}">My Vacancies</a>
+                                <a href="{{ URL::route("vacancies/myVacancies") }}">
+                                    @if (isset($newApplicants))
+                                        <span class="badge pull-right">{{$newApplicants}} new applicants</span>
+                                    @endif 
+
+                                    My Vacancies
+                                </a>
                             </li>
                             <li {{ Request::is('addVacancie') ? 'class="active"' : '' }}>
                                 <a href="{{ URL::route("vacancies/add") }}">Add Vacancie</a>

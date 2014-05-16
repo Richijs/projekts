@@ -30,7 +30,7 @@
                 @foreach ($applications as $application)
                 <tr>
                     <td>
-                        <a href="{{URL::to("/viewUser/".$application->user->id)}}">{{{$application->user->username}}}</a>
+                        <a href="{{URL::to("/viewUser/".$application->user->id)}}">{{{$application->user->username}}}</a>                   
                     </td>
                     
                     <td>
@@ -40,6 +40,10 @@
                     <td>
                         <a class="btn btn-default" href="{{URL::to("/viewApplication/".$application->id)}}">
                             view {{{$application->user->username}}} application
+                            
+                            @if (isset($application->new))
+                                <span class="badge">new!</span>
+                            @endif
                         </a>
                     </td>
                     @if (Auth::user()->userGroup == 1)

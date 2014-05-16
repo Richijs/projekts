@@ -122,7 +122,18 @@ class VacanciesController extends BaseController {
             
             //cik daudz katrai vakancei pieteikušies
             foreach ($vacancies as $vacancie){
-                $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
+                $applications = Application::where('vacancie_id',$vacancie->id)->get();
+                
+                $vacancie->applied = $applications->count();
+                
+                foreach($applications as $application){
+                    
+                    if($application->viewed != 1){
+                        $vacancie->new = true;
+                        break;
+                    }
+                    
+                }
             }
             
             

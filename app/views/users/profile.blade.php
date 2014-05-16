@@ -9,7 +9,7 @@
 
 
 
-<div class="panel panel-default">
+<div class="panel panel-primary">
     <div class="panel-heading">
         <div class="panel-title">
             <b>Profile panel</b>
