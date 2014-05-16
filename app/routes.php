@@ -79,10 +79,10 @@ Route::group(["before" => "csrf"], function(){
         "uses" => "VacanciesController@viewAllAction"
     ]);
     
-    Route::get("/about", function()
-    {
-        return View::make("about");
-    });
+    Route::get("/about", [
+        "as"   => "/about",
+        "uses" => "HomeController@viewAbout"
+    ]);
 
     
 //guest only actions

@@ -18,10 +18,7 @@ class HomeController extends BaseController {
             $vacancie->creatorName = $creator->username;
         }
         //pirmās piecas top vakances  (Pēc visvairāk pieteikušo skaita)
-        $topVacancies = $vacancies->sortBy('applied')->reverse()->take(5);
-        
-        
-        
+        $topVacancies = $vacancies->sortBy('applied')->reverse()->take(5);   
         
         $employers = User::where('userGroup','<>',3)->get();
         
@@ -35,6 +32,12 @@ class HomeController extends BaseController {
         
         return View::make("home",array('topVacancies'=>$topVacancies,'topEmployers'=>$topEmployers));
     }
+    
+    //lai ietu cauri base controller
+    public function viewAbout()
+    {
+        return View::make("about");
+    }    
     
     public function searchAction()
     {
