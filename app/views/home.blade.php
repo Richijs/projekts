@@ -65,17 +65,21 @@
         @endif
         
         <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
-        
-        <b>created at:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
             
         <b>Company:</b> {{{$vacancie->company}}}   
 
-        <b> Added by: </b>
+        @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
         
-        <a href="{{ URL::to("/viewUser/".$vacancie->creator_id)}}">{{{ $vacancie->creatorName }}}</a>
-
-        <b>___Applied for this Vacancie:</b> {{{$vacancie->applied}}}
-
+        <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+            Applied: <b>{{{$vacancie->applied}}}</b>
+        </a>
+        
+        @else
+            Applied: <b>{{{$vacancie->applied}}}</b>
+        @endif
+        
+        <b>Added:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
+ 
     </div> 
     @endforeach
     
