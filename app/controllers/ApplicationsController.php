@@ -13,7 +13,7 @@ class ApplicationsController extends BaseController {
         
         
         
-        //ja ir pareiza user grupa
+        //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
             
@@ -26,17 +26,19 @@ class ApplicationsController extends BaseController {
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
                 
-                //ja nav norādījis savus job seeker datus
+                //ja nav norādījis savus darba meklētāja datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
                     Session::flash('message-fail',trans('messages.before-applying-vacancie'));
-                    Session::put('vacancieId',$vacancieId); //lai var redirect back uz šo vakances apply
+                    
+                    //lai varētu pārvirzīt atpakaļ uz šīs vakances pieteikumu
+                    Session::put('vacancieId',$vacancieId); 
                     return Redirect::route("seekers/add");
                 }
                 
                 
                 $vacancie = Vacancie::find($vacancieId);
-                //tad viss ok
+                
                 if (Input::server("REQUEST_METHOD") == "POST")
                 {
                     $validator = Validator::make(Input::all(), [
@@ -55,7 +57,6 @@ class ApplicationsController extends BaseController {
                             Session::flash('message-success',trans('messages.applied-vacancie-successfully'));
                             return Redirect::to("/viewVacancie/{$vacancieId}");
                         }
-                        //varbūt else?
                 
                     }
             

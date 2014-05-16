@@ -23,6 +23,7 @@
                     <th>Username</th>
                     <th>Applied at</th>
                     <th>View</th>
+                    @if (Auth::user()->userGroup == 1) <th>Controls</th> @endif
                 </tr>
             </thead>
             <tbody>
@@ -41,6 +42,16 @@
                             view {{{$application->user->username}}} application
                         </a>
                     </td>
+                    @if (Auth::user()->userGroup == 1)
+                    <td>
+                        <a class="btn btn-warning" href="{{URL::to("/editApplication/".$application->id)}}">
+                            edit application
+                        </a>
+                        <a class="btn btn-danger" href="{{URL::to("/deleteApplication/".$application->id)}}">
+                            delete application
+                        </a>
+                    </td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

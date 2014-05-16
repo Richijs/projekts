@@ -53,12 +53,18 @@
                             <li {{ Request::is('viewAllSeekers') ? 'class="active"' : '' }}>
                                 <a href="{{ URL::route("seekers/viewAllSeekers") }}">ViewAllJobSeekers</a>
                             </li>
+                            <li {{ Request::is('myVacancies') ? 'class="active"' : '' }}>
+                                <a href="{{ URL::route("vacancies/myVacancies") }}">My Vacancies</a>
+                            </li>
                             <li {{ Request::is('addVacancie') ? 'class="active"' : '' }}>
                                 <a href="{{ URL::route("vacancies/add") }}">Add Vacancie</a>
                             </li>
                         @endif
                         
                         @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
+                            <li {{ Request::is('myApplications') ? 'class="active"' : '' }}>    
+                                <a href="{{ URL::route("applications/viewMy") }}">My Applications</a>
+                            </li>
                             <li {{ Request::is('addJobSearch') ? 'class="active"' : '' }}>    
                                 <a href="{{ URL::route("seekers/add") }}">Add JobSeeker data</a>
                             </li>

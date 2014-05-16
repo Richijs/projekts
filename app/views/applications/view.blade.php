@@ -13,8 +13,12 @@
             <b>Motivation Letter:</b>
             @if (@Auth::check() && (Auth::user()->id == $application->user_id || Auth::user()->userGroup==1))
                 <span>
-                    <a class="btn btn-warning" href="{{URL::to("/editApplication/".$application->id)}}">edit application letter data</a>
-                    <a class="btn btn-danger" href="{{URL::to("/deleteApplication/".$application->id)}}">delete application letter data</a>
+                    <a class="btn btn-warning" href="{{URL::to("/editApplication/".$application->id)}}">
+                        edit application
+                    </a>
+                    <a class="btn btn-danger" href="{{URL::to("/deleteApplication/".$application->id)}}">
+                        delete application
+                    </a>
                 </span>
             @endif
         </div>
