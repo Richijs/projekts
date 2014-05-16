@@ -1,12 +1,6 @@
 <?php
 
 class BaseController extends Controller {
-
-    /**
-     * Setup the layout used by the controller.
-     *
-     * @return void
-     */
     
     public function __construct(){
         
@@ -18,16 +12,20 @@ class BaseController extends Controller {
             
             foreach($userVacancies as $userVacancie){
                 $count = $count + Application::where('viewed','<>',1)->where('vacancie_id',$userVacancie->id)->count();
-            
             }
             
-            
             if($count>0) {
-                View::share('newApplicants',$count);
+                View::share('newApplicants',$count); //lai attēlotu paziņojumu izvēlnē
             }
         
         }
     }
+    
+    /**
+     * Setup the layout used by the controller.
+     *
+     * @return void
+     */
     
     protected function setupLayout()
     {

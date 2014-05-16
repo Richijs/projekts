@@ -76,8 +76,7 @@ class VacanciesController extends BaseController {
                     {
                         Session::flash('message-success',trans('messages.vacancie-offer-saved'));
                         return Redirect::to("/viewVacancie/{$vacancie->id}");
-                    }
-                
+                    } 
             }
             
             $data["errors"] = $validator->errors();
@@ -131,8 +130,7 @@ class VacanciesController extends BaseController {
                     if($application->viewed != 1){
                         $vacancie->new = true;
                         break;
-                    }
-                    
+                    } 
                 }
             }
             

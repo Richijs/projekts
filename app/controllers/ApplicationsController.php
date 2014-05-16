@@ -11,7 +11,6 @@ class ApplicationsController extends BaseController {
             return Redirect::route("home");
         }
         
-
         //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
@@ -35,7 +34,7 @@ class ApplicationsController extends BaseController {
                     return Redirect::route("seekers/add");
                 }
                 
-                
+                //eksistējošā vakance
                 $vacancie = Vacancie::find($vacancieId);
                 
                 if (Input::server("REQUEST_METHOD") == "POST")
@@ -82,7 +81,7 @@ class ApplicationsController extends BaseController {
     
     public function viewMyAction()
     {
-        //if admin or seeker
+        //ja admins vai darba meklētājs
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
             $applicationCount = Application::where('user_id',Auth::user()->id)->count();
@@ -91,7 +90,7 @@ class ApplicationsController extends BaseController {
             
             foreach ($applications as $application)
             {
-                //dabuj konkrēto vakanci katram application
+                //iegūst konkrēto vakanci katram pieteikumam
                 $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
                 $application->vacancieId = $vacancie->id;
                 $application->vacancieName = $vacancie->name;  
@@ -114,13 +113,12 @@ class ApplicationsController extends BaseController {
             $application = Application::find($applicationId);
             $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
             
-            //Var apskatīt ADMINS,PATS un KONKRĒTĀ DARBA DEVĒJS
+            //Var apskatīt pats,admins un konkrētās vakances darba devējs
             if(Auth::user()->userGroup==1 //admins
                 || $application->user_id == Auth::user()->id //sava aplikācija    
                 || $vacancie->creator_id == Auth::user()->id //vakances darba devējs
             ){
-  
-            
+
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
                 $user = User::find($seeker->user_id);
                 

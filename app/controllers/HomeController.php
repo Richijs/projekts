@@ -1,7 +1,6 @@
 <?php
 
-//not yet needed
-
+//nav nepieciešams
 //use Illuminate\Support\MessageBag;
 
 class HomeController extends BaseController {

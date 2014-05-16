@@ -71,3 +71,7 @@ Jāsalabo visi skati!!!
 Newline text ņem vērā arī visus iekš-koda newline, uzreiz aiz <div class="newlineText">
 
 messaging?
+
+all-users - nepareizas tiesības
+
+validator rules
