@@ -1,7 +1,7 @@
 @extends("layout")
 @section("content")
     <div class="page-header">
-        <h1>Applying Vacancie 
+        <h1>{{ trans('titles.applying-vacancie') }}
             <small><a href="{{ URL::to("/viewVacancie/".$vacancieId)}}">{{{ $vacancieName }}}</a></small>
         </h1>
     </div>
