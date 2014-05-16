@@ -2,7 +2,7 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Delete <a href="{{URL::to("/viewApplication/".$applicationId)}}">Application</a> for 
+    <h1>Delete <a href="{{URL::to("/viewApplication/".$applicationId)}}">Application</a> to 
         <small><a href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{{ $vacancieName }}}</a></small>
         <div><small>To delete Application, Confirm deletion</small></div>
     </h1>
