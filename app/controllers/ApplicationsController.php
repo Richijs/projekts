@@ -4,14 +4,14 @@ class ApplicationsController extends BaseController {
     
     public function applyAction($vacancieId)
     {
-        //ja neeksistē vakance, kurai tiek mēģināts pieteikties
+            //ja neeksistē vakance, kurai tiek mēģināts pieteikties
         if(!Vacancie::where('id',$vacancieId)->first())
         {
             Session::flash('message-fail',trans('messages.non-existent-vacancie'));
             return Redirect::route("home");
         }
         
-        //ja ir pareiza lietotāja grupa
+            //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
             if(Vacancie::where('creator_id',Auth::user()->id)->where('id',$vacancieId)->first()){
@@ -19,20 +19,20 @@ class ApplicationsController extends BaseController {
                 return Redirect::route("vacancies/viewAllVacancies");
             }
             
-            //ja nav jau pieteicies šai vakancei
+                //ja nav jau pieteicies šai vakancei
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
-                //ja nav norādījis savus darba meklētāja datus
+                    //ja nav norādījis savus darba meklētāja datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
                     Session::flash('message-fail',trans('messages.before-applying-vacancie'));
                     
-                    //lai pēctam lietotāju būtu iespējams pārvirzīt tieši uz šīs vakances pieteikumu
+                        //lai pēctam lietotāju būtu iespējams pārvirzīt tieši uz šīs vakances pieteikumu
                     Session::put('vacancieId',$vacancieId); 
                     return Redirect::route("seekers/add");
                 }
                 
-                //eksistējošā vakance
+                    //eksistējošā vakance
                 $vacancie = Vacancie::find($vacancieId);
                 
                 if (Input::server("REQUEST_METHOD") == "POST")
@@ -81,7 +81,7 @@ class ApplicationsController extends BaseController {
     
     public function viewMyAction()
     {
-        //savu pieteikumu apskatīšana paredzēta vienīgi administratoriem/darba meklētājiem
+            //savu pieteikumu apskatīšana paredzēta vienīgi administratoriem/darba meklētājiem
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
             $applicationCount = Application::where('user_id',Auth::user()->id)->count();
@@ -90,7 +90,7 @@ class ApplicationsController extends BaseController {
             
             foreach ($applications as $application)
             {
-                //iegūst konkrēto vakanci katram pieteikumam
+                    //iegūst konkrēto vakanci katram pieteikumam
                 $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
                 $application->vacancieId = $vacancie->id;
                 $application->vacancieName = $vacancie->name;  
@@ -99,7 +99,7 @@ class ApplicationsController extends BaseController {
             return View::make("applications/viewMy", array('applications'=> $applications));
         }
         
-        //neatļautas pieejas gadījumā (normālā gadījumā tik tālu nebūtu jānokļūst)
+            //neatļautas pieejas gadījumā (normālā gadījumā tik tālu nebūtu jānokļūst)
         Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
         
@@ -113,11 +113,11 @@ class ApplicationsController extends BaseController {
             $application = Application::find($applicationId);
             $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
             
-            //Konkrētu pieteikumu atļauts apskatīt pašam,administratoram un konkrētās vakances darba devējam
+                //Konkrētu pieteikumu atļauts apskatīt pašam,administratoram un konkrētās vakances darba devējam
             if(Auth::user()->userGroup==1 //administrators
-                || $application->user_id == Auth::user()->id //savs pieteikums   
-                || $vacancie->creator_id == Auth::user()->id //vakances darba devējs
-            ){
+            || $application->user_id == Auth::user()->id //savs pieteikums   
+            || $vacancie->creator_id == Auth::user()->id) //vakances darba devējs
+            {
 
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
                 $user = User::find($seeker->user_id);
@@ -129,27 +129,30 @@ class ApplicationsController extends BaseController {
                         $app->save();
                     }
                 
+                    //skatam nepieciešams padot diezgan daudz informāciju par vakanci/darba meklētāju..
                 return View::make("applications/view", array('application'=> $application,'vacancie'=>$vacancie,'seeker'=>$seeker,'user'=>$user));
         
-            
             }else{
+                    //neatļautas autorizācijas gadījumā
                 Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }
  
         }else{
+                //ja aplikācija neeksistē
             Session::flash('message-fail',trans('messages.non-existent-application'));
             return Redirect::route("home");
         }
-       
-        
     }
     
     
     public function viewApplicantsAction($vacancieId)
     {
+            //visu vakances pieteikumu apskatīšana paredzēta vienīgi administratoriem/vakances autoram
         if(Auth::user()->userGroup==1 || Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first()){
+            
             if(!Vacancie::find($vacancieId)){
+                    //neeksistējošas vakances gadījumā
                 Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("vacancies/myVacancies");
             }
@@ -164,7 +167,7 @@ class ApplicationsController extends BaseController {
                     $user = User::find($application->user_id);
                     $application->user = $user;
                     
-                    //var ieskaitīt kā "skatīts"
+                        //lai spētu attēlot "jauns pietikums" ikonu
                     if(Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first() && $application->viewed != 1){
                         $application->new = true;
                         
@@ -178,6 +181,7 @@ class ApplicationsController extends BaseController {
         
          
          }else{
+                    //neatļautas pieejas gadījumā
                 Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }
@@ -185,10 +189,9 @@ class ApplicationsController extends BaseController {
     
     public function deleteAction($applicationId)
     {
-        //if admin or deleting own application
+            //pieeja vienīgi administratoram un/vai pieteikuma izveidotājam
         if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first() || Auth::user()->userGroup==1))
         {
-
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
@@ -198,7 +201,6 @@ class ApplicationsController extends BaseController {
                 if ($validator->passes())
                 {
                     $application = Application::find($applicationId);
-                    
                     $checkbox = Input::get('checkbox');
                     
                     if($checkbox)
@@ -208,17 +210,17 @@ class ApplicationsController extends BaseController {
                             Session::flash('message-success',trans('messages.application-deleted-successfully',['id' => $application->id]));
                             return Redirect::route("applications/viewMy");                                
                         }else{
-                            //varbūt pielikt else?
+                                //ja kāda nezināma iemesla dēļ netiek izdzēsts pieteikums
                             Session::flash('message-fail',trans('messages.wrong-couldnt-delete-application'));
                             return Redirect::route("home");  
                         }
                     }
                 }
-                
+                    
+                    //gadījumā, ja netika atķeksēts dzēšanas apstiprinājums
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-delete-application'));
-                return Redirect::to("/deleteApplication/{$applicationId}")->with($data);
-                
+                return Redirect::to("/deleteApplication/{$applicationId}")->with($data);  
             }
         
             if(Application::find($applicationId)){
@@ -231,30 +233,29 @@ class ApplicationsController extends BaseController {
                 $data["vacancieName"] = $vacancie->name;
                 return View::make("applications/delete")->with($data); 
             }else{
+                    //gadījumā, kad tiek mēģināts dzēst neeksistējošu pieteikumu
                 Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("home");
             }  
             
         }else{
+                //kad lietotājam nav tiesības dzēst konkrēto pieteikumu
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }
-    
     }
     
     
     public function editAction($applicationId)
     {
-        //if admin or deleting own application
+            //pieeja vienīgi administratoram vai paša pieteikuma autoram
         if(Auth::check() && (Application::where('id',$applicationId)->where('user_id',Auth::user()->id)->first() || Auth::user()->userGroup==1))
         {
-
-                if (Input::server("REQUEST_METHOD") == "POST")
-                {
-                                       
-                    $validator = Validator::make(Input::all(), [
-                        "letter" => "required|min:10|max:1000",
-                    ]);
+            if (Input::server("REQUEST_METHOD") == "POST")
+            {                        
+                $validator = Validator::make(Input::all(), [
+                    "letter" => "required|min:10|max:1000",
+                ]);
                     
                 if ($validator->passes())
                 {   
@@ -266,15 +267,14 @@ class ApplicationsController extends BaseController {
                             Session::flash('message-success',trans('messages.edited-application-successfully'));
                             return Redirect::to("/viewApplication/{$applicationId}");
                     }
-                    //varbūt else?
                 
                 }
             
-                
+                    //neveiksmīga pieteikuma rediģēšanas gadījumā
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.editing-application-failed'));
                 return Redirect::to("/editApplication/{$applicationId}")->withInput(Input::all())->with($data);
-                }
+            }
         
             if(Application::find($applicationId)){
                 $application = Application::find($applicationId);
@@ -287,18 +287,17 @@ class ApplicationsController extends BaseController {
                 $data["letter"] = $application->letter;
                 return View::make("/applications/edit")->with($data);
             }else{
+                    //gadījumā, ja neeksistē konkrētais pieteikums
                 Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("home");
             }
     
-  
         }else{
+                //ja lietotājam nav pieeja rediģēt pieteikumu
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
-        
     }
-    
-    
+
     
 }
