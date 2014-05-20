@@ -186,7 +186,7 @@ class SeekersController extends BaseController {
                 $validator = Validator::make(Input::all(), [
                     "intro" => "required|min:3|max:100",
                     "text" => "required|min:10|max:500",
-                    "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav required, jo var būt, ka nevēlas mainīt cv
+                    "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav obligāts lauks, jo var būt situācija, kad lietotājs nevēlas mainīt CV
                     "phone" => "required|numeric|digits_between:3,20"
                 ]);
                 if ($validator->passes())
@@ -212,36 +212,40 @@ class SeekersController extends BaseController {
                     
                     if($seeker->save())
                     {
-                        //deletes old cv from filesystem, if new cv was uploaded
+                        //ja tika augšupielādēts jauns CV, dzēš veco no failu sistēmas
                         if(isset($oldCV)){
                             File::delete(public_path().'\\'.$oldCV);
                         }
-                    
-                        if($seeker->creator_id==Auth::user()->id){ //ja editoja sevi
+                            
+                            //ja lietotājs rediģēja savus datus
+                        if($seeker->creator_id==Auth::user()->id){
                             Session::flash('message-success',trans('messages.edited-your-job-seek'));
                             return Redirect::route("seekers/viewMy");
-                        }else{  //ja admins editoja kādu citu
+                        }else{  //ja administrators rediģēja kāda cita lietotāja datus
                             Session::flash('message-success',trans('messages.edited-job-seek',['seek' => $seeker->intro]));
                             return Redirect::to("/viewSeeker/{$id}");
                         }
                     }
-                
                 }
             
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-edit-job-seek'));
                 return Redirect::to("/editJobSeek/{$id}")->withInput(Input::except('cv'))->with($data);
             }
-        
+                
+                //ja atrada meklētos darba meklētāja datus
             if(Seeker::find($id)){
                 $seeker = Seeker::find($id);
+                
+                    //datu izvadei
                 $data["id"] = $seeker->id;
                 $data["intro"] = $seeker->intro;
                 $data["text"] = $seeker->text;
                 $data["phone"] = $seeker->phone;
                 return View::make("/seekers/edit")->with($data);
-            }else{
+            }else{ //pretējā gadījumā
                 Session::flash('message-fail',trans('messages.non-existent-jobseek'));
+                
                 if(Auth::user()->userGroup==1){
                     return Redirect::route("seekers/viewAllSeekers");
                 }else{
@@ -249,21 +253,19 @@ class SeekersController extends BaseController {
                 }
             }
     
-  
-        }else{
+        }else{ //ja lietotājam nav pieeja šai funkcijai
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
         
     }
     
-    
+    //džēš darba meklētāja datus
     public function deleteAction($id)
     {
-        //if admin or deleting own job seek
+            //pieejams administratoriem un pašam darba meklējuma datu pievienotājam
         if((Auth::check() && Auth::user()->userGroup==3 && Seeker::where('id',$id)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
-
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
@@ -277,10 +279,11 @@ class SeekersController extends BaseController {
                     $checkbox = Input::get('checkbox');
                     
                     if($checkbox)
-                    {                            
+                    {                           
+                            //ja darba meklētāja datu dzēšana ir veiksmīga
                         if($seeker->delete())
                         {
-                            //deletes cv from filesystem
+                            //dzēš CV no failu sistēmas
                             if(isset($seeker->cv)){
                                 File::delete(public_path().'\\'.$seeker->cv);
                             }
@@ -292,7 +295,7 @@ class SeekersController extends BaseController {
                                 return Redirect::route("users/profile");
                             }
                         }else{
-                            //varbūt pielikt else?
+                                //ja darba meklētāja datu dzēšana bija neveiksmīga
                             Session::flash('message-fail',trans('messages.wrong-couldnt-delete-job-seek'));
                             return Redirect::route("home");  
                         }
@@ -302,11 +305,12 @@ class SeekersController extends BaseController {
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-delete-job-seek'));
                 return Redirect::to("/deleteJobSeek/{$id}")->with($data);
-                
             }
         
             if(Seeker::find($id)){
                 $seeker = Seeker::find($id);
+                
+                    //datu izvadei
                 $data["id"] = $seeker->id;
                 $data["intro"] = $seeker->intro;   
                 return View::make("seekers/delete")->with($data); 
@@ -319,7 +323,7 @@ class SeekersController extends BaseController {
                 }
             }  
             
-        }else{
+        }else{ //ja lietotājam nav pieeja šai funkcijai
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }

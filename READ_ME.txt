@@ -75,3 +75,5 @@ messaging?
 all-users - nepareizas tiesības
 
 recommend employer pie view profile
+
+jāsalabo viewRecs poga

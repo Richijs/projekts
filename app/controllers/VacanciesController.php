@@ -5,37 +5,38 @@ use Intervention\Image\Image;
 
 class VacanciesController extends BaseController {
         
+    //visu vakanču apskate
     public function viewAllAction()
     {
         $vacanciesCount = Vacancie::all();
-        if($vacanciesCount->count()){ //ja ir vismaz viens vacancy
-            $vacancies = Vacancie::orderBy('created_at','DESC')->paginate(10); //all vacancies + paginate
+        if($vacanciesCount->count()){ //ja sistēmā ir vismaz viena vakance
+            $vacancies = Vacancie::orderBy('created_at','DESC')->paginate(10); //visas vakances + "paginate"
 
             foreach($vacancies as $vacancie){
                 
                 $creator = User::where('id',$vacancie->creator_id)->first();
                 $vacancie->creatorName = $creator->username;
                 
-                //cik userim ir recommendo
+                    //lietotāju rekomendāciju skaits
                 $vacancie->userRecommends = Recommendation::where('employer_id',$creator->id)->count();
-                //cik daudz katrai vakancei pieteikušies
+                    //vakanču pieteikumu skaits
                 $vacancie->applied = Application::where('vacancie_id',$vacancie->id)->count();
                 
                 if(Auth::check()){
                     if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
-                        $vacancie->recommended = true; //lai var displayot (recommend/unrecommend)
+                        $vacancie->recommended = true; //var skatā varētu uzzināt rekomendācijas statusu
                     }
                 }
             }
 
-            
-            
             return View::make("vacancies/viewAllVacancies", array('vacancies'=> $vacancies));
         }else{
+                //ja sistēmā nav neviena vakance
             return View::make("vacancies/ViewAllVacancies");
         }
     }
     
+    //vakances pievienošana
     public function AddAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -57,28 +58,26 @@ class VacanciesController extends BaseController {
                     $vacancie->phone = Input::get('phone');
                     $vacancie->company = Input::get('company');
                     
-                        if(Input::hasfile('poster'))
-                        {
+                    if(Input::hasfile('poster'))
+                    {
+                        $file = Input::file('poster');
                             
-                            $file = Input::file('poster');
+                        $picName = str_random(30).time();
+                        $publicPath = public_path('uploads/vacanciePosters/');
                             
-                            $picName = str_random(30).time();
-                            $publicPath = public_path('uploads/vacanciePosters/');
+                        Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension());
                             
-                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
-                            
-                            //$file->move('uploads/profileImages',$picName.'.'.$extension);
-                            
-                            $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$file->getClientOriginalExtension();
-                        }
-                    
+                        $vacancie->poster = 'uploads/vacanciePosters/'.$picName.'.'.$file->getClientOriginalExtension();
+                    }
+                        
+                        //veiksmīgi saglabātas vakances gadījumā
                     if($vacancie->save())
                     {
                         Session::flash('message-success',trans('messages.vacancie-offer-saved'));
                         return Redirect::to("/viewVacancie/{$vacancie->id}");
                     } 
             }
-            
+                //ja neizdevās saglabāt vakanci (nekorekts ievads)
             $data["errors"] = $validator->errors();
             Session::flash('message-fail',trans('messages.couldnt-add-vacancie'));
             return Redirect::route("vacancies/add")->withInput(Input::except('poster'))->with($data);
@@ -87,24 +86,27 @@ class VacanciesController extends BaseController {
         return View::make("vacancies/add");
     }
     
+    //vakances apskatīšana
     public function viewAction($id)
-    {
+    {   
+            //ja atrod konkrēto vakanci
         if(Vacancie::find($id)){
             $vacancie = Vacancie::find($id);
             
             $creator = User::where('id',$vacancie->creator_id)->first();
             $vacancie->creatorName = $creator->username;
             $vacancie->applied = Application::where('vacancie_id',$id)->count();
-            //cik userim ir recommendo
+                //lietotāja rekomendāciju skaits
             $vacancie->userRecommends = Recommendation::where('employer_id',$creator->id)->count();
             
             if(Auth::check()){
-                    if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
-                        $vacancie->recommended = true; //lai var displayot (recommend/unrecommend)
-                    }
+                if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
+                    $vacancie->recommended = true; //lai var displayot (recommend/unrecommend)
                 }
+            }
             return View::make("vacancies/view", array('vacancie'=> $vacancie));
         }else{
+                //ja konkrētā vakance netika atrasta
             Session::flash('message-fail',trans('messages.non-existent-vacancie'));
             return Redirect::route("vacancies/viewAllVacancies");
         }
