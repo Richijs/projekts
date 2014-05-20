@@ -62,6 +62,19 @@
                   
         <li class="list-group-item">
             <b>Username:</b> {{{$user->username}}}
+            @if (Auth::check() && $user->id!=Auth::user()->id)
+                    
+                <a class="btn btn-default" href="{{URL::to("/recommend/".$user->id)}}">
+                @if ($user->recommended)
+                    {{{$user->userRecommends}}}
+                    <span class="glyphicon glyphicon-remove-circle"></span>
+                @else
+                    {{{$user->userRecommends}}}
+                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                @endif
+                </a>
+                   
+             @endif
         </li>
         <li class="list-group-item">
             <b>First name:</b> {{{$user->firstname}}}

@@ -240,12 +240,23 @@ class UsersController extends BaseController {
     {
         if(User::find($id)){
             $user = User::find($id);
-            $user->password = ''; //negribam skatam padot paroli???
             
             if(Seeker::where('user_id',$id)->first()){
                 $seeker = Seeker::where('user_id',$id)->first();
+                
+                $user->userRecommends = Recommendation::where('employer_id',$user->id)->count();
+                if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$user->id)->first()){
+                    $user->recommended = true; //lai var displayot (recommend/unrecommend)
+                }
+                
                 return View::make("users/view", array('user' => $user,'seeker' => $seeker));
             }else{
+                
+                $user->userRecommends = Recommendation::where('employer_id',$user->id)->count();
+                if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$user->id)->first()){
+                    $user->recommended = true; //lai var displayot (recommend/unrecommend)
+                }                
+                
                 return View::make("users/view", array('user' => $user));
             }
         }else{
