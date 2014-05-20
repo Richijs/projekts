@@ -4,7 +4,7 @@ class ApplicationsController extends BaseController {
     
     public function applyAction($vacancieId)
     {
-        //ja neeksistē vakance
+        //ja neeksistē vakance, kurai tiek mēģināts pieteikties
         if(!Vacancie::where('id',$vacancieId)->first())
         {
             Session::flash('message-fail',trans('messages.non-existent-vacancie'));
@@ -14,7 +14,6 @@ class ApplicationsController extends BaseController {
         //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
-            
             if(Vacancie::where('creator_id',Auth::user()->id)->where('id',$vacancieId)->first()){
                 Session::flash('message-fail',trans('messages.cant-apply-own-vacancie'));
                 return Redirect::route("vacancies/viewAllVacancies");
@@ -23,13 +22,12 @@ class ApplicationsController extends BaseController {
             //ja nav jau pieteicies šai vakancei
             if (!Application::where('user_id',Auth::user()->id)->where('vacancie_id',$vacancieId)->first())
             {
-                
                 //ja nav norādījis savus darba meklētāja datus
                 if(!Seeker::where('user_id',Auth::user()->id)->first())
                 {
                     Session::flash('message-fail',trans('messages.before-applying-vacancie'));
                     
-                    //lai varētu pārvirzīt atpakaļ uz šīs vakances pieteikumu
+                    //lai pēctam lietotāju būtu iespējams pārvirzīt tieši uz šīs vakances pieteikumu
                     Session::put('vacancieId',$vacancieId); 
                     return Redirect::route("seekers/add");
                 }
@@ -68,11 +66,13 @@ class ApplicationsController extends BaseController {
                 return View::make("/applications/apply")->with($data);
 
             }else{
+                //lietotājs jau ir pieteicies šai vakancei
             Session::flash('message-fail',trans('messages.already-applied-vacancie'));
             return Redirect::to("/viewVacancie/{$vacancieId}");
             } 
         
         }else{
+            //lietotājam nav attiecīgā pieeja pieteikties vakancēm
         Session::flash('message-fail',trans('messages.no-access'));
         return Redirect::route("home");
         }    
@@ -81,7 +81,7 @@ class ApplicationsController extends BaseController {
     
     public function viewMyAction()
     {
-        //ja admins vai darba meklētājs
+        //savu pieteikumu apskatīšana paredzēta vienīgi administratoriem/darba meklētājiem
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
             $applicationCount = Application::where('user_id',Auth::user()->id)->count();
@@ -99,7 +99,7 @@ class ApplicationsController extends BaseController {
             return View::make("applications/viewMy", array('applications'=> $applications));
         }
         
-        //līdz šejienei nekad netiek
+        //neatļautas pieejas gadījumā (normālā gadījumā tik tālu nebūtu jānokļūst)
         Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
         
@@ -113,16 +113,16 @@ class ApplicationsController extends BaseController {
             $application = Application::find($applicationId);
             $vacancie = Vacancie::where('id',$application->vacancie_id)->first();
             
-            //Var apskatīt pats,admins un konkrētās vakances darba devējs
-            if(Auth::user()->userGroup==1 //admins
-                || $application->user_id == Auth::user()->id //sava aplikācija    
+            //Konkrētu pieteikumu atļauts apskatīt pašam,administratoram un konkrētās vakances darba devējam
+            if(Auth::user()->userGroup==1 //administrators
+                || $application->user_id == Auth::user()->id //savs pieteikums   
                 || $vacancie->creator_id == Auth::user()->id //vakances darba devējs
             ){
 
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
                 $user = User::find($seeker->user_id);
                 
-                    //var ieskaitīt kā "skatīts"
+                    //lai spētu attēlot "skatīts" paziņojumu (attiecas tikai uz administratoriem/darba devējiem)
                     if($vacancie->creator_id == Auth::user()->id && $application->viewed != 1){
                         $app = Application::find($application->id);
                         $app->viewed = 1;

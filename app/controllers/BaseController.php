@@ -4,6 +4,7 @@ class BaseController extends Controller {
     
     public function __construct(){
         
+        //paziņojumu functionalitāte nepieciešama tikai administratoriem un darba devējiem
         if(Auth::check() && Auth::user()->userGroup!=3){
             
             $userVacancies = Vacancie::where('creator_id',Auth::user()->id)->get();
@@ -15,9 +16,9 @@ class BaseController extends Controller {
             }
             
             if($count>0) {
-                View::share('newApplicants',$count); //lai attēlotu paziņojumu izvēlnē
+                //lai darba devējam izvēlnē attēlotu nesen pietiekušos darba meklētājus 
+                View::share('newApplicants',$count);
             }
-        
         }
     }
     
@@ -31,9 +32,7 @@ class BaseController extends Controller {
     {
 	if ( ! is_null($this->layout))
 	{
-            
             $this->layout = View::make($this->layout);
-            
 	}
     }
 
