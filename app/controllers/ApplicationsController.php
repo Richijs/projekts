@@ -56,7 +56,6 @@ class ApplicationsController extends BaseController {
                             Session::flash('message-success',trans('messages.applied-vacancie-successfully'));
                             return Redirect::to("/viewVacancie/{$vacancieId}");
                         }
-                
                     }
             
                     //pieteikuma kļūmju gadījumā
@@ -130,7 +129,7 @@ class ApplicationsController extends BaseController {
                 $seeker = Seeker::where('user_id',$application->user_id)->first();
                 $user = User::find($seeker->user_id);
                 
-                    //lai spētu attēlot "skatīts" paziņojumu (attiecas tikai uz administratoriem/darba devējiem)
+                    //apzīmē pieteikumu kā "skatītu"
                     if($vacancie->creator_id == Auth::user()->id && $application->viewed != 1){
                         $app = Application::find($application->id);
                         $app->viewed = 1;
@@ -175,7 +174,7 @@ class ApplicationsController extends BaseController {
                     $user = User::find($application->user_id);
                     $application->user = $user;
                     
-                        //lai spētu attēlot "jauns pietikums" ikonu
+                        //atzīmē pieteikumus kā "skatītus"
                     if(Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first() && $application->viewed != 1){
                         $application->new = true;
                         
@@ -236,6 +235,7 @@ class ApplicationsController extends BaseController {
                 $application = Application::find($applicationId);
                 $vacancie = Vacancie::find($application->vacancie_id);
                 
+                    //datu izvadei
                 $data["applicationId"] = $applicationId;
                 $data["applicationLetter"] = $application->letter;
                 $data["vacancieId"] = $vacancie->id;
@@ -276,7 +276,6 @@ class ApplicationsController extends BaseController {
                             Session::flash('message-success',trans('messages.edited-application-successfully'));
                             return Redirect::to("/viewApplication/{$applicationId}");
                     }
-                
                 }
             
                     //neveiksmīga pieteikuma rediģēšanas gadījumā
@@ -289,6 +288,7 @@ class ApplicationsController extends BaseController {
                 $application = Application::find($applicationId);
                 $user = User::find($application->user_id);
                 
+                    //datu izvadei
                 $data["userId"] = $user->id;
                 $data["userName"] = $user->username;
                 $data["applicationId"] = $application->id;

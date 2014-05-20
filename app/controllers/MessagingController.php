@@ -2,9 +2,9 @@
 
 class MessagingController extends BaseController {
     
+    //administratora kontaktēšana izmantojot e-pastu
     public function contactAction()
     {
-    
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             //aizsardzībai pret esoša username/email izvēlēšanos (atskaitot sava paša)
@@ -23,9 +23,10 @@ class MessagingController extends BaseController {
                     
             if ($validator->passes())
             {
+                    //ja atrod kaut vienu administratoru ar aktīvu profilu
                 if(User::where('userGroup',1)->where('active',1)->first())
                 {
-                    
+                        //nejauši izvēlas kādu no administratoriem
                     $randomAdmin = User::where('userGroup',1)->where('active',1)->orderBy(DB::raw('RAND()'))->first();
 
                     Mail::send('emails.contact', array('username'=>Input::get("username"),'messageText'=>Input::get("message"),'email'=>Input::get("email")), function($message) use ($randomAdmin) {
@@ -36,10 +37,10 @@ class MessagingController extends BaseController {
                     Session::flash('message-success',trans('messages.email-sent-to-admin',['admin' => $randomAdmin->username]));
                     return Redirect::route("home");
                 }else{
+                        //ja nav neviena aktīva reģistrēta administratora
                     Session::flash('message-fail',trans('messages.no-admins'));
                     return Redirect::route("home");
                 }
-                
             }
         
             $data["errors"] = $validator->errors();
@@ -47,17 +48,17 @@ class MessagingController extends BaseController {
             return Redirect::route("messaging/contact")->withInput(Input::all())->with($data); 
         }
         
+            //ja lietotājs pierakstījies - automātiski aizpilda dažus laukus
         if(Auth::check()){
             $data["username"] = Auth::user()->username;
             $data["email"] = Auth::user()->email;
         }else{ 
-            //so the data is set
+            //lai dati tiktu iestatīti
             $data["username"] = "";
             $data["email"] = ""; 
         }  
         
         return View::make("messaging/contact")->with($data);
-        
     }
     
 }

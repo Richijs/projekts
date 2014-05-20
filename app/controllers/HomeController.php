@@ -5,6 +5,7 @@
 
 class HomeController extends BaseController {
         
+    //attēlo "home",jeb "mājas" sadaļu
     public function viewHome()
     {
         
@@ -16,6 +17,7 @@ class HomeController extends BaseController {
             $creator = User::where('id',$vacancie->creator_id)->first();
             $vacancie->creatorName = $creator->username;
         }
+        
         //pirmās piecas top vakances  (Pēc visvairāk pieteikušo skaita)
         $topVacancies = $vacancies->sortBy('applied')->reverse()->take(5);   
         
@@ -32,26 +34,29 @@ class HomeController extends BaseController {
         return View::make("home",array('topVacancies'=>$topVacancies,'topEmployers'=>$topEmployers));
     }
     
-    //lai ietu cauri base controller
+    //attēlo "about",jeb "par" sadaļu
+    //nepieciešams, lai, arī atrodoties šajā sadaļā, tiktu uzrādīti jauni paziņojumi par pieteikumiem
     public function viewAbout()
     {
         return View::make("about");
     }    
     
+    //meklēšana vietnē
     public function searchAction()
     {
-        
+            //piekļūstama vienīgi izmantojot POST pieprasījumus
         if (Input::server("REQUEST_METHOD") == "GET"){
             return Redirect::route("home");
         }
         
         $search = Input::get('search');
  
+            //ja meklēšanas lauks tika atstāts tukšs
         if(!$search){
-
-            return View::make('search'); //pass nothing
+            return View::make('search'); //nepadod nevienu parametru
         }
         
+            //lietotāju meklēšana
         $users = DB::table('users')
             ->where(function($query) use ($search)
             {
@@ -64,7 +69,7 @@ class HomeController extends BaseController {
         ->orderBy('created_at', 'DESC')
         ->get();
             
-            
+            //vakanču meklēšana
         $vacancies = DB::table('vacancies')
             ->where(function($query) use ($search)
             {
@@ -76,7 +81,7 @@ class HomeController extends BaseController {
         ->orderBy('created_at', 'DESC')
         ->get();
             
-            
+           //darba meklētāju datu meklēšana, ja lietotāja grupa nav "darba meklētājs"
         if(Auth::check() && Auth::user()->userGroup!=3)  
         {
         $seekers = DB::table('seekers')
@@ -93,8 +98,6 @@ class HomeController extends BaseController {
         }
  
         return View::make('search', ['users' => $users, 'vacancies' => $vacancies]);
-        
-        
     }
     
     
