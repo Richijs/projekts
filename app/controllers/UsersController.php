@@ -47,7 +47,7 @@ class UsersController extends BaseController {
         return View::make("users/login");
     }
     
-    //pieprasīt paroles maiņu (neautorizēts)
+    //pieprasīt lietotāja paroles maiņu (neautorizēts)
     public function requestAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -90,7 +90,7 @@ class UsersController extends BaseController {
         return View::make("users/request");
     }
     
-    //paroles maiņa (neautorizēts)
+    //lietotāja paroles maiņa (neautorizēts)
     public function resetAction()
     {
             //nepieciešams tālākai pārvirzei kļūdu gadījumā
@@ -121,18 +121,18 @@ class UsersController extends BaseController {
                     function($user, $password)
                     {
                         $user->password = Hash::make($password);
-                        if($user->save())
+                        if($user->save()) //ja parole tiek veiksmīgi nomainīta, automātiski pieraksta lietotāju
                         {
                             Auth::login($user);
                         }
-                        
                     }
                 );
                 
+                    //ja lietotājs tika pierakstīts
                 if(Auth::check()){
                     Session::flash('message-success',trans('messages.password-changed',['user' => Auth::user()->username]));
                     return Redirect::route("users/profile");
-                }else{
+                }else{ //ja lietotājs netika pierakstīts un radās kļūda
                     
                     $data["errors"] = new MessageBag([
                         "email" => [trans('messages.not-your-email-or-not-activated')]
@@ -142,7 +142,7 @@ class UsersController extends BaseController {
                     return Redirect::to(URL::route("users/reset") . $token)->with($data)->withInput(Input::all());
                 }
             }
-            
+                //nekorektu ievades datu gadījumā
             $data["errors"] = $validator->errors();
             Session::flash('message-fail',trans('messages.couldnt-change-pass'));
             return Redirect::to(URL::route("users/reset") . $token)->withInput(Input::all())->with($data);
@@ -150,6 +150,7 @@ class UsersController extends BaseController {
         return View::make("users/reset")->with($data);
     }
     
+    //lietotāja reģistrācija
     public function registerAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -167,7 +168,6 @@ class UsersController extends BaseController {
             ]);
             if ($validator->passes())
             {
-                
                 $user = new User;
                 $user->username = Input::get('username');
                 $user->email = Input::get('email');
@@ -181,33 +181,30 @@ class UsersController extends BaseController {
                     
                     if(Input::hasfile('picture'))
                     {
-                            
                         $file = Input::file('picture');
                             
                         $picName = str_random(30).time();
                         $publicPath = public_path('uploads/profileImages/');
                             
                         Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
-                            
-                        //$file->move('uploads/profileImages',$picName.'.'.$extension);
-                            
+
                         $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
                     }
                     
+                    //ja lietotājs tika saglabāts
                 if($user->save())
                 {
- 
-                Mail::send('emails.register', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
-                    $message->from("sender@yopmail.com", "sender"); // no
-                    $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
-                });
+                        //tiek nosūtīts e-pasts, ar kuru tālāk iespējams veikt profila aktivizāciju
+                    Mail::send('emails.register', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
+                        $message->from("sender@yopmail.com", "sender"); // no
+                        $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
+                    });
                 
                 Session::flash('message-success',trans('messages.email-sent-to-complete-registration', ["email" => $user->email]));
                 return Redirect::route("home");
                 }
-                
             }
-            
+                //nekorektu ievades datu gadījumā
             $data["errors"] = $validator->errors();    
             Session::flash('message-fail',trans('messages.couldnt-register'));
             return Redirect::route("users/register")->withInput(Input::except('picture'))->with($data);
@@ -215,11 +212,13 @@ class UsersController extends BaseController {
         return View::make("users/register");
     }
     
+    //lietotāja profila aktivizācija
     public function activateAction()
     {
-        $code = Input::get("code"); //gets activation code
-        $id = Input::get("id"); //gets user id
+        $code = Input::get("code"); //iegūst aktivizācijas kodu
+        $id = Input::get("id"); //iegūst lietotāja id numuru
                 
+            //ja eksistē neaktivizēts lietotājs ar šādu aktivizācijas kodu un lietotāja id numuru
         $user = User::where('code',$code)->where('active',0)->where('id',$id);
         if($user->count()){
             $user = $user->first();
@@ -227,71 +226,71 @@ class UsersController extends BaseController {
             $user->active = 1;
             $user->code = NULL;
                         
+                //ja profilam veiksmīgi tiek mainīts statuss uz "aktivizēts"
             if($user->save()){
-                                                                                 //use - lai varētu piekļūt mainīgajam
+                    
+                    //tiek izsūtīts sveiciena e-pasts
                 Mail::send('emails.activate', array('username'=>$user->username), function($message) use ($user) {
                     $message->from("sender@yopmail.com", "sender"); // no
                     $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
                 });
-                
+                    //lietotājs tiek pārvirzīts uz pierakstīšanās lapu
                 Session::flash('message-success',trans('messages.registered-now-login'));
                 return Redirect::route("users/login")->withInput(["username"=>$user->username]);
-            }//else ?
-            
+            }
         }
+            //neeksistējošas saites vai jau aktivizēta lietotāja profila gadījumā
         Session::flash('message-fail',trans('messages.invalid-link-or-activated'));
         return Redirect::route("home");
     }
     
+    //lietotāja profila apskate
     public function viewAction($id)
-    {
+    {   
+            //ja sistēmā tiek atrasts lietotājs ar šādu id numuru
         if(User::find($id)){
             $user = User::find($id);
             $user->userRecommends = Recommendation::where('employer_id',$user->id)->count();
             
-            if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$user->id)->first()){
-                $user->recommended = true; //lai var displayot (recommend/unrecommend)
+            if(Auth::check() && Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$user->id)->first()){
+                $user->recommended = true; //lai skatā varētu attēlot rekomendācijas statusu (rekomendēts/nerekomendēts)
             }
-            
+                
+                //ja lietotājam eksistē darba meklētāja dati
             if(Seeker::where('user_id',$id)->first()){
                 $seeker = Seeker::where('user_id',$id)->first();
 
                 return View::make("users/view", array('user' => $user,'seeker' => $seeker));
-            }else{
-
+            }else{ //ja lietotājam neeksistē darba meklētāja dati
                 return View::make("users/view", array('user' => $user));
             }
-        }else{
+        }else{ //ja sistēmā netika atrasts lietotājs ar šādu id
             Session::flash('message-fail',trans('messages.non-existent-user'));
             return Redirect::route("users/viewAllUsers");
         }
     }
     
+    //visu sistēmā esošo lietotāju apskate
     public function viewAllAction()
     {
         $usersCount = User::all();
-        if($usersCount->count()){ //ja ir vismaz viens users
-            $users = User::orderBy('created_at','DESC')->paginate(30); //all users + paginate
+        if($usersCount->count()){ //ja sistēmā ir vismaz viens lietotājs
+            $users = User::orderBy('created_at','DESC')->paginate(30); //visi lietotāji + "paginate"
 
-            foreach($users as $user){
-                $user->password = ''; //needed?
-            }
             return View::make("users/viewAllUsers", array('users'=> $users));
-        }else{
+        }else{ //ja sistēmā nav neviena lietotāja
             return View::make("users/viewAllUsers");
         }
     }
     
-
+    //lietotāja profila rediģēšana
     public function editAction($id)
     {
-        //if admin or editing self
+            //pieejams administratoram un/vai rediģējot paša esošo profilu
         if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
         {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
-                //$userId = User::find($id);
-                
                 $validator = Validator::make(Input::all(), [
                     "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
                     "email" => "required|email|unique:users,email,".$id,
@@ -299,53 +298,49 @@ class UsersController extends BaseController {
                     "lastname" => "required|alpha|max:70",
                     "about" => "max:500",
                     "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
-                    //"userType" => "required"
                ]);
-                if ($validator->passes())
-                {   
-                    $user = User::find($id);
-                    $user->username = Input::get('username');
-                    $user->email = Input::get('email');
-                    $user->firstname = Input::get('firstname');
-                    $user->lastname = Input::get('lastname');
-                    $user->about = Input::get('about');
+                
+               if ($validator->passes())
+               {   
+                   $user = User::find($id);
+                   $user->username = Input::get('username');
+                   $user->email = Input::get('email');
+                   $user->firstname = Input::get('firstname');
+                   $user->lastname = Input::get('lastname');
+                   $user->about = Input::get('about');
                     
-                                                    //admin can't change his own group
-                    if (Auth::user()->userGroup==1 && Auth::user()->id!=$id){
-                        
-                        $prevUserGroup = $user->userGroup;
-                        $user->userGroup = Input::get('userGroup');
-                    }
+                        //administratoram nav ļauts pašam mainīt savu grupu (tikai citu lietotāju)
+                   if (Auth::user()->userGroup==1 && Auth::user()->id!=$id){
+                       $prevUserGroup = $user->userGroup;
+                       $user->userGroup = Input::get('userGroup');
+                   }
                     
-                    
-                        if(Input::hasfile('picture'))
-                        {
+                   if(Input::hasfile('picture'))
+                   {
                             
-                            //old picture link
-                            if($user->picture){
-                               $oldPic = $user->picture;  
-                            }
-                            
-                            $file = Input::file('picture');
-                            
-                            $picName = str_random(30).time();
-                            $publicPath = public_path('uploads/profileImages/');
-                            
-                            Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension()); //varbut izmantot encode()
-                            
-                            //$file->move('uploads/profileImages',$picName.'.'.$extension);
-                            
-                            $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                            //vecās bildes lokācija
+                        if($user->picture){
+                            $oldPic = $user->picture;  
                         }
+                            
+                        $file = Input::file('picture');
+                            
+                        $picName = str_random(30).time();
+                        $publicPath = public_path('uploads/profileImages/');
+                            
+                        Image::make($file->getRealPath())->resize(400,null,true)->save($publicPath.$picName.'.'.$file->getClientOriginalExtension());
 
-                    if($user->save())
-                    {
-                        //deletes old picture from filesystem, if new picture was uploaded
+                        $user->picture = 'uploads/profileImages/'.$picName.'.'.$file->getClientOriginalExtension();
+                   }
+                       //ja lietotājs tika veiksmīgi saglabāts
+                   if($user->save())
+                   {
+                            //ja tika augšupielādēta jauna bilde, iepriekšējā tiek dzēsta no failu sistēmas
                         if(isset($oldPic)){
                             File::delete(public_path().'\\'.$oldPic);
                         }
                         
-                        //if changed userGroup - deletes stuff (except when seeker->admin or employer->admin)
+                            //ja tika mainīta lietotāja grupa, dzēš nepieciešamos datus (izņemot, ja grupa mainīta no 3->1 un 2->1)
                         if(isset($prevUserGroup) && $prevUserGroup!=$user->userGroup && $user->userGroup!=1)
                         {
                             $recommendations = Recommendation::where('employer_id',$id); //also recommendations
@@ -360,21 +355,22 @@ class UsersController extends BaseController {
                                 $eachApp = Application::where('vacancie_id',$vacancie->id);
                                 $eachApp->delete();
                             }
+                            
                             $allVacs = Vacancie::where('creator_id',$id);
                             $allVacs->delete();
                         }
                         
                     
-                        if(Auth::user()->id==$id){ //ja editoja sevi
+                        if(Auth::user()->id==$id){ //ja lietotājs rediģējis pats savus profila datus
                             Session::flash('message-success',trans('messages.edited-your-profile'));
                             return Redirect::route("users/profile");
-                        }else{  //ja admins editoja kādu citu
+                        }else{  //ja administrators rediģējis cita lietotāja profila datus
                             Session::flash('message-success',trans('messages.edited-profile',['user' => $user->username]));
                             return Redirect::to("/viewUser/{$id}");
                         }
                     }
                 }
-            
+                    //ievades kļūmju gadījumā
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-edit-userdata'));
                 return Redirect::to("/editUser/{$id}")->withInput(Input::except('picture'))->with($data);
@@ -382,6 +378,7 @@ class UsersController extends BaseController {
         
             if(User::find($id)){
                 $user = User::find($id);
+                    //datu izvadei
                 $data["userId"] = $user->id;
                 $data["username"]=$user->username;
                 $data["email"]=$user->email;
@@ -393,22 +390,23 @@ class UsersController extends BaseController {
                 if (Auth::user()->userGroup==1){
                     $data["userGroup"] = $user->userGroup;
                 }
-            }else{
+            }else{ //neeksistējoša lietotāja gadījumā
                 Session::flash('message-fail',trans('messages.non-existent-user'));
                 return Redirect::route("users/viewAllUsers");
             }
             return View::make("/users/edit")->with($data);
     
-  
-        }else{
+        }else{ //neatļautas pieejas gadījumā
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }    
         
     }
     
+    //lietotāja profila paroles maiņas gadījumā (autorizēts)
     public function changePassAction()
-    {
+    {   
+            //ja lietotājs ir pierakstījies
         if(Auth::check()){
             
             if (Input::server("REQUEST_METHOD") == "POST")
@@ -424,139 +422,148 @@ class UsersController extends BaseController {
                     
                     $old_password = Input::get('password');
                     $password = Input::get('new_password');
-                    
-                        if(Hash::check($old_password,$user->getAuthPassword())){
-                            $user->password = Hash::make($password);
-                            
-                                if($user->save()){
-                                    Session::flash('message-success',trans('message.password-changed-authuser'));
-                                    return Redirect::route("users/profile");                                
-                                } //varbūt pielikt else?
-                        }else{
-                            $data["errors"] = new MessageBag([
-                                "password" => [trans('messages.wrong-current-password')],
-                            ]);
-                            
-                            Session::flash('message-fail',trans('messages.couldnt-change-pass'));
-                            return Redirect::route("users/changePass")->with($data);
-                        }
-                }
                         
+                        //pārbauda esošās paroles pareizību
+                    if(Hash::check($old_password,$user->getAuthPassword())){
+                        $user->password = Hash::make($password);
+                                
+                            //saglabā lietotāju citu (jauno) paroli
+                        if($user->save()){
+                            Session::flash('message-success',trans('message.password-changed-authuser'));
+                            return Redirect::route("users/profile");                                
+                        }
+                    }else{ //nekorektas esošās paroles ievades gadījumā
+                        $data["errors"] = new MessageBag([
+                            "password" => [trans('messages.wrong-current-password')],
+                        ]);
+                            
+                        Session::flash('message-fail',trans('messages.couldnt-change-pass'));
+                        return Redirect::route("users/changePass")->with($data);
+                    }
+                }
+                    //nekorektu ievades datu gadījumā
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-change-pass'));
                 return Redirect::route("users/changePass")->with($data);
             }
-            
             return View::make("users/changePass"); 
         }
         
-        //līdz šejienei normāli nekad netiek
+            //neautorizēta lietotāja gadījumā (normālos apstākļos nav sasniedzams)
         Session::flash('message-fail',trans('messages.not-logged-in'));
         return Redirect::route("users/login");
     }
     
+    //lietotāja profila apskate
     public function profileAction()
-    {
+    {   
+            //ja lietotājs ir pierakstījies
         if(Auth::check()){
             return View::make("users/profile");
         }
         
-        //līdz šejienei nekad netiek
+            //neautorizēta lietotāja gadījumā (normālos apstākļos nav sasniedzams)
         Session::flash('message-fail',trans('messages.not-logged-in'));
         return Redirect::route("users/login");
     }
     
+    //lietotāja izrakstīšanās no sistēmas
     public function logoutAction()
     {
-        Auth::logout();
+        Auth::logout(); //lietotājs tiek izrakstīts
         $lastLang = Session::get('locale');
         Session::flush();
-        Session::put('locale',$lastLang); //lai pēc izrakstīšanās nemainītos uzstādītā valoda
+            //valoda tiek saglabāta sesijas "cepumā"
+            //lai pēc izrakstīšanās nemainītos uzstādītā valoda
+        Session::put('locale',$lastLang);
         
         Session::flash('message-success',trans('messages.logged-out'));
         return Redirect::route("home");
     }
     
+    //lietotāja profila dzēšana
     public function deleteAction($id)
     {
+            //pieejama pašam lietotājam un administratoriem
         if((Auth::check() && Auth::user()->id==$id) || Auth::user()->userGroup==1)
         {
-        
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
                     "password" => "required"
                 ]);
+                
                 if ($validator->passes())
                 {
                     $user = User::find($id);
-                    
                     $password = Input::get('password');
                     
-                        if(Hash::check($password,Auth::user()->getAuthPassword())){
+                        //ja lietotāja paroles apstiprinājums sakrīt ar esošo paroli
+                    if(Hash::check($password,Auth::user()->getAuthPassword())){
                             
-                            //Ja izdzēš vacancies, vajag arī izdzēst tam piesaistītās applications & pārējo!!!
-                            //šim nevajag traucēt arī "jobseeker" lietotāju tipam
-                            $recommendations = Recommendation::where('employer_id',$id); //also recommendations
-                            $recommendations->delete(); 
-                            $myRecommendations = Recommendation::where('user_id',$id); //also recommendations
-                            $myRecommendations->delete(); 
-                            $applications = Application::where('user_id',$id);
-                            $applications->delete(); 
-                            $seekers = Seeker::where('user_id',$id);
-                            $seekers->delete();
+                        //nepieciešams dzēst lietotāja atstātos datus (vakanču gadījumā nepieciešams dzēst arī piesaistītos pieteikumus)
+                        //netraucē arī darba meklētāju lietotāju tipam
+                        $recommendations = Recommendation::where('employer_id',$id);
+                        $recommendations->delete(); 
+                        $myRecommendations = Recommendation::where('user_id',$id);
+                        $myRecommendations->delete(); 
+                        $applications = Application::where('user_id',$id);
+                        $applications->delete(); 
+                        $seekers = Seeker::where('user_id',$id);
+                        $seekers->delete();
                             
-                            $vacancies = Vacancie::where('creator_id',$id)->get(); //own vacancies
-                            foreach($vacancies as $vacancie){
-                                $eachApp = Application::where('vacancie_id',$vacancie->id);
-                                $eachApp->delete();
-                            }
-                            $allVacs = Vacancie::where('creator_id',$id);
-                            $allVacs->delete();
-                            
-                                                        
-                                if($user->delete()){
-                                    
-                                    //deletes old picture from filesystem
-                                    if($user->picture){
-                                    File::delete(public_path().'\\'.$user->picture);
-                                    }
-                                
-                                    Session::flash('message-success',trans('messages.deleted-profile',['user' => $user->username]));
-                                    return Redirect::route("home");                                
-                                } //varbūt pielikt else?
-                                
-                        }else{
-                            $data["errors"] = new MessageBag([
-                                "password" => [trans('messages.wrong-password')],
-                            ]);
-                            
-                            Session::flash('message-fail',trans('messages.couldnt-delete-profile'));
-                            return Redirect::to("/deleteUser/{$id}")->with($data);
+                        $vacancies = Vacancie::where('creator_id',$id)->get(); //savas vakances
+                        foreach($vacancies as $vacancie){
+                            $eachApp = Application::where('vacancie_id',$vacancie->id);
+                            $eachApp->delete();
                         }
+                        $allVacs = Vacancie::where('creator_id',$id);
+                        $allVacs->delete();
+                                           
+                            //veiksmīgas profila dzēšanas gadījumā
+                        if($user->delete()){
+                                    
+                                //dzēš lietotāja bildi no failu sistēmas
+                            if($user->picture){
+                            File::delete(public_path().'\\'.$user->picture);
+                             }
+                                
+                             Session::flash('message-success',trans('messages.deleted-profile',['user' => $user->username]));
+                             return Redirect::route("home");                                
+                        }
+                                
+                    }else{ //nepareiza lietotāja paroles apstiprinājuma gadījumā
+                        $data["errors"] = new MessageBag([
+                            "password" => [trans('messages.wrong-password')],
+                        ]);
+                            
+                        Session::flash('message-fail',trans('messages.couldnt-delete-profile'));
+                        return Redirect::to("/deleteUser/{$id}")->with($data);
+                    }
                 }
-
+                
+                    //nekorektu ievades datu gadījumā
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-delete-profile'));
-                return Redirect::to("/deleteUser/{$id}")->with($data);
-                
+                return Redirect::to("/deleteUser/{$id}")->with($data); 
             }
-        
+                
+                //ja lietotājs ar šādu id tiek atrasts sistēmā
             if(User::find($id)){
                 $user = User::find($id);
+                    //datu izvadei
                 $data["username"] = $user->username;
                 $data["userId"] = $user->id;
                 return View::make("users/delete")->with($data); 
-            }else{
+            }else{ //ja lietotājs ar šādu id nav atrasts sistēmā
                 Session::flash('message-fail',trans('messages.non-existent-user'));
                 return Redirect::route("users/viewAllUsers");
             }  
             
-        }else{
+        }else{ //ja lietotājam nav pieeja šai funkcijai
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }   
-        
     }
     
 }
