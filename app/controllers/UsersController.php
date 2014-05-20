@@ -5,6 +5,7 @@ use Intervention\Image\Image;
 
 class UsersController extends BaseController {
     
+    //lietotāja pierakstīšanās
     public function loginAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -21,24 +22,24 @@ class UsersController extends BaseController {
                     "active" => 1
                 ];
                 
-                //will make a remember cookie
+                    //ja atzīmēts "atcerēties mani", veidos atcerēšanās "cepumu"
                 $remember = (Input::has('remember')) ? true : false;
                 
+                    //veiksmīgas pierakstīšanās gadījumā
                 if (Auth::attempt($credentials,$remember))
                 {                    
                         Session::flash('message-success',trans('messages.logged-in'));                    
                         return Redirect::route("users/profile");                  
                 }
-                                      
+                    //neaktitivizēta lietotāja/nepareizas paroles gadījumā
                 if(User::where('username',$credentials['username'])->where('active','<>',1)->first()){
                     Session::flash('message-fail',trans('messages.not-activated-or-incorrect'));
-                }else{
+                }else{ //nekorekta lietotājvārda/paroles gadījumā
                     Session::flash('message-fail',trans('messages.wrong-user-pass'));
                 }
                 return Redirect::route("users/login")->withInput(Input::except('password'));
-         
             }
-            
+                //kļūdainu ieejas datu gadījumā
             $data["errors"] = $validator->errors();
             Session::flash('message-fail',trans('messages.couldnt-login'));
             return Redirect::route("users/login")->withInput(Input::except('password'))->with($data);
@@ -46,6 +47,7 @@ class UsersController extends BaseController {
         return View::make("users/login");
     }
     
+    //pieprasīt paroles maiņu (neautorizēts)
     public function requestAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -60,6 +62,7 @@ class UsersController extends BaseController {
                     "email" => Input::get("email")
                 ];
                 
+                    //nosūta paroles maiņas epastu
                 Password::remind($credentials,
                     function($message, $user)
                     {
@@ -68,8 +71,7 @@ class UsersController extends BaseController {
                     }
                 );
                 
-                $data["requested"] = true; //why?
-                
+                $data["requested"] = true;
                 Session::flash('message-success',trans('messages.email-sent-to',['email' => $credentials['email']]));
                 
                 return Redirect::route("home");
@@ -77,9 +79,10 @@ class UsersController extends BaseController {
             
             $data["errors"] = $validator->errors();
             
+                //neautorizēta lietotāja gadījumā
             if(User::where('email',Input::get("email"))->where('active',0)->first()){
                 Session::flash('message-fail',trans('messages.not-activated-yet'));
-            }else{
+            }else{ //neeksistējoša,nepareiza e-pasta gadījumā
                 Session::flash('message-fail',trans('messages.couldnt-send-email'));
             }
             return Redirect::route("users/request")->with($data)->withInput(Input::all());
@@ -87,20 +90,22 @@ class UsersController extends BaseController {
         return View::make("users/request");
     }
     
+    //paroles maiņa (neautorizēts)
     public function resetAction()
     {
+            //nepieciešams tālākai pārvirzei kļūdu gadījumā
         $token = "?token=" . Input::get("token");
         $data["token"] = $token;
         
         if (Input::server("REQUEST_METHOD") == "POST")
         {
-            //$data["email"] = Input::get("email");
             $validator = Validator::make(Input::all(), [
                 "email"                 => "required|email|exists:users,email",
                 "password"              => "required|min:6",
                 "password_confirmation" => "required|same:password",
                 "token"                 => "required|exists:token,token"
             ]);
+            
             if ($validator->passes())
             {
                 $credentials = [
@@ -110,7 +115,9 @@ class UsersController extends BaseController {
                     "token" => Input::get("token"),
                     "active" => 1
                 ];
-                Password::reset($credentials, //token pēctam tiek dzēsts no tokens tabulas!
+                    
+                    //nomaina lietotāja paroli, pēctam dzēšot ierakstu no "tokens" tabulas
+                Password::reset($credentials,
                     function($user, $password)
                     {
                         $user->password = Hash::make($password);
