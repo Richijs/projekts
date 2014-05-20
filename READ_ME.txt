@@ -76,4 +76,6 @@ all-users - nepareizas tiesības
 
 recommend employer pie view profile
 
-jāsalabo viewRecs poga
+jāsalabo Rec poga (neautorizēts neredz rec count)
+
+view all users vienīgi auth::check() !!
