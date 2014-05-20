@@ -5,12 +5,13 @@ use Illuminate\Routing\Redirector;
 
 class SeekersController extends BaseController {
         
+    //darba meklētāja datu pievienošana
     public function AddAction()
     {
-        //admin can also add only one job seek
+            //atļauts vienīgi administratoriem un darba meklētājiem
+            //uz vienu lietotāju tikai un vienīgi viens darba meklējums
         if((Auth::check() && Auth::user()->userGroup==3 && !Seeker::where('user_id',Auth::user()->id)->first()) || (Auth::user()->userGroup==1 && !Seeker::where('user_id',Auth::user()->id)->first()))
         {
-        
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
@@ -31,14 +32,14 @@ class SeekersController extends BaseController {
                     
                     $file = Input::file('cv');
                     $fileName = Auth::user()->username.'__CV__'.str_random(30).time();
-                    //$publicPath = public_path('uploads/jobSeekerCVs/');
                                                               
                     $file->move('uploads/jobSeekerCVs',$fileName.'.'.$file->getClientOriginalExtension());      
                     $seeker->cv = 'uploads/jobSeekerCVs/'.$fileName.'.'.$file->getClientOriginalExtension();    
                     
                     if($seeker->save())
-                    {
-                        if(Session::has('vacancieId')) //ja ir nācis no "apply vacancie, bet redirektēts uz seeker data"
+                    {   
+                        //ja lietotājs ir ticis pārvirzīts no vakances pieteikuma
+                        if(Session::has('vacancieId'))
                         {
                             $redirectToVacancie = Session::get('vacancieId');
                             Session::forget('vacancieId');
@@ -50,36 +51,39 @@ class SeekersController extends BaseController {
                         Session::flash('message-success',trans('messages.jobseek-saved'));
                         return Redirect::route("seekers/viewMy");
                     }else{
+                            //ja darba meklētāja dati netika saglabāti
                         Session::flash('message-fail',trans('messages.jobseek-not-saved'));
                         return Redirect::route("seekers/add");
                     }
                 }
             
-            $data["errors"] = $validator->errors();
-            Session::flash('message-fail',trans('messages.jobseek-not-added'));
-            return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
-        }
+                $data["errors"] = $validator->errors();
+                Session::flash('message-fail',trans('messages.jobseek-not-added'));
+                return Redirect::route("seekers/add")->withInput(Input::except('cv'))->with($data);
+            }
         
-        return View::make("seekers/add");
+            return View::make("seekers/add");
        
         }else{
-        
+                //ja jau tika pievienoti darba meklētāja dati
             if(Auth::check() && Seeker::where('user_id',Auth::user()->id)->first()){
                 Session::flash('message-info',trans('messages.already-added-jobseek'));
                 return Redirect::route("seekers/viewMy");
             }else{
+                    //ja nav pieeja pievienot darba meklētāja datus
                 Session::flash('message-fail',trans('messages.no-access'));
                 return Redirect::route("users/profile");
             }
-        
         }    
     }
     
+    //konkrēta darba meklētāja datu apskatīšana
     public function viewAction($id)
-    {   
+    {       
+            //ja atrod šādu lietotāju
         if(Seeker::find($id)){
                 
-            //admin or own job seek data
+            //pieeja administratoram/darba devējam un pašam darba meklētājam
             if(Auth::user()->userGroup==1 || Auth::user()->userGroup==2 || Seeker::find($id)->user_id == Auth::user()->id)
             {
                 $seeker = Seeker::find($id);
@@ -89,85 +93,90 @@ class SeekersController extends BaseController {
   
                 return View::make("seekers/view", array('seeker'=> $seeker));
                 
-            }else{
+            }else{ //ja nav pieejas skatīt
                 Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }        
                 
         }else{
+                //ja lietotājs netika atrasts
             Session::flash('message-fail',trans('messages.non-existent-jobseek'));
             return Redirect::route("home");
-        }
-            
+        }   
     }
     
+    //CV lejupielāde
     public function getCVAction($id)
-    {
+    {   
+            //ja eksistē šādi darba meklētāja dati
         if(Seeker::find($id)){
             
-            //admin or own CV
+                //pieejams vienīgi administratoriem/darba devējiem un pašam pievienotājam
             if(Auth::user()->userGroup==1 || Auth::user()->userGroup==2 || Seeker::find($id)->user_id == Auth::user()->id)
             {
-            
                 $seeker = Seeker::find($id);
-            
+                
+                    //ja šāds fails eksistē
                 if(file_exists($seeker->cv)){
                     Return Response::download($seeker->cv);
-                }else{
+                }else{ 
+                        //neeksistējoša faila gadījumā
                     Session::flash('message-fail',trans('messages.couldnt-download-cv'));
-                    //return Redirect::to("/viewSeeker/{$seeker->id}");
                     return Redirect::back();
                 }
             
-            }else{
+            }else{ //ja pieeja nav atļauta
                 Session::flash('message-fail',trans('messages.not-authorized'));
                 return Redirect::route("home");
             }   
                 
-        }else{
+        }else{ //ja neeksistē šādi darba meklētāja dati
             Session::flash('message-fail',trans('messages.couldnt-download-cv'));
-            return Redirect::route("home"); //redirect back?
+            return Redirect::route("home");
         }
     }
     
+    //visu darba meklētāju datu apskate
     public function viewAllAction()
     {
         $seekersCount = Seeker::all();
-        if($seekersCount->count()){ //ja ir vismaz viens seeker
-            $seekers = Seeker::orderBy('created_at','DESC')->paginate(10); //all seekers + paginate
+        if($seekersCount->count()){ //ja sistēmā ir vismaz viens darba meklētāja datu ieraksts
+            $seekers = Seeker::orderBy('created_at','DESC')->paginate(10); //visi darba meklētāju ieraksti + "paginate"
 
+                //lai noskaidrotu katra darba meklētāja lietotājvārdu
             foreach($seekers as $seeker){
-                
                 $creator = User::where('id',$seeker->user_id)->first();
                 $seeker->creatorName = $creator->username;
             }
             
             return View::make("seekers/viewAllSeekers", array('seekers'=> $seekers));
         }else{
+                //gadījumā, ja sistēmā nav neviena darba meklētāja datu ieraksta
             return View::make("seekers/ViewAllSeekers");
         }
     }
     
-     public function viewMyAction()
+    //sava darba meklējuma datu apskate
+    public function viewMyAction()
     {
-        //if admin or seeker
+            //ja administrators vai darba meklētājs
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
-            //if not set, the view handles it anyway
+                //ja arī neeksistē darba meklētāja dati, ar to tiks galā skats
             $seeker = Seeker::where('user_id',Auth::user()->id)->first();
             
             return View::make("seekers/viewMy", array('seeker'=> $seeker));
         }
         
-        //līdz šejienei nekad netiek
+            //neatļautas pieejas gadījumā
         Session::flash('message-fail',trans('messages.not-authorized'));
         return Redirect::route("home");
     }
     
-    //todo fix smth
+    //darba meklētāja datu rediģēšana
     public function editAction($id)
     {
-        //if admin or editing own job seek
+            //pieejams administratoriem un pašam darba meklējuma datu pievienotājam
         if((Auth::check() && Auth::user()->userGroup==3 && Seeker::where('id',$id)->where('user_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
             if (Input::server("REQUEST_METHOD") == "POST")
@@ -189,14 +198,13 @@ class SeekersController extends BaseController {
                                   
                         if(Input::hasfile('cv'))
                         {
-                            //old cv link
+                                //iepriekšējā CV lokācija
                             if($seeker->cv){
                                $oldCV = $seeker->cv;  
                             }
                             
                             $file = Input::file('cv');
                             $fileName = User::find($seeker->user_id)->username.'__CV__'.str_random(30).time();
-                            //$publicPath = public_path('uploads/jobSeekerCVs/');
                                                               
                             $file->move('uploads/jobSeekerCVs',$fileName.'.'.$file->getClientOriginalExtension());      
                             $seeker->cv = 'uploads/jobSeekerCVs/'.$fileName.'.'.$file->getClientOriginalExtension();
