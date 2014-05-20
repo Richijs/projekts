@@ -1,6 +1,5 @@
 <?php
 
-//use Illuminate\Support\MessageBag;
 use Intervention\Image\Image;
 
 class VacanciesController extends BaseController {
