@@ -62,16 +62,16 @@
             <li class="list-group-item">
                 <b> Added by: </b>
                     <a href="{{URL::to("/viewUser/".$vacancie->creator_id)}}">{{{ $vacancie->creatorName }}}</a>
-                    <a href="{{URL::to("/viewRecommenders/".$vacancie->creator_id)}}">({{{$vacancie->userRecommends}}})</a>
 
                 @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                 <span>
                     <a href="{{URL::to("/recommend/".$vacancie->creator_id)}}">
                         <button class="btn btn-default">
                             @if ($vacancie->recommended)
+                                {{{$vacancie->userRecommends}}}
                                 <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
                             @else
+                                {{{$vacancie->userRecommends}}}
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             @endif
                         </button>

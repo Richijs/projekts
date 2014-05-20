@@ -50,7 +50,6 @@
                         <a class="btn btn-default" href="{{URL::to("/recommend/".$recommendation->user->id)}}">
                             @if ($recommendation->recommended)
                                 <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
                             @else
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             @endif

@@ -2,6 +2,7 @@
 
 class ApplicationsController extends BaseController {
     
+    //pieteikuma izveide konkrētai vakancei
     public function applyAction($vacancieId)
     {
             //ja neeksistē vakance, kurai tiek mēģināts pieteikties
@@ -14,6 +15,7 @@ class ApplicationsController extends BaseController {
             //ja ir pareiza lietotāja grupa
         if(Auth::check() && (Auth::user()->userGroup==3 || Auth::user()->userGroup==1))
         {        
+                //ja tiek mēģināts pieteikties savai vanakcei (administratora gadījumā)
             if(Vacancie::where('creator_id',Auth::user()->id)->where('id',$vacancieId)->first()){
                 Session::flash('message-fail',trans('messages.cant-apply-own-vacancie'));
                 return Redirect::route("vacancies/viewAllVacancies");
@@ -47,7 +49,8 @@ class ApplicationsController extends BaseController {
                         $application->letter = Input::get('letter');                  
                         $application->user_id = Auth::user()->id;
                         $application->vacancie_id = $vacancieId;
-                            
+                         
+                            //pieteikums tiek saglabāts
                         if($application->save())
                         {
                             Session::flash('message-success',trans('messages.applied-vacancie-successfully'));
@@ -56,11 +59,13 @@ class ApplicationsController extends BaseController {
                 
                     }
             
+                    //pieteikuma kļūmju gadījumā
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.applying-vacancie-failed'));
                 return Redirect::to("/apply/{$vacancieId}")->withInput(Input::all())->with($data);
                 }
-
+                
+                    //dati izvadei
                 $data["vacancieId"] = $vacancieId;
                 $data["vacancieName"] = $vacancie->name;
                 return View::make("/applications/apply")->with($data);
@@ -79,6 +84,7 @@ class ApplicationsController extends BaseController {
         
     }
     
+    //savu pieteikumu apskatīšana
     public function viewMyAction()
     {
             //savu pieteikumu apskatīšana paredzēta vienīgi administratoriem/darba meklētājiem
@@ -106,8 +112,10 @@ class ApplicationsController extends BaseController {
         
     }
     
+    //pieteikuma apskatīšana
     public function viewAction($applicationId)
     {
+            //ja pieteikums tiek atrasts sistēmā
         if(Application::find($applicationId)){
             
             $application = Application::find($applicationId);
@@ -145,7 +153,7 @@ class ApplicationsController extends BaseController {
         }
     }
     
-    
+    //konkrētas vakances pieteikušos lietotāju pieteikumu apskatīšana
     public function viewApplicantsAction($vacancieId)
     {
             //visu vakances pieteikumu apskatīšana paredzēta vienīgi administratoriem/vakances autoram
@@ -187,6 +195,7 @@ class ApplicationsController extends BaseController {
             }
     }
     
+    //pieteikuma dzēšana
     public function deleteAction($applicationId)
     {
             //pieeja vienīgi administratoram un/vai pieteikuma izveidotājam
@@ -245,7 +254,7 @@ class ApplicationsController extends BaseController {
         }
     }
     
-    
+    //pieteikuma rediģēšana
     public function editAction($applicationId)
     {
             //pieeja vienīgi administratoram vai paša pieteikuma autoram

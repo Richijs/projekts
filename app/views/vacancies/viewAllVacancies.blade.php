@@ -61,15 +61,15 @@
                     
                     <td>
                         <a href="{{URL::to("/viewUser/".$vacancie->creator_id)}}">{{{ $vacancie->creatorName }}}</a>
-                        <a href="{{URL::to("/viewRecommenders/".$vacancie->creator_id)}}">({{{$vacancie->userRecommends}}})</a>
                         
                         @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                     
                         <a class="btn btn-default" href="{{URL::to("/recommend/".$vacancie->creator_id)}}">
                             @if ($vacancie->recommended)
+                                {{{$vacancie->userRecommends}}}
                                 <span class="glyphicon glyphicon-remove-circle"></span>
-                                <span class="glyphicon glyphicon-thumbs-up"></span>
                             @else
+                                {{{$vacancie->userRecommends}}}
                                 <span class="glyphicon glyphicon-thumbs-up"></span>
                             @endif
                         </a>

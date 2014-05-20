@@ -73,3 +73,5 @@ Newline text ņem vērā arī visus iekš-koda newline, uzreiz aiz <div class="n
 messaging?
 
 all-users - nepareizas tiesības
+
+recommend employer pie view profile
