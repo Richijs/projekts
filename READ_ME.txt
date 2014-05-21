@@ -20,6 +20,8 @@ php artisan migrate:make --table="applications" CreateApplicationsTable
 
 php artisan migrate:make --table="recommendations" CreateRecommendationsTable
 
+php artisan migrate:make --table="messages" CreateMessagesTable
+
 jauztaisa file delete pie profila dzesanas,editoshanas, vakancēm n stuff
 VISUR, KUR JĀATTĒLO TEXTAREA AR LINE BREAKIEM - cssā->  white-space:pre-line;    !!!!!!!!!!!!!!!!!!!!!!!!
 
