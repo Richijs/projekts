@@ -15,6 +15,15 @@
     
     
     <div class="panel-body">
+        @if ($message->sender_id != Auth::user()->id)
+            from <a href="{{URL::to("/viewUser/".$message->sender_id)}}">{{{ $message->senderName }}}</a>
+        @endif
+        
+        @if ($message->receiver_id != Auth::user()->id) 
+        to <a href="{{URL::to("/viewUser/".$message->receiver_id)}}">{{{ $message->receiverName }}}</a>
+        @endif
+        
+        at {{{ date('d.m.y H:i',strtotime($message->created_at)) }}}
         
             <div class="newlineText well well-sm">{{{$message->message}}}</div>
     </div>
