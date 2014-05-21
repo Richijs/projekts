@@ -29,9 +29,7 @@
                 <tr>
                     <th>Message</th>
                     <th>date</th>
-                    @if (Auth::check() && Auth::user()->userGroup == 1)
-                        <th>Delete</th>
-                    @endif
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,13 +58,18 @@
                         {{{ date('d.m.y H:i',strtotime($message->created_at)) }}}
                     </td>
                     
-                    @if (Auth::check() && Auth::user()->userGroup == 1)
                     <td>
-                        <a href="{{URL::to("/deleteMessage/".$message->id)}}" class="delMsg">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </a>
+                        @if ($message->receiver_id == Auth::user()->id && isset($message->received))
+                            <a class="btn btn-default" href="{{ URL::to("/sendMessage/".$message->sender_id) }}">Reply</a>
+                        @endif
+                        
+                        @if (Auth::check() && Auth::user()->userGroup == 1)
+                            <a class="btn btn-danger" href="{{URL::to("/deleteMessage/".$message->id)}}" class="delMsg">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </a>
+                        @endif
                     </td>
-                    @endif
+                    
                 </tr>
                 @endforeach
             </tbody>
