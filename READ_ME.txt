@@ -81,3 +81,5 @@ recommend employer pie view profile
 jāsalabo Rec poga (neautorizēts neredz rec count)
 
 view all users vienīgi auth::check() !!
+
+delet user-> delete messages too;

@@ -47,6 +47,9 @@
                     <li>
                         <a href="{{ URL::route("users/logout") }}">logout</a>
                     </li>
+                    <li {{ Request::is('viewMessages/'.Auth::user()->id) ? 'class="active"' : '' }}>
+                        <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">Messages</a>
+                    </li>
                     
                         @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
                             <li {{ Request::is('viewAllSeekers') ? 'class="active"' : '' }}>

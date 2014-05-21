@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\Redirector;
+
 class MessagingController extends BaseController {
     
     //administratora kontaktēšana izmantojot e-pastu
@@ -122,12 +124,48 @@ class MessagingController extends BaseController {
         if($message->delete())
         {
             Session::flash('message-success',trans('message deleted successfully',['subject' => $message->subject]));
-            return Redirect::to("viewMessages/".$message->sender_id);                               
+            return Redirect::back();                               
         }else{
                 //ja kāda nezināma iemesla dēļ netiek izdzēsta ziņa
-            Session::flash('message-fail',trans('coult not delete message'));
+            Session::flash('message-fail',trans('could not delete message'));
             return Redirect::to("viewMessages/".$message->sender_id);  
         }
+    }
+    
+    //skatīt lietotāja saņemtās un nosūtītās ziņas
+    public function viewMessagesAction($user_id)
+    {   
+            //drīkst skatīt tikai administrators vai pats
+        if (Auth::check() && (Auth::user()->userGroup == 1 || Auth::user()->id == $user_id))
+        {       
+                //visas ziņas + paginācija
+            $messages = Message::where('sender_id',$user_id)->orWhere('receiver_id',$user_id)->orderBy('created_at','DESC')->paginate(20);
+            $messages->receivedCount = Message::where('receiver_id',$user_id)->count();
+            $messages->sentCount = Message::where('sender_id',$user_id)->count();
+            $data["user_id"] = $user_id;
+            $data["username"] = User::find($user_id)->username;
+                
+                    //uzzin, vai katra no ziņām ir saņemta vai nosūtīta
+                foreach ($messages as $message){
+                    if ($message->sender_id == $user_id){
+                        $message->sent = true;
+                        $message->sentTo = User::find($message->receiver_id)->username;
+                    }else if ($message->receiver_id == $user_id){
+                        $message->received = true;
+                        $message->receivedFrom = User::find($message->sender_id)->username;
+                    }
+                }
+            
+            if ($messages->sentCount == 0 && $messages->receivedCount == 0){
+                return View::make("messaging/viewMessages")->with($data);
+            }else{
+                return View::make("messaging/viewMessages", array('messages' => $messages))->with($data);
+            }
+        }
+            
+            //neatļautas pieejas gadījumā, pārvirza uz savām ziņām
+        Session::flash('message-fail',trans('no access'));    
+        return Redirect::to("viewMessages/".Auth::user()->id); 
     }
     
 }

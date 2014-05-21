@@ -2,7 +2,7 @@
     background-image: none !important
 }
 
-.error{
+.error, .delMsg{
     color: red;
 }
 
@@ -38,4 +38,8 @@
 
 .newlineText{
     white-space:pre-line;
+}
+
+.unreadBold{
+    font-weight: bold;
 }
