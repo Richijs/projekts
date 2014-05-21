@@ -175,6 +175,11 @@ Route::group(["before" => "auth"], function()
         "as"   => "messaging/viewMessages",
         "uses" => "MessagingController@viewMessagesAction"
     ])->where('user_id','[0-9]+');
+    
+    Route::get("/viewMessage/{message_id}", [
+        "as"   => "messaging/viewMessage",
+        "uses" => "MessagingController@viewMessageAction"
+    ])->where('message_id','[0-9]+');
         
     Route::get("/viewSeeker/{id}", [
         "as"   => "seekers/view/{id}",

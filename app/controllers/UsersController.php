@@ -511,6 +511,8 @@ class UsersController extends BaseController {
                         $applications->delete(); 
                         $seekers = Seeker::where('user_id',$id);
                         $seekers->delete();
+                        $messages = Message::where('sender_id',$id)->orWhere('receiver_id',$id);
+                        $messages->delete();
                             
                         $vacancies = Vacancie::where('creator_id',$id)->get(); //savas vakances
                         foreach($vacancies as $vacancie){
