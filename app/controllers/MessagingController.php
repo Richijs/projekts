@@ -190,14 +190,21 @@ class MessagingController extends BaseController {
         
             $message = Message::find($message_id);
             
-            return View::make("messaging/viewMessage");
+                    //atzīmē ziņu kā lasītu
+                if($message->receiver_id == Auth::user()->id && $message->viewed != 1){
+                    $message->viewed = 1;
+                    $message->save();
+                }
+                
+                $message->receiverName = User::find($message->receiver_id)->username;
+                $message->senderName = User::find($message->sender_id)->username;
             
+            return View::make("messaging/viewMessage", array('message' => $message));
         }
         
             //neatļautas pieejas gadījumā, pārvirza uz savām ziņām
         Session::flash('message-fail',trans('no access'));    
         return Redirect::to("viewMessages/".Auth::user()->id);
-        
     }
     
 }
