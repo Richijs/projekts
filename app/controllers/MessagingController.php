@@ -176,18 +176,12 @@ class MessagingController extends BaseController {
     public function viewMessageAction($message_id){
         
             //pieejams administratoram, savām nosūtītājām ziņām un savām saņemtajām ziņām
-        if (Auth::check() && (Auth::user()->userGroup == 1  //administrators
+        if (Auth::check() && Message::find($message_id) && 
+            (Auth::user()->userGroup == 1  //administrators
             || Message::find($message_id)->sender_id == Auth::user()->id  //ziņas sūtītājs
             || Message::find($message_id)->receiver_id == Auth::user()->id)) //ziņas saņēmējs
         {
-        
-                //ja neeksistē ziņa, kuru tiek mēģināts apskatīt
-            if(!Message::find($message_id))
-            {
-                Session::flash('message-fail',trans('non existent message'));
-                return Redirect::to("viewMessages/".Auth::user()->id);
-            }
-        
+                
             $message = Message::find($message_id);
             
                     //atzīmē ziņu kā lasītu
@@ -202,8 +196,14 @@ class MessagingController extends BaseController {
             return View::make("messaging/viewMessage", array('message' => $message));
         }
         
-            //neatļautas pieejas gadījumā, pārvirza uz savām ziņām
-        Session::flash('message-fail',trans('no access'));    
+            //ja neeksistē ziņa, kuru tiek mēģināts apskatīt
+        if(!Message::find($message_id))
+        {
+            Session::flash('message-fail',trans('non existent message'));
+        }else{ //neatļautas pieejas gadījumā
+            Session::flash('message-fail',trans('no access')); 
+        }
+            //pārvirza uz savām ziņām
         return Redirect::to("viewMessages/".Auth::user()->id);
     }
     
