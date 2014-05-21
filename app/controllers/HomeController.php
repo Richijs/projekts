@@ -56,19 +56,6 @@ class HomeController extends BaseController {
             return View::make('search'); //nepadod nevienu parametru
         }
         
-            //lietotāju meklēšana
-        $users = DB::table('users')
-            ->where(function($query) use ($search)
-            {
-                $query->where('username', 'LIKE',  '%' . $search . '%')
-                ->orWhere('about', 'LIKE',  '%' . $search . '%')
-                ->orWhere('firstname', 'LIKE',  '%' . $search . '%')
-                ->orWhere('lastname', 'LIKE',  '%' . $search . '%')
-                ->where('created_at','>=', DB::raw('CURDATE()'));
-            })
-        ->orderBy('created_at', 'DESC')
-        ->get();
-            
             //vakanču meklēšana
         $vacancies = DB::table('vacancies')
             ->where(function($query) use ($search)
@@ -81,8 +68,24 @@ class HomeController extends BaseController {
         ->orderBy('created_at', 'DESC')
         ->get();
             
+            //lietotāju meklēšana, ja lietotājs ir pierakstījies
+        if (Auth::check())
+        {
+            
+        $users = DB::table('users')
+            ->where(function($query) use ($search)
+            {
+                $query->where('username', 'LIKE',  '%' . $search . '%')
+                ->orWhere('about', 'LIKE',  '%' . $search . '%')
+                ->orWhere('firstname', 'LIKE',  '%' . $search . '%')
+                ->orWhere('lastname', 'LIKE',  '%' . $search . '%')
+                ->where('created_at','>=', DB::raw('CURDATE()'));
+            })
+        ->orderBy('created_at', 'DESC')
+        ->get();    
+            
            //darba meklētāju datu meklēšana, ja lietotāja grupa nav "darba meklētājs"
-        if(Auth::check() && Auth::user()->userGroup!=3)  
+        if(Auth::user()->userGroup!=3)  
         {
         $seekers = DB::table('seekers')
             ->where(function($query) use ($search)
@@ -95,6 +98,7 @@ class HomeController extends BaseController {
         ->get();
             
             return View::make('search', ['users' => $users, 'vacancies' => $vacancies, 'seekers' => $seekers]);
+        }
         }
  
         return View::make('search', ['users' => $users, 'vacancies' => $vacancies]);

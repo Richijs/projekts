@@ -104,6 +104,11 @@
                                 'class'=>'form-control',
                                 'placeholder'=>'Search for Users, Vacancies, Job Searchers...'
                             ])}}
+                        @elseif (!Auth::check())
+                            {{ Form::text('search', '', [
+                                'class'=>'form-control',
+                                'placeholder'=>'Search for Vacancies...'
+                            ])}}
                         @else
                             {{ Form::text('search', '', [
                                 'class'=>'form-control',
