@@ -196,8 +196,8 @@ class MessagingController extends BaseController {
                     $message->save();
                 }
                 
-                $message->receiverName = User::find($message->receiver_id)->username;
-                $message->senderName = User::find($message->sender_id)->username;
+            $message->receiverName = User::find($message->receiver_id)->username;
+            $message->senderName = User::find($message->sender_id)->username;
             
             return View::make("messaging/viewMessage", array('message' => $message));
         }
