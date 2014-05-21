@@ -153,6 +153,10 @@ class MessagingController extends BaseController {
                     }else if ($message->receiver_id == $user_id){
                         $message->received = true;
                         $message->receivedFrom = User::find($message->sender_id)->username;
+                        
+                        if ($user_id == Auth::user()->id && $message->viewed != 1){
+                            $message->new = true;
+                        }
                     }
                 }
             

@@ -44,6 +44,10 @@
                         <a href="{{URL::to("/viewMessage/".$message->id)}}">
                             {{{ $message->subject }}}
                         </a>
+                        
+                        @if (isset($message->new))
+                            <span class="badge">new!</span>
+                        @endif
 
                         @if (isset($message->sent))
                             to <a href="{{ URL::to("/viewUser/".$message->receiver_id) }}">{{{$message->sentTo}}}</a>
