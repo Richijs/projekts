@@ -61,4 +61,50 @@ class MessagingController extends BaseController {
         return View::make("messaging/contact")->with($data);
     }
     
+    //privātās ziņas nosūtīšana
+    public function sendAction($receiver_id)
+    {
+            //ja neeksistē lietotājs, kuram tiek mēģināts sūtīt ziņu
+        if(!User::find($receiver_id))
+        {
+            Session::flash('message-fail',trans('non existent user'));
+            return Redirect::route("home");
+        }
+        
+        if (Input::server("REQUEST_METHOD") == "POST")
+        {
+            $validator = Validator::make(Input::all(), [
+                "subject" => "required|min:3|max:100",
+                "message" => "required|min:3|max:1000",
+            ]);
+                    
+            if ($validator->passes())
+            {   
+                $message = new Message;
+                $message->subject = Input::get('subject');                  
+                $message->message = Input::get('message');
+                $message->sender_id = Auth::user()->id;
+                $message->receiver_id = $receiver_id;
+                         
+                    //ziņa tiek saglabāta (nosūtīta)
+                if($message->save())
+                {
+                    Session::flash('message-success',trans('message sent'));
+                    return Redirect::to("/viewMessage/{$message->id}");
+                }
+            }
+            
+                //pieteikuma kļūmju gadījumā
+            $data["errors"] = $validator->errors();
+            Session::flash('message-fail',trans('sending message failed'));
+            return Redirect::to("/sendMessage/{$receiver_id}")->withInput(Input::all())->with($data);
+        }
+        
+        $user = User::find($receiver_id);
+            //datu izvadei
+        $data["receiver_id"] = $receiver_id;
+        $data["username"] = $user->username;
+        return View::make("messaging/send")->with($data);
+    }
+    
 }

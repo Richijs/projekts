@@ -159,7 +159,17 @@ Route::group(["before" => "auth"], function()
             "uses" => "UsersController@changePassAction"
         ]);
         
+        Route::post("/sendMessage/{receiver_id}", [
+            "as"   => "messaging/send",
+            "uses" => "MessagingController@sendAction"
+        ])->where('receiver_id','[0-9]+');
+        
     });
+    
+    Route::get("/sendMessage/{receiver_id}", [
+        "as"   => "messaging/send",
+        "uses" => "MessagingController@sendAction"
+    ])->where('receiver_id','[0-9]+');
     
     Route::get("/viewSeeker/{id}", [
         "as"   => "seekers/view/{id}",

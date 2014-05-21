@@ -21,6 +21,7 @@ class CreateMessagesTable extends Migration {
                             $table->foreign('sender_id')->references('id')->on('users');
                         $table->integer('receiver_id')->unsigned();
                             $table->foreign('receiver_id')->references('id')->on('users');
+                        $table->tinyInteger("viewed")->nullable()->default(0);
                         $table->dateTime("created_at")->default(DB::raw('CURRENT_TIMESTAMP'));
 		});
 	}
