@@ -48,7 +48,13 @@
                         <a href="{{ URL::route("users/logout") }}">logout</a>
                     </li>
                     <li {{ Request::is('viewMessages/'.Auth::user()->id) ? 'class="active"' : '' }}>
-                        <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">Messages</a>
+                        <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">
+                            @if (isset($newMessages))
+                                <span class="badge pull-right">{{$newMessages}} new </span>
+                            @endif 
+                            
+                            Messages
+                        </a>
                     </li>
                     
                         @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
