@@ -14,7 +14,7 @@
 
     
     
-    <div class="panel-body col-sm-6 col-sm-offset-3">
+    <div class="panel-body col-sm-8 col-sm-offset-2">
         @if ($message->sender_id != Auth::user()->id)
             from <a href="{{URL::to("/viewUser/".$message->sender_id)}}">{{{ $message->senderName }}}</a>
         @endif

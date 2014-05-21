@@ -22,9 +22,6 @@
                     <li {{ Request::is('/') ? 'class="active"' : '' }}>
                         <a href="{{ URL::route("home") }}">home</a
                     </li>
-                    <li {{ Request::is('viewAllUsers') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("users/viewAllUsers") }}">ViewAllUsers</a>
-                    </li>
                     <li {{ Request::is('viewAllVacancies') ? 'class="active"' : '' }}>
                         <a href="{{ URL::route("vacancies/viewAllVacancies") }}">ViewAllVacancies</a>
                     </li>
@@ -36,6 +33,9 @@
                     </li>
                         
                 @if (Auth::check())
+                    <li {{ Request::is('viewAllUsers') ? 'class="active"' : '' }}>
+                        <a href="{{ URL::route("users/viewAllUsers") }}">ViewAllUsers</a>
+                    </li>
                     <li {{ Request::is('viewUser/'.Auth::user()->id) ? 'class="active"' : '' }}>
                         <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">
                             <span class="loggedAs">Logged in as: </span>{{{Auth::user()->username}}}

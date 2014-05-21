@@ -49,29 +49,9 @@ Route::group(["before" => "csrf"], function(){
 
     Route::get('/lang/{lang}', 'LangController@changeLang')->where('lang','lv|en'); //divas pieejamas valodas
 
-    Route::get("/viewUser/{id}", [
-        "as"   => "users/view/{id}",
-        "uses" => "UsersController@viewAction"
-    ])->where('id','[0-9]+');
-    
     Route::get("/viewVacancie/{id}", [
         "as"   => "vacancies/view/{id}",
         "uses" => "VacanciesController@viewAction"
-    ])->where('id','[0-9]+');
-
-    Route::get("/viewAllUsers", [
-        "as"   => "users/viewAllUsers",
-        "uses" => "UsersController@viewAllAction"
-    ]);
-    
-    Route::get("/viewRecommenders/{userId}", [
-        "as"   => "recommendations/viewRecommenders",
-        "uses" => "RecommendationsController@viewRecommendersAction"
-    ])->where('id','[0-9]+');
-    
-    Route::get("/viewRecommendations/{userId}", [
-        "as"   => "recommendations/viewRecommendations",
-        "uses" => "RecommendationsController@viewRecommendationsAction"
     ])->where('id','[0-9]+');
     
     Route::get("/viewAllVacancies", [
@@ -165,6 +145,26 @@ Route::group(["before" => "auth"], function()
         ])->where('receiver_id','[0-9]+');
         
     });
+    
+    Route::get("/viewRecommenders/{userId}", [
+        "as"   => "recommendations/viewRecommenders",
+        "uses" => "RecommendationsController@viewRecommendersAction"
+    ])->where('id','[0-9]+');
+    
+    Route::get("/viewRecommendations/{userId}", [
+        "as"   => "recommendations/viewRecommendations",
+        "uses" => "RecommendationsController@viewRecommendationsAction"
+    ])->where('id','[0-9]+');
+    
+    Route::get("/viewAllUsers", [
+        "as"   => "users/viewAllUsers",
+        "uses" => "UsersController@viewAllAction"
+    ]);
+    
+    Route::get("/viewUser/{id}", [
+        "as"   => "users/view/{id}",
+        "uses" => "UsersController@viewAction"
+    ])->where('id','[0-9]+');
     
     Route::get("/sendMessage/{receiver_id}", [
         "as"   => "messaging/send",
