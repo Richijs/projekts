@@ -107,4 +107,27 @@ class MessagingController extends BaseController {
         return View::make("messaging/send")->with($data);
     }
     
+    //ziņas dzēšana no sistēmas (tikai administratoriem)
+    public function deleteAction($message_id)
+    {
+            //ja neeksistē ziņa, kuru tiek mēģināts izdzēst
+        if(!Message::find($message_id))
+        {
+            Session::flash('message-fail',trans('non existent message'));
+            return Redirect::to("viewMessages/".Auth::user()->id);
+        }
+        
+        $message = Message::find($message_id);
+            //ja veiksmīgi tiek dzēsta ziņa
+        if($message->delete())
+        {
+            Session::flash('message-success',trans('message deleted successfully',['subject' => $message->subject]));
+            return Redirect::to("viewMessages/".$message->sender_id);                               
+        }else{
+                //ja kāda nezināma iemesla dēļ netiek izdzēsta ziņa
+            Session::flash('message-fail',trans('coult not delete message'));
+            return Redirect::to("viewMessages/".$message->sender_id);  
+        }
+    }
+    
 }

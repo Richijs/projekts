@@ -174,13 +174,9 @@ class ApplicationsController extends BaseController {
                     $user = User::find($application->user_id);
                     $application->user = $user;
                     
-                        //atzīmē pieteikumus kā "skatītus"
+                        //lai varētu atzīmēt pieteikumus kā jaunus, jeb nelasītus
                     if(Vacancie::where('id',$vacancieId)->where('creator_id',Auth::user()->id)->first() && $application->viewed != 1){
                         $application->new = true;
-                        
-                        $app = Application::find($application->id);
-                        $app->viewed = 1;
-                        $app->save();
                     }
                 }
             

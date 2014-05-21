@@ -170,7 +170,7 @@ Route::group(["before" => "auth"], function()
         "as"   => "messaging/send",
         "uses" => "MessagingController@sendAction"
     ])->where('receiver_id','[0-9]+');
-    
+        
     Route::get("/viewSeeker/{id}", [
         "as"   => "seekers/view/{id}",
         "uses" => "SeekersController@viewAction"
@@ -357,10 +357,13 @@ Route::group(["before" => "admin"], function()
     //aizsargāts no csrf(xsrf?) uzbrukumiem
     Route::group(["before" => "csrf"], function(){
     
-        
+        //nav
     });
     
-    
+    Route::get("/deleteMessage/{message_id}", [
+        "as"   => "messaging/delete",
+        "uses" => "MessagingController@deleteAction"
+    ])->where('message_id','[0-9]+');
 
     
 });
