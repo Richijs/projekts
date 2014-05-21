@@ -84,7 +84,7 @@
         </div>
     </div>
 </div>
-    @elseif (!count($users) && !count($vacancies) && (!isset($seekers) || !count($seekers)))
+    @elseif ((!isset($users) || !count($users)) && !count($vacancies) && (!isset($seekers) || !count($seekers)))
         <div class="panel panel-danger">
     <div class="panel-heading">
         <div class="panel-title">

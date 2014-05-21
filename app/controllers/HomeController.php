@@ -84,24 +84,25 @@ class HomeController extends BaseController {
         ->orderBy('created_at', 'DESC')
         ->get();    
             
-           //darba meklētāju datu meklēšana, ja lietotāja grupa nav "darba meklētājs"
-        if(Auth::user()->userGroup!=3)  
-        {
-        $seekers = DB::table('seekers')
-            ->where(function($query) use ($search)
+            //darba meklētāju datu meklēšana, ja lietotāja grupa nav "darba meklētājs"
+            if(Auth::user()->userGroup!=3)  
             {
-                $query->where('intro', 'LIKE',  '%' . $search . '%')
-                ->orWhere('text', 'LIKE',  '%' . $search . '%')
-                ->where('created_at','>=', DB::raw('CURDATE()'));
-            })
-        ->orderBy('created_at', 'DESC')
-        ->get();
             
-            return View::make('search', ['users' => $users, 'vacancies' => $vacancies, 'seekers' => $seekers]);
+            $seekers = DB::table('seekers')
+                ->where(function($query) use ($search)
+                {
+                    $query->where('intro', 'LIKE',  '%' . $search . '%')
+                    ->orWhere('text', 'LIKE',  '%' . $search . '%')
+                    ->where('created_at','>=', DB::raw('CURDATE()'));
+                })
+            ->orderBy('created_at', 'DESC')
+            ->get();
+            
+                return View::make('search', ['users' => $users, 'vacancies' => $vacancies, 'seekers' => $seekers]);
+            }
+            return View::make('search', ['users' => $users, 'vacancies' => $vacancies]);
         }
-        }
- 
-        return View::make('search', ['users' => $users, 'vacancies' => $vacancies]);
+        return View::make('search', ['vacancies' => $vacancies]);
     }
     
     
