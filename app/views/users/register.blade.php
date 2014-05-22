@@ -2,7 +2,7 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Register <small>here</small></h1>
+    <h1>Register</h1>
 </div> 
 
     {{ Form::open([

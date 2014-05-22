@@ -2,9 +2,7 @@
 @section("content")
     <div class="page-header">
         <h1>Send e-mail to an Administrator
-            <div>  
-                <small>Leave your information here and Random administrator will be contacted instantly</small>
-            </div>
+            <small>Random administrator will be contacted instantly.</small>
         </h1>
     </div>
 

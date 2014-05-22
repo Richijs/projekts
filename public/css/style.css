@@ -33,12 +33,16 @@ body{
     display: inline-block;
 }
 
+.page-header{
+    border-bottom: 1px dashed #428bca;
+}
+
 .footer .container{
     text-align: right;
 }
 
 .footer .copyright{
-    border-top: 2px solid black;
+    border-top: 2px solid #428bca;
 }
 
 .loggedAs{
