@@ -23,6 +23,7 @@ return array(
         'delete-jobseek-data' => 'Delete Jobseeker data',
         'download-cv' => 'Download CV',
         'my-vacancies' => 'My Vacancies',
+        'view-your-application' => 'View Your Application',
     
     
         

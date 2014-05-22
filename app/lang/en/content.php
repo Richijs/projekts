@@ -20,7 +20,9 @@ return array(
         'view' => 'View',
         'user' => 'User',
         'controls' => 'Controls',
-    
+        'vacancie' => 'Vacancie',
+        'havent-applied-any-vacancies' => "Have'nt applied any Vacancies yet.",
+        
     
     
 );

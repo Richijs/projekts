@@ -19,6 +19,8 @@ return array(
         'edit' => 'Edit',
         'application-for-vacancie' => 'Application for Vacancie',
         'applicants-applied-for-vacancie' => 'Applicants applied for Vacancie',
+        'vacancies' => 'Vacancies',
+        'you-have-applied' => 'You have applied',
     
     
 );
