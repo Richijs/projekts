@@ -13,8 +13,15 @@
         </h2>
         <span class="text-danger">{{ trans('titles.to-delete-application-confirm') }}</span>
     </div>
-
-    <div class="col-sm-offset-2 col-sm-8 newlineText well">{{{$applicationLetter}}}</div>
+    
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+            <b>{{ trans('forms.letter') }}:</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-offset-2 col-sm-8 newlineText well">{{{$applicationLetter}}}</div>
+    </div>
 
     {{ Form::open([
         "autocomplete" => "off",

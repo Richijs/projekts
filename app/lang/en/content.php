@@ -15,6 +15,11 @@ return array(
         'applied-at' => 'Applied at',
         'jobseeker-data' => 'Job searcher data',
         'searching-for-job-since' => 'is searching for job since',
+        'no-one-applied-yet' => 'No one applied yet.',
+        'new' => 'New',
+        'view' => 'View',
+        'user' => 'User',
+        'controls' => 'Controls',
     
     
     

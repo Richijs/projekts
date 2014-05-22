@@ -18,6 +18,7 @@ return array(
         'to-delete-application-confirm' => 'To delete Application, confirm deletion.',
         'edit' => 'Edit',
         'application-for-vacancie' => 'Application for Vacancie',
+        'applicants-applied-for-vacancie' => 'Applicants applied for Vacancie',
     
     
 );
