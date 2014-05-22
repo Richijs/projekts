@@ -2,7 +2,7 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Viewing 
+    <h2>Viewing 
             <a href="{{ URL::to("/viewUser/".$user_id) }}">
                 @if(Auth::user()->id == $user_id)
                     Your
@@ -11,7 +11,7 @@
                 @endif
             </a>
         messages
-    </h1>
+    </h2>
 </div>
 
 @if (isset($messages))
