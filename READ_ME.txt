@@ -89,3 +89,5 @@ search jābūt ->  users:  ielogotiem      /    vacancies:   visiem    / seekers
 button sizing/transl
 
 view other user messages buttons (ADMIN)
+
+correct pagination
