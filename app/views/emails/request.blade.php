@@ -7,12 +7,14 @@
     </head>
     <body>
         <h1>Password Reset</h1>
-        To reset your vakances.lv password, complete the following form:
-        <div>   
+        
+        <div>
+            To reset your vakances password, complete the following form: 
             <a href="{{ URL::route("users/reset") . "?token=" . $token }}">Reset My Password</a>
         </div>
+        <br>
         <div>
-            If you didnt request this action, ignore and delete this e-mail
+            If you did'nt request this action, ignore and delete this e-mail
         </div>
     </body>
 </html>
