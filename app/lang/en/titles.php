@@ -24,6 +24,7 @@ return array(
         'send-email-to-admin' => 'Send E-mail to an Administrator',
         'random-admin-will-be-contacted' => 'Random Administrator will be contacted.',
         'send-message-to' => 'Send private message to',
+        'viewing-message' => 'Viewing Message',
     
     
 );

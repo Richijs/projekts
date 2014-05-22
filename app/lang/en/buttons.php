@@ -26,6 +26,7 @@ return array(
         'view-your-application' => 'View Your Application',
         'all-site-users' => 'All site Users',
         'to-messages' => 'To Messages',
+        'reply' => 'Reply',
     
     
         

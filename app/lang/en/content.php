@@ -24,6 +24,9 @@ return array(
         'havent-applied-any-vacancies' => "Have'nt applied any Vacancies yet.",
         'not-found' => 'Not Found',
         'error' => 'Error',
+        'from' => 'from',
+        'to' => 'to',
+        'at' => 'at',
     
     
     
