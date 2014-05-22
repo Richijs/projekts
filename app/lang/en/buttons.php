@@ -15,6 +15,8 @@ return array(
         'to-vacancie' => 'to Vacancie',
         'all-vacancies' => 'all Vacancies',
         'my-applications' => 'my Applications',
+        'to-application' => 'to Application',
+    
     
         
     

@@ -32,7 +32,7 @@
         </div>
         
         @if ($error = $errors->first("letter"))
-            <div class="error col-sm-offset-4 col-sm-4">
+            <div class="error col-sm-offset-2 col-sm-4">
                 {{ $error }}
             </div>
         @endif

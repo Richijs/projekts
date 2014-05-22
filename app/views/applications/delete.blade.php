@@ -1,24 +1,20 @@
 @extends("layout")
 @section("content")
+    <span class="page-control">
+        <a class="btn btn-default btn-sm" href="{{URL::to("/viewApplication/".$applicationId)}}">{{ trans('buttons.to-application') }}</a>
+        <a class="btn btn-default btn-sm" href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{ trans('buttons.to-vacancie') }}</a>
+    </span>
 
-<div class="page-header">
-    <h1>Delete <a href="{{URL::to("/viewApplication/".$applicationId)}}">Application</a> to 
-        <small><a href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{{ $vacancieName }}}</a></small>
-        <div><small>To delete Application, Confirm deletion</small></div>
-    </h1>
-</div>
+    <div class="page-header">
+        <h2>{{ trans('titles.delete') }}
+            <small>
+                <a href="{{URL::to("/viewApplication/".$applicationId)}}">{{ trans('titles.application-u') }}</a>
+            </small>
+        </h2>
+        <span class="text-danger">{{ trans('titles.to-delete-application-confirm') }}</span>
+    </div>
 
-<div class="panel panel-danger">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <b>Written letter:</b>
-        </div>
-    </div>
-    <div class="panel-body newlineText">
-        {{{$applicationLetter}}}
-    </div>
-</div>
-  
+    <div class="col-sm-offset-2 col-sm-8 newlineText well">{{{$applicationLetter}}}</div>
 
     {{ Form::open([
         "autocomplete" => "off",
@@ -27,17 +23,17 @@
     ]) }}
     
     <div class="form-group @if ($errors->first('checkbox')) has-error@endif">
-        {{ Form::label("confirmation", "Confirmation",[
+        {{ Form::label("confirmation", trans('forms.confirmation'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
-                <div class="checkbox">
-                    {{ Form::checkbox("checkbox",true,false,[
-                        "id" => "checkbox"
-                    ]) }}
-                    {{ Form::label("checkbox","I Wish to delete this application") }}
-                </div>
+            <div class="checkbox">
+                {{ Form::checkbox("checkbox",true,false,[
+                    "id" => "checkbox"
+                ]) }}
+                {{ Form::label("checkbox",trans('forms.wish-to-delete-application')) }}
+            </div>
         </div>
         
         @if ($error = $errors->first("checkbox"))
@@ -49,7 +45,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">
-            {{ Form::submit("Delete Application",["class" => "btn btn-danger btn-block"]) }}
+            {{ Form::submit(trans('forms.delete-application'),["class" => "btn btn-danger btn-block"]) }}
         </div>
     </div>
     
