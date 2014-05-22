@@ -22,7 +22,9 @@ return array(
         'controls' => 'Controls',
         'vacancie' => 'Vacancie',
         'havent-applied-any-vacancies' => "Have'nt applied any Vacancies yet.",
-        
+        'not-found' => 'Not Found',
+        'error' => 'Error',
+    
     
     
 );

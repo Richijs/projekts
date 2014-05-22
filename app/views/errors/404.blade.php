@@ -6,9 +6,9 @@
 </head>
 <body>
     <div class="page-header">
-        <h1>404 error</h1>
+        <h1>404 {{ trans('content.error') }}</h1>
         <div>
-            Not Found :(
+            {{ trans('content.not-found') }}
         </div>
     </div>
 </body>
