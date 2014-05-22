@@ -16,6 +16,7 @@ return array(
         'delete' => 'Delete',
         'application-u' => 'Application', //pieteikumu
         'to-delete-application-confirm' => 'To delete Application, confirm deletion.',
+        'edit' => 'Edit',
     
     
 );

@@ -18,6 +18,7 @@ return array(
         'confirmation' => 'Confirmation',
         'wish-to-delete-application' => 'I wish to delete this Application',
         'delete-application' => 'Delete Application',
+        'edit-application' => 'Edit Application',
     
     
     
