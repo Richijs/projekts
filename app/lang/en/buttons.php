@@ -24,7 +24,8 @@ return array(
         'download-cv' => 'Download CV',
         'my-vacancies' => 'My Vacancies',
         'view-your-application' => 'View Your Application',
-        'view-all-site-users' => 'View all site Users',
+        'all-site-users' => 'All site Users',
+        'to-messages' => 'To Messages',
     
     
         

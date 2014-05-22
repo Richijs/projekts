@@ -30,6 +30,8 @@ return array(
         'email-subject' => 'E-mail Subject',
         'message' => 'Message',
         'send-email' => 'Send E-mail',
+        'subject' => 'Subject',
+        'send-message' => 'Send Message',
     
     
 );
