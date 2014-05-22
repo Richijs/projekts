@@ -86,4 +86,4 @@ delet user-> delete messages too;
 
 search jābūt ->  users:  ielogotiem      /    vacancies:   visiem    / seekers:  admin/employer
 
-button sizing
+button sizing/transl

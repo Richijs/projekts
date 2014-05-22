@@ -21,6 +21,8 @@ return array(
         'applicants-applied-for-vacancie' => 'Applicants applied for Vacancie',
         'vacancies' => 'Vacancies',
         'you-have-applied' => 'You have applied',
+        'send-email-to-admin' => 'Send E-mail to an Administrator',
+        'random-admin-will-be-contacted' => 'Random Administrator will be contacted.',
     
     
 );

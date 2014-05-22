@@ -23,6 +23,13 @@ return array(
         'email' => 'E-mail',
         'phone' => 'Phone',
     
+    //messaging
+    
+        'username-nick-name' => 'Username, Nick or Name',
+        'your-email' => 'Your E-mail',
+        'email-subject' => 'E-mail Subject',
+        'message' => 'Message',
+        'send-email' => 'Send E-mail',
     
     
 );

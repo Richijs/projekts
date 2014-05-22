@@ -1,9 +1,16 @@
 @extends("layout")
 @section("content")
+
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.view-all-site-users') }}</a>
+    </span>
+
     <div class="page-header">
-        <h1>Send e-mail to an Administrator
-            <small>Random administrator will be contacted instantly.</small>
-        </h1>
+        <h2>{{ trans('titles.send-email-to-admin') }}
+            <div>
+                <small>{{ trans('titles.random-admin-will-be-contacted') }}</small>
+            </div>
+        </h2>
     </div>
 
     {{ Form::open([
@@ -14,13 +21,13 @@
     ]) }}
       
      <div class="form-group @if ($errors->first('username')) has-error@endif">    
-        {{ Form::label("username", "Username, Nick or Name",[
+        {{ Form::label("username", trans('forms.username-nick-name'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("username", $username, [
-                "placeholder" => "Username, Nick or Name",
+                "placeholder" => trans('forms.username-nick-name'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -33,13 +40,13 @@
     </div>  
     
     <div class="form-group @if ($errors->first('email')) has-error@endif">     
-        {{ Form::label("email", "Your Email",[
+        {{ Form::label("email", trans('forms.your-email'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("email", $email, [
-                "placeholder" => "Your Email",
+                "placeholder" => trans('forms.your-email'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -52,13 +59,13 @@
     </div> 
     
     <div class="form-group @if ($errors->first('subject')) has-error@endif">    
-        {{ Form::label("subject", "E-mail subject",[
+        {{ Form::label("subject", trans('forms.email-subject'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("subject", Input::get("subject"), [
-                "placeholder" => "subject",
+                "placeholder" => trans('forms.email-subject'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -71,13 +78,13 @@
     </div>
     
     <div class="form-group @if ($errors->first('message')) has-error@endif">   
-        {{ Form::label("message", "message",[
+        {{ Form::label("message", trans('forms.message'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-5">
         {{ Form::textarea("message", Input::get("message"), [
-            "placeholder" => "Message text",
+            "placeholder" => trans('forms.message'),
             "class"       => "form-control",
             "rows"        => "7"
         ]) }}
@@ -92,10 +99,11 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">
-            {{ Form::submit("Send e-mail",["class" => "btn btn-success btn-block"]) }}
+            {{ Form::submit(trans('forms.send-email'),["class" => "btn btn-success btn-block"]) }}
         </div>
     </div>
     {{ Form::close() }}
+    
 @stop
 @section("footer")
     @parent
