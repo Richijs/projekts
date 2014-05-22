@@ -6,10 +6,10 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <h1>Registration at vakances was successfull, {{{$username}}}</h1>
+        <h1>{{ trans('emails.registration-at-vacances-was-successfull') }}, {{{$username}}}</h1>
         
         <br>
-        <div>Thank You for using our site.</div>
+        <div>{{ trans('emails.thanks-for-using-site') }}</div>
         <div>   
             <a href="{{ URL::route("home") }}">{{ URL::route("home") }}</a>
         </div>

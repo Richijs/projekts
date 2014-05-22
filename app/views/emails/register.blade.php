@@ -6,15 +6,15 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <h1>Activate your account, {{{ $username }}}</h1>
+        <h1>{{ trans('emails.activate-account') }}, {{{ $username }}}</h1>
         
         <div>
-            To activate your vakances account - Visit the following link: 
-            <a href="{{ URL::to("/activate") . "?code=" . $code."&id=".$id }}">Account Activation</a>
+            {{ trans('emails.to-activate-account') }}: 
+            <a href="{{ URL::to("/activate") . "?code=" . $code."&id=".$id }}">{{ trans('emails.account-activation') }}</a>
         </div>
         <br>
         <div>
-            If you did'nt request this action, ignore and delete this e-mail.
+            {{ trans('emails.if-didnt-request') }}
         </div>
     </body>
 </html>

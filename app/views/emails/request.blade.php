@@ -6,15 +6,15 @@
         <meta charset="utf-8" />
     </head>
     <body>
-        <h1>Password Reset</h1>
+        <h1>{{ trans('emails.password-reset') }}</h1>
         
         <div>
-            To reset your vakances password, complete the following form: 
-            <a href="{{ URL::route("users/reset") . "?token=" . $token }}">Reset My Password</a>
+            {{ trans('emails.to-reset-password') }}: 
+            <a href="{{ URL::route("users/reset") . "?token=" . $token }}">{{ trans('emails.reset-my-password') }}</a>
         </div>
         <br>
         <div>
-            If you did'nt request this action, ignore and delete this e-mail
+            {{ trans('emails.if-didnt-request') }}
         </div>
     </body>
 </html>
