@@ -57,7 +57,7 @@
     
     <div class="form-group @if ($errors->first('phone')) has-error@endif">  
         {{ Form::label("phone", "Phone number",[
-            "class"  => "col-sm-4 control-label required"
+            "class"  => "col-sm-4 control-label"
         ]) }}
         
         <div class="col-sm-4">

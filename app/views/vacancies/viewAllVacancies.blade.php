@@ -1,21 +1,21 @@
 @extends("layout")
 @section("content")
     
-    <div class="page-header">
-        <h1>
-            All Vacancies
-        </h1>
-    </div>
+<div class="page-header">
+    <h1>
+        Vacancies
+    </h1>
+</div>
 
   
 @if (isset($vacancies))
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
             All Vacancie List
         </div>
     </div>
-    <div class="panel-body">
+    <div class="panel-body"> -->
         
         <div class='table-responsive'>
         <table class='table'>
@@ -43,15 +43,15 @@
                     
                     <td>
                     @if ($vacancie->poster)
-                        <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
+                        <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="36" height="36" alt="vacancie poster"/>
                     @else
-                        <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+                        <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="36" height="36" alt="vacancie poster"/>
                     @endif
                     </td>
                     
                     <td>
                         @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
-                        <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                        <a class="btn btn-default btn-xs" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
                             Applied: <b>{{{$vacancie->applied}}}</b>
                         </a>
                         @else
@@ -64,7 +64,7 @@
                         
                         @if (Auth::check() && $vacancie->creator_id!=Auth::user()->id)
                     
-                        <a class="btn btn-default" href="{{URL::to("/recommend/".$vacancie->creator_id)}}">
+                        <a class="btn btn-default btn-xs" href="{{URL::to("/recommend/".$vacancie->creator_id)}}">
                             @if ($vacancie->recommended)
                                 {{{$vacancie->userRecommends}}}
                                 <span class="glyphicon glyphicon-remove-circle"></span>
@@ -86,12 +86,12 @@
                     @if (Auth::check())
                         <td>
                         @if ((Auth::user()->userGroup===1 || Auth::user()->userGroup===3) && $vacancie->creator_id!=Auth::user()->id)
-                            <a class="btn btn-success" href="{{URL::to("/apply/".$vacancie->id)}}">Apply this vacancie</a>
+                            <a class="btn btn-success btn-xs" href="{{URL::to("/apply/".$vacancie->id)}}">Apply</a>
                         @endif
                         
                         @if (Auth::user()->userGroup == 1 || Auth::user()->id == $vacancie->creator_id)
-                            <a class="btn btn-warning" href="{{{ URL::to("/editVacancie/".$vacancie->id) }}}">Edit Vacancie</a>               
-                            <a class="btn btn-danger" href="{{{ URL::to("/deleteVacancie/".$vacancie->id) }}}">Delete Vacancie</a>
+                            <a class="btn btn-warning btn-xs" href="{{{ URL::to("/editVacancie/".$vacancie->id) }}}">Edit</a>               
+                            <a class="btn btn-danger btn-xs" href="{{{ URL::to("/deleteVacancie/".$vacancie->id) }}}">Delete</a>
                         @endif
                         </td>
                     @endif         
@@ -102,9 +102,9 @@
             </tbody>
         </table>
         </div>
-        
+        <!--
     </div>
-</div>
+</div>-->
 
     <div>
         {{$vacancies->links()}} <!-- pagination links -->

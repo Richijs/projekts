@@ -14,8 +14,7 @@ class CreatePasswordRemindersTable extends Migration {
 	{
 		Schema::create('token', function(Blueprint $table)
 		{
-                    //email is foreign key, maybe?
-			$table->string('email')->index();
+			$table->string('email','100')->index();
 			$table->string('token')->index();
 			$table->timestamp('created_at');
 		});

@@ -17,8 +17,8 @@ class MessagingController extends BaseController {
             }
                                        
             $validator = Validator::make(Input::all(), [
-                "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id,
-                "email" => "required|email|unique:users,email,".$id,
+                "username" => "required|min:3|max:30|alpha_num|unique:users,username,".$id,
+                "email" => "required|email|max:50|unique:users,email,".$id,
                 "subject" => "required|min:3|max:100",
                 "message" => "required|min:10|max:1000",
             ]);

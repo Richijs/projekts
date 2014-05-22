@@ -53,7 +53,7 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "email" => "required|email|exists:users,email,active,1",  //exists this user email and active = 1
+                "email" => "required|email|max:50|exists:users,email,active,1",  //exists this user email and active = 1
             ]);
                         
             if ($validator->passes())
@@ -100,7 +100,7 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "email"                 => "required|email|exists:users,email",
+                "email"                 => "required|email|max:50|exists:users,email",
                 "password"              => "required|min:6",
                 "password_confirmation" => "required|same:password",
                 "token"                 => "required|exists:token,token"
@@ -156,14 +156,14 @@ class UsersController extends BaseController {
         if (Input::server("REQUEST_METHOD") == "POST")
         {
             $validator = Validator::make(Input::all(), [
-                "username" => "required|min:3|max:50|alpha_num|unique:users,username",
+                "username" => "required|min:3|max:30|alpha_num|unique:users,username",
                 "password" => "required|min:6",
                 "password_confirmation" => "required|same:password",
-                "firstname" => "required|alpha|max:70",
-                "lastname" => "required|alpha|max:70",
-                "about" => "max:500",
-                "email" => "required|email|unique:users,email",
-                "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                "firstname" => "required|alpha|max:50",
+                "lastname" => "required|alpha|max:50",
+                "about" => "max:1000",
+                "email" => "required|email|max:50|unique:users,email",
+                "picture" => "image|max:3000|mimes:jpg,jpeg,png,gif",
                 "userType" => "required"
             ]);
             if ($validator->passes())
@@ -292,12 +292,12 @@ class UsersController extends BaseController {
             if (Input::server("REQUEST_METHOD") == "POST")
             {
                 $validator = Validator::make(Input::all(), [
-                    "username" => "required|min:3|max:50|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
-                    "email" => "required|email|unique:users,email,".$id,
-                    "firstname" => "required|alpha|max:70",
-                    "lastname" => "required|alpha|max:70",
-                    "about" => "max:500",
-                    "picture" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
+                    "username" => "required|min:3|max:30|alpha_num|unique:users,username,".$id, //ignorē sava ID datus! :)
+                    "email" => "required|email|max:50|unique:users,email,".$id,
+                    "firstname" => "required|alpha|max:50",
+                    "lastname" => "required|alpha|max:50",
+                    "about" => "max:1000",
+                    "picture" => "image|max:3000|mimes:jpg,jpeg,png,gif",
                ]);
                 
                if ($validator->passes())

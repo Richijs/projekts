@@ -62,7 +62,7 @@
                   
         <li class="list-group-item">
             <b>Username:</b> {{{$user->username}}}
-            @if (Auth::check() && $user->id!=Auth::user()->id)
+            @if (Auth::check() && $user->id!=Auth::user()->id && $user->userGroup!=3)
                     
                 <a class="btn btn-default" href="{{URL::to("/recommend/".$user->id)}}">
                 @if ($user->recommended)

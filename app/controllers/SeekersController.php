@@ -16,9 +16,9 @@ class SeekersController extends BaseController {
             {
                 $validator = Validator::make(Input::all(), [
                     "intro" => "required|min:3|max:100",
-                    "text" => "required|min:10|max:500",
+                    "text" => "required|min:10|max:1000",
                     "cv" => "required|max:3000|mimes:pdf,doc,docx,odt",
-                    "phone" => "required|numeric|digits_between:3,20"
+                    "phone" => "numeric|digits_between:3,20"
                 ]);
             
                 if ($validator->passes())
@@ -185,9 +185,9 @@ class SeekersController extends BaseController {
             
                 $validator = Validator::make(Input::all(), [
                     "intro" => "required|min:3|max:100",
-                    "text" => "required|min:10|max:500",
+                    "text" => "required|min:10|max:1000",
                     "cv" => "max:3000|mimes:pdf,doc,docx,odt", //vairs nav obligāts lauks, jo var būt situācija, kad lietotājs nevēlas mainīt CV
-                    "phone" => "required|numeric|digits_between:3,20"
+                    "phone" => "numeric|digits_between:3,20"
                 ]);
                 if ($validator->passes())
                 {   

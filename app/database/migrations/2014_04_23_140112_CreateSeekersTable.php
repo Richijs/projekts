@@ -14,12 +14,11 @@ class CreateSeekersTable extends Migration {
 	{
 		Schema::create('seekers', function(Blueprint $table)
 		{
-			    //ar laiku jāsamaina korekti
                     $table->increments("id");
                     $table->string("intro","100");
-                    $table->string("text","500");
+                    $table->string("text","1000");
                     $table->string("cv");
-                    $table->string("phone","20");
+                    $table->string("phone","20")->nullable()->default(NULL);
                     $table->integer('user_id')->unsigned()->unique();
                         $table->foreign('user_id')->references('id')->on('users'); //one user - one job seeking
                     $table->dateTime("created_at");

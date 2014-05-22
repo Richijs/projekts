@@ -9,7 +9,7 @@
 
 
         @if (isset($users))
-        
+       <!-- 
     <div class="panel panel-default">
     <div class="panel-heading">
         <div class="panel-title">
@@ -18,7 +18,7 @@
     </div>
     <div class="panel-body">
             
-        
+        -->
         
         <div class='table-responsive'>
         <table class='table'>
@@ -41,11 +41,11 @@
                 <td>  
                 @if ($user->picture)
                 
-                    <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="50" height="50" alt="user picture"/>
+                    <img src="{{URL::to('/')}}/{{{$user->picture}}}" width="36" height="36" alt="user picture"/>
                 
                 @else
                 
-                    <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="profile picture"/>
+                    <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="36" height="36" alt="profile picture"/>
                 
                 @endif
                 <!-- else - shows default picture -->
@@ -95,8 +95,9 @@
             </tbody>
         </table>
         </div>
-    </div>
-    </div>
+<!--  
+</div>
+    </div> -->
             <div>
                 {{$users->links()}} <!-- pagination links -->
             </div>

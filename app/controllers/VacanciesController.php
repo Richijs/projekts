@@ -42,10 +42,10 @@ class VacanciesController extends BaseController {
         {
             $validator = Validator::make(Input::all(), [
                 "name" => "required|min:3|max:100|unique:vacancies,name",
-                "text" => "required|min:10|max:500",
+                "text" => "required|min:10|max:1000",
                 "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
                 "phone" => "min:3|max:20",
-                "company" => "max:200"
+                "company" => "max:100"
             ]);
             
             if ($validator->passes())
@@ -156,10 +156,10 @@ class VacanciesController extends BaseController {
             
                 $validator = Validator::make(Input::all(), [
                     "name" => "required|min:3|max:100|unique:vacancies,name,".$vacancieId->id, //ja nemainās input name, ļauj tāpat saglabāt
-                    "text" => "required|min:10|max:500",
+                    "text" => "required|min:10|max:1000",
                     "poster" => "image|max:3000|mimes:jpg,jpeg,png,bmp,gif",
                     "phone" => "min:3|max:20",
-                    "company" => "max:200"
+                    "company" => "max:100"
                 ]);
                 
                 if ($validator->passes())

@@ -14,7 +14,6 @@ class CreateApplicationsTable extends Migration {
 	{
 		Schema::create('applications', function(Blueprint $table)
 		{
-                        //ar laiku jāsamaina korekti
                     $table->increments("id");
                     $table->integer('user_id')->unsigned();
                         $table->foreign('user_id')->references('id')->on('users'); //one user can apply many vacancies
