@@ -12,6 +12,7 @@ return array(
 	|
 	*/
     
+    //applications
         'apply-letter' => 'Application letter',
         'letter' => 'Letter',
         'apply-job' => 'Apply Job',
@@ -19,6 +20,8 @@ return array(
         'wish-to-delete-application' => 'I wish to delete this Application',
         'delete-application' => 'Delete Application',
         'edit-application' => 'Edit Application',
+        'email' => 'E-mail',
+        'phone' => 'Phone',
     
     
     

@@ -57,8 +57,8 @@ body{
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
-    border: 1px dotted #428bca;
-    background-color: #428bca;
+    //border: 1px dotted #428bca;
+    //background-color: #428bca;
 }
 
 .footer .container{
@@ -96,4 +96,8 @@ body{
 
 .unreadBold{
     font-weight: bold;
+}
+
+.midVacancieRow{
+    margin-bottom: 30px;
 }

@@ -1,8 +1,8 @@
 @extends("layout")
 @section("content")
-    <span class="page-control">
-        <a class="btn btn-default btn-sm" href="{{URL::to("/viewApplication/".$applicationId)}}">{{ trans('buttons.to-application') }}</a>
-        <a class="btn btn-default btn-sm" href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{ trans('buttons.to-vacancie') }}</a>
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{URL::to("/viewApplication/".$applicationId)}}">{{ trans('buttons.to-application') }}</a>
+        <a class="btn btn-default" href="{{URL::to("/viewVacancie/".$vacancieId)}}">{{ trans('buttons.to-vacancie') }}</a>
     </span>
 
     <div class="page-header">

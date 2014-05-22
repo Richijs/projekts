@@ -12,12 +12,10 @@ return array(
 	|
 	*/
     
-        'applying-vacancie' => 'Applying Vacancie ',
-        'delete' => 'Delete',
-        'application-u' => 'Application', //pieteikumu
-        'to-delete-application-confirm' => 'To delete Application, confirm deletion.',
-        'edit' => 'Edit',
-        'application-for-vacancie' => 'Application for Vacancie',
+        'applied-at' => 'Applied at',
+        'jobseeker-data' => 'Job searcher data',
+        'searching-for-job-since' => 'is searching for job since',
+    
     
     
 );

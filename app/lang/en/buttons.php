@@ -17,6 +17,11 @@ return array(
         'my-applications' => 'my Applications',
         'to-application' => 'to Application',
         'profile' => 'Profile',
+        'edit-application' => 'Edit Application',
+        'delete-application' => 'Delete Application',
+        'edit-jobseek-data' => 'Edit Jobseeker data',
+        'delete-jobseek-data' => 'Delete Jobseeker data',
+        'download-cv' => 'Download CV',
     
     
         

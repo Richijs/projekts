@@ -1,9 +1,9 @@
 @extends("layout")
 @section("content")
-    <span class="page-control">
-        <a class="btn btn-default btn-sm" href="{{ URL::to("/viewVacancie/".$vacancieId)}}">{{ trans('buttons.to-vacancie') }}</a>
-        <a class="btn btn-default btn-sm" href="{{ URL::to("/viewAllVacancies")}}">{{ trans('buttons.all-vacancies') }}</a>
-        <a class="btn btn-default btn-sm" href="{{ URL::to("/myApplications")}}">{{ trans('buttons.my-applications') }}</a>
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ URL::to("/viewVacancie/".$vacancieId)}}">{{ trans('buttons.to-vacancie') }}</a>
+        <a class="btn btn-default" href="{{ URL::to("/viewAllVacancies")}}">{{ trans('buttons.all-vacancies') }}</a>
+        <a class="btn btn-default" href="{{ URL::to("/myApplications")}}">{{ trans('buttons.my-applications') }}</a>
     </span>
 
     <div class="page-header">
