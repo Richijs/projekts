@@ -25,6 +25,10 @@ return array(
         'random-admin-will-be-contacted' => 'Random Administrator will be contacted.',
         'send-message-to' => 'Send private message to',
         'viewing-message' => 'Viewing Message',
+        'your' => 'Your',
+        'messages' => 'messages',
+        'sent' => 'sent',
+        'received' => 'received',
     
     
 );

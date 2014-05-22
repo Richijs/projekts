@@ -27,6 +27,7 @@ return array(
         'all-site-users' => 'All site Users',
         'to-messages' => 'To Messages',
         'reply' => 'Reply',
+        'delete-message' => 'Delete Message',
     
     
         

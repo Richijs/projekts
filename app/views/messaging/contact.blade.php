@@ -2,7 +2,7 @@
 @section("content")
 
     <span class="page-control btn-group btn-group-sm">
-        <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.view-all-site-users') }}</a>
+        <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
     </span>
 
     <div class="page-header">

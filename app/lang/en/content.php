@@ -27,6 +27,9 @@ return array(
         'from' => 'from',
         'to' => 'to',
         'at' => 'at',
+        'date' => 'Date',
+        'actions' => 'Actions',
+        'no-messages-to-show' => 'No messages to show.',
     
     
     
