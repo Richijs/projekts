@@ -39,6 +39,9 @@ return array(
         'job-searchers' => 'Job Searchers',
         'your-jobsearch-data' => 'Your JobSeek data',
         'change-password' => 'Change Password',
+        'profile-u' => 'profile',
+        'to-delete-account-enter-your-password' => 'To delete Account, enter YOUR password',
+        'warning-all-userdata-will-delete' => 'Warning - All User created data will be deleted',
     
     
 );

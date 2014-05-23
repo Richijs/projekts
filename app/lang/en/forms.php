@@ -46,6 +46,7 @@ return array(
         'current-password' => 'Current Password',
         'new-password' => 'New Password',
         'confirm-new-password' => 'Confirm New Password',
+        'password' => 'Password',
     
     
 );
