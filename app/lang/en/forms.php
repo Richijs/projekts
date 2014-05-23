@@ -68,6 +68,8 @@ return array(
         'company-name' => 'Company name',
         'poster' => 'Poster',
         'wish-to-delete-vacancie' => 'I wish to delete Vacancie',
+        'current-poster' => 'Current Poster',
+        'new-poster' => 'New Poster',
     
     
 );
