@@ -51,6 +51,7 @@ return array(
         'reset-and-change-password' => 'Reset and change Password',
         'public-profile' => 'public Profile',
         'all-users' => 'All Users',
+        'add-vacancie' => 'Add Vacancie',
     
     
 );

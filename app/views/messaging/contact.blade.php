@@ -1,10 +1,12 @@
 @extends("layout")
 @section("content")
-
+    
+    @if (Auth::check())
     <span class="page-control btn-group btn-group-sm">
         <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
     </span>
-
+    @endif
+    
     <div class="page-header">
         <h2>{{ trans('titles.send-email-to-admin') }}
             <div>

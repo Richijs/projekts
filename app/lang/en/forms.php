@@ -63,5 +63,10 @@ return array(
         'confirm-password' => 'Confirm Password',
         'picture' => 'Picture',
     
+    //vacancies
+        'vacancie-name' => 'Vacancie Name',
+        'company-name' => 'Company name',
+        'poster' => 'Poster',
+    
     
 );
