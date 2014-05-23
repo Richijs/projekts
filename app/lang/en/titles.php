@@ -37,6 +37,7 @@ return array(
         'to-delete-jobseek-confirm' => 'To delete JobSeek data, confirm deletion',
         'edit-jobseek' => 'Edit JobSeek data',
         'job-searchers' => 'Job Searchers',
+        'your-jobsearch-data' => 'Your JobSeek data',
     
     
 );
