@@ -43,6 +43,7 @@ return array(
         'reset-password' => 'Reset Password',
         'is-searching-for-job' => 'is searching for Job',
         'edit-vacancie' => 'Edit Vacancie',
+        'apply-vacancie' => 'Apply Vacancie',
     
         
     

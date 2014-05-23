@@ -49,6 +49,8 @@ return array(
         'new-applicants' => 'New Applicants!',
         'applied' => 'Applied',
         'you-havent-added-any-vacancies' => "You have'nt added any Vacancies",
+        'no-vacancies-to-show' => 'No Vacancies to show',
+        'added-by' => 'Added By',
     
     
     
