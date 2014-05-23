@@ -39,6 +39,7 @@ return array(
         'my-messages' => 'My Messages',
         'users-who-i-recommended' => 'Users, who I recommended',
         'users-who-recommended-me' => 'Users, who recommended Me',
+        'request' => 'Request',
     
         
     

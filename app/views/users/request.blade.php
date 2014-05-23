@@ -1,8 +1,13 @@
 @extends("layout")
 @section("content")
 
+<span class="page-control btn-group btn-group-sm">
+    <a class="btn btn-default" href="{{URL::to("/login/")}}">{{ trans('titles.log-in') }}?</a>
+    <a class="btn btn-default" href="{{URL::to("/register/")}}">{{ trans('titles.register') }}?</a>
+</span>
+
 <div class="page-header">
-    <h1>Request password change</h1>
+    <h2>{{ trans('titles.request-password-change') }}</h2>
 </div> 
 
     {{ Form::open([
@@ -13,13 +18,13 @@
     ]) }}
     
     <div class="form-group @if ($errors->first('email')) has-error@endif">
-        {{ Form::label("email", "Email",[
+        {{ Form::label("email", trans('forms.email'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("email", Input::get("email"), [
-                "placeholder" => "email",
+                "placeholder" => trans('forms.email'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -33,7 +38,7 @@
     
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-                {{ Form::submit("request",["class" => "btn btn-warning btn-block"]) }}
+                {{ Form::submit(trans('buttons.request'),["class" => "btn btn-warning btn-block"]) }}
             </div>
         </div>
         

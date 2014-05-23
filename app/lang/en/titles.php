@@ -47,6 +47,7 @@ return array(
         'hello' => 'Hello',
         'your-profile-page' => 'Your Profile page',
         'register' => 'Register',
+        'request-password-change' => 'Request Password change',
     
     
 );
