@@ -29,6 +29,9 @@ return array(
         'messages' => 'messages',
         'sent' => 'sent',
         'received' => 'received',
+        'users-who' => 'Users, who',
+        'you' => 'You',
+        'recommended' => 'Recommended',
     
     
 );

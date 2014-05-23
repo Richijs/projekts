@@ -28,6 +28,7 @@ return array(
         'to-messages' => 'To Messages',
         'reply' => 'Reply',
         'delete-message' => 'Delete Message',
+        'recommenders' => 'Recommenders',
     
     
         

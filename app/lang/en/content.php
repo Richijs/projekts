@@ -30,6 +30,8 @@ return array(
         'date' => 'Date',
         'actions' => 'Actions',
         'no-messages-to-show' => 'No messages to show.',
+        'recommended-at' => 'Recommended At',
+        'no-recommendations-done-yet' => 'No Recommendations done yet.',
     
     
     
