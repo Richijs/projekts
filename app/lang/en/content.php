@@ -34,6 +34,9 @@ return array(
         'recommended-at' => 'Recommended At',
         'no-recommendations-done-yet' => 'No Recommendations done yet.',
         'no-recommenders-yet' => 'No Recommenders yet.',
+        'intro-title' => 'Intro Title',
+        'searching-since' => 'Searching since',
+        'no-jobseekers-to-show' => 'No JobSearchers to show.',
     
     
     

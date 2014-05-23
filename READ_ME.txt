@@ -91,3 +91,5 @@ button sizing/transl
 view other user messages buttons (ADMIN)
 
 correct pagination sizes
+
+controller trans / comm
