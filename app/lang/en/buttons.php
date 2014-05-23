@@ -35,6 +35,7 @@ return array(
         'to-jobseek' => 'To JobSeek',
         'my-jobseek' => 'My Jobseek',
         'delete-profile' => 'Delete Profile',
+        'edit-profile' => 'Edit Profile',
     
     
         

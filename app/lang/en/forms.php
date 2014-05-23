@@ -47,6 +47,16 @@ return array(
         'new-password' => 'New Password',
         'confirm-new-password' => 'Confirm New Password',
         'password' => 'Password',
-    
+        'username' => 'Username',
+        'firstname' => 'Firstname',
+        'lastname' => 'Lastname',
+        'changing-usergroup-will-delete-user-data-except' => 'Changing user group will delete all user created data (except messages and own added recommendations) !',
+        'usergroup' => 'User Group',
+        'admin' => 'Admin',
+        'employer' => 'Employer',
+        'job-seeker' => 'Job Seeker',
+        'about' => 'About',
+        'current-profile-picture' => 'Current Profile picture',
+        'new-profile-picture' => 'New Profile picture'
     
 );
