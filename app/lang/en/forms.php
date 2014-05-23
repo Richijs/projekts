@@ -38,6 +38,9 @@ return array(
         'text' => 'Text',
         'your-cv' => 'Your CV',
         'wish-to-delete-jobseek' => 'I wish to delete Jobseek data',
+        'current-cv' => 'Currently uploaded CV',
+        'download-current-cv' => 'Download current CV',
+        'upload-new-cv' => 'Upload new CV',
     
     
 );

@@ -4,9 +4,11 @@
     <span class="page-control btn-group btn-group-sm">
         @if (Auth::user()->userGroup == 3)
             <a class="btn btn-default" href="{{ URL::to("/profile/")}}">{{ trans('buttons.my-profile') }}</a>
+            <a class="btn btn-default" href="{{ URL::to("/myJobSeek/")}}">{{ trans('buttons.my-jobseek') }}</a>
         @endif
-        <a class="btn btn-default" href="{{URL::to("/viewSeeker/".$id)}}">{{ trans('buttons.to-jobseek') }}</a>
+        
         @if (Auth::user()->userGroup == 1)
+            <a class="btn btn-default" href="{{URL::to("/viewSeeker/".$id)}}">{{ trans('buttons.to-jobseek') }}</a>
             <a class="btn btn-default" href="{{URL::to("/viewAllSeekers")}}">{{ trans('buttons.all-job-seekers') }}</a>
         @endif
     </span>
