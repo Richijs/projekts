@@ -43,6 +43,7 @@ return array(
         'to-delete-account-enter-your-password' => 'To delete Account, enter YOUR password',
         'warning-all-userdata-will-delete' => 'Warning - All User created data will be deleted',
         'user-data-us' => 'user data',
+        'log-in' => 'Log In',
     
     
 );

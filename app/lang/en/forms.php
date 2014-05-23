@@ -57,6 +57,9 @@ return array(
         'job-seeker' => 'Job Seeker',
         'about' => 'About',
         'current-profile-picture' => 'Current Profile picture',
-        'new-profile-picture' => 'New Profile picture'
+        'new-profile-picture' => 'New Profile picture',
+        'forgot-password-question' => 'Forgot Password?',
+        'remember-me' => 'Remember Me',
+    
     
 );
