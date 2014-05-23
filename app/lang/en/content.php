@@ -44,6 +44,11 @@ return array(
         'active' => 'Active',
         'not-activated' => 'Not Activated',
         'no-users-to-show' => 'No Users to show.',
+        'applicants' => 'Applicants',
+        'created' => 'Created',
+        'new-applicants' => 'New Applicants!',
+        'applied' => 'Applied',
+        'you-havent-added-any-vacancies' => "You have'nt added any Vacancies",
     
     
     

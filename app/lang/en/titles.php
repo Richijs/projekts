@@ -54,6 +54,7 @@ return array(
         'add-vacancie' => 'Add Vacancie',
         'to-delete-vacancie-confirm' => 'To delete Vacancie, confirm deletion',
         'delete-vacancie' => 'Delete Vacancie',
+        'your-added-vacancies' => 'Your added Vacancies',
     
     
 );
