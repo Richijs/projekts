@@ -40,6 +40,10 @@ return array(
         'you-havent-added-seeker-data-yet' => "You have'nt added Your jobseeker data yet.",
         'joined' => 'Joined',
         'user-has-not-yet-activated-account' => 'This User has not yet activated his/her Account.',
+        'status' => 'Status',
+        'active' => 'Active',
+        'not-activated' => 'Not Activated',
+        'no-users-to-show' => 'No Users to show.',
     
     
     

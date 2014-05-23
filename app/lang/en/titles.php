@@ -50,6 +50,7 @@ return array(
         'request-password-change' => 'Request Password change',
         'reset-and-change-password' => 'Reset and change Password',
         'public-profile' => 'public Profile',
+        'all-users' => 'All Users',
     
     
 );
