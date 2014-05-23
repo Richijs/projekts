@@ -1,11 +1,19 @@
 @extends("layout")
 @section("content")
 
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{URL::to("/viewVacancie/".$id)}}">{{ trans('buttons.to-vacancie') }}</a>
+        <a class="btn btn-default" href="{{{ URL::to("/myVacancies") }}}">{{ trans('buttons.my-vacancies') }}</a>
+        <a class="btn btn-default" href="{{ URL::to("/viewAllVacancies")}}">{{ trans('buttons.all-vacancies') }}</a>
+    </span>
+
     <div class="page-header">
-        <h1>
-            Delete <a href="{{ URL::to("/viewVacancie/".$id)}}">{{{ $name }}}</a> vacancie
-            <div><small>To delete Vacancie, Confirm deletion</small></div>
-        </h1>
+        <h2>{{ trans('titles.delete-vacancie') }}: 
+            <small>
+                <a href="{{ URL::to("/viewVacancie/".$id)}}">{{{ $name }}}</a>
+            </small>
+        </h2>
+        <span class="text-danger">{{ trans('titles.to-delete-vacancie-confirm') }}</span>
     </div>
 
     {{ Form::open([
@@ -15,7 +23,7 @@
     ]) }}
     
         <div class="form-group @if ($errors->first('checkbox')) has-error@endif">
-            {{ Form::label("confirmation", "Confirmation",[
+            {{ Form::label("confirmation", trans('forms.confirmation'),[
                 "class"  => "col-sm-4 control-label required"
             ]) }}
             
@@ -24,7 +32,7 @@
                     {{ Form::checkbox("checkbox",true,false,[
                         "id" => "checkbox"
                     ]) }}
-                    {{ Form::label("checkbox","I Wish to delete this vaccancie") }}
+                    {{ Form::label("checkbox",trans('forms.wish-to-delete-vacancie')) }}
                 </div>
             </div>
             
@@ -37,7 +45,7 @@
         
         <div class="form-group">
             <div class="col-sm-offset-4 col-sm-4">
-                {{ Form::submit("Delete Vacancie",["class" => "btn btn-danger btn-block"]) }}
+                {{ Form::submit(trans('titles.delete-vacancie'),["class" => "btn btn-danger btn-block"]) }}
             </div>
         </div>
     

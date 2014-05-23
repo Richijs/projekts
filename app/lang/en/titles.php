@@ -52,6 +52,8 @@ return array(
         'public-profile' => 'public Profile',
         'all-users' => 'All Users',
         'add-vacancie' => 'Add Vacancie',
+        'to-delete-vacancie-confirm' => 'To delete Vacancie, confirm deletion',
+        'delete-vacancie' => 'Delete Vacancie',
     
     
 );
