@@ -3,7 +3,7 @@
 
     <span class="page-control btn-group btn-group-sm">
         <a class="btn btn-default" href="{{URL::to("/viewUser/".$receiver_id)}}">{{{$username}}} {{ trans('buttons.profile') }}</a>
-        <a class="btn btn-default" href="{{URL::to("/viewMessages/".Auth::user()->id)}}">{{ trans('buttons.to-messages') }}</a>
+        <a class="btn btn-default" href="{{URL::to("/viewMessages/".Auth::user()->id)}}">{{ trans('buttons.to-my-messages') }}</a>
         <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
     </span>
 

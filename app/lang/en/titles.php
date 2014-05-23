@@ -49,6 +49,7 @@ return array(
         'register' => 'Register',
         'request-password-change' => 'Request Password change',
         'reset-and-change-password' => 'Reset and change Password',
+        'public-profile' => 'public Profile',
     
     
 );

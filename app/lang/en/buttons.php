@@ -25,7 +25,7 @@ return array(
         'my-vacancies' => 'My Vacancies',
         'view-your-application' => 'View Your Application',
         'all-site-users' => 'All site Users',
-        'to-messages' => 'To Messages',
+        'to-my-messages' => 'To My Messages',
         'reply' => 'Reply',
         'delete-message' => 'Delete Message',
         'recommenders' => 'Recommenders',
@@ -41,6 +41,7 @@ return array(
         'users-who-recommended-me' => 'Users, who recommended Me',
         'request' => 'Request',
         'reset-password' => 'Reset Password',
+        'is-searching-for-job' => 'is searching for Job',
     
         
     

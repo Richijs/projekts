@@ -2,6 +2,12 @@
 @section("content")
 
 <span class="page-control btn-group btn-group-sm">
+    @if(Auth::user()->id != $user_id)
+        <a class="btn btn-default" href="{{ URL::to("/viewUser/".$user_id) }}">{{{ $username }}} {{ trans('buttons.profile') }}</a>
+    @elseif (Auth::user()->id == $user_id)
+        <a class="btn btn-default" href="{{ URL::to("/profile/") }}">{{ trans('titles.your') }} {{ trans('buttons.profile') }}</a>
+    @endif
+    
     <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
 </span>
 

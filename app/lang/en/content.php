@@ -39,6 +39,7 @@ return array(
         'no-jobseekers-to-show' => 'No JobSearchers to show.',
         'you-havent-added-seeker-data-yet' => "You have'nt added Your jobseeker data yet.",
         'joined' => 'Joined',
+        'user-has-not-yet-activated-account' => 'This User has not yet activated his/her Account.',
     
     
     

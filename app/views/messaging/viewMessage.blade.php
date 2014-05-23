@@ -14,7 +14,7 @@
             <a class="btn btn-default" href="{{URL::to("/viewUser/".$message->receiver_id)}}">{{{ $message->receiverName }}} {{ trans('buttons.profile') }}</a>
         @endif
         
-        <a class="btn btn-default" href="{{URL::to("/viewMessages/".Auth::user()->id)}}">{{ trans('buttons.to-messages') }}</a>
+        <a class="btn btn-default" href="{{URL::to("/viewMessages/".Auth::user()->id)}}">{{ trans('buttons.to-my-messages') }}</a>
         <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
     </span>
 
