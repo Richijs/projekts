@@ -1,8 +1,12 @@
 @extends("layout")
 @section("content")
     
+<span class="page-control btn-group btn-group-sm">
+    <a class="btn btn-default" href="{{URL::to("/login/")}}">{{ trans('titles.log-in') }}?</a>
+</span>
+
 <div class="page-header">
-    <h1>Reset and change password</h1>
+    <h2>{{ trans('titles.reset-and-change-password') }}</h2>
 </div> 
 
     {{ Form::open([
@@ -15,19 +19,19 @@
     <div class="form-group">
         @if ($error = $errors->first("token"))
             <div class="error col-sm-offset-4 col-sm-4">
-                {{ $error }} <!-- jāieliek custom multilang error (ir jābūt norādītam korektam token - apskatiet savu e-pastu vai sūtiet pieprasījumu vēlreiz).. -->
+                {{ $error }}
             </div>
         @endif
     </div>  
     
     <div class="form-group @if ($errors->first('email')) has-error@endif">    
-        {{ Form::label("email", "Email",[
+        {{ Form::label("email", trans('forms.email'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("email", Input::get("email"), [
-                "placeholder" => "email",
+                "placeholder" => trans('forms.email'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -40,13 +44,13 @@
     </div>
     
     <div class="form-group @if ($errors->first('password')) has-error@endif">
-        {{ Form::label("password", "Password",[
+        {{ Form::label("password", trans('forms.password'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::password("password", [
-                "placeholder" => "password",
+                "placeholder" => trans('forms.password'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -59,13 +63,13 @@
     </div>
     
     <div class="form-group @if ($errors->first('password_confirmation')) has-error@endif">
-        {{ Form::label("password_confirmation", "Confirm",[
+        {{ Form::label("password_confirmation", trans('forms.confirm-password'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::password("password_confirmation", [
-                "placeholder" => "confirm password",
+                "placeholder" => trans('forms.confirm-password'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -79,7 +83,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4"> 
-            {{ Form::submit("reset",["class" => "btn btn-warning btn-block"]) }}
+            {{ Form::submit(trans('buttons.reset-password'),["class" => "btn btn-warning btn-block"]) }}
         </div>
     </div>
     

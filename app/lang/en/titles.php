@@ -48,6 +48,7 @@ return array(
         'your-profile-page' => 'Your Profile page',
         'register' => 'Register',
         'request-password-change' => 'Request Password change',
+        'reset-and-change-password' => 'Reset and change Password',
     
     
 );

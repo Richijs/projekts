@@ -14,7 +14,7 @@ return array(
     
         'to-vacancie' => 'to Vacancie',
         'all-vacancies' => 'all Vacancies',
-        'my-applications' => 'my Applications',
+        'my-applications' => 'My Applications',
         'to-application' => 'to Application',
         'profile' => 'Profile',
         'edit-application' => 'Edit Application',
@@ -40,6 +40,7 @@ return array(
         'users-who-i-recommended' => 'Users, who I recommended',
         'users-who-recommended-me' => 'Users, who recommended Me',
         'request' => 'Request',
+        'reset-password' => 'Reset Password',
     
         
     
