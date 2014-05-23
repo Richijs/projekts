@@ -93,3 +93,7 @@ view other user messages buttons (ADMIN)
 correct pagination sizes
 
 controller trans / comm
+
+img sizing
+
+sendmessage everywhere

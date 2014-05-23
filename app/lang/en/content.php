@@ -38,6 +38,7 @@ return array(
         'searching-since' => 'Searching since',
         'no-jobseekers-to-show' => 'No JobSearchers to show.',
         'you-havent-added-seeker-data-yet' => "You have'nt added Your jobseeker data yet.",
+        'joined' => 'Joined',
     
     
     

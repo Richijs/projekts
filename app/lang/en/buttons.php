@@ -36,7 +36,9 @@ return array(
         'my-jobseek' => 'My Jobseek',
         'delete-profile' => 'Delete Profile',
         'edit-profile' => 'Edit Profile',
-    
+        'my-messages' => 'My Messages',
+        'users-who-i-recommended' => 'Users, who I recommended',
+        'users-who-recommended-me' => 'Users, who recommended Me',
     
         
     

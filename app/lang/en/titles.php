@@ -44,6 +44,8 @@ return array(
         'warning-all-userdata-will-delete' => 'Warning - All User created data will be deleted',
         'user-data-us' => 'user data',
         'log-in' => 'Log In',
+        'hello' => 'Hello',
+        'your-profile-page' => 'Your Profile page',
     
     
 );

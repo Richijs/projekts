@@ -1,103 +1,83 @@
 @extends("layout")
 @section("content")
 
-<div class="page-header">
-    <h2>Hello, <a href="{{{ URL::to("/viewUser/".Auth::user()->id) }}}">{{{ Auth::user()->username }}}</a>
-        <div><small>Your profile page</small></div>
-    </h2>
-</div>
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-warning" href="{{{ URL::to("/editUser/".Auth::user()->id) }}}">{{trans('buttons.edit-profile')}}</a>                
+        <a class="btn btn-warning" href="{{{ URL::to("/changePass") }}}">{{ trans('titles.change-password') }}</a>
+        <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".Auth::user()->id) }}}">{{ trans('buttons.delete-profile') }}</a>
+    </span>
 
-
-
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <div class="panel-title">
-            <b>Profile panel</b>
-        </div>
+    <div class="page-header">
+        <h2>{{ trans('titles.hello') }}, <a href="{{{ URL::to("/viewUser/".Auth::user()->id) }}}">{{{ Auth::user()->username }}}</a>
+            <div><small>{{ trans('titles.your-profile-page') }}</small></div>
+        </h2>
     </div>
-    <div class="panel-body">
-        
 
-                        
-            <div class="btn-group-vertical col-sm-5">
-                
-                
+
+ <ul class="list-group col-sm-offset-1 col-sm-6">
+     
+    <li class="list-group-item profileImg">
         <div>
-            <b>Profile picture:</b>
             @if (Auth::user()->picture)
-            
                 <img class="img-thumbnail" src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="200" alt="user picture"/>
-            
             @else
-            
                 <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
-            
-        @endif
-
+            @endif     
         </div>
-                
-                
-    <a class="btn btn-warning" href="{{{ URL::to("/editUser/".Auth::user()->id) }}}">Edit User Data</a>            
-                
-    <a class="btn btn-warning" href="{{{ URL::to("/changePass") }}}">Change Password</a>
+    </li>
+                  
+    <li class="list-group-item">
+        {{ trans('forms.username') }}: <b>{{{Auth::user()->username}}}</b>
+    </li>
+    
+    <li class="list-group-item">
+        {{ trans('forms.firstname') }}: <b>{{{Auth::user()->firstname}}}</b>
+    </li>
+    
+    <li class="list-group-item">
+        {{ trans('forms.lastname') }}: <b>{{{Auth::user()->lastname}}}</b>
+    </li>
+    
+    <li class="list-group-item">
+        {{ trans('forms.email') }}: <b>{{{Auth::user()->email}}}</b>
+    </li>
+        
+    @if (Auth::user()->about)
+    <li class="list-group-item well-item">
+        {{ trans('forms.about') }}: 
+        <div class="newlineText well well-sm well-item-inside"><b>{{{Auth::user()->about}}}</b></div>
+    </li>
+    @endif
+        
+    <li class="list-group-item">
+        {{ trans('forms.usergroup') }}:
+        <b>
+            @if (Auth::user()->userGroup===1) {{ trans('forms.admin') }} @endif
+            @if (Auth::user()->userGroup===2) {{ trans('forms.employer') }} @endif
+            @if (Auth::user()->userGroup===3) {{ trans('forms.job-seeker') }} @endif
+        </b>
+    </li>
+    
+    <li class="list-group-item">
+        {{ trans('content.joined') }}: <b>{{{ date('d.m.y H:i',strtotime(Auth::user()->created_at))}}}</b>
+    </li>
+    
+</ul>
 
-    <a class="btn btn-danger" href="{{{ URL::to("/deleteUser/".Auth::user()->id) }}}">Delete profile</a>
-
-    <a class="btn btn-default" href="{{{ URL::to("/viewRecommendations/".Auth::user()->id) }}}">Users who I have recommended</a>
+<div class="btn-group-vertical col-sm-4">
+    <a class="btn btn-default" href="{{{ URL::to("/viewRecommendations/".Auth::user()->id) }}}">{{ trans('buttons.users-who-i-recommended') }}</a>
 
     @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===2)
-        <a class="btn btn-default" href="{{{ URL::to("/viewRecommenders/".Auth::user()->id) }}}">Users who recommended me</a>
-
-        <a class="btn btn-default" href="{{{ URL::to("/myVacancies") }}}">My Vacancies</a>
+        <a class="btn btn-default" href="{{{ URL::to("/viewRecommenders/".Auth::user()->id) }}}">{{ trans('buttons.users-who-recommended-me') }}</a>
+        <a class="btn btn-default" href="{{{ URL::to("/myVacancies") }}}">{{ trans('buttons.my-vacancies') }}</a>
     @endif
 
     @if (Auth::user()->userGroup===1 || Auth::user()->userGroup===3)
-        <a class="btn btn-default" href="{{{ URL::to("/myJobSeek") }}}">My Job Seek</a>
-
-        <a class="btn btn-default" href="{{{ URL::to("/myApplications") }}}">My Applications</a>
+        <a class="btn btn-default" href="{{{ URL::to("/myJobSeek") }}}">{{ trans('buttons.my-jobseek') }}</a>
+        <a class="btn btn-default" href="{{{ URL::to("/myApplications") }}}">{{ trans('buttons.my-applications') }}</a>
     @endif
     
-    
-            </div>   
-            
-
-                   
-              <ul class="list-group col-sm-offset-0 col-sm-5">
-          
-                  
-        <li class="list-group-item">
-            <b>Username:</b> {{{Auth::user()->username}}}
-        </li>
-        <li class="list-group-item">
-            <b>First name:</b> {{{Auth::user()->firstname}}}
-        </li>
-        <li class="list-group-item">
-            <b>Last name:</b> {{{Auth::user()->lastname}}}
-        </li>
-        <li class="list-group-item">
-            <b>E-mail:</b> {{{Auth::user()->email}}}
-        </li>
-        
-        @if (Auth::user()->about)
-            <li class="list-group-item">
-            <b>About:</b>
-            <div class="newlineText well well-sm">{{{Auth::user()->about}}}</div>
-            </li>
-        @endif
-        
-        <li class="list-group-item">
-            <b>User Group:</b>
-            @if (Auth::user()->userGroup===1) Admin @endif
-            @if (Auth::user()->userGroup===2) Employer @endif
-            @if (Auth::user()->userGroup===3) Job Searcher @endif
-        </li>
-        <li class="list-group-item">
-            <b>Joined:</b> {{{Auth::user()->created_at}}}
-        </li>
-              </ul>
-                 </div>
-    
-</div>
-
+    <a class="btn btn-default" href="{{{ URL::to("/viewMessages/".Auth::user()->id) }}}">{{ trans('buttons.my-messages') }}</a>
+</div>   
 
 @stop
