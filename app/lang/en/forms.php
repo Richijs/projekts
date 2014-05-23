@@ -42,5 +42,10 @@ return array(
         'download-current-cv' => 'Download current CV',
         'upload-new-cv' => 'Upload new CV',
     
+    //users
+        'current-password' => 'Current Password',
+        'new-password' => 'New Password',
+        'confirm-new-password' => 'Confirm New Password',
+    
     
 );

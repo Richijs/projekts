@@ -1,9 +1,14 @@
 @extends("layout")
 @section("content")
+
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ URL::to("/profile/")}}">{{ trans('buttons.my-profile') }}</a>
+    </span>
+
     <div class="page-header">
-        <h1>
-            Change Your password
-        </h1>
+        <h2>
+            {{ trans('titles.change-password') }}
+        </h2>
     </div>
 
     {{ Form::open([
@@ -14,13 +19,13 @@
     ]) }}
     
     <div class="form-group @if ($errors->first('password')) has-error@endif">
-        {{ Form::label("current_password", "Current Password",[
+        {{ Form::label("current_password", trans('forms.current-password'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::password("password", [
-                "placeholder" => "current password",
+                "placeholder" => trans('forms.current-password'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -33,13 +38,13 @@
     </div>    
         
     <div class="form-group @if ($errors->first('new_password')) has-error@endif">
-        {{ Form::label("new_password", "New Password",[
+        {{ Form::label("new_password", trans('forms.new-password'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::password("new_password", [
-                "placeholder" => "new password",
+                "placeholder" => trans('forms.new-password'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -52,13 +57,13 @@
     </div>
     
     <div class="form-group @if ($errors->first('new_password_confirmation')) has-error@endif">
-        {{ Form::label("new_password_confirmation", "Confirm New Password",[
+        {{ Form::label("new_password_confirmation", trans('forms.confirm-new-password'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::password("new_password_confirmation", [
-                "placeholder" => "confirm new password",
+                "placeholder" => trans('forms.confirm-new-password'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -72,7 +77,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">  
-            {{ Form::submit("change password",["class" => "btn btn-warning btn-block"]) }}
+            {{ Form::submit(trans('titles.change-password'),["class" => "btn btn-warning btn-block"]) }}
         </div>
     </div>
         

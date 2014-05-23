@@ -38,6 +38,7 @@ return array(
         'edit-jobseek' => 'Edit JobSeek data',
         'job-searchers' => 'Job Searchers',
         'your-jobsearch-data' => 'Your JobSeek data',
+        'change-password' => 'Change Password',
     
     
 );
