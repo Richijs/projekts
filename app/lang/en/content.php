@@ -32,6 +32,7 @@ return array(
         'no-messages-to-show' => 'No messages to show.',
         'recommended-at' => 'Recommended At',
         'no-recommendations-done-yet' => 'No Recommendations done yet.',
+        'no-recommenders-yet' => 'No Recommenders yet.',
     
     
     

@@ -1,54 +1,50 @@
 @extends("layout")
 @section("content")
     
-    <div class="page-header">
-        <h1>
-            Users, who recommended 
-            <small><a href="{{URL::to("/viewUser/".$employer->id)}}">{{{$employer->username}}}</a></small>
-        </h1>
-    </div>
+<span class="page-control btn-group btn-group-sm">
+    <a class="btn btn-default" href="{{URL::to("/viewUser/".$employer->id)}}">{{{$employer->username}}} {{ trans('buttons.profile') }}</a>
+    <a class="btn btn-default" href="{{URL::to("/viewRecommendations/".$employer->id)}}">{{{$employer->username}}} {{ trans('buttons.recommendations') }}</a>
+    <a class="btn btn-default" href="{{URL::to("/viewAllUsers/")}}">{{ trans('buttons.all-site-users') }}</a>
+</span>
 
-
-
-
-
-
-@if (isset($recommenders))
-<div class="panel panel-primary">
-    <div class="panel-heading">
-        <div class="panel-title">
-            
-        </div>
-    </div>
-    <div class="panel-body">
-        
-        <div class='table-responsive'>
-        <table class='table'>
-            <thead>
-                <tr>
-                    <th>Username</th>
-                    <th>Recommended at</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($recommenders as $recommender)
-                <tr>
-                    <td>
-                        <a href="{{URL::to("/viewUser/".$recommender->user->id)}}">{{{$recommender->user->username}}}</a>
-                    </td>
-                    
-                    <td>
-                        {{{$recommender->created_at}}}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        </div>
-        
-    </div>
+<div class="page-header">
+    <h2>
+        {{ trans('titles.users-who') }} {{ trans('titles.recommended') }}
+            <a href="{{URL::to("/viewUser/".$employer->id)}}">
+                @if (Auth::user()->id == $employer->id)
+                    {{ trans('titles.you') }}
+                @else
+                    {{{$employer->username}}}
+                @endif
+            </a>
+    </h2>
 </div>
 
+@if (isset($recommenders))
+<div class='table-responsive'>
+    <table class='table'>
+    <thead>
+        <tr>
+            <th>{{ trans('content.user') }}</th>
+            <th>{{ trans('content.recommended-at') }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach ($recommenders as $recommender)
+        <tr>
+            <td>
+                <a href="{{URL::to("/viewUser/".$recommender->user->id)}}">{{{$recommender->user->username}}}</a>
+            </td>
+                    
+            <td>
+                {{{ date('d.m.y H:i',strtotime($recommender->created_at)) }}}
+            </td>
+        </tr>
+        @endforeach
+    </tbody>
+</table>
+</div>
+        
 <div>
     {{$recommenders->links()}} <!-- pagination links -->
 </div>
@@ -58,7 +54,7 @@
 <div class="panel panel-danger">
     <div class="panel-heading">
         <div class="panel-title">
-            <b>No recommenders yet</b>
+            <b>{{ trans('content.no-recommenders-yet') }}</b>
         </div>
     </div>
 </div>

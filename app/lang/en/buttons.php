@@ -29,6 +29,7 @@ return array(
         'reply' => 'Reply',
         'delete-message' => 'Delete Message',
         'recommenders' => 'Recommenders',
+        'recommendations' => 'Recommendations',
     
     
         
