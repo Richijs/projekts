@@ -22,7 +22,7 @@
     
 <ul class="list-group col-sm-offset-1 col-sm-6">
      
-    <li class="list-group-item profileImg">
+    <li class="list-group-item profileImg pull-right">
         <div>
             @if ($user->picture)
                 <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$user->picture}}}" width="200" alt="user picture"/>
@@ -31,6 +31,8 @@
             @endif     
         </div>
     </li>
+    
+    <div class="clearfix"></div>
                   
     <li class="list-group-item">
         {{ trans('forms.username') }}: <b>{{{$user->username}}}</b>
