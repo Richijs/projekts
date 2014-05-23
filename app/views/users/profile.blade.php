@@ -2,9 +2,9 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Hello, <a href="{{{ URL::to("/viewUser/".Auth::user()->id) }}}">{{{ Auth::user()->username }}}</a>
+    <h2>Hello, <a href="{{{ URL::to("/viewUser/".Auth::user()->id) }}}">{{{ Auth::user()->username }}}</a>
         <div><small>Your profile page</small></div>
-    </h1>
+    </h2>
 </div>
 
 
@@ -79,11 +79,11 @@
         </li>
         
         @if (Auth::user()->about)
-        <li class="list-group-item">
-        <b>About:</b>
-        <div class="newlineText well well-sm">{{{Auth::user()->about}}}</div>
+            <li class="list-group-item">
+            <b>About:</b>
+            <div class="newlineText well well-sm">{{{Auth::user()->about}}}</div>
+            </li>
         @endif
-        </li>
         
         <li class="list-group-item">
             <b>User Group:</b>

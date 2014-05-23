@@ -246,7 +246,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">
-            {{ Form::submit(trans('edit-profile'),["class" => "btn btn-warning btn-block"]) }}
+            {{ Form::submit(trans('buttons.edit-profile'),["class" => "btn btn-warning btn-block"]) }}
         </div>
     </div>
     
