@@ -30,6 +30,8 @@ return array(
         'delete-message' => 'Delete Message',
         'recommenders' => 'Recommenders',
         'recommendations' => 'Recommendations',
+        'my-profile' => 'My Profile',
+        'all-job-seekers' => 'All Job Seekers',
     
     
         

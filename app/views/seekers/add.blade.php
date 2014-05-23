@@ -1,10 +1,17 @@
 @extends("layout")
 @section("content")
  
+    <span class="page-control btn-group btn-group-sm">
+        <a class="btn btn-default" href="{{ URL::to("/profile/")}}">{{ trans('buttons.my-profile') }}</a>
+        @if (Auth::user()->userGroup == 1)
+            <a class="btn btn-default" href="{{ URL::to("/viewAllSeekers/")}}">{{ trans('buttons.all-job-seekers') }}</a>
+        @endif
+    </span>
+
     <div class="page-header">
-        <h1>
-            Add Job Seeker data
-        </h1>
+        <h2>
+            {{ trans('titles.add-jobseek-data') }}
+        </h2>
     </div>
 
     {{ Form::open([
@@ -17,13 +24,13 @@
     ]) }}
     
     <div class="form-group @if ($errors->first('intro')) has-error@endif">    
-        {{ Form::label("intro", "Intro text",[
+        {{ Form::label("intro", trans('forms.intro-text'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("intro", Input::get("intro"), [
-                "placeholder" => "Intro text",
+                "placeholder" => trans('forms.intro-text'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -36,13 +43,13 @@
     </div>   
     
     <div class="form-group @if ($errors->first('text')) has-error@endif">   
-        {{ Form::label("text", "Main Text",[
+        {{ Form::label("text", trans('forms.text'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-6">
             {{ Form::textarea("text", Input::get("text"), [
-                "placeholder" => "Main Text",
+                "placeholder" => trans('forms.text'),
                 "class"       => "form-control",
                 "rows"        => "7"
             ]) }}
@@ -56,13 +63,13 @@
     </div>  
     
     <div class="form-group @if ($errors->first('phone')) has-error@endif">   
-        {{ Form::label("phone", "Phone number",[
+        {{ Form::label("phone", trans('forms.phone'),[
             "class"  => "col-sm-4 control-label"
         ]) }}
         
         <div class="col-sm-4">
             {{ Form::text("phone", Input::get("phone"), [
-                "placeholder" => "Phone number",
+                "placeholder" => trans('forms.phone'),
                 "class"       => "form-control"
             ]) }}
         </div>
@@ -75,14 +82,14 @@
     </div>   
     
     <div class="form-group @if ($errors->first('cv')) has-error@endif"> 
-        {{ Form::label("cv", "Your CV",[
+        {{ Form::label("cv", trans('forms.your-cv'),[
             "class"  => "col-sm-4 control-label required"
         ]) }}
         
         <div class="col-sm-4">
             <div class="form-control">
-                {{ Form::file("cv", Input::file("cv"), [ //input::get varbūt???  lkm input::old nestrādā uz file :(
-                    "placeholder" => "CV"
+                {{ Form::file("cv", Input::file("cv"), [
+                    "placeholder" => trans('forms.your-cv')
                 ]) }}
             </div>
         </div>
@@ -96,7 +103,7 @@
     
     <div class="form-group">
         <div class="col-sm-offset-4 col-sm-4">   
-            {{ Form::submit("Add JobSeek",["class" => "btn btn-success btn-block"]) }}
+            {{ Form::submit(trans('titles.add-jobseek-data'),["class" => "btn btn-success btn-block"]) }}
         </div>
     </div>
     

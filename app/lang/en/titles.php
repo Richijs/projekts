@@ -32,6 +32,7 @@ return array(
         'users-who' => 'Users, who',
         'you' => 'You',
         'recommended' => 'Recommended',
+        'add-jobseek-data' => 'Add JobSeeker data',
     
     
 );

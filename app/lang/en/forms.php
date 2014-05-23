@@ -33,5 +33,10 @@ return array(
         'subject' => 'Subject',
         'send-message' => 'Send Message',
     
+    //seekers
+        'intro-text' => 'Intro text',
+        'text' => 'Text',
+        'your-cv' => 'Your CV',
+    
     
 );
