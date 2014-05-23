@@ -37,6 +37,7 @@ return array(
         'intro-text' => 'Intro text',
         'text' => 'Text',
         'your-cv' => 'Your CV',
+        'wish-to-delete-jobseek' => 'I wish to delete Jobseek data',
     
     
 );

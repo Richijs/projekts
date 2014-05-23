@@ -32,6 +32,7 @@ return array(
         'recommendations' => 'Recommendations',
         'my-profile' => 'My Profile',
         'all-job-seekers' => 'All Job Seekers',
+        'to-jobseek' => 'To JobSeek',
     
     
         

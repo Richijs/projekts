@@ -90,4 +90,4 @@ button sizing/transl
 
 view other user messages buttons (ADMIN)
 
-correct pagination
+correct pagination sizes

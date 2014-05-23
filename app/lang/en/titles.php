@@ -33,6 +33,8 @@ return array(
         'you' => 'You',
         'recommended' => 'Recommended',
         'add-jobseek-data' => 'Add JobSeeker data',
+        'job-seeker-data' => 'JobSeeker data',
+        'to-delete-jobseek-confirm' => 'To delete JobSeek data, confirm deletion',
     
     
 );
