@@ -1,6 +1,20 @@
 @extends("layout")
 @section("content")
     
+@if (Auth::check())
+<span class="page-control btn-group btn-group-sm">
+    
+    @if (Auth::user()->userGroup!=3)
+        <a class="btn btn-default" href="{{{ URL::to("/myVacancies") }}}">{{ trans('buttons.my-vacancies') }}</a>
+    @endif
+    
+    @if (Auth::user()->userGroup!=2)
+        <a class="btn btn-default" href="{{ URL::to("/myApplications")}}">{{ trans('buttons.my-applications') }}</a>
+    @endif
+    
+</span>
+@endif
+
 <div class="page-header">
     <h3>
         {{ trans('titles.vacancies') }}
