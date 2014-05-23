@@ -48,7 +48,7 @@
     <div class="row col-sm-10 col-sm-offset-1">
         <a class="btn btn-info" href="{{ URL::to("/getCV/".$seeker->id) }}">{{ trans('buttons.download-cv') }}</a>
         <span class="pull-right">
-            @if (isset($seeker->phone))
+            @if (isset($seeker->phone) && $seeker->phone!='')
             <div>
                 <b>{{ trans('forms.phone') }}: </b><a href="tel:{{{$seeker->phone}}}">{{{$seeker->phone}}} </a>
             </div>
