@@ -60,6 +60,8 @@ return array(
         'new-profile-picture' => 'New Profile picture',
         'forgot-password-question' => 'Forgot Password?',
         'remember-me' => 'Remember Me',
+        'confirm-password' => 'Confirm Password',
+        'picture' => 'Picture',
     
     
 );

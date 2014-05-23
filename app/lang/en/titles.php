@@ -46,6 +46,7 @@ return array(
         'log-in' => 'Log In',
         'hello' => 'Hello',
         'your-profile-page' => 'Your Profile page',
+        'register' => 'Register',
     
     
 );
