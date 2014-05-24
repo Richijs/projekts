@@ -57,6 +57,14 @@ return array(
         'your-added-vacancies' => 'Your added Vacancies',
         'about' => 'About',
         'site-title' => 'Vacancies & Job Seekers',
+        'home' => 'Home',
+        'contact-admin' => 'Contact Admin',
+        'site-users' => 'Site Users',
+        'logged-in-as' => 'Logged in as',
+        'profile-panel' => 'Profile Panel',
+        'logout' => 'Log Out',
+        'messages-cap' => 'Messages',
+        'job-seekers' => 'Job Seekers',
     
     
 );

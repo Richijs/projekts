@@ -71,5 +71,11 @@ return array(
         'current-poster' => 'Current Poster',
         'new-poster' => 'New Poster',
     
+    //search
+        'search-vacancies' => 'Search Vacancies',
+        'search-users-vacancies' => 'Search Users, Vacancies',
+        'search-users-vacancies-seekers' => 'Search Users, Vacancies, Jobseekers',
+        'search' => 'Search',
+    
     
 );
