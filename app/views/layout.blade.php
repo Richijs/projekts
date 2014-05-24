@@ -2,7 +2,7 @@
 <html lang="{{ Config::get('app.locale') }}">
     <head>
         <meta charset="UTF-8" />
-        <title>Vakances.lv</title>
+        <title>{{ trans('titles.site-title') }}</title>
         <meta name="viewport" content="width=device-width">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         {{ HTML::style('css/bootstrap.min.css'); }}

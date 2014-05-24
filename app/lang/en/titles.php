@@ -56,6 +56,7 @@ return array(
         'delete-vacancie' => 'Delete Vacancie',
         'your-added-vacancies' => 'Your added Vacancies',
         'about' => 'About',
+        'site-title' => 'Vacancies & Job Seekers',
     
     
 );

@@ -2,7 +2,7 @@
     <div class="header">
         <div class="container">
             <div class="site-title col-sm-11">
-                <h1 class="title-text">Vacancies & Job Seekers</h1>
+                <h1 class="title-text">{{ trans('titles.site-title') }}</h1>
             </div>     
             
             <div class="lang btn-group btn-toggle">
@@ -19,16 +19,16 @@
             <nav class="navbar" role="navigation">
                 <ul class="nav navbar-nav nav-pills nav-stacked">
                     <li {{ Request::is('/') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("home") }}">home</a
+                        <a href="{{ URL::route("home") }}">{{ trans('titles.home') }}</a
                     </li>
                     <li {{ Request::is('viewAllVacancies') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("vacancies/viewAllVacancies") }}">Vacancies</a>
+                        <a href="{{ URL::route("vacancies/viewAllVacancies") }}">{{ trans('titles.vacancies') }}</a>
                     </li>
                     <li {{ Request::is('about') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::to("/about") }}">About</a>
+                        <a href="{{ URL::to("/about") }}">{{ trans('titles.about') }}</a>
                     </li>
                     <li {{ Request::is('contactAdmin') ? 'class="active"' : '' }}>
-                        <a href="{{ URL::route("messaging/contact") }}">Contact Admin</a>
+                        <a href="{{ URL::route("messaging/contact") }}">{{ trans('titles.contact-admin') }}</a>
                     </li>
                         
                 @if (Auth::check())
