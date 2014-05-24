@@ -30,6 +30,10 @@ body{
     top: -20px;
 }
 
+#carousel-generic{
+    padding-top: 15px;
+}
+
 .carousel-caption a{
     color: black;
 }
@@ -76,8 +80,6 @@ body{
     border-radius: 8px;
     -webkit-border-radius: 8px;
     -moz-border-radius: 8px;
-    //border: 1px dotted #428bca;
-    //background-color: #428bca;
 }
 
 .footer .container{
@@ -139,9 +141,20 @@ body{
 }
 
 .front-list-item{
-    border: none;
+   border: none;
+}
+
+.list-group-item:first-child{
+    border-radius: 0;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
 }
 
 .top-title{
-    border-bottom: 1px solid #428bca;
+    border-bottom: 2px solid #428bca;
+    margin-bottom: 0;
+}
+
+.blue-count{
+    color: blue;
 }

@@ -69,83 +69,67 @@
   
         </div>
   
-        
-            
-          
         <ul class="list-group col-sm-6">
-    @foreach ($topVacancies as $vacancie)
-    <li class="list-group-item front-list-item">
-        @if ($vacancie->poster)
-             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="36" height="36" alt="vacancie poster"/>
-        @else
-             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="36" height="36" alt="vacancie poster"/>
-        @endif
+            @foreach ($topVacancies as $vacancie)
+            <li class="list-group-item front-list-item">
+                @if ($vacancie->poster)
+                    <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="36" height="36" alt="vacancie poster"/>
+                @else
+                    <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="36" height="36" alt="vacancie poster"/>
+                @endif
         
-        <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
+                <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
             
-        @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
-        <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
-            Applied: <b>{{{$vacancie->applied}}}</b>
-        </a>
-        @else
-        <span class="pull-right">
-            Applied: <b>{{{$vacancie->applied}}}</b>
-        </span>
-        @endif
-    </li>
-    <div class="clearfix"></div>
-    @endforeach
-    </ul>
-    
-  
-        
+                @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
+                    <a class="btn btn-default btn-sm pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                        Applied: <b class="blue-count">{{{$vacancie->applied}}}</b>
+                    </a>
+                @else
+                    <span class="pull-right">
+                        Applied: <b class="blue-count">{{{$vacancie->applied}}}</b>
+                    </span>
+                @endif
+            </li>
+            
+            <div class="clearfix"></div>
+            @endforeach
+        </ul>
     </div>
     
     <div class="row">
-
-
-            
-    
-            <h3 class="col-sm-offset-3 col-sm-6 top-title">Top Employers</h3>
+        <h3 class="col-sm-offset-1 col-sm-10 top-title">Top Employers</h3>
+        
         <ul class="list-group col-sm-offset-3 col-sm-6">
-    @foreach ($topEmployers as $employer)
-    <li class="list-group-item front-list-item">
-        @if ($employer->picture)
-             <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="36" height="36" alt="employer picture"/>
-        @else
-             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="36" height="36" alt="employer picture"/>
-        @endif
+            @foreach ($topEmployers as $employer)
+            <li class="list-group-item front-list-item">
+                @if ($employer->picture)
+                    <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="36" height="36" alt="employer picture"/>
+                @else
+                    <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="36" height="36" alt="employer picture"/>
+                @endif
         
-        @if (Auth::check())
-        <a href="{{ URL::to("/viewUser/".$employer->id)}}"><b>{{{$employer->username}}}</b></a>
-        @else
-        <b>{{{$employer->username}}}</b>
-        @endif
-        
-        
-        @if (Auth::check())
-        <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewRecommenders/".$employer->id)}}">
-            <b>{{{$employer->recommendations}}}</b> recommenders
-        </a>
-        @else
-        <span class="pull-right">
-            <b>{{{$employer->recommendations}}}</b> recommenders
-        </span>
-        @endif
-     </li>
-     <div class="clearfix"></div>
-    @endforeach
+                @if (Auth::check())
+                    <a href="{{ URL::to("/viewUser/".$employer->id)}}"><b>{{{$employer->username}}}</b></a>
+                @else
+                    <b>{{{$employer->username}}}</b>
+                @endif
+
+                @if (Auth::check())
+                    <a class="btn btn-default btn-sm pull-right" href="{{URL::to("/viewRecommenders/".$employer->id)}}">
+                        <b class="blue-count">{{{$employer->recommendations}}}</b> recommenders
+                    </a>
+                @else
+                    <span class="pull-right">
+                        <b class="blue-count">{{{$employer->recommendations}}}</b> recommenders
+                    </span>
+                @endif
+            </li>
+            
+            <div class="clearfix"></div>
+            @endforeach
         </ul>
-     </div>
-        
-    </div>
-    
+   </div>
         
 </div>
-    
 
-
-    
-    
-    
 @stop
