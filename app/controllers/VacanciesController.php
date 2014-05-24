@@ -9,7 +9,7 @@ class VacanciesController extends BaseController {
     {
         $vacanciesCount = Vacancie::all();
         if($vacanciesCount->count()){ //ja sistēmā ir vismaz viena vakance
-            $vacancies = Vacancie::orderBy('created_at','DESC')->paginate(10); //visas vakances + "paginate"
+            $vacancies = Vacancie::orderBy('created_at','DESC')->paginate(20); //visas vakances + "paginate"
 
             foreach($vacancies as $vacancie){
                 
@@ -131,7 +131,7 @@ class VacanciesController extends BaseController {
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==2))
         {
             $vacancieCount = Vacancie::where('creator_id',Auth::user()->id)->count();
-            $vacancies = Vacancie::where('creator_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+            $vacancies = Vacancie::where('creator_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(20);
             $vacancies->count = $vacancieCount;
             
             foreach ($vacancies as $vacancie){

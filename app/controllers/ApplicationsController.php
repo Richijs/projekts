@@ -90,7 +90,7 @@ class ApplicationsController extends BaseController {
         if(Auth::check() && (Auth::user()->userGroup==1 || Auth::user()->userGroup==3))
         {
             $applicationCount = Application::where('user_id',Auth::user()->id)->count();
-            $applications = Application::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(10);
+            $applications = Application::where('user_id',Auth::user()->id)->orderBy('created_at','DESC')->paginate(20);
             $applications->count = $applicationCount;          
             
             foreach ($applications as $application)
@@ -165,7 +165,7 @@ class ApplicationsController extends BaseController {
             }
         
                 $applicantCount = Application::where('vacancie_id',$vacancieId)->count();
-                $applications = Application::where('vacancie_id',$vacancieId)->orderBy('created_at','DESC')->paginate(10);
+                $applications = Application::where('vacancie_id',$vacancieId)->orderBy('created_at','DESC')->paginate(20);
                 
                 $applications->count = $applicantCount;
                 $applications->vacancie = Vacancie::find($vacancieId);

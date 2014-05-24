@@ -141,7 +141,7 @@ class SeekersController extends BaseController {
     {
         $seekersCount = Seeker::all();
         if($seekersCount->count()){ //ja sistēmā ir vismaz viens darba meklētāja datu ieraksts
-            $seekers = Seeker::orderBy('created_at','DESC')->paginate(10); //visi darba meklētāju ieraksti + "paginate"
+            $seekers = Seeker::orderBy('created_at','DESC')->paginate(20); //visi darba meklētāju ieraksti + "paginate"
 
                 //lai noskaidrotu katra darba meklētāja lietotājvārdu
             foreach($seekers as $seeker){
