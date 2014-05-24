@@ -48,7 +48,12 @@
             @endif
             
             @if (Auth::user()->userGroup == 1 || Auth::user()->id == $vacancie->creator_id)
-                <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">{{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b></a>
+                <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                    @if (Auth::user()->id == $vacancie->creator_id && isset($vacancie->new))
+                        <span class="badge">{{ trans('content.new-applicants') }}</span>
+                    @endif
+                    {{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b>
+                </a>
             @else
                 <a class="btn btn-default" disabled="disabled">{{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b></a>
             @endif
@@ -56,7 +61,7 @@
             @if (Auth::user()->id != $vacancie->creator_id)
                 <a class="btn btn-default" href="{{{ URL::to("/sendMessage/".$vacancie->creator_id) }}}">{{ trans('forms.send-message') }}</a>
             @endif
-            
+                        
         @else
             <a class="btn btn-default" disabled="disabled">{{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b></a>
         @endif

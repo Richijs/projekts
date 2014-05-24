@@ -102,6 +102,19 @@ class VacanciesController extends BaseController {
                 if(Recommendation::where('user_id',Auth::user()->id)->where('employer_id',$creator->id)->first()){
                     $vacancie->recommended = true; //lai skatā varētu uzzināt rekomendācijas statusu
                 }
+                
+                if(Auth::user()->id==$vacancie->creator_id){
+                    $applications = Application::where('vacancie_id',$vacancie->id)->get();
+                    
+                    foreach($applications as $application){
+                        //"jauns pieteikums" paziņojumam
+                        if($application->viewed != 1){
+                            $vacancie->new = true;
+                            break;
+                        } 
+                    }   
+                }   
+                
             }
             return View::make("vacancies/view", array('vacancie'=> $vacancie));
         }else{
@@ -128,7 +141,7 @@ class VacanciesController extends BaseController {
                 $vacancie->applied = $applications->count();
                 
                 foreach($applications as $application){
-                        //"jauna vakance" paziņojumam
+                        //"jauns pieteikums" paziņojumam
                     if($application->viewed != 1){
                         $vacancie->new = true;
                         break;
