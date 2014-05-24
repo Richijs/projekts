@@ -7,7 +7,7 @@
     
 <div class="container-fluid">
     <div class="row">
-        <h3 class="col-sm-offset-1 col-sm-10 top-title">Top Vacancies</h3>
+        <h3 class="col-sm-offset-1 col-sm-10 top-title">{{ trans('content.top-vacancies') }}</h3>
         
         <div id="carousel-generic" class="carousel slide col-sm-offset-1 col-sm-4" data-ride="carousel">
                         
@@ -28,7 +28,7 @@
                     <div class="carousel-caption">
                         <div class="inner-cap">
                             <a href="{{ URL::route("vacancies/viewAllVacancies") }}">
-                                <h4 class="first-caption">Dont miss the best vacancies!</h4>
+                                <h4 class="first-caption">{{ trans('content.dont-miss-best-vacancies') }}</h4>
                             </a>
                         </div>
                     </div>
@@ -48,11 +48,11 @@
                         <p>
                             @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
                                 <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
-                                    Applied: <b>{{{$vacancie->applied}}}</b>
+                                    {{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b>
                                 </a>
                             @else
                                 <span class="pull-right">
-                                    Applied: <b>{{{$vacancie->applied}}}</b>
+                                    {{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b>
                             </span>
                             @endif
                         </p>
@@ -82,11 +82,11 @@
             
                 @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
                     <a class="btn btn-default btn-sm pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
-                        Applied: <b class="blue-count">{{{$vacancie->applied}}}</b>
+                        {{ trans('content.applied') }}: <b class="blue-count">{{{$vacancie->applied}}}</b>
                     </a>
                 @else
                     <span class="pull-right">
-                        Applied: <b class="blue-count">{{{$vacancie->applied}}}</b>
+                        {{ trans('content.applied') }}: <b class="blue-count">{{{$vacancie->applied}}}</b>
                     </span>
                 @endif
             </li>
@@ -97,7 +97,7 @@
     </div>
     
     <div class="row">
-        <h3 class="col-sm-offset-1 col-sm-10 top-title">Top Employers</h3>
+        <h3 class="col-sm-offset-1 col-sm-10 top-title">{{ trans('content.top-employers') }}</h3>
         
         <ul class="list-group col-sm-offset-3 col-sm-6">
             @foreach ($topEmployers as $employer)
@@ -116,11 +116,11 @@
 
                 @if (Auth::check())
                     <a class="btn btn-default btn-sm pull-right" href="{{URL::to("/viewRecommenders/".$employer->id)}}">
-                        <b class="blue-count">{{{$employer->recommendations}}}</b> recommenders
+                        <b class="blue-count">{{{$employer->recommendations}}}</b> {{ trans('buttons.recommenders') }}
                     </a>
                 @else
                     <span class="pull-right">
-                        <b class="blue-count">{{{$employer->recommendations}}}</b> recommenders
+                        <b class="blue-count">{{{$employer->recommendations}}}</b> {{ trans('buttons.recommenders') }}
                     </span>
                 @endif
             </li>

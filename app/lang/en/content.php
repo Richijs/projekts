@@ -59,6 +59,9 @@ return array(
         'job-searchers-found' => 'Job Searchers Found',
         'searched-for-nothing' => 'Searched for Nothing.',
         'no-results-found' => 'No Results Found.',
+        'top-vacancies' => 'Top Vacancies',
+        'dont-miss-best-vacancies' => "Don't miss the best Vacancies",
+        'top-employers' => 'Top Employers',
     
     
     
