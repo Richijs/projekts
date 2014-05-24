@@ -114,3 +114,7 @@ body{
 .well-item-inside{
     margin-bottom: 0;
 }
+
+.img-thumbnail{
+    max-height: 600px;
+}

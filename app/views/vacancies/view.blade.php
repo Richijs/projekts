@@ -27,14 +27,14 @@
     </h2>
 </div>
 
-<ul class="list-group col-sm-offset-3 col-sm-6">
+<ul class="list-group col-sm-offset-2 col-sm-8">
      
     <li class="list-group-item profileImg pull-right">
         <div>
             @if ($vacancie->poster)
-                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="200" alt="vacancie poster"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="400" alt="vacancie poster"/>
             @else
-                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="200" alt="vacancie poster"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="400" alt="vacancie poster"/>
             @endif     
         </div>
     </li>

@@ -25,9 +25,9 @@
     <li class="list-group-item profileImg pull-right">
         <div>
             @if ($user->picture)
-                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$user->picture}}}" width="200" alt="user picture"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{$user->picture}}}" width="400" alt="user picture"/>
             @else
-                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="400" alt="profile picture"/>
             @endif     
         </div>
     </li>
