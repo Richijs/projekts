@@ -54,6 +54,11 @@ return array(
         'no-vacancies-to-show' => 'No Vacancies to show',
         'added-by' => 'Added By',
         'site-admin' => 'Site admin:',
+        'users-found' => 'Users Found',
+        'vacancies-found' => 'Vacancies Found',
+        'job-searchers-found' => 'Job Searchers Found',
+        'searched-for-nothing' => 'Searched for Nothing.',
+        'no-results-found' => 'No Results Found.',
     
     
     

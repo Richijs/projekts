@@ -65,7 +65,7 @@ body{
     text-align: right;
 }
 
-.footer .copyright{
+.footer .copyright, .footer .contact{
     border-top: 1px solid black;
 }
 
@@ -116,5 +116,5 @@ body{
 }
 
 .img-thumbnail{
-    max-height: 600px;
+    max-height: 400px;
 }

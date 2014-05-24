@@ -19,9 +19,9 @@
     <li class="list-group-item profileImg pull-right">
         <div>
             @if (Auth::user()->picture)
-                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="200" alt="user picture"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/{{{Auth::user()->picture}}}" width="400" alt="user picture"/>
             @else
-                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="200" alt="profile picture"/>
+                <img class="img-thumbnail" src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="400" alt="profile picture"/>
             @endif     
         </div>
     </li>

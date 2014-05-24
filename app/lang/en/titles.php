@@ -65,6 +65,7 @@ return array(
         'logout' => 'Log Out',
         'messages-cap' => 'Messages',
         'job-seekers' => 'Job Seekers',
+        'search-results' => 'Search Results',
     
     
 );
