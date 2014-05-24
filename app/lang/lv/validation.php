@@ -55,7 +55,7 @@ return array(
 	"not_in"           => "izvēlētais :attribute nav derīgs.",
 	"numeric"          => ":attribute jābūt numuram.",
 	"regex"            => ":attribute formāts nav derīgs.",
-	"required"         => ":attribute lauks ir nepieciešams.",
+	"required"         => "lauks ':attribute' ir nepieciešams.",
 	"required_if"      => ":attribute lauks ir nepieciešams, kad :other ir :value.",
 	"required_with"    => ":attribute lauks ir nepieciešams, kad :values ir klātesošs.",
 	"required_without" => ":attribute lauks ir nepieciešams, kad :values nav klātesošs.",
