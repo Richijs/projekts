@@ -8,59 +8,41 @@
 <div class="col-sm-offset-2 col-sm-8">
 
 @if (isset($users) && count($users))
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="panel-title">
-                {{ trans('content.users-found') }} <b>({{count($users)}})</b>:
-            </div>
+    <h4 class="search-title">
+        {{ trans('content.users-found') }} <b>({{count($users)}})</b>:
+    </h4>
+        @foreach($users as $user)
+        <div>
+            <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
+            @if (Auth::check() && Auth::user()->id != $user->id)
+                <a class="btn btn-default btn-xs" href="{{{ URL::to("/sendMessage/".$user->id) }}}">
+                    {{ trans('forms.send-message') }}
+                </a>
+            @endif
         </div>
-        <div class="panel-body">
-            @foreach($users as $user)
-                <div>
-                    <a href="/viewUser/{{{$user->id}}}">{{{ $user->username }}}</a>
-                    @if (Auth::check() && Auth::user()->id != $user->id)
-                        <a class="btn btn-default btn-xs" href="{{{ URL::to("/sendMessage/".$user->id) }}}">
-                            {{ trans('forms.send-message') }}
-                        </a>
-                    @endif
-                </div>
-            @endforeach
-        </div>
-    </div>
+        @endforeach
 @endif
     
 @if (isset($vacancies) && count($vacancies))
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="panel-title">
-                {{ trans('content.vacancies-found') }} <b>({{count($vacancies)}})</b>:
-            </div>
+    <h4 class="search-title">
+        {{ trans('content.vacancies-found') }} <b>({{count($vacancies)}})</b>:
+    </h4>
+        @foreach($vacancies as $vacancie)
+        <div>
+            <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
         </div>
-        <div class="panel-body">
-            @foreach($vacancies as $vacancie)
-                <div>
-                    <a href="/viewVacancie/{{{$vacancie->id}}}">{{{ $vacancie->name }}}</a>
-                </div>
-            @endforeach
-        </div>
-    </div>
+        @endforeach 
 @endif
 
 @if (isset($seekers) && count($seekers))
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <div class="panel-title">
-                {{ trans('content.job-searchers-found') }} <b>({{count($seekers)}})</b>:
-            </div>
+    <h4 class="search-title">
+        {{ trans('content.job-searchers-found') }} <b>({{count($seekers)}})</b>:
+    </h4>
+        @foreach($seekers as $seeker)
+        <div>
+            <a href="/viewSeeker/{{{$seeker->id}}}">{{{ $seeker->intro }}}</a>
         </div>
-        <div class="panel-body">
-            @foreach($seekers as $seeker)
-                <div>
-                    <a href="/viewSeeker/{{{$seeker->id}}}">{{{ $seeker->intro }}}</a>
-                </div>
-            @endforeach
-        </div>
-    </div>
+        @endforeach
 @endif
     
 @if (!isset($users) && !isset($vacancies) && !isset($seekers))
@@ -82,5 +64,7 @@
 @endif
 
 </div>
+
+<div class="row col-sm-12">&nbsp;</div>
 
 @stop
