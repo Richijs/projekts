@@ -80,10 +80,12 @@
         <b>{{ trans('forms.company-name') }}:</b> {{{$vacancie->company}}}
     </li>
     @endif
-                        
+    
+    @if (isset($vacancie->phone) && $vacancie->phone!='')
     <li class="list-group-item">
         <b>{{ trans('forms.phone') }}:</b> <a href="tel:{{{$vacancie->phone}}}">{{{$vacancie->phone}}}</a>
     </li>
+    @endif
             
     <li class="list-group-item">
         <b> {{ trans('content.added-by') }}: </b>

@@ -2,60 +2,79 @@
 @section("content")
 
 <div class="page-header">
-    <h2>{{ trans('titles.site-title') }}
-        <div>
-            <small>{{ trans('titles.home-title-small') }}</small>
-        </div>
-    </h2>
+    <h2>{{ trans('titles.site-title') }}</h2>
 </div>   
     
-  
-
 <div class="container-fluid">
-    
     <div class="row">
-        <div id="carousel-example-generic" class="carousel slide col-sm-offset-1 col-sm-5" data-ride="carousel">
-  <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-  </ol>
-
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" alt="...">
-      <div class="carousel-caption">
-          <h4>smth smth</h4>
-          <p>yo yo yo</p>
-      </div>
-    </div>
-    <div class="item">
-      <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" alt="...">
-      <div class="carousel-caption">
-          <h4>smth smth</h4>
-          <a href="#"> saggs </a>
-          <p>yo yo yo</p>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Controls -->
-  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-  </a>
-  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-  </a>
-</div>
-  
-        <div class="col-sm-5">
-            
-   
-            <h3>Top Vacancies</h3>
+        <h3 class="col-sm-offset-1 col-sm-10 top-title">Top Vacancies</h3>
         
+        <div id="carousel-generic" class="carousel slide col-sm-offset-1 col-sm-4" data-ride="carousel">
+                        
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-generic" data-slide-to="2"></li>
+                <li data-target="#carousel-generic" data-slide-to="3"></li>
+                <li data-target="#carousel-generic" data-slide-to="4"></li>
+                <li data-target="#carousel-generic" data-slide-to="5"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                <div class="item active">
+                    <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" alt="employer picture"/>
+                    <div class="carousel-caption">
+                        <div class="inner-cap">
+                            <a href="{{ URL::route("vacancies/viewAllVacancies") }}">
+                                <h4 class="first-caption">Dont miss the best vacancies!</h4>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                @foreach ($topVacancies as $vacancie)
+                <div class="item">
+                    @if ($vacancie->poster)
+                        <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" alt="vacancie poster"/>
+                    @else
+                        <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" alt="vacancie poster"/>
+                    @endif
+                    
+                    <div class="carousel-caption">
+                        <div class="inner-cap">
+                        <h4><a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a></h4>
+                        <p>
+                            @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
+                                <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+                                    Applied: <b>{{{$vacancie->applied}}}</b>
+                                </a>
+                            @else
+                                <span class="pull-right">
+                                    Applied: <b>{{{$vacancie->applied}}}</b>
+                            </span>
+                            @endif
+                        </p>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#carousel-generic" data-slide="prev"></a>
+            <a class="right carousel-control" href="#carousel-generic" data-slide="next"></a>
+  
+        </div>
+  
+        
+            
+          
+        <ul class="list-group col-sm-6">
     @foreach ($topVacancies as $vacancie)
-    <div>
+    <li class="list-group-item front-list-item">
         @if ($vacancie->poster)
              <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="36" height="36" alt="vacancie poster"/>
         @else
@@ -64,62 +83,64 @@
         
         <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
             
-        <b>Company:</b> {{{$vacancie->company}}}   
-
         @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
-        
-        <a class="btn btn-default btn-xs" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+        <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
             Applied: <b>{{{$vacancie->applied}}}</b>
         </a>
-        
         @else
+        <span class="pull-right">
             Applied: <b>{{{$vacancie->applied}}}</b>
+        </span>
         @endif
-    </div> 
+    </li>
+    <div class="clearfix"></div>
     @endforeach
+    </ul>
     
-    
-        </div>
-         
-        
-        
+  
         
     </div>
     
-    
     <div class="row">
 
-        <div class="col-sm-3 col-sm-offset-1">
+
             
     
-            <h3 class="title-text">Top Employers</h3>
-        
+            <h3 class="col-sm-offset-3 col-sm-6 top-title">Top Employers</h3>
+        <ul class="list-group col-sm-offset-3 col-sm-6">
     @foreach ($topEmployers as $employer)
-    <div>
+    <li class="list-group-item front-list-item">
         @if ($employer->picture)
              <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="36" height="36" alt="employer picture"/>
         @else
              <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="36" height="36" alt="employer picture"/>
         @endif
         
+        @if (Auth::check())
         <a href="{{ URL::to("/viewUser/".$employer->id)}}"><b>{{{$employer->username}}}</b></a>
+        @else
+        <b>{{{$employer->username}}}</b>
+        @endif
         
-        {{{$employer->recommendations}}} <b>recommenders</b>
         
-    </div>
+        @if (Auth::check())
+        <a class="btn btn-default btn-xs pull-right" href="{{URL::to("/viewRecommenders/".$employer->id)}}">
+            <b>{{{$employer->recommendations}}}</b> recommenders
+        </a>
+        @else
+        <span class="pull-right">
+            <b>{{{$employer->recommendations}}}</b> recommenders
+        </span>
+        @endif
+     </li>
+     <div class="clearfix"></div>
     @endforeach
-      
-        </div>
-    
-        <div class="col-sm-7">
-            Shake treat bag behind the couch but swat at dog yet hide when guests come over. Make muffins destroy couch shake treat bag so inspect anything brought into the house make muffins yet under the bed. Swat at dog stand in front of the computer screen or rub face on everything. Sleep on keyboard. Need to chase tail stand in front of the computer screen for chase mice, attack feet. Sleep on keyboard run in circles for behind the couch. Swat at dog chew iPad power cord stand in front of the computer screen sun bathe. Under the bed. Stick butt in face swat at dog. Chew foot. Chew foot. Chew foot stick butt in face or cat snacks. Chase mice chase mice. Sun bathe sweet beast or sun bathe sweet beast for attack feet. Chase mice stand in front of the computer screen intently stare at the same spot for use lap as chair. Sweet beast hate dog and cat snacks and hate dog but stand in front of the computer screen hunt anything that moves burrow under covers. Sun bathe sweet beast. Sun bathe mark territory so mark territory. 
-        </div>
-    
+        </ul>
+     </div>
+        
     </div>
     
-    
-    <div class="row col-sm-12">&nbsp;</div>
-    
+        
 </div>
     
 
