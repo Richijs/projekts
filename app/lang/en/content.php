@@ -12,6 +12,8 @@ return array(
 	|
 	*/
     
+        'about-text' => 'The site gives you a variety of possible stuff to do',
+    
         'applied-at' => 'Applied at',
         'jobseeker-data' => 'Job searcher data',
         'searching-for-job-since' => 'is searching for job since',
@@ -51,6 +53,7 @@ return array(
         'you-havent-added-any-vacancies' => "You have'nt added any Vacancies",
         'no-vacancies-to-show' => 'No Vacancies to show',
         'added-by' => 'Added By',
+        'site-admin' => 'Site admin:',
     
     
     

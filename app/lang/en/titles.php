@@ -55,6 +55,7 @@ return array(
         'to-delete-vacancie-confirm' => 'To delete Vacancie, confirm deletion',
         'delete-vacancie' => 'Delete Vacancie',
         'your-added-vacancies' => 'Your added Vacancies',
+        'about' => 'About',
     
     
 );
