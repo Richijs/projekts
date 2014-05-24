@@ -32,7 +32,7 @@ class MessagingController extends BaseController {
                     $randomAdmin = User::where('userGroup',1)->where('active',1)->orderBy(DB::raw('RAND()'))->first();
 
                     Mail::send('emails.contact', array('username'=>Input::get("username"),'messageText'=>Input::get("message"),'email'=>Input::get("email")), function($message) use ($randomAdmin) {
-                        $message->from("sender@yopmail.com", "sender"); // no
+                        $message->from("sender@yopmail.com", "sender");
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
                     });
                 
@@ -69,7 +69,7 @@ class MessagingController extends BaseController {
             //ja neeksistē lietotājs, kuram tiek mēģināts sūtīt ziņu
         if(!User::find($receiver_id))
         {
-            Session::flash('message-fail',trans('non existent user'));
+            Session::flash('message-fail',trans('messages.non-existent-user'));
             return Redirect::route("home");
         }
         
@@ -91,14 +91,14 @@ class MessagingController extends BaseController {
                     //ziņa tiek saglabāta (nosūtīta)
                 if($message->save())
                 {
-                    Session::flash('message-success',trans('message sent'));
+                    Session::flash('message-success',trans('messages.message-sent'));
                     return Redirect::to("/viewMessage/{$message->id}");
                 }
             }
             
-                //pieteikuma kļūmju gadījumā
+                // kļūmju gadījumā
             $data["errors"] = $validator->errors();
-            Session::flash('message-fail',trans('sending message failed'));
+            Session::flash('message-fail',trans('messages.sending-message-failed'));
             return Redirect::to("/sendMessage/{$receiver_id}")->withInput(Input::all())->with($data);
         }
         
@@ -115,7 +115,7 @@ class MessagingController extends BaseController {
             //ja neeksistē ziņa, kuru tiek mēģināts izdzēst
         if(!Message::find($message_id))
         {
-            Session::flash('message-fail',trans('non existent message'));
+            Session::flash('message-fail',trans('messages.non-existent-message'));
             return Redirect::to("viewMessages/".Auth::user()->id);
         }
         
@@ -123,11 +123,11 @@ class MessagingController extends BaseController {
             //ja veiksmīgi tiek dzēsta ziņa
         if($message->delete())
         {
-            Session::flash('message-success',trans('message deleted successfully',['subject' => $message->subject]));
+            Session::flash('message-success',trans('messages.message-deleted-successfully',['subject' => $message->subject]));
             return Redirect::back();                               
         }else{
                 //ja kāda nezināma iemesla dēļ netiek izdzēsta ziņa
-            Session::flash('message-fail',trans('could not delete message'));
+            Session::flash('message-fail',trans('messages.could-not-delete-message'));
             return Redirect::to("viewMessages/".$message->sender_id);  
         }
     }
@@ -168,7 +168,7 @@ class MessagingController extends BaseController {
         }
             
             //neatļautas pieejas gadījumā, pārvirza uz savām ziņām
-        Session::flash('message-fail',trans('no access'));    
+        Session::flash('message-fail',trans('messages.no-access'));    
         return Redirect::to("viewMessages/".Auth::user()->id); 
     }
     
@@ -199,9 +199,9 @@ class MessagingController extends BaseController {
             //ja neeksistē ziņa, kuru tiek mēģināts apskatīt
         if(!Message::find($message_id))
         {
-            Session::flash('message-fail',trans('non existent message'));
+            Session::flash('message-fail',trans('messages.non-existent-message'));
         }else{ //neatļautas pieejas gadījumā
-            Session::flash('message-fail',trans('no access')); 
+            Session::flash('message-fail',trans('messages.no-access')); 
         }
             //pārvirza uz savām ziņām
         return Redirect::to("viewMessages/".Auth::user()->id);

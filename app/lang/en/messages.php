@@ -44,6 +44,12 @@ return array(
         'email-sent-to-admin' => 'Email was sent to Administrator: :admin',
         'no-admins' => 'No Administrators found in the system',
         'email-notSent-to-admin' => 'Email was not sent to an Administrator',
+        'message-sent' => 'Message Sent',
+        'sending-message-failed' => 'Sending Message Failed',
+        'non-existent-message' => 'Non existent Message',
+        'message-deleted-successfully' => 'Message ":subject" deleted successfully',
+        'could-not-delete-message' => 'Could not delete Message',
+    
     
         //recommendations
         'cant-recommend-yourself' => 'Were You really trying to recommend Yourself?',
