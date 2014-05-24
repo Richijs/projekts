@@ -66,6 +66,7 @@ return array(
         'messages-cap' => 'Messages',
         'job-seekers' => 'Job Seekers',
         'search-results' => 'Search Results',
+        'home-title-small' => 'Find Jobs, contact Employers, add Vacancies and more...',
     
     
 );

@@ -2,7 +2,11 @@
 @section("content")
 
 <div class="page-header">
-    <h1>Ze Website <small>offer or find jobs</small></h1>
+    <h2>{{ trans('titles.site-title') }}
+        <div>
+            <small>{{ trans('titles.home-title-small') }}</small>
+        </div>
+    </h2>
 </div>   
     
   
@@ -10,7 +14,7 @@
 <div class="container-fluid">
     
     <div class="row">
-        <div id="carousel-example-generic" class="carousel slide col-sm-4" data-ride="carousel">
+        <div id="carousel-example-generic" class="carousel slide col-sm-offset-1 col-sm-5" data-ride="carousel">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -40,28 +44,22 @@
 
   <!-- Controls -->
   <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-    <!--<span class="glyphicon glyphicon-chevron-left"></span>-->
   </a>
   <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-    <!--<span class="glyphicon glyphicon-chevron-right"></span>-->
   </a>
 </div>
   
-        <div class="col-sm-8">
+        <div class="col-sm-5">
             
-    <div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            Top 5 Vacancies
-        </div>
-    </div>
-    <div class="panel-body">
+   
+            <h3>Top Vacancies</h3>
+        
     @foreach ($topVacancies as $vacancie)
     <div>
         @if ($vacancie->poster)
-             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="50" height="50" alt="vacancie poster"/>
+             <img src="{{URL::to('/')}}/{{{$vacancie->poster}}}" width="36" height="36" alt="vacancie poster"/>
         @else
-             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="50" height="50" alt="vacancie poster"/>
+             <img src="{{URL::to('/')}}/uploads/vacanciePosters/default.jpeg" width="36" height="36" alt="vacancie poster"/>
         @endif
         
         <a href="{{ URL::to("/viewVacancie/".$vacancie->id)}}">{{{ $vacancie->name }}}</a>
@@ -70,21 +68,17 @@
 
         @if (Auth::check() && (Auth::user()->userGroup == 1 || $vacancie->creator_id==Auth::user()->id))
         
-        <a class="btn btn-default" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
+        <a class="btn btn-default btn-xs" href="{{URL::to("/viewApplicants/".$vacancie->id)}}">
             Applied: <b>{{{$vacancie->applied}}}</b>
         </a>
         
         @else
             Applied: <b>{{{$vacancie->applied}}}</b>
         @endif
-        
-        <b>Added:</b> {{{ date('d.m.y H:i',strtotime($vacancie->created_at)) }}}
- 
     </div> 
     @endforeach
     
-        </div>
-    </div>
+    
         </div>
          
         
@@ -94,44 +88,37 @@
     
     
     <div class="row">
-        
-        <div class="col-sm-8">
-            Shake treat bag behind the couch but swat at dog yet hide when guests come over. Make muffins destroy couch shake treat bag so inspect anything brought into the house make muffins yet under the bed. Swat at dog stand in front of the computer screen or rub face on everything. Sleep on keyboard. Need to chase tail stand in front of the computer screen for chase mice, attack feet. Sleep on keyboard run in circles for behind the couch. Swat at dog chew iPad power cord stand in front of the computer screen sun bathe. Under the bed. Stick butt in face swat at dog. Chew foot. Chew foot. Chew foot stick butt in face or cat snacks. Chase mice chase mice. Sun bathe sweet beast or sun bathe sweet beast for attack feet. Chase mice stand in front of the computer screen intently stare at the same spot for use lap as chair. Sweet beast hate dog and cat snacks and hate dog but stand in front of the computer screen hunt anything that moves burrow under covers. Sun bathe sweet beast. Sun bathe mark territory so mark territory. 
 
-All of a sudden go crazy flop over. Hate dog lick butt yet shake treat bag all of a sudden go crazy hopped up on goofballs but make muffins. Chew iPad power cord hate dog cat snacks intrigued by the shower. Find something else more interesting leave dead animals as gifts all of a sudden go crazy. Leave dead animals as gifts play time all of a sudden go crazy under the bed or lick butt. Destroy couch. Sleep on keyboard intrigued by the shower, so attack feet. 
-
-        </div> 
-    
-        
-        <div class="col-sm-4">
+        <div class="col-sm-3 col-sm-offset-1">
             
-    <div class="panel panel-default">
-    <div class="panel-heading">
-        <div class="panel-title">
-            Top 5 Employers
-        </div>
-    </div>
-    <div class="panel-body">
+    
+            <h3 class="title-text">Top Employers</h3>
+        
     @foreach ($topEmployers as $employer)
     <div>
         @if ($employer->picture)
-             <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="50" height="50" alt="employer picture"/>
+             <img src="{{URL::to('/')}}/{{{$employer->picture}}}" width="36" height="36" alt="employer picture"/>
         @else
-             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="50" height="50" alt="employer picture"/>
+             <img src="{{URL::to('/')}}/uploads/profileImages/default.jpeg" width="36" height="36" alt="employer picture"/>
         @endif
         
         <a href="{{ URL::to("/viewUser/".$employer->id)}}"><b>{{{$employer->username}}}</b></a>
         
-        {{{$employer->recommendations}}} <b>recommendations</b>
+        {{{$employer->recommendations}}} <b>recommenders</b>
         
     </div>
     @endforeach
-        </div>
-    </div>
+      
         </div>
     
+        <div class="col-sm-7">
+            Shake treat bag behind the couch but swat at dog yet hide when guests come over. Make muffins destroy couch shake treat bag so inspect anything brought into the house make muffins yet under the bed. Swat at dog stand in front of the computer screen or rub face on everything. Sleep on keyboard. Need to chase tail stand in front of the computer screen for chase mice, attack feet. Sleep on keyboard run in circles for behind the couch. Swat at dog chew iPad power cord stand in front of the computer screen sun bathe. Under the bed. Stick butt in face swat at dog. Chew foot. Chew foot. Chew foot stick butt in face or cat snacks. Chase mice chase mice. Sun bathe sweet beast or sun bathe sweet beast for attack feet. Chase mice stand in front of the computer screen intently stare at the same spot for use lap as chair. Sweet beast hate dog and cat snacks and hate dog but stand in front of the computer screen hunt anything that moves burrow under covers. Sun bathe sweet beast. Sun bathe mark territory so mark territory. 
+        </div>
     
     </div>
+    
+    
+    <div class="row col-sm-12">&nbsp;</div>
     
 </div>
     
