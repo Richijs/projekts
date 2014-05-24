@@ -51,9 +51,9 @@
                                     {{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b>
                                 </a>
                             @else
-                                <span class="pull-right">
+                                <a class="btn btn-default btn-xs pull-right" disabled="disabled">
                                     {{ trans('content.applied') }}: <b>{{{$vacancie->applied}}}</b>
-                            </span>
+                                </a>
                             @endif
                         </p>
                         </div>
