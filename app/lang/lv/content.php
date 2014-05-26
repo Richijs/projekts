@@ -47,7 +47,7 @@ return array(
         'applicants' => 'Kandidāti',
         'created' => 'Izveidots',
         'new-applicants' => 'Jauni Kandidāti!',
-        'applied' => 'Pietiecās',
+        'applied' => 'Pieteikušies',
         'you-havent-added-any-vacancies' => "Jūs neesat pievienojis nevienu Vakanci",
         'no-vacancies-to-show' => 'Nav Vakanču ko parādīt',
         'added-by' => 'Pievienoja',
