@@ -66,6 +66,6 @@ return array(
         'messages-cap' => 'Messages',
         'job-seekers' => 'Job Seekers',
         'search-results' => 'Search Results',
-    
+        'vacancies-eem' => 'Vacancies',
     
 );

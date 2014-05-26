@@ -16,9 +16,9 @@
 @endif
 
 <div class="page-header">
-    <h3>
+    <h2>
         {{ trans('titles.vacancies') }}
-    </h3>
+    </h2>
 </div>
 
 @if (isset($vacancies))

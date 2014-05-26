@@ -10,7 +10,7 @@
                 @if (isset($applications))
                     {{{$applications->count}}}
                 @endif
-            {{ trans('titles.vacancies') }},
+            {{ trans('titles.vacancies-eem') }},
             <small>{{{ Auth::user()->username }}}</small>
         </h2>
     </div>
