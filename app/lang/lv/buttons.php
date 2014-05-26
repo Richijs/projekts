@@ -4,11 +4,9 @@ return array(
 
 	/*
 	|--------------------------------------------------------------------------
-	| Titles Language Lines
+	| Buttons Language Lines
 	|--------------------------------------------------------------------------
 	|
-	| The following language lines are used by the main titles all across
-        | the application.
 	|
 	*/
     
