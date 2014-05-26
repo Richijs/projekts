@@ -43,7 +43,7 @@ return array(
         'reset-password' => 'Atiestatīt Paroli',
         'is-searching-for-job' => 'meklē darbu',
         'edit-vacancie' => 'Rediģēt Vakanci',
-        'apply-vacancie' => 'Dzēst Vakanci',
+        'apply-vacancie' => 'Pieteikties Vakancei',
     
         
     
