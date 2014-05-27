@@ -17,8 +17,8 @@ return array(
 	"active_url"       => ":attribute nav derīga tīmekļa adrese.",
 	"after"            => ":attribute jābūt datumam pēc :date.",
 	"alpha"            => ":attribute drīkst saturēt vienīgi burtus.",
-	"alpha_dash"       => ":attribute drīkst saturēt vienīgi burtus, numurus, un domuzīmes.",
-	"alpha_num"        => ":attribute drīkst saturēt vienīgi burtus un numurus.",
+	"alpha_dash"       => ":attribute drīkst saturēt vienīgi burtus, ciparus, un domuzīmes.",
+	"alpha_num"        => ":attribute drīkst saturēt vienīgi burtus un ciparus.",
 	"array"            => ":attribute jābūt masīvam.",
 	"before"           => ":attribute jābūt datumam pirms :date.",
 	"between"          => array(
