@@ -18,7 +18,7 @@ return array(
         'non-existent-user' => 'Neeksistējošs Lietotājs',
         'non-existent-vacancie' => 'Neeksistējoša Vakance',
         'account-inactive' => 'Šis profils ir neaktīvs!',
-        'logout-first' => 'Vispirms jāizrakstās no sistēmas!',
+        'logout-first' => 'Vispirms jāatsakās no sistēmas!',
     
         
         //applications
@@ -78,10 +78,10 @@ return array(
         'couldnt-delete-job-seek' => 'Neizdevās dzēst darba meklētāja datus',
     
         //users
-        'logged-in' => 'Veiksmīgi pierakstījāties sistēmā',
-        'not-activated-or-incorrect' => 'Neizdevās pierakstīties sistēmā - Profils nav aktivizēts un/vai nepareiza Parole',
-        'wrong-user-pass' => 'Neizdevās pierakstīties sistēmā - nepareizs Lietotājvārds vai Parole',
-        'couldnt-login' => 'Neizdevās pierakstīties sistēmā',
+        'logged-in' => 'Veiksmīgi pieteicāties sistēmā',
+        'not-activated-or-incorrect' => 'Neizdevās pieteikties sistēmā - Profils nav aktivizēts un/vai nepareiza Parole',
+        'wrong-user-pass' => 'Neizdevās pieteikties sistēmā - nepareizs Lietotājvārds vai Parole',
+        'couldnt-login' => 'Neizdevās pieteikties sistēmā',
         'email-sent-to' => 'E-pasts tika nosūtīts uz :email',
         'not-activated-yet' => 'Profils vēl nav aktivizēts - pārbaudiet savu E-pastu',
         'couldnt-send-email' => 'Nevarēja nosūtīt E-pastu',
@@ -91,15 +91,15 @@ return array(
         'couldnt-change-pass' => 'Neizdevās nomainīt paroli',
         'email-sent-to-complete-registration' => 'E-pasts tika nosūtīts uz :email lai pabeigtu reģistrācijas procesu',
         'couldnt-register' => 'Neizdevās reģistrēties',
-        'registered-now-login' => 'Veiksmīgi reģistrējāties. Tagad Jūs varat pierakstīties sistēmā!',
+        'registered-now-login' => 'Veiksmīgi reģistrējāties. Tagad Jūs varat pieteikties sistēmā!',
         'invalid-link-or-activated' => 'Neveiksmīga operācija - nekorekta aktivizācijas saite vai Lietotājs jau ir aktivizēts',
         'edited-your-profile' => 'Veiksmīgi rediģējāt savu profilu',
         'edited-profile' => 'Veiksmīgi rediģējāt :user profilu',
         'couldnt-edit-userdata' => 'Neizdevās rediģēt lietotāja datus',
         'password-changed-authuser' => 'Jūsu parole tika veiksmīgi nomainīta',
         'wrong-current-password' => 'Nepareiza pašreizējā parole',
-        'not-logged-in' => 'Jūs neesat pierakstījies sistēmā',
-        'logged-out' => 'Veiksmīgi izrakstījāties no sistēmas',
+        'not-logged-in' => 'Jūs neesat pieteicies sistēmā',
+        'logged-out' => 'Veiksmīgi atteicāties no sistēmas',
         'deleted-profile' => 'Profils :user tika veiksmīgi izdzēsts',
         'wrong-password' => 'Nepareiza parole',
         'couldnt-delete-profile' => 'Neizdevās dzēst profilu',
