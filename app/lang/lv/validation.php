@@ -49,7 +49,7 @@ return array(
 	"min"              => array(
 		"numeric" => ":attribute jābūt vismaz :min.",
 		"file"    => ":attribute jābūt vismaz :min kilobaitiem.",
-		"string"  => ":attribute jābūt vismaz :min simboliem.",
+		"string"  => "laukam ':attribute' jābūt vismaz :min simboliem garam.",
 		"array"   => ":attribute jābūt vismaz :min vienumiem.",
 	),
 	"not_in"           => "izvēlētais :attribute nav derīgs.",
