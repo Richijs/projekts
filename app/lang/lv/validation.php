@@ -42,14 +42,14 @@ return array(
 	"max"              => array(
 		"numeric" => ":attribute nedrīkst būt lielāks par :max.",
 		"file"    => ":attribute nedrīkst būt lielāks par :max kilobaitiem.",
-		"string"  => ":attribute nedrīkst būt lielāks par :max simboliem.",
+		"string"  => "Lauks ':attribute' nedrīkst būt lielāks par :max simboliem.",
 		"array"   => ":attribute nedrīkst būt lielāks par :max vienumiem.",
 	),
 	"mimes"            => ":attribute jābūt failam ar vienu no tipiem: :values.",
 	"min"              => array(
 		"numeric" => ":attribute jābūt vismaz :min.",
 		"file"    => ":attribute jābūt vismaz :min kilobaitiem.",
-		"string"  => "laukam ':attribute' jābūt vismaz :min simboliem garam.",
+		"string"  => "Laukam ':attribute' jābūt vismaz :min simboliem garam.",
 		"array"   => ":attribute jābūt vismaz :min vienumiem.",
 	),
 	"not_in"           => "izvēlētais :attribute nav derīgs.",
