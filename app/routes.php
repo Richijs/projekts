@@ -31,7 +31,7 @@ Route::group(["before" => "csrf"], function(){
     
 });
 
-    //lai varētu veikt veiksmīgu redirect, mainot valodu pēc meklēšanas
+    //lai varētu veikt veiksmīgu pārvirzi, mainot valodu pēc meklēšanas
     Route::get("/search", [
         "as"   => "/search",
         "uses" => "HomeController@searchAction"
