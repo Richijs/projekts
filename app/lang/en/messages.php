@@ -103,6 +103,7 @@ return array(
         'deleted-profile' => 'Successfully deleted profile :user',
         'wrong-password' => 'Wrong password',
         'couldnt-delete-profile' => 'Could not delete profile',
+        'password-reset' => 'Password reset',
     
         //vacancies
         'vacancie-offer-saved' => 'Vacancie offer has been saved',

@@ -55,7 +55,7 @@ return array(
         'users-found' => 'Atrasti Lietotāji',
         'vacancies-found' => 'Atrastas Vakances',
         'job-searchers-found' => 'Atrasti darba meklētāji',
-        'searched-for-nothing' => 'Meklējāt.. neko.',
+        'searched-for-nothing' => 'Nekas netika meklēts.',
         'no-results-found' => 'Netika atrasts neviens rezultāts.',
         'top-vacancies' => 'Top Vakances',
         'dont-miss-best-vacancies' => "Nenokavējiet labākās Vakances",

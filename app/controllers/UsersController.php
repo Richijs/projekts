@@ -66,8 +66,8 @@ class UsersController extends BaseController {
                 Password::remind($credentials,
                     function($message, $user)
                     {
-                        $message->subject('Password Reset!');
-                        $message->from("sender@yopmail.com", "sender"); //no
+                        $message->subject(trans('messages.password-reset'));
+                        $message->from("sender@yopmail.com", "sender");
                     }
                 );
                 

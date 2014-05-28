@@ -103,6 +103,7 @@ return array(
         'deleted-profile' => 'Profils :user tika veiksmīgi izdzēsts',
         'wrong-password' => 'Nepareiza parole',
         'couldnt-delete-profile' => 'Neizdevās dzēst profilu',
+        'password-reset' => 'Paroles atiestatīšana',
     
         //vacancies
         'vacancie-offer-saved' => 'Vakances piedāvājums tika veiksmīgi saglabāts',
