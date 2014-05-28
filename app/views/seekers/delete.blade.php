@@ -18,7 +18,7 @@
             <small>
                 <a href="{{URL::to("/viewSeeker/".$id)}}">{{{ $intro }}}</a>
             </small>
-            {{ trans('titles.job-seeker-data') }}
+            {{ trans('titles.job-seeker-data-u') }}
         </h2>
         <span class="text-danger">{{ trans('titles.to-delete-jobseek-confirm') }}</span>
     </div>

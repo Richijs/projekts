@@ -34,6 +34,7 @@ return array(
         'recommended' => 'Recommended',
         'add-jobseek-data' => 'Add JobSeeker data',
         'job-seeker-data' => 'JobSeeker data',
+        'job-seeker-data-u' => 'JobSeeker data',
         'to-delete-jobseek-confirm' => 'To delete JobSeek data, confirm deletion',
         'edit-jobseek' => 'Edit JobSeek data',
         'job-searchers' => 'Job Searchers',
