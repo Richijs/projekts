@@ -18,7 +18,7 @@ App::before(function($request)
         return Redirect::to(substr(Request::path(), 3));
     }
         
-    //pirms ielogošanās uzliek preferred lang
+    //pirms pierakstīšanās uzliek preferred lang
     if (isset(Auth::user()->prefLang)){
          Session::put('locale', Auth::user()->prefLang);
     }
@@ -27,8 +27,8 @@ App::before(function($request)
         App::setLocale(Session::get('locale'));
     }
     
-    if (Auth::check() && Auth::user()->active!=1) //pārbauda, vai account nav neaktīvs
-    {                                             //ja tā ir , izlogo
+    if (Auth::check() && Auth::user()->active!=1) //pārbauda, vai profils nav neaktīvs
+    {                                             //ja tā ir , izraksta lietotāju no sistēmas
             
         Auth::logout();
         $lastLang = Session::get('locale');
