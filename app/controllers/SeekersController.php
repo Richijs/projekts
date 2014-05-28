@@ -47,7 +47,6 @@ class SeekersController extends BaseController {
                             return Redirect::to("/apply/{$redirectToVacancie}");
                         }    
                             
-                            
                         Session::flash('message-success',trans('messages.jobseek-saved'));
                         return Redirect::route("seekers/viewMy");
                     }else{

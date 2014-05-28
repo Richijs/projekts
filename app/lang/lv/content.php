@@ -37,7 +37,7 @@ return array(
         'intro-title' => 'Ievads',
         'searching-since' => 'Meklē kopš',
         'no-jobseekers-to-show' => 'Nav darba meklētāju ko parādīt.',
-        'you-havent-added-seeker-data-yet' => "Jūs vēl neesat pievienojis savus darba meklētāja datus.",
+        'you-havent-added-seeker-data-yet' => "Jūs vēl neesat pievienojis savu darba meklēšanas sludinājumu.",
         'joined' => 'Pievienojās',
         'user-has-not-yet-activated-account' => 'Šīs lietotājs vēl nav aktivizējis savu profilu.',
         'status' => 'Statuss',

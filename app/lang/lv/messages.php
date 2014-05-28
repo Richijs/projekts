@@ -22,7 +22,7 @@ return array(
     
         
         //applications
-	'before-applying-vacancie' => 'Pirms pieteikšanās jebkurai Vakancei, vispirms, jums ir jānorāda savi darba meklētāja dati',
+	'before-applying-vacancie' => 'Pirms pieteikšanās jebkurai Vakancei, vispirms, jums ir jānorāda savs darba meklētāja sludinājums',
         'applied-vacancie-successfully' => 'Veiksmīgi pieteicāties šai Vakancei',
         'applying-vacancie-failed' => 'Pieteikšanās vakancei neveiksmīga',
         'already-applied-vacancie' => 'Jau esat pieteicies šai Vakancei',
@@ -63,19 +63,19 @@ return array(
         'not-an-employer' => 'Šis lietotājs nav darba devējs',
             
         //seekers
-        'jobseek-saved-now-apply' => 'Darba meklētāja dati tika saglabāti - tagad jūs varat turpināt pieteikšanos vakancei',
-        'jobseek-saved' => 'Darba meklētāja dati tika saglabāti',
-        'jobseek-not-saved' => 'Neizdevās saglabāt darba meklētāja datus',
-        'jobseek-not-added' => 'Neizdevās pievienot darba meklētāja datus',
-        'already-added-jobseek' => 'Jūs jau esat pievienojis savus darba meklētāja datus',
-        'non-existent-jobseek' => 'Nav darba meklētāja datu ar šādu ID numuru',
+        'jobseek-saved-now-apply' => 'Darba meklētāja sludinājums tika saglabāts - tagad jūs varat turpināt pieteikšanos vakancei',
+        'jobseek-saved' => 'Darba meklētāja sludinājums tika saglabāts',
+        'jobseek-not-saved' => 'Neizdevās saglabāt darba meklētāja sludinājumu',
+        'jobseek-not-added' => 'Neizdevās pievienot darba meklētāja sludinājumu',
+        'already-added-jobseek' => 'Jūs jau esat pievienojis savu darba meklētāja sludinājumu',
+        'non-existent-jobseek' => 'Nav darba meklētāja sludinājuma ar šādu ID numuru',
         'couldnt-download-cv' => 'Neizdevās lejupielādēt CV',
-        'edited-your-job-seek' => 'Veiksmīgi rediģējāt savus darba meklētāja datus',
-        'edited-job-seek' => 'Veiksmīgi rediģējāt darba meklētāja datus (:seek)',
-        'couldnt-edit-job-seek' => 'Neizdevās rediģēt darba meklētāja datus',
-        'deleted-job-seek' => 'Veiksmīgi izdzēsāt darba meklētāja datus (:seek)',
-        'wrong-couldnt-delete-job-seek' => 'Kaut kas nogāja greizi - neizdevās dzēst darba meklētāja datus',
-        'couldnt-delete-job-seek' => 'Neizdevās dzēst darba meklētāja datus',
+        'edited-your-job-seek' => 'Veiksmīgi rediģējāt savu darba meklētāja sludinājumu',
+        'edited-job-seek' => 'Veiksmīgi rediģējāt darba meklētāja sludinājumu (:seek)',
+        'couldnt-edit-job-seek' => 'Neizdevās rediģēt darba meklētāja sludinājumu',
+        'deleted-job-seek' => 'Veiksmīgi izdzēsāt darba meklētāja sludinājumu (:seek)',
+        'wrong-couldnt-delete-job-seek' => 'Kaut kas nogāja greizi - neizdevās dzēst darba meklētāja sludinājumu',
+        'couldnt-delete-job-seek' => 'Neizdevās dzēst darba meklētāja sludinājumu',
     
         //users
         'logged-in' => 'Veiksmīgi pieteicāties sistēmā',

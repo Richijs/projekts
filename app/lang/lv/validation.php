@@ -53,7 +53,7 @@ return array(
 		"array"   => ":attribute jābūt vismaz :min vienumiem.",
 	),
 	"not_in"           => "izvēlētais :attribute nav derīgs.",
-	"numeric"          => ":attribute jābūt numuram.",
+	"numeric"          => "laukam `:attribute` jābūt numuram.",
 	"regex"            => ":attribute formāts nav derīgs.",
 	"required"         => "lauks ':attribute' ir nepieciešams.",
 	"required_if"      => ":attribute lauks ir nepieciešams, kad :other ir :value.",

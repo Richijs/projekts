@@ -35,7 +35,7 @@ return array(
         'intro-text' => 'Ievada Teksts',
         'text' => 'Teksts',
         'your-cv' => 'Jūsu CV',
-        'wish-to-delete-jobseek' => 'Es vēlos dzēst darba meklētāja datus',
+        'wish-to-delete-jobseek' => 'Es vēlos dzēst darba meklētāja sludinājumu',
         'current-cv' => 'Pašreiz augšupielādētais CV',
         'download-current-cv' => 'Lejupielādēt pašreizējo CV',
         'upload-new-cv' => 'Augšupielādēt jaunu CV',
