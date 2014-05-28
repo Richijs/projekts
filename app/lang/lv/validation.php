@@ -59,7 +59,7 @@ return array(
 	"required_if"      => ":attribute lauks ir nepieciešams, kad :other ir :value.",
 	"required_with"    => ":attribute lauks ir nepieciešams, kad :values ir klātesošs.",
 	"required_without" => ":attribute lauks ir nepieciešams, kad :values nav klātesošs.",
-	"same"             => ":attribute un :other ir jāsakrīt.",
+	"same"             => ":attribute un :other laukiem ir jāsakrīt.",
 	"size"             => array(
 		"numeric" => ":attribute jābūt :size.",
 		"file"    => ":attribute jābūt :size kilobaitiem.",
