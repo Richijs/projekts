@@ -52,7 +52,7 @@ return array(
     
     
         //recommendations
-        'cant-recommend-yourself' => 'Vai Jūs tiešām centāties rekomendēt pats sevi?',
+        'cant-recommend-yourself' => 'Nav iespējams rekomendēt pašam sevi',
         'cant-recommend-non-employer' => ':user nav darba devējs',
         'no-such-user' => 'Nav šāda Lietotāja',
         'unrecommended' => 'Atcelta :user rekomendācija',

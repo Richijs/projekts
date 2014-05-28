@@ -9,7 +9,7 @@
 
 <div class="page-header">
     <h2>
-        {{ trans('titles.users-who') }} {{ trans('titles.recommended') }}
+        {{ trans('titles.users-who') }} {{ trans('titles.recommended-us') }}
             <a href="{{URL::to("/viewUser/".$employer->id)}}">
                 @if (Auth::user()->id == $employer->id)
                     {{ trans('titles.you') }}

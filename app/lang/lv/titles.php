@@ -67,5 +67,7 @@ return array(
         'job-seekers' => 'Darba meklētāji',
         'search-results' => 'Meklēšanas rezultāti',
         'vacancies-eem' => 'Vakancēm',
-    
+        'recommended-us' => 'Rekomendējuši',
+        'recommended-is' => 'Rekomendējis/usi',
+        'users-who-o' => 'Lietotāji, kurus'
 );

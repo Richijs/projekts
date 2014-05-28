@@ -11,14 +11,14 @@
 
 <div class="page-header">
     <h2>
-        {{ trans('titles.users-who') }} 
+        {{ trans('titles.users-who-o') }} 
             <a href="{{URL::to("/viewUser/".$user->id)}}">
                 @if (Auth::user()->id == $user->id)
                     {{ trans('titles.you') }}
                 @else
                     {{{$user->username}}}
                 @endif
-            </a>{{ trans('titles.recommended') }}.
+            </a> {{ trans('titles.recommended-is') }}
     </h2>
 </div>
 

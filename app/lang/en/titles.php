@@ -67,5 +67,8 @@ return array(
         'job-seekers' => 'Job Seekers',
         'search-results' => 'Search Results',
         'vacancies-eem' => 'Vacancies',
+        'recommended-us' => 'Recommended',
+        'recommended-is' => 'Recommended',
+        'users-who-o' => 'Users, who'
     
 );
