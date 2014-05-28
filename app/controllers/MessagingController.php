@@ -135,6 +135,12 @@ class MessagingController extends BaseController {
     //skatīt lietotāja saņemtās un nosūtītās ziņas
     public function viewMessagesAction($user_id)
     {   
+            //neeksistējoša lietotāja gadījumā
+        if(!User::find($user_id))
+        {
+            Session::flash('message-fail',trans('messages.non-existent-user'));
+            return Redirect::route("home");
+        }
             //drīkst skatīt tikai administrators vai pats
         if (Auth::check() && (Auth::user()->userGroup == 1 || Auth::user()->id == $user_id))
         {       

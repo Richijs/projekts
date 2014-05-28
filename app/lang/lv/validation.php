@@ -42,7 +42,7 @@ return array(
 	"max"              => array(
 		"numeric" => ":attribute nedrīkst būt lielāks par :max.",
 		"file"    => ":attribute nedrīkst būt lielāks par :max kilobaitiem.",
-		"string"  => "Lauks ':attribute' nedrīkst būt lielāks par :max simboliem.",
+		"string"  => "Lauks ':attribute' nedrīkst būt garāks par :max simboliem.",
 		"array"   => ":attribute nedrīkst būt lielāks par :max vienumiem.",
 	),
 	"mimes"            => ":attribute jābūt failam ar vienu no tipiem: :values.",
