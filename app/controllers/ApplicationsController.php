@@ -160,7 +160,7 @@ class ApplicationsController extends BaseController {
             
             if(!Vacancie::find($vacancieId)){
                     //neeksistējošas vakances gadījumā
-                Session::flash('message-fail',trans('messages.non-existent-application'));
+                Session::flash('message-fail',trans('messages.non-existent-vacancie'));
                 return Redirect::route("vacancies/myVacancies");
             }
         
