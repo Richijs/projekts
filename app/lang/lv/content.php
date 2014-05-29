@@ -18,6 +18,7 @@ return array(
         'are searching-for-job-since' => 'meklējat darbu kopš',
         'no-one-applied-yet' => 'Neviens vēl nav pieteicies.',
         'new' => 'Jauns',
+        'new-as' => 'Jaunas',
         'view' => 'Skatīt',
         'user' => 'Lietotājs',
         'controls' => 'Vadība',

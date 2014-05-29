@@ -49,7 +49,7 @@
             <li {{ Request::is('viewMessages/*') || Request::is('viewMessage/*')? 'class="active"' : '' }}>
                 <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">
                     @if (isset($newMessages))
-                        <span class="badge pull-right">{{$newMessages}} {{ trans('content.new') }}! </span>
+                        <span class="badge pull-right">{{$newMessages}} {{ trans('content.new-as') }}! </span>
                     @endif 
                             
                     {{ trans('titles.messages-cap') }}
