@@ -22,7 +22,7 @@ return array(
     
         
         //applications
-	'before-applying-vacancie' => 'Pirms pieteikšanās jebkurai Vakancei, vispirms, jums ir jānorāda savs darba meklētāja sludinājums',
+	'before-applying-vacancie' => 'Pirms pieteikšanās jebkurai Vakancei, vispirms, jums ir jāpievieno savs darba meklētāja sludinājums',
         'applied-vacancie-successfully' => 'Veiksmīgi pieteicāties šai Vakancei',
         'applying-vacancie-failed' => 'Pieteikšanās vakancei neveiksmīga',
         'already-applied-vacancie' => 'Jau esat pieteicies šai Vakancei',
