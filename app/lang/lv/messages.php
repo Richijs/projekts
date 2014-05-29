@@ -26,7 +26,7 @@ return array(
         'applied-vacancie-successfully' => 'Veiksmīgi pieteicāties šai Vakancei',
         'applying-vacancie-failed' => 'Pieteikšanās vakancei neveiksmīga',
         'already-applied-vacancie' => 'Jau esat pieteicies šai Vakancei',
-        'non-existent-application' => 'Neeksistējoša Vakance',
+        'non-existent-application' => 'Neeksistējošs pieteikums',
         'application-deleted-successfully' => 'Pieteikums ar id numuru: :id tika veiksmīgi izdzēsts',
         'wrong-couldnt-delete-application' => 'Kaut kas nogāja greizi - neizdevās dzēst pieteikumu',
         'couldnt-delete-application' => 'Neizdevās dzēst pieteikumu',
