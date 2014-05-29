@@ -5,7 +5,7 @@ use Illuminate\Routing\Redirector;
 class RecommendationsController extends BaseController {
     
     //pievieno vai atceļ lietotāja rekomendāciju
-    public function RecommendAction($userId)
+    public function recommendAction($userId)
     {
             //ja mēģina rekomendēt pats sevi
         if (Auth::check() && Auth::user()->id == $userId)
