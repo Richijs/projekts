@@ -47,7 +47,7 @@
                     {{{ $message->subject }}}
                 </a>
                 @if (isset($message->new))
-                    <span class="badge">{{ trans('content.new') }}!</span>
+                    <span class="badge">{{ trans('content.new-a') }}!</span>
                 @endif
 
                 @if (isset($message->sent))

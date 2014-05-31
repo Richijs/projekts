@@ -18,6 +18,7 @@ return array(
         'are searching-for-job-since' => 'are searching for job since',
         'no-one-applied-yet' => 'No one applied yet.',
         'new' => 'New',
+        'new-a' => 'New',
         'new-as' => 'New',
         'view' => 'View',
         'user' => 'User',

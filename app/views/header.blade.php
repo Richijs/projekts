@@ -49,7 +49,7 @@
             <li {{ Request::is('viewMessages/*') || Request::is('viewMessage/*')? 'class="active"' : '' }}>
                 <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">
                     @if (isset($newMessages))
-                        <span class="badge pull-right">{{$newMessages}} {{ trans('content.new-as') }}! </span>
+                        <span class="badge pull-right">{{$newMessages}}</span>
                     @endif 
                             
                     {{ trans('titles.messages-cap') }}
@@ -63,7 +63,7 @@
             <li {{ Request::is('myVacancies') ? 'class="active"' : '' }}>
                 <a href="{{ URL::route("vacancies/myVacancies") }}">
                 @if (isset($newApplicants))
-                    <span class="badge pull-right">{{$newApplicants}} {{ trans('content.new-applicants') }}</span>
+                    <span class="badge pull-right">{{$newApplicants}}</span>
                 @endif 
 
                 {{ trans('buttons.my-vacancies') }}
