@@ -16,23 +16,23 @@ return array(
         'no-access' => 'No access to this action',
         'not-authorized' => 'Not authorized to do this action',
         'non-existent-user' => 'Non existent User',
-        'non-existent-vacancie' => 'Non existent Vacancie',
+        'non-existent-vacancie' => 'Non existent Vacancy',
         'account-inactive' => 'This Account is Inactive!',
         'logout-first' => 'Must log out first!',
     
         
         //applications
-	'before-applying-vacancie' => 'Before applying any Vacancie, first, You must add Your job seeker data',
-        'applied-vacancie-successfully' => 'Applied this Vacancie successfully',
-        'applying-vacancie-failed' => 'Applying Vacancie failed',
-        'already-applied-vacancie' => 'Already applied this Vacancie',
+	'before-applying-vacancie' => 'Before applying any Vacancy, first, You must add Your job seeker data',
+        'applied-vacancie-successfully' => 'Applied this Vacancy successfully',
+        'applying-vacancie-failed' => 'Applying Vacancy failed',
+        'already-applied-vacancie' => 'Already applied this Vacancy',
         'non-existent-application' => 'Non existent Application',
         'application-deleted-successfully' => 'Application with id: :id deleted successfully',
         'wrong-couldnt-delete-application' => 'Something went wrong - could not delete Application',
         'couldnt-delete-application' => 'Could not delete Application',
         'edited-application-successfully' => 'Edited application successfully',
         'editing-application-failed' => 'Editing application was unsuccessful',
-        'cant-apply-own-vacancie' => 'You can not apply Your own Vacancie',
+        'cant-apply-own-vacancie' => 'You can not apply Your own Vacancy',
     
         //lang
         'preflang-changed' => 'Preferred user language changed to :lang',
@@ -63,7 +63,7 @@ return array(
         'not-an-employer' => 'This user is not an Employer',
             
         //seekers
-        'jobseek-saved-now-apply' => 'Job Seeker data has been saved - now you can apply the vacancie you tried to apply',
+        'jobseek-saved-now-apply' => 'Job Seeker data has been saved - now you can apply the vacancy you tried to apply',
         'jobseek-saved' => 'Job Seeker data has been saved',
         'jobseek-not-saved' => 'Could not save Job Seeker data',
         'jobseek-not-added' => 'Could not add Job Seeker data',
@@ -106,14 +106,14 @@ return array(
         'password-reset' => 'Password reset',
     
         //vacancies
-        'vacancie-offer-saved' => 'Vacancie offer has been saved',
-        'couldnt-add-vacancie' => 'Could not add Vacancie',
-        'edited-your-vacancie' => 'Edited Your Vacancie successfully',
-        'edited-vacancie' => 'Edited Vacancie (:vacancie) successfully',
-        'couldnt-edit-vacancie' => 'Could not edit Vacancie',
-        'deleted-vaccancie' => 'Deleted Vacancie (:vacancie) successfully',
-        'wrong-couldnt-delete-vacancie' => 'Something went wrong - could not delete Vacancie',
-        'couldnt-delete-vacancie' => 'Could not delete Vacancie',
+        'vacancie-offer-saved' => 'Vacancy offer has been saved',
+        'couldnt-add-vacancie' => 'Could not add Vacancy',
+        'edited-your-vacancie' => 'Edited Your Vacancy successfully',
+        'edited-vacancie' => 'Edited Vacancy (:vacancie) successfully',
+        'couldnt-edit-vacancie' => 'Could not edit Vacancy',
+        'deleted-vaccancie' => 'Deleted Vacancy (:vacancie) successfully',
+        'wrong-couldnt-delete-vacancie' => 'Something went wrong - could not delete Vacancy',
+        'couldnt-delete-vacancie' => 'Could not delete Vacancy',
     
     
 );

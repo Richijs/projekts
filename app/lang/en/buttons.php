@@ -10,7 +10,7 @@ return array(
 	|
 	*/
     
-        'to-vacancie' => 'to Vacancie',
+        'to-vacancie' => 'to Vacancy',
         'all-vacancies' => 'all Vacancies',
         'my-applications' => 'My Applications',
         'to-application' => 'to Application',
@@ -40,8 +40,8 @@ return array(
         'request' => 'Request',
         'reset-password' => 'Reset Password',
         'is-searching-for-job' => 'is searching for Job',
-        'edit-vacancie' => 'Edit Vacancie',
-        'apply-vacancie' => 'Apply Vacancie',
+        'edit-vacancie' => 'Edit Vacancy',
+        'apply-vacancie' => 'Apply Vacancy',
     
         
     

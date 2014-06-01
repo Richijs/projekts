@@ -12,13 +12,13 @@ return array(
 	|
 	*/
     
-        'applying-vacancie' => 'Applying Vacancie ',
+        'applying-vacancie' => 'Applying Vacancy ',
         'delete' => 'Delete',
         'application-u' => 'Application', //pieteikumu
         'to-delete-application-confirm' => 'To delete Application, confirm deletion.',
         'edit' => 'Edit',
-        'application-for-vacancie' => 'Application for Vacancie',
-        'applicants-applied-for-vacancie' => 'Applicants applied for Vacancie',
+        'application-for-vacancie' => 'Application for Vacancy',
+        'applicants-applied-for-vacancie' => 'Applicants applied for Vacancy',
         'vacancies' => 'Vacancies',
         'you-have-applied' => 'You have applied',
         'send-email-to-admin' => 'Send E-mail to an Administrator',
@@ -52,9 +52,9 @@ return array(
         'reset-and-change-password' => 'Reset and change Password',
         'public-profile' => 'public Profile',
         'all-users' => 'All Users',
-        'add-vacancie' => 'Add Vacancie',
-        'to-delete-vacancie-confirm' => 'To delete Vacancie, confirm deletion',
-        'delete-vacancie' => 'Delete Vacancie',
+        'add-vacancie' => 'Add Vacancy',
+        'to-delete-vacancie-confirm' => 'To delete Vacancy, confirm deletion',
+        'delete-vacancie' => 'Delete Vacancy',
         'your-added-vacancies' => 'Your added Vacancies',
         'about' => 'About',
         'site-title' => 'Vacancies & Job Seekers',

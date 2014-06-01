@@ -62,10 +62,10 @@ return array(
         'picture' => 'Picture',
     
     //vacancies
-        'vacancie-name' => 'Vacancie Name',
+        'vacancie-name' => 'Vacancy Name',
         'company-name' => 'Company name',
         'poster' => 'Poster',
-        'wish-to-delete-vacancie' => 'I wish to delete Vacancie',
+        'wish-to-delete-vacancie' => 'I wish to delete Vacancy',
         'current-poster' => 'Current Poster',
         'new-poster' => 'New Poster',
     
