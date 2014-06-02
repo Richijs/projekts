@@ -15,27 +15,33 @@ class MessagingController extends BaseController {
             }else{
                 $id = null;
             }
-                                       
+                //validācijas nosacījumi
             $validator = Validator::make(Input::all(), [
                 "username" => "required|min:3|max:30|alpha_num|unique:users,username,".$id,
                 "email" => "required|email|max:50|unique:users,email,".$id,
                 "subject" => "required|min:3|max:100",
                 "message" => "required|min:10|max:1000",
             ]);
-                    
+                //veiksmīgi izpilda nosacījumus    
             if ($validator->passes())
             {
-                    //ja atrod kaut vienu administratoru ar aktīvu profilu
+                    //atrod kaut vienu administratoru ar aktīvu profilu
                 if(User::where('userGroup',1)->where('active',1)->first())
                 {
                         //nejauši izvēlas kādu no administratoriem
                     $randomAdmin = User::where('userGroup',1)->where('active',1)->orderBy(DB::raw('RAND()'))->first();
-
-                    Mail::send('emails.contact', array('username'=>Input::get("username"),'messageText'=>Input::get("message"),'email'=>Input::get("email")), function($message) use ($randomAdmin) {
+                        //sūta e-pastu
+                    Mail::send('emails.contact', 
+                        array(
+                            'username'=>Input::get("username"),
+                            'messageText'=>Input::get("message"),
+                            'email'=>Input::get("email")),
+                        function($message) use ($randomAdmin) {
+                        
                         $message->from("vakancessender@gmail.com", "sender");
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
                     });
-                
+                        //attēlo paziņojumu, pārvirza
                     Session::flash('message-success',trans('messages.email-sent-to-admin',['admin' => $randomAdmin->username]));
                     return Redirect::route("home");
                 }else{
@@ -44,18 +50,18 @@ class MessagingController extends BaseController {
                     return Redirect::route("home");
                 }
             }
-        
+                //kļūmju gadījumā
             $data["errors"] = $validator->errors();
             Session::flash('message-fail',trans('messages.email-notSent-to-admin'));
             return Redirect::route("messaging/contact")->withInput(Input::all())->with($data); 
         }
         
-            //ja lietotājs pierakstījies - automātiski aizpilda dažus laukus
+            //ja lietotājs pierakstījies - automātiski aizpilda username/email laukus
         if(Auth::check()){
             $data["username"] = Auth::user()->username;
             $data["email"] = Auth::user()->email;
         }else{ 
-            //lai dati tiktu iestatīti
+            //datu iestatīšanai
             $data["username"] = "";
             $data["email"] = ""; 
         }  

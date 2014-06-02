@@ -247,7 +247,7 @@ class VacanciesController extends BaseController {
     //vakances dzēšana
     public function deleteAction($id)
     {
-            //pieejams administratoriem vai pašas vakances autoram
+            //pieejams vienīgi administratoriem vai pašas vakances autoram
         if((Auth::check() && Auth::user()->userGroup==2 && Vacancie::where('id',$id)->where('creator_id',Auth::user()->id)->first()) || Auth::user()->userGroup==1)
         {
             if (Input::server("REQUEST_METHOD") == "POST")
@@ -289,11 +289,9 @@ class VacanciesController extends BaseController {
                 return Redirect::to("/deleteVacancie/{$id}")->with($data);
                 
             }
-        
-            if(Vacancie::find($id)){
-                $vacancie = Vacancie::find($id);
-                
-                    //datu izvadei
+            
+                //datu izvadei
+            if($vacancie = Vacancie::find($id)){
                 $data["id"] = $vacancie->id;
                 $data["name"] = $vacancie->name;   
                 return View::make("vacancies/delete")->with($data); 

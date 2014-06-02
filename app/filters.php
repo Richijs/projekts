@@ -39,11 +39,6 @@ App::before(function($request)
         return Redirect::route('home');
         
     }
-    
-	/*if( !Request::secure())
-        {
-            return Redirect::secure(Request::getRequestUri());
-        }*/
 });
 
 
