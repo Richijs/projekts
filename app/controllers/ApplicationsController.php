@@ -221,7 +221,7 @@ class ApplicationsController extends BaseController {
                     }
                 }
                     
-                    //gadījumā, ja netika atķeksēts dzēšanas apstiprinājums
+                    //gadījumā, ja netika atzīmēts dzēšanas apstiprinājums
                 $data["errors"] = $validator->errors();
                 Session::flash('message-fail',trans('messages.couldnt-delete-application'));
                 return Redirect::to("/deleteApplication/{$applicationId}")->with($data);  
