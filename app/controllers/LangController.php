@@ -38,7 +38,7 @@ class LangController extends BaseController {
             Session::flash('message-success',trans('messages.lang-changed',['lang' => $lang]));
             return Redirect::back();
             
-        }else{ //neeksistējošas valodas gadījumā (normālos apstākļos nav iespējams)
+        }else{ //neeksistējošas valodas gadījumā (normālos apstākļos neiespējami)
             Session::flash('message-fail',trans('messages.non-existent-lang',['lang' => $lang]));
             return Redirect::back();
         }

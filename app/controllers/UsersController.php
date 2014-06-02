@@ -5,7 +5,7 @@ use Intervention\Image\Image;
 
 class UsersController extends BaseController {
     
-    //lietotāja pierakstīšanās
+    //lietotāja pieteikšanās sistēmai
     public function loginAction()
     {
         if (Input::server("REQUEST_METHOD") == "POST")
@@ -14,6 +14,7 @@ class UsersController extends BaseController {
                 "username" => "required",
                 "password" => "required"
             ]);
+                //dati ir tikuši ievadīti
             if ($validator->passes())
             {
                 $credentials = [
@@ -22,10 +23,10 @@ class UsersController extends BaseController {
                     "active" => 1
                 ];
                 
-                    //ja atzīmēts "atcerēties mani", veidos atcerēšanās "cepumu"
+                    //ja atzīmēta "atcerēties mani" izvēles rūtiņa, veidos arī atcerēšanās sīkdatni
                 $remember = (Input::has('remember')) ? true : false;
                 
-                    //veiksmīgas pierakstīšanās gadījumā
+                    //veiksmīgas pieteikšanās gadījumā
                 if (Auth::attempt($credentials,$remember))
                 {                    
                         Session::flash('message-success',trans('messages.logged-in'));                    
@@ -67,7 +68,7 @@ class UsersController extends BaseController {
                     function($message, $user)
                     {
                         $message->subject(trans('messages.password-reset'));
-                        $message->from("sender@yopmail.com", "sender");
+                        $message->from("vakancessender@gmail.com", "sender");
                     }
                 );
                 
@@ -196,7 +197,7 @@ class UsersController extends BaseController {
                 {
                         //tiek nosūtīts e-pasts, ar kuru tālāk iespējams veikt profila aktivizāciju
                     Mail::send('emails.register', array('username'=>Input::get('username'),'code'=>$user->code,'id'=>$user->id), function($message){
-                        $message->from("sender@yopmail.com", "sender"); // no
+                        $message->from("vakancessender@gmail.com", "sender"); // no
                         $message->to(Input::get('email'), Input::get('username'))->subject('Activate your account on VakancesLV!');
                     });
                 
@@ -231,7 +232,7 @@ class UsersController extends BaseController {
                     
                     //tiek izsūtīts sveiciena e-pasts
                 Mail::send('emails.activate', array('username'=>$user->username), function($message) use ($user) {
-                    $message->from("sender@yopmail.com", "sender"); // no
+                    $message->from("vakancessender@gmail.com", "sender"); // no
                     $message->to($user->email,$user->username)->subject('Succesfully registered at VakancesLV!');
                 });
                     //lietotājs tiek pārvirzīts uz pierakstīšanās lapu

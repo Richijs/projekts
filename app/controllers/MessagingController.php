@@ -32,7 +32,7 @@ class MessagingController extends BaseController {
                     $randomAdmin = User::where('userGroup',1)->where('active',1)->orderBy(DB::raw('RAND()'))->first();
 
                     Mail::send('emails.contact', array('username'=>Input::get("username"),'messageText'=>Input::get("message"),'email'=>Input::get("email")), function($message) use ($randomAdmin) {
-                        $message->from("sender@yopmail.com", "sender");
+                        $message->from("vakancessender@gmail.com", "sender");
                         $message->to($randomAdmin->email,$randomAdmin->username)->subject(Input::get("subject"));
                     });
                 
