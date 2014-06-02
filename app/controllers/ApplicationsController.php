@@ -201,20 +201,20 @@ class ApplicationsController extends BaseController {
                 $validator = Validator::make(Input::all(), [
                     "checkbox" => "required"
                 ]);
-                
+                    //apstiprinājums atzīmēts
                 if ($validator->passes())
                 {
                     $application = Application::find($applicationId);
                     $checkbox = Input::get('checkbox');
                     
                     if($checkbox)
-                    {                            
+                    {       //veiksmīga pieteikuma dzēšana                         
                         if($application->delete())
                         {
                             Session::flash('message-success',trans('messages.application-deleted-successfully',['id' => $application->id]));
                             return Redirect::route("applications/viewMy");                                
-                        }else{
-                                //ja kāda nezināma iemesla dēļ netiek izdzēsts pieteikums
+                        }else{  //nezināma iemesla dēļ netiek izdzēsts pieteikums
+                            
                             Session::flash('message-fail',trans('messages.wrong-couldnt-delete-application'));
                             return Redirect::route("home");  
                         }
@@ -226,25 +226,24 @@ class ApplicationsController extends BaseController {
                 Session::flash('message-fail',trans('messages.couldnt-delete-application'));
                 return Redirect::to("/deleteApplication/{$applicationId}")->with($data);  
             }
-        
-            if(Application::find($applicationId)){
-                $application = Application::find($applicationId);
+                //datu izvadei
+            if($application = Application::find($applicationId)){
                 $vacancie = Vacancie::find($application->vacancie_id);
-                
-                    //datu izvadei
-                $data["applicationId"] = $applicationId;
-                $data["applicationLetter"] = $application->letter;
-                $data["vacancieId"] = $vacancie->id;
-                $data["vacancieName"] = $vacancie->name;
+
+                $data = array(
+                    "applicationId" => $applicationId,
+                    "applicationLetter" => $application->letter,
+                    "vacancieId" => $vacancie->id,
+                    "vacancieName" => $vacancie->name);
                 return View::make("applications/delete")->with($data); 
             }else{
-                    //gadījumā, kad tiek mēģināts dzēst neeksistējošu pieteikumu
+                    //tiek mēģināts dzēst neeksistējošu pieteikumu
                 Session::flash('message-fail',trans('messages.non-existent-application'));
                 return Redirect::route("home");
             }  
             
         }else{
-                //kad lietotājam nav tiesības dzēst konkrēto pieteikumu
+                //lietotājam nav tiesības dzēst konkrēto pieteikumu
             Session::flash('message-fail',trans('messages.no-access'));
             return Redirect::route("home");
         }
