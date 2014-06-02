@@ -35,17 +35,6 @@
             <li {{ Request::is('viewAllUsers') ? 'class="active"' : '' }}>
                 <a href="{{ URL::route("users/viewAllUsers") }}">{{ trans('titles.site-users') }}</a>
             </li>
-            <li {{ Request::is('viewUser/'.Auth::user()->id) ? 'class="active"' : '' }}>
-                <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">
-                    <span class="loggedAs">{{ trans('titles.logged-in-as') }}: </span>{{{Auth::user()->username}}}
-                </a>
-            </li>
-            <li {{ Request::is('profile') ? 'class="active"' : '' }}>
-                <a href="{{ URL::route("users/profile") }}">{{ trans('titles.profile-panel') }}</a>
-            </li>
-            <li>
-                <a href="{{ URL::route("users/logout") }}">{{ trans('titles.logout') }}</a>
-            </li>
             <li {{ Request::is('viewMessages/*') || Request::is('viewMessage/*')? 'class="active"' : '' }}>
                 <a href="{{ URL::to("/viewMessages/".Auth::user()->id) }}">
                     @if (isset($newMessages))
@@ -88,6 +77,20 @@
             </li>
             <li {{ Request::is('register') ? 'class="active"' : '' }}>
                 <a href="{{ URL::route("users/register") }}">{{ trans('titles.register') }}</a>
+            </li>
+        @endif
+        
+        @if (Auth::check())
+            <li {{ Request::is('profile') ? 'class="active"' : '' }}>
+                <a href="{{ URL::route("users/profile") }}">{{ trans('titles.profile-panel') }}</a>
+            </li>
+            <li {{ Request::is('viewUser/'.Auth::user()->id) ? 'class="active"' : '' }}>
+                <a href="{{ URL::to("/viewUser/".Auth::user()->id) }}">
+                    <span class="loggedAs">{{ trans('titles.logged-in-as') }}: </span>{{{Auth::user()->username}}}
+                </a>
+            </li>
+            <li>
+                <a href="{{ URL::route("users/logout") }}">{{ trans('titles.logout') }}</a>
             </li>
         @endif
                            
