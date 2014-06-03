@@ -10,7 +10,7 @@ return array(
 	|
 	*/
     
-        'about-text' => '    The website provides an opportunity to both, employers and applicants, '
+        'about-text' => 'The website provides an opportunity to both, employers and applicants, '
                         . 'to easily add advertisement-similar records, which are specifically targetting specific '
                         . 'users (employers or job seekers), as well as quickly and easily apply vacancies, find the '
                         . 'most appropriate employees, communicate with other system users & other possibilities.',
