@@ -29,6 +29,14 @@ extends DatabaseSeeder
                 "text"      => "programmētājs/testētājs\r\npilna slodze ar iespējamām virsstundām\r\nzvanīt no 12:00 līdz 18:00",
                 "creator_id"=> 1
             ],
+            [
+                "name"      => "Picu piegādātājs",
+                "company"   => "IK 'mcMC'",
+                "poster"    => "uploads/vacanciePosters/nfiaD0AehDHUIFH2m6FVnDLBJutusp1401789113.jpg",
+                "phone"     => "276258349",
+                "text"      => "Meklē picu piegādātāju\r\nGabaldarba samaksa\r\nZvaniet vai piesakieties",
+                "creator_id"=> 4
+            ],
             
         ];
         foreach ($vacancies as $vacancie)
