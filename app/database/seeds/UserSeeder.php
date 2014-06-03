@@ -53,6 +53,30 @@ extends DatabaseSeeder
                 "lastname" => "McDonald",
                 "about" => "",
             ],
+            [
+                "username" => "zivtina",
+                "password" => Hash::make("zivtina"),
+                "email"    => "test5@yopmail.com",
+                "userGroup"=> 3,
+                "active"   => 1,
+                //"picture"  => "uploads/profileImages/QxIr6Lba7XfSFxLIGdZLGJO4hcb2rZ1401786101.jpeg",
+                "prefLang" => "lv",
+                "firstname"=> "Lauma",
+                "lastname" => "Skarbā",
+                "about" => "garšo tomāti un patīk garas pastaigas",
+            ],
+            [
+                "username" => "doktors",
+                "password" => Hash::make("doktors"),
+                "email"    => "test6@yopmail.com",
+                "userGroup"=> 2,
+                "active"   => 1,
+                "picture"  => "uploads/profileImages/3SNRbAzzKjFfC7fEZSVAnSYyuHwqCJ1401794568.gif",
+                "prefLang" => "en",
+                "firstname"=> "Doctor",
+                "lastname" => "Proper",
+                "about" => "",
+            ],
         ];
         foreach ($users as $user)
         {

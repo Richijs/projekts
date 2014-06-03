@@ -17,7 +17,7 @@ return array(
                     . 'citiem sistēmas lietotājiem, u.c. iespējas.',
     
         'applied-at' => 'Pieteicies',
-        'jobseeker-data' => 'darba meklētāja dati',
+        'jobseeker-data' => 'darba meklētāja sludinājums',
         'searching-for-job-since' => 'meklē darbu kopš',
         'are searching-for-job-since' => 'meklējat darbu kopš',
         'no-one-applied-yet' => 'Neviens vēl nav pieteicies.',

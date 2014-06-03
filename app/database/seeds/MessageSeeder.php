@@ -23,6 +23,18 @@ extends DatabaseSeeder
                 "subject" => 'Hello ,blake',
                 "message" => 'How YOU doin?',
             ],
+            [
+                "sender_id" => 4,
+                "receiver_id" => 5,
+                "subject" => 'Hey',
+                "message" => 'veselīgs spams :) čau',
+            ],
+            [
+                "sender_id" => 4,
+                "receiver_id" => 6,
+                "subject" => 'Hey',
+                "message" => 'veselīgs spams :) čau\r\np.s. ļoti interesanta profila bilde',
+            ],
             
         ];
         foreach ($messages as $message)
