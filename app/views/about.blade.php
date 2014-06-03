@@ -11,8 +11,8 @@
     </h2>
 </div>
 
-<div class="col-sm-offset-2 col-sm-8">
-    <p class="newlineText">{{ trans('content.about-text') }}</p>
+<div class="col-sm-offset-2 col-sm-7">
+    <p class="newlineText">&nbsp;&nbsp;&nbsp;&nbsp;{{ trans('content.about-text') }}</p>
 </div>
 
 @stop

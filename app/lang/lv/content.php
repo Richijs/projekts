@@ -10,7 +10,11 @@ return array(
 	|
 	*/
     
-        'about-text' => 'Vietne piedāvā dažādas lietas n stuff',
+        'about-text' => '    Vietne sniedz iespēju gan darba devējiem, gan tā meklētājiem,'
+                    . ' viegli izvietot sludinājumiem līdzīgus ierakstus, kas tiek specifiski tēmēti uz '
+                    . 'konkrētiem lietotājiem (darba devējiem vai darba meklētājiem), kā arī viegli un '
+                    . 'ātri pieteikties vakancēm, atrast vispiemērotākos darbiniekus, veikt saziņu ar '
+                    . 'citiem sistēmas lietotājiem, u.c. iespējas.',
     
         'applied-at' => 'Pieteicies',
         'jobseeker-data' => 'darba meklētāja dati',
